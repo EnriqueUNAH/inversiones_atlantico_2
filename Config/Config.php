@@ -1,5 +1,5 @@
 <?php 
-	const BASE_URL = "http://localhost/inversiones_atlantico";
+	const BASE_URL = "http://localhost/inversiones_atlantico_2";
 
 	//Zona horaria
 	date_default_timezone_set('America/Guatemala');
