@@ -16977,17 +16977,17 @@ be a descendant of the grid when it is being dragged.
   justify-content: center;
   min-height: 100vh;
   color: #0d6efd;
-  background: #0d6efd;
+  background: #fff;
 }
 
 .login-content .logo {
-  margin-bottom: 40px;
-  font-family: "Arial";
-  color: #fff;
+  margin-bottom: 20px;
+  font-family: "Nunito", sans-serif;
+  color: #012970;
 }
 
 .login-content .logo h1 {
-  font-size: 52px;
+  font-size: 26px;
   font-weight: 400;
 }
 

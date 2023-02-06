@@ -15,7 +15,7 @@
 		public function login()
 		{
 			$data['page_tag'] = "Login - Inversiones Atlántico";
-			$data['page_title'] = "Inversiones Atlántico";
+			$data['page_title'] = "INVERSIONES ATLÁNTICO";
 			$data['page_name'] = "login";
 			$data['page_functions_js'] = "functions_login.js";
 			$this->views->getView($this,"login",$data);
