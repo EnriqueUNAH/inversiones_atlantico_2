@@ -35,16 +35,7 @@
                         </tr>
                       </thead>
                       <tbody>
-                       <!-- <tr>
-                          <td>1</td>
-                          <td>Carlos</td>
-                          <td>Henández</td>
-                          <td>carlos@info.com</td>
-                          <td>78542155</td>
-                          <td>Administrador</td>
-                          <td>Activo</td>
-                          <td></td>
-                        </tr> -->
+   
                       </tbody>
                     </table>
                   </div>

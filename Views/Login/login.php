@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
   <head>
@@ -48,23 +49,27 @@
             </div>
           </div>
         </form>
-        <form id="formRecetPass" name="formRecetPass" class="forget-form" action="">
-        
+        <form id="formRecetPass" name="formRecetPass" class="forget-form" action="">     
+
+
           <div class="form-group">
             <label class="control-label">Ingrese el usuario</label>
             <input id="txtEmailReset" name="txtEmailReset" class="form-control" type="email" placeholder="Usuario">
           </div>
+
           <div class="form-group btn-container">
             <button type="submit" class="btn btn-primary btn-block"><i class="fa fa-unlock fa-lg fa-fw"></i>Recuperar por correo electrónico</button>
           </div><br>
-          <div class="form-group btn-container">
-            <button type="submit" class="btn btn-primary btn-block"><i class="fa fa-unlock fa-lg fa-fw"></i>Recuperar via preguntas secretas</button>
-          </div><br>
+
+          <button class="btn btn-primary" type="button" onclick="openModal();"><i class="fa fa-unlock fa-lg fa-fw" aria-hidden="true"></i> Recuperar via preguntas secretas</button>
+
           <div class="form-group mt-3">
             <p class="semibold-text mb-0"><a href="#" data-toggle="flip"><i class="fa fa-angle-left fa-fw"></i> Atrás</a></p>
-          </div>
+          </div>                 
+
+
         </form>
-        
+  
       </div>
     </section>
     <script>
@@ -80,5 +85,6 @@
     <script src="<?= media(); ?>/js/plugins/pace.min.js"></script>
     <script type="text/javascript" src="<?= media();?>/js/plugins/sweetalert.min.js"></script>
     <script src="<?= media(); ?>/js/<?= $data['page_functions_js']; ?>"></script>
+
   </body>
 </html>
