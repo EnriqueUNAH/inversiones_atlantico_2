@@ -218,12 +218,12 @@
 		public function registro(){
 			error_reporting(0);
 			if($_POST){
-				if(empty($_POST['txtNombre']) || empty($_POST['txtApellido']) || empty($_POST['txtTelefono']) || empty($_POST['txtEmailCliente']))
+				if(empty($_POST['txtNombre']) || empty($_POST['txtTelefono']) || empty($_POST['txtEmailCliente']))
 				{
 					$arrResponse = array("status" => false, "msg" => 'Datos incorrectos.');
 				}else{ 
 					$strNombre = ucwords(strClean($_POST['txtNombre']));
-					$strApellido = ucwords(strClean($_POST['txtApellido']));
+					//$strApellido = ucwords(strClean($_POST['txtApellido']));
 					$intTelefono = intval(strClean($_POST['txtTelefono']));
 					$strEmail = strtolower(strClean($_POST['txtEmailCliente']));
 					$intTipoId = RCLIENTES; 
@@ -240,7 +240,7 @@
 					if($request_user > 0 )
 					{
 						$arrResponse = array('status' => true, 'msg' => 'Datos guardados correctamente.');
-						$nombreUsuario = $strNombre.' '.$strApellido;
+					//	$nombreUsuario = $strNombre.' '.$strApellido;
 						$dataUsuario = array('nombreUsuario' => $nombreUsuario,
 											 'email' => $strEmail,
 											 'password' => $strPassword,

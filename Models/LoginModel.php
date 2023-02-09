@@ -30,12 +30,10 @@
 			$sql = "SELECT p.id_usuario,
 							p.usuario,
 							p.nombre_usuario,
-							p.apellidos,
-							p.telefono,
+						
+							p.preguntas_contestadas,
 							p.email_user,
-							p.nit,
-							p.nombrefiscal,
-							p.direccionfiscal,
+		
 							r.id_rol,r.nombrerol,
 							p.status 
 					FROM tbl_ms_usuarios p
@@ -49,7 +47,7 @@
 
 		public function getUserEmail(string $strEmail){
 			$this->strUsuario = $strEmail;
-			$sql = "SELECT id_usuario,nombre_usuario,apellidos,status FROM tbl_ms_usuarios WHERE 
+			$sql = "SELECT id_usuario,nombre_usuario,status FROM tbl_ms_usuarios WHERE 
 					email_user = '$this->strUsuario' and  
 					status = 1 ";
 			$request = $this->select($sql);

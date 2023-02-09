@@ -15,11 +15,12 @@ document.addEventListener(
         dataSrc: "",
       },
       columns: [
-        { data: "id_usuario" },
+        // { data: "id_usuario" },
+        { data: "usuario" },
         { data: "nombre_usuario" },
-        { data: "apellidos" },
+        //{ data: "apellidos" },
         { data: "email_user" },
-        { data: "telefono" },
+        // { data: "preguntas_contestadas" },
         { data: "nombrerol" },
         { data: "status" },
         { data: "options" },
@@ -58,19 +59,21 @@ document.addEventListener(
         let strusuario = document.querySelector("#txtusuario").value;
         let strnombre_usuario =
           document.querySelector("#txtnombre_usuario").value;
-        let strApellido = document.querySelector("#txtApellido").value;
+        // let strApellido = document.querySelector("#txtApellido").value;
         let strEmail = document.querySelector("#txtEmail").value;
-        let intTelefono = document.querySelector("#txtTelefono").value;
+        let intpreguntas_contestadas = document.querySelector(
+          "#txtpreguntas_contestadas"
+        ).value;
         let intTipousuario = document.querySelector("#listid_rol").value;
         let strPassword = document.querySelector("#txtPassword").value;
         let intStatus = document.querySelector("#listStatus").value;
 
         if (
           strusuario == "" ||
-          strApellido == "" ||
+          // strApellido == "" ||
           strnombre_usuario == "" ||
           strEmail == "" ||
-          intTelefono == "" ||
+          intpreguntas_contestadas == "" ||
           intTipousuario == ""
         ) {
           swal("Atención", "Todos los campos son obligatorios.", "error");
@@ -107,15 +110,17 @@ document.addEventListener(
                   intStatus == 1
                     ? '<span class="badge badge-success">Activo</span>'
                     : '<span class="badge badge-danger">Inactivo</span>';
+                rowTable.cells[0].textContent = strusuario;
                 rowTable.cells[1].textContent = strnombre_usuario;
-                rowTable.cells[2].textContent = strApellido;
-                rowTable.cells[3].textContent = strEmail;
-                rowTable.cells[4].textContent = intTelefono;
-                rowTable.cells[5].textContent =
+
+                rowTable.cells[2].textContent = strEmail;
+                //rowTable.cells[4].textContent = intpreguntas_contestadas;
+                rowTable.cells[3].textContent =
                   document.querySelector("#listid_rol").selectedOptions[0].text;
-                rowTable.cells[6].innerHTML = htmlStatus;
+                rowTable.cells[4].innerHTML = htmlStatus;
                 rowTable = "";
               }
+
               $("#modalFormUsuario").modal("hide");
               formUsuario.reset();
               swal("Usuarios", objData.msg, "success");
@@ -136,8 +141,10 @@ document.addEventListener(
         let strusuario = document.querySelector("#txtusuario").value;
         let strnombre_usuario =
           document.querySelector("#txtnombre_usuario").value;
-        let strApellido = document.querySelector("#txtApellido").value;
-        let intTelefono = document.querySelector("#txtTelefono").value;
+        //let strApellido = document.querySelector("#txtApellido").value;
+        let intpreguntas_contestadas = document.querySelector(
+          "#txtpreguntas_contestadas"
+        ).value;
         let strPassword = document.querySelector("#txtPassword").value;
         let strPasswordConfirm = document.querySelector(
           "#txtPasswordConfirm"
@@ -145,9 +152,9 @@ document.addEventListener(
 
         if (
           strusuario == "" ||
-          strApellido == "" ||
+          // strApellido == "" ||
           strnombre_usuario == "" ||
-          intTelefono == ""
+          intpreguntas_contestadas == ""
         ) {
           swal("Atención", "Todos los campos son obligatorios.", "error");
           return false;
@@ -315,10 +322,10 @@ function fntViewUsuario(id_usuario) {
         document.querySelector("#celusuario").innerHTML = objData.data.usuario;
         document.querySelector("#celNombre").innerHTML =
           objData.data.nombre_usuario;
-        document.querySelector("#celApellido").innerHTML =
-          objData.data.apellidos;
-        document.querySelector("#celTelefono").innerHTML =
-          objData.data.telefono;
+        //document.querySelector("#celApellido").innerHTML =
+        //objData.data.apellidos;
+        document.querySelector("#celpreguntas_contestadas").innerHTML =
+          objData.data.preguntas_contestadas;
         document.querySelector("#celEmail").innerHTML = objData.data.email_user;
         document.querySelector("#celTipoUsuario").innerHTML =
           objData.data.nombrerol;
@@ -358,8 +365,9 @@ function fntEditUsuario(element, id_usuario) {
         document.querySelector("#txtusuario").value = objData.data.usuario;
         document.querySelector("#txtnombre_usuario").value =
           objData.data.nombre_usuario;
-        document.querySelector("#txtApellido").value = objData.data.apellidos;
-        document.querySelector("#txtTelefono").value = objData.data.telefono;
+        //document.querySelector("#txtApellido").value = objData.data.apellidos;
+        document.querySelector("#txtpreguntas_contestadas").value =
+          objData.data.preguntas_contestadas;
         document.querySelector("#txtEmail").value = objData.data.email_user;
         document.querySelector("#listid_rol").value = objData.data.id_rol;
         $("#listid_rol").selectpicker("render");

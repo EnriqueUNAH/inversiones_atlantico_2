@@ -29,15 +29,15 @@ class Clientes extends Controllers{
 	public function setCliente(){
 		error_reporting(0);
 		if($_POST){
-			if(empty($_POST['txtusuario']) || empty($_POST['txtNombre']) || empty($_POST['txtApellido']) || empty($_POST['txtTelefono']) || empty($_POST['txtEmail']) || empty($_POST['txtNit']) || empty($_POST['txtNombreFiscal']) || empty($_POST['txtDirFiscal']) )
+			if(empty($_POST['txtusuario']) || empty($_POST['txtNombre']) || empty($_POST['txtpreguntas_contestadas']) || empty($_POST['txtEmail']) || empty($_POST['txtNit']) || empty($_POST['txtNombreFiscal']) || empty($_POST['txtDirFiscal']) )
 			{
 				$arrResponse = array("status" => false, "msg" => 'Datos incorrectos.');
 			}else{ 
 				$idUsuario = intval($_POST['idUsuario']);
 				$strusuario = strClean($_POST['txtusuario']);
 				$strNombre = ucwords(strClean($_POST['txtNombre']));
-				$strApellido = ucwords(strClean($_POST['txtApellido']));
-				$intTelefono = intval(strClean($_POST['txtTelefono']));
+				//$strApellido = ucwords(strClean($_POST['txtApellido']));
+				$intpreguntas_contestadas = intval(strClean($_POST['txtpreguntas_contestadas']));
 				$strEmail = strtolower(strClean($_POST['txtEmail']));
 				$strNit = strClean($_POST['txtNit']);
 				$strNomFiscal = strClean($_POST['txtNombreFiscal']);
@@ -52,8 +52,8 @@ class Clientes extends Controllers{
 					if($_SESSION['permisosMod']['w']){
 						$request_user = $this->model->insertCliente($strusuario,
 																			$strNombre, 
-																			$strApellido, 
-																			$intTelefono, 
+																			//$strApellido, 
+																			$intpreguntas_contestadas, 
 																			$strEmail,
 																			$strPasswordEncript,
 																			$intTipoId, 
@@ -68,8 +68,8 @@ class Clientes extends Controllers{
 						$request_user = $this->model->updateCliente($idUsuario,
 																	$strusuario, 
 																	$strNombre,
-																	$strApellido, 
-																	$intTelefono, 
+																	//$strApellido, 
+																	$intpreguntas_contestadas, 
 																	$strEmail,
 																	$strPassword, 
 																	$strNit,
@@ -82,7 +82,7 @@ class Clientes extends Controllers{
 				{
 					if($option == 1){
 						$arrResponse = array('status' => true, 'msg' => 'Datos guardados correctamente.');
-						$nombreUsuario = $strNombre.' '.$strApellido;
+						$nombreUsuario = $strNombre;
 						$dataUsuario = array('nombreUsuario' => $nombreUsuario,
 											 'email' => $strEmail,
 											 'password' => $strPassword,

@@ -54,7 +54,7 @@
 				$idpersona = $requestPedido['personaid'];
 				$sql_cliente = "SELECT idpersona,
 										nombres,
-										apellidos,
+									
 										telefono,
 										email_user,
 										nit,

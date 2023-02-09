@@ -29,8 +29,8 @@
               </div>
               <div class="form-row">
                 <div class="form-group col-md-4">
-                  <label for="txtTelefono">Teléfono <span class="required">*</span></label>
-                  <input type="text" class="form-control valid validNumber" id="txtTelefono" name="txtTelefono" required="" onkeypress="return controlTag(event);">
+                  <label for="txtpreguntas_contestadas">Teléfono <span class="required">*</span></label>
+                  <input type="text" class="form-control valid validNumber" id="txtpreguntas_contestadas" name="txtpreguntas_contestadas" required="" onkeypress="return controlTag(event);">
                 </div>
                 <div class="form-group col-md-4">
                   <label for="txtEmail">Email <span class="required">*</span></label>
@@ -99,7 +99,7 @@
             </tr>
             <tr>
               <td>Teléfono:</td>
-              <td id="celTelefono">Larry</td>
+              <td id="celpreguntas_contestadas">Larry</td>
             </tr>
             <tr>
               <td>Email (Usuario):</td>

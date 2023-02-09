@@ -18,7 +18,7 @@ document.addEventListener(
         { data: "idpersona" },
         { data: "usuario" },
         { data: "nombres" },
-        { data: "apellidos" },
+        //{ data: "apellidos" },
         { data: "email_user" },
         { data: "telefono" },
         { data: "options" },
@@ -62,7 +62,7 @@ document.addEventListener(
         e.preventDefault();
         let strusuario = document.querySelector("#txtusuario").value;
         let strNombre = document.querySelector("#txtNombre").value;
-        let strApellido = document.querySelector("#txtApellido").value;
+        //let strApellido = document.querySelector("#txtApellido").value;
         let strEmail = document.querySelector("#txtEmail").value;
         let intTelefono = document.querySelector("#txtTelefono").value;
         let strNit = document.querySelector("#txtNit").value;
@@ -72,7 +72,7 @@ document.addEventListener(
 
         if (
           strusuario == "" ||
-          strApellido == "" ||
+          //strApellido == "" ||
           strNombre == "" ||
           strEmail == "" ||
           intTelefono == "" ||
@@ -112,7 +112,7 @@ document.addEventListener(
               } else {
                 rowTable.cells[1].textContent = strusuario;
                 rowTable.cells[2].textContent = strNombre;
-                rowTable.cells[3].textContent = strApellido;
+                //rowTable.cells[3].textContent = strApellido;
                 rowTable.cells[4].textContent = strEmail;
                 rowTable.cells[5].textContent = intTelefono;
                 rowTable = "";
@@ -146,16 +146,12 @@ function fntViewInfo(idpersona) {
       if (objData.status) {
         document.querySelector("#celusuario").innerHTML = objData.data.usuario;
         document.querySelector("#celNombre").innerHTML = objData.data.nombres;
-        document.querySelector("#celApellido").innerHTML =
-          objData.data.apellidos;
+        // document.querySelector("#celApellido").innerHTML =
+        // objData.data.apellidos;
         document.querySelector("#celTelefono").innerHTML =
           objData.data.telefono;
         document.querySelector("#celEmail").innerHTML = objData.data.email_user;
-        document.querySelector("#celIde").innerHTML = objData.data.nit;
-        document.querySelector("#celNomFiscal").innerHTML =
-          objData.data.nombrefiscal;
-        document.querySelector("#celDirFiscal").innerHTML =
-          objData.data.direccionfiscal;
+
         document.querySelector("#celFechaRegistro").innerHTML =
           objData.data.fechaRegistro;
         $("#modalViewCliente").modal("show");
@@ -189,14 +185,9 @@ function fntEditInfo(element, idpersona) {
         document.querySelector("#idUsuario").value = objData.data.idpersona;
         document.querySelector("#txtusuario").value = objData.data.usuario;
         document.querySelector("#txtNombre").value = objData.data.nombres;
-        document.querySelector("#txtApellido").value = objData.data.apellidos;
+        //document.querySelector("#txtApellido").value = objData.data.apellidos;
         document.querySelector("#txtTelefono").value = objData.data.telefono;
         document.querySelector("#txtEmail").value = objData.data.email_user;
-        document.querySelector("#txtNit").value = objData.data.nit;
-        document.querySelector("#txtNombreFiscal").value =
-          objData.data.nombrefiscal;
-        document.querySelector("#txtDirFiscal").value =
-          objData.data.direccionfiscal;
       }
     }
     $("#modalFormCliente").modal("show");

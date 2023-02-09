@@ -12,10 +12,10 @@ trait TCliente{
 	private $intTipoId;
 	private $intIdTransaccion;
 
-	public function insertCliente(string $nombre, string $apellido, int $telefono, string $email, string $password, int $tipoid){
+	public function insertCliente(string $nombre, int $telefono, string $email, string $password, int $tipoid){
 		$this->con = new Mysql();
 		$this->strNombre = $nombre;
-		$this->strApellido = $apellido;
+		//$this->strApellido = $apellido;
 		$this->intTelefono = $telefono;
 		$this->strEmail = $email;
 		$this->strPassword = $password;
@@ -28,10 +28,10 @@ trait TCliente{
 
 		if(empty($request))
 		{
-			$query_insert  = "INSERT INTO persona(nombres,apellidos,telefono,email_user,password,id_rol) 
+			$query_insert  = "INSERT INTO persona(nombres,telefono,email_user,password,id_rol) 
 							  VALUES(?,?,?,?,?,?)";
         	$arrData = array($this->strNombre,
-    						$this->strApellido,
+    						//$this->strApellido,
     						$this->intTelefono,
     						$this->strEmail,
     						$this->strPassword,

@@ -47,7 +47,7 @@
                 </tr>
                 <tr>
                   <td>Teléfono:</td>
-                  <td><?= $_SESSION['userData']['telefono']; ?></td>
+                  <td><?= $_SESSION['userData']['preguntas_contestadas']; ?></td>
                 </tr>
                 <tr>
                   <td>Email (Usuario):</td>

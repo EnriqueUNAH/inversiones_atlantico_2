@@ -24,15 +24,12 @@
                   <label for="txtnombre_usuario">Nombre</label>
                   <input type="text" class="form-control valid validText" id="txtnombre_usuario" name="txtnombre_usuario" required="">
                 </div>
-                <div class="form-group col-md-6">
-                  <label for="txtApellido">Apellidos</label>
-                  <input type="text" class="form-control valid validText" id="txtApellido" name="txtApellido" >
-                </div>
+
               </div>
               <div class="form-row">
                 <div class="form-group col-md-6">
-                  <label for="txtTelefono">Teléfono</label>
-                  <input type="text" class="form-control valid validNumber" id="txtTelefono" name="txtTelefono" required="" onkeypress="return controlTag(event);">
+                  <label for="txtpreguntas_contestadas">Preguntas Contestadas</label>
+                  <input type="text" class="form-control valid validNumber" id="txtpreguntas_contestadas" name="txtpreguntas_contestadas" required="" onkeypress="return controlTag(event);">
                 </div>
                 <div class="form-group col-md-6">
                   <label for="txtEmail">Correo Electrónico</label>
@@ -40,11 +37,13 @@
                 </div>
               </div>
               <div class="form-row">
+                
                 <div class="form-group col-md-6">
                     <label for="listid_rol">Rol</label>
                     <select class="form-control" data-live-search="true" id="listid_rol" name="listid_rol" required >
                     </select>
                 </div>
+                
                 <div class="form-group col-md-6">
                     <label for="listStatus">Estado</label>
                     <select class="form-control selectpicker" id="listStatus" name="listStatus" required >
@@ -91,13 +90,10 @@
               <td>Nombres:</td>
               <td id="celNombre">Jacob</td>
             </tr>
+
             <tr>
-              <td>Apellidos:</td>
-              <td id="celApellido">Jacob</td>
-            </tr>
-            <tr>
-              <td>Teléfono:</td>
-              <td id="celTelefono">Larry</td>
+              <td>Preguntas Contestadas:</td>
+              <td id="celpreguntas_contestadas">Larry</td>
             </tr>
             <tr>
               <td>Email (Usuario):</td>

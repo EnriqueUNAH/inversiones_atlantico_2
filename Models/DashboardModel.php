@@ -45,7 +45,7 @@
 				$where = " WHERE p.personaid = ".$idUser;
 			}
 
-			$sql = "SELECT p.idpedido, CONCAT(pr.nombre_usuario,' ',pr.apellidos) as nombre, p.monto, p.status 
+			$sql = "SELECT p.idpedido, CONCAT(pr.nombre_usuario) as nombre, p.monto, p.status 
 					FROM pedido p
 					INNER JOIN tbl_ms_usuarios pr
 					ON p.personaid = pr.id_usuario

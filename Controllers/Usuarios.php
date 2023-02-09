@@ -27,15 +27,15 @@
 
 		public function setUsuario(){
 			if($_POST){			
-				if(empty($_POST['txtusuario']) || empty($_POST['txtnombre_usuario']) || empty($_POST['txtApellido']) || empty($_POST['txtTelefono']) || empty($_POST['txtEmail']) || empty($_POST['listid_rol']) || empty($_POST['listStatus']) )
+				if(empty($_POST['txtusuario']) || empty($_POST['txtnombre_usuario']) || empty($_POST['txtpreguntas_contestadas']) || empty($_POST['txtEmail']) || empty($_POST['listid_rol']) || empty($_POST['listStatus']) )
 				{
 					$arrResponse = array("status" => false, "msg" => 'Datos incorrectos.');
 				}else{ 
 					$id_usuario = intval($_POST['id_usuario']);
 					$strusuario = strClean($_POST['txtusuario']);
 					$strnombre_usuario = ucwords(strClean($_POST['txtnombre_usuario']));
-					$strApellido = ucwords(strClean($_POST['txtApellido']));
-					$intTelefono = intval(strClean($_POST['txtTelefono']));
+					//$strApellido = ucwords(strClean($_POST['txtApellido']));
+					$intpreguntas_contestadas = intval(strClean($_POST['txtpreguntas_contestadas']));
 					$strEmail = strtolower(strClean($_POST['txtEmail']));
 					$intTipoId = intval(strClean($_POST['listid_rol']));
 					$intStatus = intval(strClean($_POST['listStatus']));
@@ -48,8 +48,8 @@
 						if($_SESSION['permisosMod']['w']){
 							$request_user = $this->model->insertUsuario($strusuario,
 																				$strnombre_usuario, 
-																				$strApellido, 
-																				$intTelefono, 
+																				//$strApellido, 
+																				$intpreguntas_contestadas, 
 																				$strEmail,
 																				$strPassword, 
 																				$intTipoId, 
@@ -62,8 +62,8 @@
 							$request_user = $this->model->updateUsuario($id_usuario,
 																		$strusuario, 
 																		$strnombre_usuario,
-																		$strApellido, 
-																		$intTelefono, 
+																		//$strApellido, 
+																		$intpreguntas_contestadas, 
 																		$strEmail,
 																		$strPassword, 
 																		$intTipoId, 
@@ -197,15 +197,15 @@
 
 		public function putPerfil(){
 			if($_POST){
-				if(empty($_POST['txtusuario']) || empty($_POST['txtNombre']) || empty($_POST['txtApellido']) || empty($_POST['txtTelefono']) )
+				if(empty($_POST['txtusuario']) || empty($_POST['txtNombre']) || empty($_POST['txtpreguntas_contestadas']) )
 				{
 					$arrResponse = array("status" => false, "msg" => 'Datos incorrectos.');
 				}else{
 					$id_usuario = $_SESSION['idUser'];
 					$strusuario = strClean($_POST['txtusuario']);
 					$strNombre = strClean($_POST['txtNombre']);
-					$strApellido = strClean($_POST['txtApellido']);
-					$intTelefono = intval(strClean($_POST['txtTelefono']));
+					//$strApellido = strClean($_POST['txtApellido']);
+					$intpreguntas_contestadas = intval(strClean($_POST['txtpreguntas_contestadas']));
 					$strPassword = "";
 					if(!empty($_POST['txtPassword'])){
 						$strPassword = hash("SHA256",$_POST['txtPassword']);
@@ -213,8 +213,8 @@
 					$request_user = $this->model->updatePerfil($id_usuario,
 																$strusuario, 
 																$strNombre,
-																$strApellido, 
-																$intTelefono, 
+																//$strApellido, 
+																$intpreguntas_contestadas, 
 																$strPassword);
 					if($request_user)
 					{
