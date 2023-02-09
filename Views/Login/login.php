@@ -45,30 +45,34 @@
           </div>
           <div class="form-group"><br>
             <div class="utility">
-              <p class="semibold-text mb-2"><a href="#" data-toggle="flip">¿Olvidaste tu usuario y/o contraseña?</a></p>
+              <p class="semibold-text mb-2"><a href="#" data-toggle="flip">¿Olvidaste tu usuario y/o contraseña?</a></p><br>              
             </div>
+            <p class="semibold-text mb-2"><a href="Views/Login/autoRegistro.php" >Autoregistro</a></p>
           </div>
         </form>
-        <form id="formRecetPass" name="formRecetPass" class="forget-form" action="">     
 
+
+        
+        <form id="formRecetPass" name="formRecetPass" class="forget-form" >     
 
           <div class="form-group">
             <label class="control-label">Ingrese el usuario</label>
-            <input id="txtEmailReset" name="txtEmailReset" class="form-control" type="email" placeholder="Usuario">
+            <input id="txtEmailReset" name="txtEmailReset" class="form-control" type="" placeholder="Usuario">           
           </div>
 
           <div class="form-group btn-container">
-            <button type="submit" class="btn btn-primary btn-block"><i class="fa fa-unlock fa-lg fa-fw"></i>Recuperar por correo electrónico</button>
+            <button type="submit" id="btnCorreo" name="btnCorreo" class="btn btn-primary btn-block"><i class="fa fa-unlock fa-lg fa-fw"></i>Recuperar por correo electrónico</button>
           </div><br>
 
-          <button class="btn btn-primary" type="button" onclick="openModal();"><i class="fa fa-unlock fa-lg fa-fw" aria-hidden="true"></i> Recuperar via preguntas secretas</button>
-
+          <button class="btn btn-primary" type="buttom" id="btnPregunta" name="btnPregunta"><i class="fa fa-unlock fa-lg fa-fw" aria-hidden="true"></i> Recuperar via preguntas secretas</button>
+      
           <div class="form-group mt-3">
-            <p class="semibold-text mb-0"><a href="#" data-toggle="flip"><i class="fa fa-angle-left fa-fw"></i> Atrás</a></p>
+            <br><p class="semibold-text mb-0"><a href="#" data-toggle="flip"><i class="fa fa-angle-left fa-fw"></i> Atrás</a></p>
           </div>                 
 
-
         </form>
+
+ 
   
       </div>
     </section>
