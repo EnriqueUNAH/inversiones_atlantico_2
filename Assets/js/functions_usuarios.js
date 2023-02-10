@@ -19,7 +19,7 @@ document.addEventListener(
         { data: "usuario" },
         { data: "nombre_usuario" },
         //{ data: "apellidos" },
-        { data: "email_user" },
+        { data: "correo_electronico" },
         // { data: "preguntas_contestadas" },
         { data: "nombrerol" },
         { data: "status" },
@@ -61,9 +61,7 @@ document.addEventListener(
           document.querySelector("#txtnombre_usuario").value;
         // let strApellido = document.querySelector("#txtApellido").value;
         let strEmail = document.querySelector("#txtEmail").value;
-        let intpreguntas_contestadas = document.querySelector(
-          "#txtpreguntas_contestadas"
-        ).value;
+        let intpreguntas_contestadas = 0;
         let intTipousuario = document.querySelector("#listid_rol").value;
         let strPassword = document.querySelector("#txtPassword").value;
         let intStatus = document.querySelector("#listStatus").value;
@@ -73,7 +71,7 @@ document.addEventListener(
           // strApellido == "" ||
           strnombre_usuario == "" ||
           strEmail == "" ||
-          intpreguntas_contestadas == "" ||
+          //intpreguntas_contestadas == "" ||
           intTipousuario == ""
         ) {
           swal("Atención", "Todos los campos son obligatorios.", "error");
@@ -326,7 +324,8 @@ function fntViewUsuario(id_usuario) {
         //objData.data.apellidos;
         document.querySelector("#celpreguntas_contestadas").innerHTML =
           objData.data.preguntas_contestadas;
-        document.querySelector("#celEmail").innerHTML = objData.data.email_user;
+        document.querySelector("#celEmail").innerHTML =
+          objData.data.correo_electronico;
         document.querySelector("#celTipoUsuario").innerHTML =
           objData.data.nombrerol;
         document.querySelector("#celEstado").innerHTML = estadoUsuario;
@@ -340,6 +339,7 @@ function fntViewUsuario(id_usuario) {
   };
 }
 
+//Función cuando se le da click al botón editar Usuario
 function fntEditUsuario(element, id_usuario) {
   rowTable = element.parentNode.parentNode.parentNode;
   document.querySelector("#titleModal").innerHTML = "Actualizar Usuario";
@@ -366,9 +366,9 @@ function fntEditUsuario(element, id_usuario) {
         document.querySelector("#txtnombre_usuario").value =
           objData.data.nombre_usuario;
         //document.querySelector("#txtApellido").value = objData.data.apellidos;
-        document.querySelector("#txtpreguntas_contestadas").value =
-          objData.data.preguntas_contestadas;
-        document.querySelector("#txtEmail").value = objData.data.email_user;
+        // objData.data.preguntas_contestadas;
+        document.querySelector("#txtEmail").value =
+          objData.data.correo_electronico;
         document.querySelector("#listid_rol").value = objData.data.id_rol;
         $("#listid_rol").selectpicker("render");
 

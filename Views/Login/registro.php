@@ -39,7 +39,7 @@ while ($valor_fecha=mysqli_fetch_array( $resultado_Parametro_fecha )) {
 }
 
 //consulta si el coreo ya existe
-$consultaCoreeo="SELECT email_user FROM tbl_ms_usuarios WHERE email_user='$correo'";
+$consultaCoreeo="SELECT correo_electronico FROM tbl_ms_usuarios WHERE correo_electronico='$correo'";
 $resultado_Correo= mysqli_query( $conexion , $consultaCoreeo );
 $_filas_ = mysqli_num_rows( $resultado_Correo );
 

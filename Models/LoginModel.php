@@ -17,8 +17,8 @@
 			$this->strUsuario = $usuario;
 			$this->strPassword = $password;
 			$sql = "SELECT id_usuario,status FROM tbl_ms_usuarios WHERE 
-					email_user = '$this->strUsuario' and 
-					password = '$this->strPassword' and 
+					correo_electronico = '$this->strUsuario' and 
+					contrasena = '$this->strPassword' and 
 					status != 0 ";
 			$request = $this->select($sql);
 			return $request;
@@ -32,7 +32,7 @@
 							p.nombre_usuario,
 						
 							p.preguntas_contestadas,
-							p.email_user,
+							p.correo_electronico,
 		
 							r.id_rol,r.nombrerol,
 							p.status 
@@ -48,7 +48,7 @@
 		public function getUserEmail(string $strEmail){
 			$this->strUsuario = $strEmail;
 			$sql = "SELECT id_usuario,nombre_usuario,status FROM tbl_ms_usuarios WHERE 
-					email_user = '$this->strUsuario' and  
+					correo_electronico = '$this->strUsuario' and  
 					status = 1 ";
 			$request = $this->select($sql);
 			return $request;
@@ -67,7 +67,7 @@
 			$this->strUsuario = $email;
 			$this->strToken = $token;
 			$sql = "SELECT id_usuario FROM tbl_ms_usuarios WHERE 
-					email_user = '$this->strUsuario' and 
+					correo_electronico = '$this->strUsuario' and 
 					token = '$this->strToken' and 					
 					status = 1 ";
 			$request = $this->select($sql);
@@ -77,7 +77,7 @@
 		public function insertPassword(int $idPersona, string $password){
 			$this->intIdUsuario = $idPersona;
 			$this->strPassword = $password;
-			$sql = "UPDATE tbl_ms_usuarios SET password = ?, token = ? WHERE id_usuario = $this->intIdUsuario ";
+			$sql = "UPDATE tbl_ms_usuarios SET contrasena = ?, token = ? WHERE id_usuario = $this->intIdUsuario ";
 			$arrData = array($this->strPassword,"");
 			$request = $this->update($sql,$arrData);
 			return $request;

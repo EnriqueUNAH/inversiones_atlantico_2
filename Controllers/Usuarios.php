@@ -27,7 +27,7 @@
 
 		public function setUsuario(){
 			if($_POST){			
-				if(empty($_POST['txtusuario']) || empty($_POST['txtnombre_usuario']) || empty($_POST['txtpreguntas_contestadas']) || empty($_POST['txtEmail']) || empty($_POST['listid_rol']) || empty($_POST['listStatus']) )
+				if(empty($_POST['txtusuario']) || empty($_POST['txtnombre_usuario']) || empty($_POST['txtEmail']) || empty($_POST['listid_rol']) || empty($_POST['listStatus']) )
 				{
 					$arrResponse = array("status" => false, "msg" => 'Datos incorrectos.');
 				}else{ 
@@ -35,7 +35,7 @@
 					$strusuario = strClean($_POST['txtusuario']);
 					$strnombre_usuario = ucwords(strClean($_POST['txtnombre_usuario']));
 					//$strApellido = ucwords(strClean($_POST['txtApellido']));
-					$intpreguntas_contestadas = intval(strClean($_POST['txtpreguntas_contestadas']));
+					$intpreguntas_contestadas = 0;
 					$strEmail = strtolower(strClean($_POST['txtEmail']));
 					$intTipoId = intval(strClean($_POST['listid_rol']));
 					$intStatus = intval(strClean($_POST['listStatus']));
@@ -63,7 +63,7 @@
 																		$strusuario, 
 																		$strnombre_usuario,
 																		//$strApellido, 
-																		$intpreguntas_contestadas, 
+																		//$intpreguntas_contestadas, 
 																		$strEmail,
 																		$strPassword, 
 																		$intTipoId, 

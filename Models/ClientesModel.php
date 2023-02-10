@@ -35,12 +35,12 @@ class ClientesModel extends Mysql
 
 		$return = 0;
 		$sql = "SELECT * FROM persona WHERE 
-				email_user = '{$this->strEmail}' or usuario = '{$this->strusuario}' ";
+				correo_electronico = '{$this->strEmail}' or usuario = '{$this->strusuario}' ";
 		$request = $this->select_all($sql);
 
 		if(empty($request))
 		{
-			$query_insert  = "INSERT INTO persona(usuario,nombres,apellidos,telefono,email_user,password,id_rol,nit,nombrefiscal,direccionfiscal) 
+			$query_insert  = "INSERT INTO persona(usuario,nombres,apellidos,telefono,correo_electronico,password,id_rol,nit,nombrefiscal,direccionfiscal) 
 							  VALUES(?,?,?,?,?,?,?,?,?,?)";
         	$arrData = array($this->strusuario,
     						$this->strNombre,
@@ -62,7 +62,7 @@ class ClientesModel extends Mysql
 
 	public function selectClientes()
 	{
-		$sql = "SELECT idpersona,usuario,nombres,apellidos,telefono,email_user,status 
+		$sql = "SELECT idpersona,usuario,nombres,apellidos,telefono,correo_electronico,status 
 				FROM persona 
 				WHERE id_rol = ".RCLIENTES." and status != 0 "; 
 		$request = $this->select_all($sql);
@@ -71,7 +71,7 @@ class ClientesModel extends Mysql
 
 	public function selectCliente(int $idpersona){
 		$this->intIdUsuario = $idpersona;
-		$sql = "SELECT idpersona,usuario,nombres,apellidos,telefono,email_user,nit,nombrefiscal,direccionfiscal,status, DATE_FORMAT(fecha_creacion, '%d-%m-%Y') as fechaRegistro 
+		$sql = "SELECT idpersona,usuario,nombres,apellidos,telefono,correo_electronico,nit,nombrefiscal,direccionfiscal,status, DATE_FORMAT(fecha_creacion, '%d-%m-%Y') as fechaRegistro 
 				FROM persona
 				WHERE idpersona = $this->intIdUsuario and id_rol = ".RCLIENTES;
 		$request = $this->select($sql);

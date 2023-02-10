@@ -27,10 +27,12 @@
 
               </div>
               <div class="form-row">
+                <!--
                 <div class="form-group col-md-6">
                   <label for="txtpreguntas_contestadas">Preguntas Contestadas</label>
                   <input type="text" class="form-control valid validNumber" id="txtpreguntas_contestadas" name="txtpreguntas_contestadas" required="" onkeypress="return controlTag(event);">
                 </div>
+-->
                 <div class="form-group col-md-6">
                   <label for="txtEmail">Correo Electrónico</label>
                   <input type="email" class="form-control valid validEmail" id="txtEmail" name="txtEmail" required="">
@@ -83,11 +85,11 @@
         <table class="table table-bordered">
           <tbody>
             <tr>
-              <td>Identificación:</td>
+              <td>Usuario:</td>
               <td id="celusuario">654654654</td>
             </tr>
             <tr>
-              <td>Nombres:</td>
+              <td>Nombre:</td>
               <td id="celNombre">Jacob</td>
             </tr>
 
@@ -96,11 +98,11 @@
               <td id="celpreguntas_contestadas">Larry</td>
             </tr>
             <tr>
-              <td>Email (Usuario):</td>
+              <td>Correo Electrónico:</td>
               <td id="celEmail">Larry</td>
             </tr>
             <tr>
-              <td>Tipo Usuario:</td>
+              <td>Rol:</td>
               <td id="celTipoUsuario">Larry</td>
             </tr>
             <tr>
@@ -108,7 +110,7 @@
               <td id="celEstado">Larry</td>
             </tr>
             <tr>
-              <td>Fecha registro:</td>
+              <td>Fecha de registro:</td>
               <td id="celFechaRegistro">Larry</td>
             </tr>
           </tbody>
