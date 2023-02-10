@@ -73,7 +73,7 @@
 		}
 		public function selectUsuario(int $id_usuario){
 			$this->intIdUsuario = $id_usuario;
-			$sql = "SELECT p.id_usuario,p.usuario,p.nombre_usuario,p.preguntas_contestadas,p.email_user,r.id_rol,r.nombrerol,p.status, DATE_FORMAT(p.datecreated, '%d-%m-%Y') as fechaRegistro 
+			$sql = "SELECT p.id_usuario,p.usuario,p.nombre_usuario,p.preguntas_contestadas,p.email_user,r.id_rol,r.nombrerol,p.status, DATE_FORMAT(p.fecha_creacion, '%d-%m-%Y') as fechaRegistro 
 					FROM tbl_ms_usuarios p
 					INNER JOIN tbl_ms_roles r
 					ON p.id_rol = r.id_rol
