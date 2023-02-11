@@ -48,10 +48,11 @@ document.addEventListener(
       };
     }
 
-    document.getElementById("btnCorreo").addEventListener("click", function () {
+    if (document.querySelector("#formRecetPass")) {
       let formRecetPass = document.querySelector("#formRecetPass");
       formRecetPass.onsubmit = function (e) {
         e.preventDefault();
+
         let strEmail = document.querySelector("#txtEmailReset").value;
         if (strEmail == "") {
           swal("Por favor", "Escribe tu correo electrónico.", "error");
@@ -97,9 +98,9 @@ document.addEventListener(
           };
         }
       };
-    });
+    }
 
-    document
+    /*  document
       .getElementById("btnPregunta")
       .addEventListener("click", function () {
         let formRecetPass = document.querySelector("#formRecetPass");
@@ -150,7 +151,7 @@ document.addEventListener(
             };
           }
         };
-      });
+      });*/
 
     function openModal() {
       document.querySelector("#id_rol").value = "";
@@ -175,7 +176,7 @@ document.addEventListener(
         let strPasswordConfirm = document.querySelector(
           "#txtPasswordConfirm"
         ).value;
-        let idUsuario = document.querySelector("#idUsuario").value;
+        let id_usuario = document.querySelector("#id_usuario").value;
 
         if (strPassword == "" || strPasswordConfirm == "") {
           swal("Por favor", "Escribe la nueva contraseña.", "error");

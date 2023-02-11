@@ -22,6 +22,7 @@
       <div class="logo">
         <h1><?= $data['page_title']; ?></h1>
       </div>
+      
       <div class="login-box">
         <div id="divLoading" >
           <div>
@@ -53,23 +54,18 @@
 
 
         
-        <form id="formRecetPass" name="formRecetPass" class="forget-form" >     
-
+        <form id="formRecetPass" name="formRecetPass" class="forget-form" action="">
+          <h3 class="login-head"><i class="fa fa-lg fa-fw fa-lock"></i>¿Olvidaste contraseña?</h3>
           <div class="form-group">
-            <label class="control-label">Ingrese el usuario</label>
-            <input id="txtEmailReset" name="txtEmailReset" class="form-control" type="" placeholder="Usuario">           
+            <label class="control-label">EMAIL</label>
+            <input id="txtEmailReset" name="txtEmailReset" class="form-control" type="email" placeholder="Email">
           </div>
-
           <div class="form-group btn-container">
-            <button type="submit" id="btnCorreo" name="btnCorreo" class="btn btn-primary btn-block"><i class="fa fa-unlock fa-lg fa-fw"></i>Recuperar por correo electrónico</button>
-          </div><br>
-
-          <button class="btn btn-primary" type="buttom" id="btnPregunta" name="btnPregunta"><i class="fa fa-unlock fa-lg fa-fw" aria-hidden="true"></i> Recuperar via preguntas secretas</button>
-      
+            <button type="submit" class="btn btn-primary btn-block"><i class="fa fa-unlock fa-lg fa-fw"></i>REINICIAR</button>
+          </div>
           <div class="form-group mt-3">
-            <br><p class="semibold-text mb-0"><a href="#" data-toggle="flip"><i class="fa fa-angle-left fa-fw"></i> Atrás</a></p>
-          </div>                 
-
+            <p class="semibold-text mb-0"><a href="#" data-toggle="flip"><i class="fa fa-angle-left fa-fw"></i> Atrás</a></p>
+          </div>
         </form>
 
  

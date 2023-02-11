@@ -176,7 +176,7 @@
 					$data['page_tag'] = "Cambiar contraseña";
 					$data['page_name'] = "cambiar_contrasenia";
 					$data['page_title'] = "Cambiar Contraseña";
-					$data['email'] = $strEmail;
+					$data['correo_electronico'] = $strEmail;
 					$data['token'] = $strToken;
 					$data['id_usuario'] = $arrResponse['id_usuario'];
 					$data['page_functions_js'] = "functions_login.js";

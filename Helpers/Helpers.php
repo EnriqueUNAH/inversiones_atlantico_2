@@ -93,7 +93,7 @@
                 $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
                 //Recipients
-                $mail->setFrom('toolsfordeveloper@gmail.com', 'Servidor Local');
+                $mail->setFrom('toolsfordeveloper@gmail.com', 'Inversiones del Atlántico');
                 $mail->addAddress($data['email']);     //Add a recipient
                 if(!empty($data['emailCopia'])){
                     $mail->addBCC($data['emailCopia']);
@@ -118,24 +118,21 @@
         ob_start();
         require_once("Views/Template/Email/".$template.".php");
         $mensaje = ob_get_clean();
-
-
-
-
-        
+ 
         try {
             //Server settings
-            $mail->SMTPDebug = 1;                      //Enable verbose debug output
+            //$mail->SMTPDebug = 1;                      //Enable verbose debug output
+            $mail->CharSet = 'UTF-8';                   //Para que las tildes se vean bien en el correo
             $mail->isSMTP();                                            //Send using SMTP
             $mail->Host       = 'smtp.office365.com';                     //Set the SMTP server to send through
             $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
             $mail->Username   = 'inververionesdelatlantico@hotmail.com';                     //SMTP username
-            $mail->Password   = 'ffzmvlqtrfmalady';                               //SMTP password
-            $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
+            $mail->Password   = 'eixatledvqsxxzah';                               //SMTP password
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;            //Enable implicit TLS encryption
             $mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
             //Recipients
-            $mail->setFrom('inververionesdelatlantico@hotmail.com', 'Servidor Local');
+            $mail->setFrom('inververionesdelatlantico@hotmail.com', 'Inversiones del Atlántico');
             $mail->addAddress($data['email']);     //Add a recipient
             if(!empty($data['emailCopia'])){
                 $mail->addBCC($data['emailCopia']);
