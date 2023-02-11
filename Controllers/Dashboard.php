@@ -28,11 +28,9 @@
 
 			$anio = date('Y');
 			$mes = date('m');
-			$data['pagosMes'] = $this->model->selectPagosMes($anio,$mes);
+			//$data['pagosMes'] = $this->model->selectPagosMes($anio,$mes);
 			//dep($data['pagosMes']);exit;
-			$data['ventasMDia'] = $this->model->selectVentasMes($anio,$mes);
-			//dep($data['ventasMDia']);exit;
-			$data['ventasAnio'] = $this->model->selectVentasAnio($anio);
+			//$data['ventasAnio'] = $this->model->selectVentasAnio($anio);
 			//dep($data['ventasAnio']);exit;
 			if( $_SESSION['userData']['id_rol'] == RCLIENTES ){
 				$this->views->getView($this,"dashboardCliente",$data);
@@ -41,42 +39,42 @@
 			}
 		}
 
-		public function tipoPagoMes(){
-			if($_POST){
-				$grafica = "tipoPagoMes";
-				$nFecha = str_replace(" ","",$_POST['fecha']);
-				$arrFecha = explode('-',$nFecha);
-				$mes = $arrFecha[0];
-				$anio = $arrFecha[1];
-				$pagos = $this->model->selectPagosMes($anio,$mes);
-				$script = getFile("Template/Modals/graficas",$pagos);
-				echo $script;
-				die();
-			}
-		}
-		public function ventasMes(){
-			if($_POST){
-				$grafica = "ventasMes";
-				$nFecha = str_replace(" ","",$_POST['fecha']);
-				$arrFecha = explode('-',$nFecha);
-				$mes = $arrFecha[0];
-				$anio = $arrFecha[1];
-				$pagos = $this->model->selectVentasMes($anio,$mes);
-				$script = getFile("Template/Modals/graficas",$pagos);
-				echo $script;
-				die();
-			}
-		}
-		public function ventasAnio(){
-			if($_POST){
-				$grafica = "ventasAnio";
-				$anio = intval($_POST['anio']);
-				$pagos = $this->model->selectVentasAnio($anio);
-				$script = getFile("Template/Modals/graficas",$pagos);
-				echo $script;
-				die();
-			}
-		}
+		// public function tipoPagoMes(){
+		// 	if($_POST){
+		// 		$grafica = "tipoPagoMes";
+		// 		$nFecha = str_replace(" ","",$_POST['fecha']);
+		// 		$arrFecha = explode('-',$nFecha);
+		// 		$mes = $arrFecha[0];
+		// 		$anio = $arrFecha[1];
+		// 		$pagos = $this->model->selectPagosMes($anio,$mes);
+		// 		$script = getFile("Template/Modals/graficas",$pagos);
+		// 		echo $script;
+		// 		die();
+		// 	}
+		// }
+		// public function ventasMes(){
+		// 	if($_POST){
+		// 		$grafica = "ventasMes";
+		// 		$nFecha = str_replace(" ","",$_POST['fecha']);
+		// 		$arrFecha = explode('-',$nFecha);
+		// 		$mes = $arrFecha[0];
+		// 		$anio = $arrFecha[1];
+		// 		$pagos = $this->model->selectVentasMes($anio,$mes);
+		// 		$script = getFile("Template/Modals/graficas",$pagos);
+		// 		echo $script;
+		// 		die();
+		// 	}
+		// }
+		// public function ventasAnio(){
+		// 	if($_POST){
+		// 		$grafica = "ventasAnio";
+		// 		$anio = intval($_POST['anio']);
+		// 		$pagos = $this->model->selectVentasAnio($anio);
+		// 		$script = getFile("Template/Modals/graficas",$pagos);
+		// 		echo $script;
+		// 		die();
+		// 	}
+		// }
 
 	}
  ?>
