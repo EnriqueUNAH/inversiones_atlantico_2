@@ -17,9 +17,9 @@
 		public function dashboard()
 		{
 			$data['page_id'] = 2;
-			$data['page_tag'] = "Dashboard - Inversiones Atlantico";
-			$data['page_title'] = "Dashboard - Inversiones Atlantico";
-			$data['page_name'] = "dashboard";
+			$data['page_tag'] = "Inicio - Inversiones Atlantico";
+			$data['page_title'] = "Inicio - Inversiones Atlantico";
+			$data['page_name'] = "inicio";
 			$data['page_functions_js'] = "functions_dashboard.js";
 			$data['usuarios'] = $this->model->cantUsuarios();
 			$data['clientes'] = $this->model->cantClientes();
