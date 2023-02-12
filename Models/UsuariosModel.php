@@ -21,12 +21,12 @@
 			parent::__construct();
 		}	
 
-		public function insertUsuario(string $usuario, string $nombre, int $preguntas_contestadas, string $email, string $password, int $tipoid, int $status){
+		public function insertUsuario(string $usuario, string $nombre, /*int $preguntas_contestadas,*/ string $email, string $password, int $tipoid, int $status){
 
 			$this->strusuario = $usuario;
 			$this->strNombre = $nombre;
 			//$this->strApellido = $apellido;
-			$this->intpreguntas_contestadas = $preguntas_contestadas;
+			//$this->intpreguntas_contestadas = $preguntas_contestadas;
 			$this->strEmail = $email;
 			$this->strPassword = $password;
 			$this->intTipoId = $tipoid;
@@ -39,12 +39,12 @@
 
 			if(empty($request))
 			{
-				$query_insert  = "INSERT INTO tbl_ms_usuarios(usuario,nombre_usuario,preguntas_contestadas,correo_electronico,contrasena,id_rol,status) 
-								  VALUES(?,?,?,?,?,?,?)";
+				$query_insert  = "INSERT INTO tbl_ms_usuarios(usuario,nombre_usuario,correo_electronico,contrasena,id_rol,status) 
+								  VALUES(?,?,?,?,?,?)";
 	        	$arrData = array($this->strusuario,
         						$this->strNombre,
         						//$this->strApellido,
-        						$this->intpreguntas_contestadas,
+        						//$this->intpreguntas_contestadas,
         						$this->strEmail,
         						$this->strPassword,
         						$this->intTipoId,
@@ -63,7 +63,7 @@
 			if($_SESSION['idUser'] != 1 ){
 				$whereAdmin = " and p.id_usuario != 1 ";
 			}
-			$sql = "SELECT p.id_usuario,p.usuario,p.nombre_usuario,p.preguntas_contestadas,p.correo_electronico,p.status,r.id_rol,r.nombrerol 
+			$sql = "SELECT p.id_usuario,p.usuario,p.nombre_usuario,p.correo_electronico,p.status,r.id_rol,r.nombrerol 
 					FROM tbl_ms_usuarios p 
 					INNER JOIN tbl_ms_roles r
 					ON p.id_rol = r.id_rol
@@ -103,23 +103,23 @@
 			{
 				if($this->strPassword  != "") 
 				{
-					$sql = "UPDATE tbl_ms_usuarios SET usuario=?, nombre_usuario=?, preguntas_contestadas=?, correo_electronico=?, contrasena=?, id_rol=?, status=? 
+					$sql = "UPDATE tbl_ms_usuarios SET usuario=?, nombre_usuario=?, correo_electronico=?, contrasena=?, id_rol=?, status=? 
 							WHERE id_usuario = $this->intIdUsuario ";
 					$arrData = array($this->strusuario,
 	        						$this->strNombre,
 	        						//$this->strApellido,
-	        						$this->intpreguntas_contestadas,
+	        						//$this->intpreguntas_contestadas,
 	        						$this->strEmail,
 	        						$this->strPassword,
 	        						$this->intTipoId,
 	        						$this->intStatus);
 				}else{
-					$sql = "UPDATE tbl_ms_usuarios SET usuario=?, nombre_usuario=?, preguntas_contestadas=?, correo_electronico=?, id_rol=?, status=? 
+					$sql = "UPDATE tbl_ms_usuarios SET usuario=?, nombre_usuario=?, correo_electronico=?, id_rol=?, status=? 
 							WHERE id_usuario = $this->intIdUsuario ";
 					$arrData = array($this->strusuario,
 	        						$this->strNombre,
 	        						//$this->strApellido,
-	        						$this->intpreguntas_contestadas,
+	        						//$this->intpreguntas_contestadas,
 	        						$this->strEmail,
 	        						$this->intTipoId,
 	        						$this->intStatus);

@@ -35,7 +35,7 @@
 					$strusuario = strClean($_POST['txtusuario']);
 					$strnombre_usuario = ucwords(strClean($_POST['txtnombre_usuario']));
 					//$strApellido = ucwords(strClean($_POST['txtApellido']));
-					$intpreguntas_contestadas = 0;
+					//$intpreguntas_contestadas = 0;
 					$strEmail = strtolower(strClean($_POST['txtEmail']));
 					$intTipoId = intval(strClean($_POST['listid_rol']));
 					$intStatus = intval(strClean($_POST['listStatus']));
@@ -49,7 +49,7 @@
 							$request_user = $this->model->insertUsuario($strusuario,
 																				$strnombre_usuario, 
 																				//$strApellido, 
-																				$intpreguntas_contestadas, 
+																				//$intpreguntas_contestadas, 
 																				$strEmail,
 																				$strPassword, 
 																				$intTipoId, 

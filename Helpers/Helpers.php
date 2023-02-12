@@ -121,7 +121,7 @@
  
         try {
             //Server settings
-            //$mail->SMTPDebug = 1;                      //Enable verbose debug output
+            $mail->SMTPDebug = 1;                      //Enable verbose debug output
             $mail->CharSet = 'UTF-8';                   //Para que las tildes se vean bien en el correo
             $mail->isSMTP();                                            //Send using SMTP
             $mail->Host       = 'smtp.office365.com';                     //Set the SMTP server to send through
@@ -144,7 +144,7 @@
             $mail->Body    = $mensaje;
             
             $mail->send();
-            echo 'Mensaje enviado';
+           // echo 'Mensaje enviado';
         } catch (Exception $e) {
             echo "Error en el envío del mensaje: {$mail->ErrorInfo}";
         }

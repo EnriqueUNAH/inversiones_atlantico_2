@@ -77,17 +77,19 @@
 											 'url_recovery' => $url_recovery);
 						if($requestUpdate){
 							$sendEmail = sendMailLocal($dataUsuario,'email_cambioPassword');
-
+							
 							if($sendEmail){
-								$arrResponse = array('status' => true, 
-												 'msg' => 'Se ha enviado un email a tu cuenta de correo para cambiar tu contraseña.');
-							}else{
+								$arrResponse = array('status' => true, 'msg' => 'Se ha enviado un email a tu cuenta de correo para cambiar tu contraseña.' );
+								//dep($arrResponse);
+								}else{
 								$arrResponse = array('status' => false, 
 												 'msg' => 'No es posible realizar el proceso' );
+												 dep($arrResponse);							 
 							}
 						}else{
 							$arrResponse = array('status' => false, 
 												 'msg' => 'No es posible realizar el proceso, intenta más tarde.' );
+												 //dep($arrResponse);
 						}
 					}
 				}
@@ -95,6 +97,7 @@
 			}
 			die();
 		}
+
 		public function resetPassPreguntaaaa() {
 			if ($_POST) {
 			  if (empty($_POST['txtEmailReset'])) {
