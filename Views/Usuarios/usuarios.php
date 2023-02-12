@@ -24,12 +24,9 @@
                     <table class="table table-hover table-bordered" id="tableUsuarios">
                       <thead>
                         <tr>
-                          <!--<th>ID</th>-->
                           <th>Usuario</th>
                           <th>Nombre</th>
-                          <!--<th>Apellidos</th>-->
                           <th>Correo Electrónico</th>
-                          <!--<th>Preguntas Contestadas</th>-->
                           <th>Rol</th>
                           <th>Estado</th>
                           <th>Acciones</th>

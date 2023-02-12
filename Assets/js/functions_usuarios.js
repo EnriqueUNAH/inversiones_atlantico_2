@@ -56,10 +56,10 @@ document.addEventListener(
       let formUsuario = document.querySelector("#formUsuario");
       formUsuario.onsubmit = function (e) {
         e.preventDefault();
+
         let strusuario = document.querySelector("#txtusuario").value;
         let strnombre_usuario =
           document.querySelector("#txtnombre_usuario").value;
-        // let strApellido = document.querySelector("#txtApellido").value;
         let strEmail = document.querySelector("#txtEmail").value;
         let intpreguntas_contestadas = 0;
         let intTipousuario = document.querySelector("#listid_rol").value;
@@ -68,10 +68,8 @@ document.addEventListener(
 
         if (
           strusuario == "" ||
-          // strApellido == "" ||
           strnombre_usuario == "" ||
           strEmail == "" ||
-          //intpreguntas_contestadas == "" ||
           intTipousuario == ""
         ) {
           swal("Atención", "Todos los campos son obligatorios.", "error");
@@ -110,9 +108,7 @@ document.addEventListener(
                     : '<span class="badge badge-danger">Inactivo</span>';
                 rowTable.cells[0].textContent = strusuario;
                 rowTable.cells[1].textContent = strnombre_usuario;
-
                 rowTable.cells[2].textContent = strEmail;
-                //rowTable.cells[4].textContent = intpreguntas_contestadas;
                 rowTable.cells[3].textContent =
                   document.querySelector("#listid_rol").selectedOptions[0].text;
                 rowTable.cells[4].innerHTML = htmlStatus;
@@ -120,6 +116,7 @@ document.addEventListener(
               }
 
               $("#modalFormUsuario").modal("hide");
+
               formUsuario.reset();
               swal("Usuarios", objData.msg, "success");
             } else {
@@ -131,6 +128,7 @@ document.addEventListener(
         };
       };
     }
+
     //Actualizar Perfil
     if (document.querySelector("#formPerfil")) {
       let formPerfil = document.querySelector("#formPerfil");
@@ -362,7 +360,15 @@ function fntEditUsuario(element, id_usuario) {
 
       if (objData.status) {
         document.querySelector("#id_usuario").value = objData.data.id_usuario;
+
         document.querySelector("#txtusuario").value = objData.data.usuario;
+
+        //Si recibe un usuario, quiere decir que está editando,
+        //entonces coloca el input de Usuario como solo lectura
+        if (id_usuario) {
+          document.querySelector("#txtusuario").setAttribute("readonly", true);
+        }
+
         document.querySelector("#txtnombre_usuario").value =
           objData.data.nombre_usuario;
         //document.querySelector("#txtApellido").value = objData.data.apellidos;
@@ -426,9 +432,13 @@ function fntDelUsuario(id_usuario) {
   );
 }
 
+//Abre el modal para agregar usuario
 function openModal() {
   rowTable = "";
   document.querySelector("#id_usuario").value = "";
+  document.querySelector("#txtusuario").removeAttribute("readonly"); //Para quitar el readonly en caso de que antes se haya editado
+  //document.querySelector("#listStatus").value = "2";
+  //document.querySelector("#listStatus").innerHTML = "NUEVO";
   document
     .querySelector(".modal-header")
     .classList.replace("headerUpdate", "headerRegister");

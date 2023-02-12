@@ -24,15 +24,8 @@
                   <label for="txtnombre_usuario">Nombre</label>
                   <input type="text" class="form-control valid validText" id="txtnombre_usuario" name="txtnombre_usuario" required="">
                 </div>
-
               </div>
               <div class="form-row">
-                <!--
-                <div class="form-group col-md-6">
-                  <label for="txtpreguntas_contestadas">Preguntas Contestadas</label>
-                  <input type="text" class="form-control valid validNumber" id="txtpreguntas_contestadas" name="txtpreguntas_contestadas" required="" onkeypress="return controlTag(event);">
-                </div>
--->
                 <div class="form-group col-md-6">
                   <label for="txtEmail">Correo Electrónico</label>
                   <input type="email" class="form-control valid validEmail" id="txtEmail" name="txtEmail" required="">
@@ -70,6 +63,7 @@
     </div>
   </div>
 </div>
+
 
 <!-- Modal -->
 <div class="modal fade" id="modalViewUser" tabindex="-1" role="dialog" aria-hidden="true">

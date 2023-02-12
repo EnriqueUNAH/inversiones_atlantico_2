@@ -48,8 +48,6 @@
 						if($_SESSION['permisosMod']['w']){
 							$request_user = $this->model->insertUsuario($strusuario,
 																				$strnombre_usuario, 
-																				//$strApellido, 
-																				//$intpreguntas_contestadas, 
 																				$strEmail,
 																				$strPassword, 
 																				$intTipoId, 
@@ -62,8 +60,6 @@
 							$request_user = $this->model->updateUsuario($id_usuario,
 																		$strusuario, 
 																		$strnombre_usuario,
-																		//$strApellido, 
-																		//$intpreguntas_contestadas, 
 																		$strEmail,
 																		$strPassword, 
 																		$intTipoId, 
