@@ -33,7 +33,7 @@
           <h3 class="login-head"><i class="fa fa-lg fa-fw fa-user"></i>INICIAR SESIÓN</h3>
           <div class="form-group">
             <label class="control-label">USUARIO</label>
-            <input id="txtEmail" name="txtEmail" class="form-control" type="email" placeholder="Email" autofocus>
+            <input id="txtEmail" name="txtEmail" class="form-control" type="" placeholder="Usuario" autofocus>
           </div>
           <div class="form-group">
             <label class="control-label">CONTRASEÑA</label>

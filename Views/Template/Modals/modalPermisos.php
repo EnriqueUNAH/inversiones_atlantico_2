@@ -20,9 +20,9 @@
                         <thead>
                           <tr>
                             <th>#</th>
-                            <th>Módulo</th>
-                            <th>Ver</th>
-                            <th>Crear</th>
+                            <th>Pantalla</th>
+                            <th>Consultar</th>
+                            <th>Insertar</th>
                             <th>Actualizar</th>
                             <th>Eliminar</th>
                           </tr>
@@ -51,25 +51,25 @@
                             </td>
                             <td><div class="toggle-flip">
                                   <label>
-                                    <input type="checkbox" name="modulos[<?= $i; ?>][r]" <?= $rCheck ?> ><span class="flip-indecator" data-toggle-on="ON" data-toggle-off="OFF"></span>
+                                    <input type="checkbox" name="modulos[<?= $i; ?>][r]" <?= $rCheck ?> ><span class="flip-indecator" data-toggle-on="SI" data-toggle-off="NO"></span>
                                   </label>
                                 </div>
                             </td>
                             <td><div class="toggle-flip">
                                   <label>
-                                    <input type="checkbox" name="modulos[<?= $i; ?>][w]" <?= $wCheck ?>><span class="flip-indecator" data-toggle-on="ON" data-toggle-off="OFF"></span>
+                                    <input type="checkbox" name="modulos[<?= $i; ?>][w]" <?= $wCheck ?>><span class="flip-indecator" data-toggle-on="SI" data-toggle-off="NO"></span>
                                   </label>
                                 </div>
                             </td>
                             <td><div class="toggle-flip">
                                   <label>
-                                    <input type="checkbox" name="modulos[<?= $i; ?>][u]" <?= $uCheck ?>><span class="flip-indecator" data-toggle-on="ON" data-toggle-off="OFF"></span>
+                                    <input type="checkbox" name="modulos[<?= $i; ?>][u]" <?= $uCheck ?>><span class="flip-indecator" data-toggle-on="SI" data-toggle-off="NO"></span>
                                   </label>
                                 </div>
                             </td>
                             <td><div class="toggle-flip">
                                   <label>
-                                    <input type="checkbox" name="modulos[<?= $i; ?>][d]" <?= $dCheck ?>><span class="flip-indecator" data-toggle-on="ON" data-toggle-off="OFF"></span>
+                                    <input type="checkbox" name="modulos[<?= $i; ?>][d]" <?= $dCheck ?>><span class="flip-indecator" data-toggle-on="SI" data-toggle-off="NO"></span>
                                   </label>
                                 </div>
                             </td>

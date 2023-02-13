@@ -11,13 +11,13 @@
 		{
 			parent::__construct();
 		}	
-
+/////////////////////////CAMBIE LINEA 20
 		public function loginUser(string $usuario, string $password)
 		{
 			$this->strUsuario = $usuario;
 			$this->strPassword = $password;
 			$sql = "SELECT id_usuario,status FROM tbl_ms_usuarios WHERE 
-					correo_electronico = '$this->strUsuario' and 
+					usuario = '$this->strUsuario' and  
 					contrasena = '$this->strPassword' and 
 					status != 0 ";
 			$request = $this->select($sql);
@@ -29,11 +29,9 @@
 			//BUSCAR ROLE 
 			$sql = "SELECT p.id_usuario,
 							p.usuario,
-							p.nombre_usuario,
-						
+							p.nombre_usuario,						
 							p.preguntas_contestadas,
-							p.correo_electronico,
-		
+							p.correo_electronico,		
 							r.id_rol,r.nombrerol,
 							p.status 
 					FROM tbl_ms_usuarios p

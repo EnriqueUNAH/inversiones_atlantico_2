@@ -33,22 +33,22 @@
 	//const SECRET = "";
 
 	//Datos envio de correo
-	const NOMBRE_REMITENTE = "Tienda Virtual";
+	const NOMBRE_REMITENTE = "Inversiones Atlantico";
 	const EMAIL_REMITENTE = "no-reply@abelosh.com";
-	const NOMBRE_EMPESA = "Tienda Virtual";
-	const WEB_EMPRESA = "www.abelosh.com";
+	const NOMBRE_EMPESA = "Inversiones Atlantico";
+	const WEB_EMPRESA = "www.inversionesatlantico.com";
 
 	const DESCRIPCION = "La mejor tienda en línea con artículos de moda.";
-	const SHAREDHASH = "TiendaVirtual";
+	const SHAREDHASH = "InversionesAtlantico";
 
 	//Datos Empresa
 	const DIRECCION = "Tela, Atlántida";
 	const TELEMPRESA = "+(502)78787845";
 	const WHATSAPP = "+50278787845";
-	const EMAIL_EMPRESA = "info@abelosh.com";
-	const EMAIL_PEDIDOS = "info@abelosh.com"; 
-	const EMAIL_SUSCRIPCION = "info@abelosh.com";
-	const EMAIL_CONTACTO = "info@abelosh.com";
+	const EMAIL_EMPRESA = "info@inversiones.com";
+	const EMAIL_PEDIDOS = "info@inversiones.com"; 
+	const EMAIL_SUSCRIPCION = "info@inversiones.com";
+	const EMAIL_CONTACTO = "info@inversiones.com";
 
 	const CAT_SLIDER = "1,2,3";
 	const CAT_BANNER = "4,5,6";
