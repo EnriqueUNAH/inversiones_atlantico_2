@@ -97,10 +97,20 @@
 
 					if($arrData[$i]['status'] == 1)
 					{
-						$arrData[$i]['status'] = '<span class="badge badge-success">Activo</span>';
-					}else{
-						$arrData[$i]['status'] = '<span class="badge badge-danger">Inactivo</span>';
+						$arrData[$i]['status'] = '<span class="badge badge-success">ACTIVO</span>';   //Aqui le asigna Activo si es 1
+					}else if($arrData[$i]['status'] == 2){
+						$arrData[$i]['status'] = '<span class="badge badge-danger">INACTIVO</span>';
+					}else if($arrData[$i]['status'] == 3){
+						$arrData[$i]['status'] = '<span class="badge badge-info">NUEVO</span>';
 					}
+
+
+					// if($arrData[$i]['status'] == 1)
+					// {
+					// 	$arrData[$i]['status'] = '<span class="badge badge-success">Activo</span>'; //Aqui le asigna Activo si es 1
+					// }else{
+					// 	$arrData[$i]['status'] = '<span class="badge badge-danger">Inactivo</span>';
+					// }
 
 					if($_SESSION['permisosMod']['r']){
 						$btnView = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntViewUsuario('.$arrData[$i]['id_usuario'].')" title="Ver usuario"><i class="far fa-eye"></i></button>';

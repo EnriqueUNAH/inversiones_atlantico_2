@@ -105,7 +105,10 @@ document.addEventListener(
                 htmlStatus =
                   intStatus == 1
                     ? '<span class="badge badge-success">Activo</span>'
+                    : intStatus == 3
+                    ? '<span class="badge badge-info">Nuevo</span>'
                     : '<span class="badge badge-danger">Inactivo</span>';
+
                 rowTable.cells[0].textContent = strusuario;
                 rowTable.cells[1].textContent = strnombre_usuario;
                 rowTable.cells[2].textContent = strEmail;
@@ -313,13 +316,13 @@ function fntViewUsuario(id_usuario) {
         let estadoUsuario =
           objData.data.status == 1
             ? '<span class="badge badge-success">Activo</span>'
+            : objData.data.status == 3
+            ? '<span class="badge badge-info">Nuevo</span>'
             : '<span class="badge badge-danger">Inactivo</span>';
 
         document.querySelector("#celusuario").innerHTML = objData.data.usuario;
         document.querySelector("#celNombre").innerHTML =
           objData.data.nombre_usuario;
-        //document.querySelector("#celApellido").innerHTML =
-        //objData.data.apellidos;
         document.querySelector("#celpreguntas_contestadas").innerHTML =
           objData.data.preguntas_contestadas;
         document.querySelector("#celEmail").innerHTML =
@@ -371,8 +374,6 @@ function fntEditUsuario(element, id_usuario) {
 
         document.querySelector("#txtnombre_usuario").value =
           objData.data.nombre_usuario;
-        //document.querySelector("#txtApellido").value = objData.data.apellidos;
-        // objData.data.preguntas_contestadas;
         document.querySelector("#txtEmail").value =
           objData.data.correo_electronico;
         document.querySelector("#listid_rol").value = objData.data.id_rol;
@@ -380,9 +381,12 @@ function fntEditUsuario(element, id_usuario) {
 
         if (objData.data.status == 1) {
           document.querySelector("#listStatus").value = 1;
-        } else {
+        } else if (objData.data.status == 2) {
           document.querySelector("#listStatus").value = 2;
+        } else {
+          document.querySelector("#listStatus").value = 3;
         }
+
         $("#listStatus").selectpicker("render");
       }
     }
@@ -437,8 +441,15 @@ function openModal() {
   rowTable = "";
   document.querySelector("#id_usuario").value = "";
   document.querySelector("#txtusuario").removeAttribute("readonly"); //Para quitar el readonly en caso de que antes se haya editado
-  //document.querySelector("#listStatus").value = "2";
-  //document.querySelector("#listStatus").innerHTML = "NUEVO";
+  //document.querySelector("#listStatus").setAttribute("readonly", true);
+  // document.querySelector("#listStatus").setAttribute("disabled", true);
+  // if (rowTable) {
+  //   document.querySelector("#listStatus").removeAttribute("disabled");
+  // } else {
+  //   // Si se está agregando un nuevo registro
+  //   document.querySelector("#listStatus").value = "3";
+  //   document.querySelector("#listStatus").setAttribute("disabled", true);
+  // }
   document
     .querySelector(".modal-header")
     .classList.replace("headerUpdate", "headerRegister");
@@ -448,6 +459,9 @@ function openModal() {
   document.querySelector("#btnText").innerHTML = "Guardar";
   document.querySelector("#titleModal").innerHTML = "Nuevo Usuario";
   document.querySelector("#formUsuario").reset();
+  //$("#listStatus").prop("disabled", true);
+  //$("#listStatus").val("3");
+
   $("#modalFormUsuario").modal("show");
 }
 
