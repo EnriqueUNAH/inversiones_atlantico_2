@@ -218,8 +218,7 @@
 					}
 					$request_user = $this->model->updatePerfil($id_usuario,
 																$strusuario, 
-																$strNombre,
-																//$strApellido, 
+																$strNombre,															
 																$intpreguntas_contestadas, 
 																$strPassword);
 					if($request_user)
