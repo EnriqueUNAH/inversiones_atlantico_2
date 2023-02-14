@@ -50,6 +50,7 @@
             </div>
             <p class="semibold-text mb-2"><a href="Views/Login/autoRegistro.php" >Autoregistro</a></p>
           </div>
+    
         </form>
 
 
@@ -66,6 +67,7 @@
           <div class="form-group mt-3">
             <p class="semibold-text mb-0"><a href="#" data-toggle="flip"><i class="fa fa-angle-left fa-fw"></i> Atrás</a></p>
           </div>
+
         </form>
 
  

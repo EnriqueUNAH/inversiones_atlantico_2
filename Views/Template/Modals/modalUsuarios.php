@@ -24,22 +24,19 @@
                   <label for="txtnombre_usuario">Nombre</label>
                   <input type="text" class="form-control valid validText" id="txtnombre_usuario" name="txtnombre_usuario" required="">
                 </div>
+                <div class="form-group col-md-6">
+                    <label for="listid_rol">Rol</label>
+                    <select class="form-control" data-live-search="true" id="listid_rol" name="listid_rol" required >
+                    </select>
+                </div>
+
               </div>
               <div class="form-row">
                 <div class="form-group col-md-6">
                   <label for="txtEmail">Correo Electrónico</label>
                   <input type="email" class="form-control valid validEmail" id="txtEmail" name="txtEmail" required="">
                 </div>
-              </div>
-              <div class="form-row">
-                
-                <div class="form-group col-md-6">
-                    <label for="listid_rol">Rol</label>
-                    <select class="form-control" data-live-search="true" id="listid_rol" name="listid_rol" required >
-                    </select>
-                </div>
-                
-                <div class="form-group col-md-6">
+                                <div class="form-group col-md-6">
                     <label for="listStatus">Estado</label>
                     <select class="form-control selectpicker" id="listStatus" name="listStatus" required >
                         <option value="3">NUEVO</option>
@@ -48,13 +45,20 @@
 
                     </select>
                 </div>
-             </div>
-             <div class="form-row">
-                <div class="form-group col-md-6">
+                
+              </div>
+              <div class="form-row">
+              <div class="form-group col-md-6">
                   <label for="txtPassword">Contraseña </label>
                   <p class="text-primary">(Opcional)</p>
                   <input type="password" class="form-control" id="txtPassword" name="txtPassword" >
-                </div>
+                </div>  
+
+                
+
+             </div>
+             <div class="form-row">
+
              </div>
               <div class="tile-footer">
                 <button id="btnActionForm" class="btn btn-primary" type="submit"><i class="fa fa-fw fa-lg fa-check-circle"></i><span id="btnText">Guardar</span></button>&nbsp;&nbsp;&nbsp;

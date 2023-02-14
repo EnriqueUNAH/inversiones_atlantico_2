@@ -25,24 +25,24 @@
 			//dep($_POST);
 			if($_POST){
 				if(empty($_POST['txtEmail']) || empty($_POST['txtPassword'])){
-					$arrResponse = array('status' => false, 'msg' => 'Error de datos' );
+					$arrResponse = array('' => false, 'msg' => 'Error de datos' );
 				}else{
 					$strUsuario  =  strtolower(strClean($_POST['txtEmail']));
 					$strPassword = hash("SHA256",$_POST['txtPassword']);
 					$requestUser = $this->model->loginUser($strUsuario, $strPassword);
 					if(empty($requestUser)){
-						$arrResponse = array('status' => false, 'msg' => 'El usuario o la contraseña es incorrecto.' ); 
+						$arrResponse = array('' => false, 'msg' => 'El usuario o la contraseña es incorrecto.' ); 
 					}else{
 						$arrData = $requestUser;
-						if($arrData['status'] == 1){
+						if($arrData[''] == 1){
 							$_SESSION['idUser'] = $arrData['id_usuario'];
 							$_SESSION['login'] = true;
 
 							$arrData = $this->model->sessionLogin($_SESSION['idUser']);
 							sessionUser($_SESSION['idUser']);							
-							$arrResponse = array('status' => true, 'msg' => 'ok');
+							$arrResponse = array('' => true, 'msg' => 'ok');
 						}else{
-							$arrResponse = array('status' => false, 'msg' => 'Usuario inactivo.');
+							$arrResponse = array('' => false, 'msg' => 'Usuario inactivo.');
 						}
 					}
 				}
@@ -56,14 +56,14 @@
 				error_reporting(0);
 
 				if(empty($_POST['txtEmailReset'])){
-					$arrResponse = array('status' => false, 'msg' => 'Error de datos' );
+					$arrResponse = array('' => false, 'msg' => 'Error de datos' );
 				}else{
 					$token = token();
 					$strEmail  =  strtolower(strClean($_POST['txtEmailReset']));
 					$arrData = $this->model->getUserEmail($strEmail);
 
 					if(empty($arrData)){
-						$arrResponse = array('status' => false, 'msg' => 'Usuario no existente.' ); 
+						$arrResponse = array('' => false, 'msg' => 'Usuario no existente.' ); 
 					}else{
 						$id_usuario = $arrData['id_usuario'];
 						$nombreUsuario = $arrData['usuario'];
@@ -79,15 +79,15 @@
 							$sendEmail = sendMailLocal($dataUsuario,'email_cambioPassword');
 							
 							if($sendEmail){
-								$arrResponse = array('status' => true, 'msg' => 'Se ha enviado un email a tu cuenta de correo para cambiar tu contraseña.' );
+								$arrResponse = array('' => true, 'msg' => 'Se ha enviado un email a tu cuenta de correo para cambiar tu contraseña.' );
 								
 								}else{
-								$arrResponse = array('status' => false, 
+								$arrResponse = array('' => false, 
 												 'msg' => 'No es posible realizar el proceso' );
 																		 
 							}
 						}else{
-							$arrResponse = array('status' => false, 
+							$arrResponse = array('' => false, 
 												 'msg' => 'No es posible realizar el proceso, intenta más tarde.' );
 											
 						}
@@ -122,14 +122,14 @@
 				error_reporting(0);
 
 				if(empty($_POST['txtEmailReset'])){
-					$arrResponse = array('status' => false, 'msg' => 'Error de datos' );
+					$arrResponse = array('' => false, 'msg' => 'Error de datos' );
 				}else{
 					$token = token();
 					$strEmail  =  strtolower(strClean($_POST['txtEmailReset']));
 					$arrData = $this->model->getUserEmail($strEmail);
 
 					if(empty($arrData)){
-						$arrResponse = array('status' => false, 'msg' => 'Usuario no existente.' ); 
+						$arrResponse = array('' => false, 'msg' => 'Usuario no existente.' ); 
 					}else{
 						$id_usuario = $arrData['id_usuario'];
 						$nombreUsuario = $arrData['usuario'];
@@ -145,14 +145,14 @@
 							$sendEmail = sendMailLocal($dataUsuario,'email_cambioPassword');
 
 							if($sendEmail){
-								$arrResponse = array('status' => true, 
+								$arrResponse = array('' => true, 
 												 'msg' => 'Se ha enviado un email a tu cuenta de correo para cambiar tu contraseña.');
 							}else{
-								$arrResponse = array('status' => false, 
+								$arrResponse = array('' => false, 
 												 'msg' => 'No es posible realizar el proceso' );
 							}
 						}else{
-							$arrResponse = array('status' => false, 
+							$arrResponse = array('' => false, 
 												 'msg' => 'No es posible realizar el proceso, intenta más tarde.' );
 						}
 					}
@@ -193,7 +193,7 @@
 
 			if(empty($_POST['id_usuario']) || empty($_POST['txtEmail']) || empty($_POST['txtToken']) || empty($_POST['txtPassword']) || empty($_POST['txtPasswordConfirm'])){
 
-					$arrResponse = array('status' => false, 
+					$arrResponse = array('' => false, 
 										 'msg' => 'Error de datos' );
 				}else{
 					$intid_usuario = intval($_POST['id_usuario']);
@@ -203,22 +203,22 @@
 					$strToken = strClean($_POST['txtToken']);
 
 					if($strPassword != $strPasswordConfirm){
-						$arrResponse = array('status' => false, 
+						$arrResponse = array('' => false, 
 											 'msg' => 'Las contraseñas no son iguales.' );
 					}else{
 						$arrResponseUser = $this->model->getUsuario($strEmail,$strToken);
 						if(empty($arrResponseUser)){
-							$arrResponse = array('status' => false, 
+							$arrResponse = array('' => false, 
 											 'msg' => 'Erro de datos.' );
 						}else{
 							$strPassword = hash("SHA256",$strPassword);
 							$requestPass = $this->model->insertPassword($intid_usuario,$strPassword);
 
 							if($requestPass){
-								$arrResponse = array('status' => true, 
+								$arrResponse = array('' => true, 
 													 'msg' => 'Contraseña actualizada con éxito.');
 							}else{
-								$arrResponse = array('status' => false, 
+								$arrResponse = array('' => false, 
 													 'msg' => 'No es posible realizar el proceso, intente más tarde.');
 							}
 						}
