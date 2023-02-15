@@ -62,16 +62,16 @@ class ClientesModel extends Mysql
 
 	public function selectClientes()
 	{
-		$sql = "SELECT idpersona,usuario,nombres,apellidos,telefono,correo_electronico,status 
+		$sql = "SELECT idpersona,usuario,nombres,apellidos,telefono,correo_electronico,estado 
 				FROM persona 
-				WHERE id_rol = ".RCLIENTES." and status != 0 "; 
+				WHERE id_rol = ".RCLIENTES." and estado != 0 "; 
 		$request = $this->select_all($sql);
 		return $request;
 	}
 
 	public function selectCliente(int $idpersona){
 		$this->intIdUsuario = $idpersona;
-		$sql = "SELECT idpersona,usuario,nombres,apellidos,telefono,correo_electronico,nit,nombrefiscal,direccionfiscal,status, DATE_FORMAT(fecha_creacion, '%d-%m-%Y') as fechaRegistro 
+		$sql = "SELECT idpersona,usuario,nombres,apellidos,telefono,correo_electronico,nit,nombrefiscal,direccionfiscal,estado, DATE_FORMAT(fecha_creacion, '%d-%m-%Y') as fechaRegistro 
 				FROM persona
 				WHERE idpersona = $this->intIdUsuario and id_rol = ".RCLIENTES;
 		$request = $this->select($sql);
@@ -132,7 +132,7 @@ class ClientesModel extends Mysql
 	public function deleteCliente(int $intIdpersona)
 	{
 		$this->intIdUsuario = $intIdpersona;
-		$sql = "UPDATE persona SET status = ? WHERE idpersona = $this->intIdUsuario ";
+		$sql = "UPDATE persona SET estado = ? WHERE idpersona = $this->intIdUsuario ";
 		$arrData = array(0);
 		$request = $this->update($sql,$arrData);
 		return $request;

@@ -104,9 +104,9 @@ document.addEventListener(
         request.open("POST", ajaxUrl, true);
         request.send(formData);
         request.onreadystatechange = function () {
-          if (request.readyState == 4 && request.status == 200) {
+          if (request.readyState == 4 && request. == 200) {
             let objData = JSON.parse(request.responseText);
-            if (objData.status) {
+            if (objData.) {
               if (rowTable == "") {
                 tableClientes.api().ajax.reload();
               } else {
@@ -141,9 +141,9 @@ function fntViewInfo(idpersona) {
   request.open("GET", ajaxUrl, true);
   request.send();
   request.onreadystatechange = function () {
-    if (request.readyState == 4 && request.status == 200) {
+    if (request.readyState == 4 && request. == 200) {
       let objData = JSON.parse(request.responseText);
-      if (objData.status) {
+      if (objData.) {
         document.querySelector("#celusuario").innerHTML = objData.data.usuario;
         document.querySelector("#celNombre").innerHTML = objData.data.nombres;
         // document.querySelector("#celApellido").innerHTML =
@@ -179,9 +179,9 @@ function fntEditInfo(element, idpersona) {
   request.open("GET", ajaxUrl, true);
   request.send();
   request.onreadystatechange = function () {
-    if (request.readyState == 4 && request.status == 200) {
+    if (request.readyState == 4 && request. == 200) {
       let objData = JSON.parse(request.responseText);
-      if (objData.status) {
+      if (objData.) {
         document.querySelector("#idUsuario").value = objData.data.idpersona;
         document.querySelector("#txtusuario").value = objData.data.usuario;
         document.querySelector("#txtNombre").value = objData.data.nombres;
@@ -220,9 +220,9 @@ function fntDelInfo(idpersona) {
         );
         request.send(strData);
         request.onreadystatechange = function () {
-          if (request.readyState == 4 && request.status == 200) {
+          if (request.readyState == 4 && request. == 200) {
             let objData = JSON.parse(request.responseText);
-            if (objData.status) {
+            if (objData.) {
               swal("Eliminar!", objData.msg, "success");
               tableClientes.api().ajax.reload();
             } else {

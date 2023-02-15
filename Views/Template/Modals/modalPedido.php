@@ -62,11 +62,11 @@
                       <tr>
                           <td>Estado:</td>
                           <td>
-                              <select name="listEstado" id="listEstado" class="form-control selectpicker" data-live-search="true" required="">
+                              <select name="listStatus" id="listStatus" class="form-control selectpicker" data-live-search="true" required="">
                                   <?php 
                                     for ($i=0; $i < count(STATUS) ; $i++) {
                                         $selected = "";
-                                        if( STATUS[$i] == $data['orden']['status']){
+                                        if( STATUS[$i] == $data['orden']['estado']){
                                             $selected = " selected ";
                                         }
                                    ?>

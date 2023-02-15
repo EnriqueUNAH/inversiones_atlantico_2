@@ -44,9 +44,9 @@ trait TCliente{
         return $return;
 	}
 
-	public function insertPedido(string $idtransaccionpaypal = NULL, string $datospaypal = NULL, int $personaid, float $costo_envio, string $monto, int $tipopagoid, string $direccionenvio, string $status){
+	public function insertPedido(string $idtransaccionpaypal = NULL, string $datospaypal = NULL, int $personaid, float $costo_envio, string $monto, int $tipopagoid, string $direccionenvio, string $estado){
 		$this->con = new Mysql();
-		$query_insert  = "INSERT INTO pedido(idtransaccionpaypal,datospaypal,personaid,costo_envio,monto,tipopagoid,direccion_envio,status) 
+		$query_insert  = "INSERT INTO pedido(idtransaccionpaypal,datospaypal,personaid,costo_envio,monto,tipopagoid,direccion_envio,estado) 
 							  VALUES(?,?,?,?,?,?,?,?)";
 		$arrData = array($idtransaccionpaypal,
     						$datospaypal,
@@ -55,7 +55,7 @@ trait TCliente{
     						$monto,
     						$tipopagoid,
     						$direccionenvio,
-    						$status
+    						$estado
     					);
 		$request_insert = $this->con->insert($query_insert,$arrData);
 	    $return = $request_insert;
@@ -131,7 +131,7 @@ trait TCliente{
 							p.tipopagoid,
 							t.tipopago,
 							p.direccion_envio,
-							p.status
+							p.estado
 					FROM pedido as p
 					INNER JOIN tipopago t
 					ON p.tipopagoid = t.idtipopago

@@ -15,14 +15,11 @@ document.addEventListener(
         dataSrc: "",
       },
       columns: [
-        // { data: "id_usuario" },
         { data: "usuario" },
         { data: "nombre_usuario" },
-        //{ data: "apellidos" },
         { data: "correo_electronico" },
-        // { data: "preguntas_contestadas" },
         { data: "nombrerol" },
-        { data: "status" },
+        { data: "estado" },
         { data: "options" },
       ],
       dom: "lBfrtip",
@@ -104,10 +101,10 @@ document.addEventListener(
               } else {
                 htmlStatus =
                   intStatus == 1
-                    ? '<span class="badge badge-success">Activo</span>'
+                    ? '<span class="badge badge-success">ACTIVO</span>'
                     : intStatus == 3
-                    ? '<span class="badge badge-info">Nuevo</span>'
-                    : '<span class="badge badge-danger">Inactivo</span>';
+                    ? '<span class="badge badge-info">NUEVO</span>'
+                    : '<span class="badge badge-danger">INACTIVO</span>';
 
                 rowTable.cells[0].textContent = strusuario;
                 rowTable.cells[1].textContent = strnombre_usuario;
@@ -140,7 +137,6 @@ document.addEventListener(
         let strusuario = document.querySelector("#txtusuario").value;
         let strnombre_usuario =
           document.querySelector("#txtnombre_usuario").value;
-        //let strApellido = document.querySelector("#txtApellido").value;
         let intpreguntas_contestadas = document.querySelector(
           "#txtpreguntas_contestadas"
         ).value;
@@ -151,7 +147,6 @@ document.addEventListener(
 
         if (
           strusuario == "" ||
-          // strApellido == "" ||
           strnombre_usuario == "" ||
           intpreguntas_contestadas == ""
         ) {
@@ -314,9 +309,9 @@ function fntViewUsuario(id_usuario) {
 
       if (objData.status) {
         let estadoUsuario =
-          objData.data.status == 1
+          objData.data.estado == 1
             ? '<span class="badge badge-success">Activo</span>'
-            : objData.data.status == 3
+            : objData.data.estado == 3
             ? '<span class="badge badge-info">Nuevo</span>'
             : '<span class="badge badge-danger">Inactivo</span>';
 
@@ -379,9 +374,9 @@ function fntEditUsuario(element, id_usuario) {
         document.querySelector("#listid_rol").value = objData.data.id_rol;
         $("#listid_rol").selectpicker("render");
 
-        if (objData.data.status == 1) {
+        if (objData.data.estado == 1) {
           document.querySelector("#listStatus").value = 1;
-        } else if (objData.data.status == 2) {
+        } else if (objData.data.estado == 2) {
           document.querySelector("#listStatus").value = 2;
         } else {
           document.querySelector("#listStatus").value = 3;

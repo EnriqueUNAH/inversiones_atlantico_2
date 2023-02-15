@@ -391,7 +391,7 @@
     function getPageRout(string $ruta){
         require_once("Libraries/Core/Mysql.php");
         $con = new Mysql();
-        $sql = "SELECT * FROM post WHERE ruta = '$ruta' AND status != 0 ";
+        $sql = "SELECT * FROM post WHERE ruta = '$ruta' AND estado != 0 ";
         $request = $con->select($sql);
         if(!empty($request)){
             $request['portada'] = $request['portada'] != "" ? media()."/images/uploads/".$request['portada'] : "";
@@ -404,7 +404,7 @@
         $con = new Mysql();
         $sql = "SELECT * FROM post WHERE idpost = $idpagina ";
         $request = $con->select($sql);
-        if( ($request['status'] == 2 AND isset($_SESSION['permisosMod']) AND $_SESSION['permisosMod']['u'] == true) OR $request['status'] == 1){
+        if( ($request['estado'] == 2 AND isset($_SESSION['permisosMod']) AND $_SESSION['permisosMod']['u'] == true) OR $request['estado'] == 1){
             return true;        
         }else{
             return false;

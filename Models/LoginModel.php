@@ -16,10 +16,10 @@
 		{
 			$this->strUsuario = $usuario;
 			$this->strPassword = $password;
-			$sql = "SELECT id_usuario,status FROM tbl_ms_usuarios WHERE 
-					usuario = '$this->strUsuario' and  
+			$sql = "SELECT id_usuario,estado FROM tbl_ms_usuarios WHERE 
+					correo_electronico = '$this->strUsuario' and  
 					contrasena = '$this->strPassword' and 
-					status != 0 ";
+					estado != 0 ";
 			$request = $this->select($sql);
 			return $request;
 		}
@@ -33,7 +33,7 @@
 							p.preguntas_contestadas,
 							p.correo_electronico,		
 							r.id_rol,r.nombrerol,
-							p.status 
+							p.estado 
 					FROM tbl_ms_usuarios p
 					INNER JOIN tbl_ms_roles r
 					ON p.id_rol = r.id_rol
@@ -45,9 +45,9 @@
 
 		public function getUserEmail(string $strEmail){
 			$this->strUsuario = $strEmail;
-			$sql = "SELECT id_usuario,nombre_usuario,status FROM tbl_ms_usuarios WHERE 
+			$sql = "SELECT id_usuario,nombre_usuario,estado FROM tbl_ms_usuarios WHERE 
 					correo_electronico = '$this->strUsuario' and  
-					status = 1 ";
+					estado = 1 ";
 			$request = $this->select($sql);
 			return $request;
 		}
@@ -67,7 +67,7 @@
 			$sql = "SELECT id_usuario FROM tbl_ms_usuarios WHERE 
 					correo_electronico = '$this->strUsuario' and 
 					token = '$this->strToken' and 					
-					status = 1 ";
+					estado = 1 ";
 			$request = $this->select($sql);
 			return $request;
 		}

@@ -17,7 +17,7 @@
 
 		public function selectModulos()
 		{
-			$sql = "SELECT * FROM tbl_ms_objetos WHERE status != 0";
+			$sql = "SELECT * FROM tbl_ms_objetos WHERE estado != 0";
 			$request = $this->select_all($sql);
 			return $request;
 		}	

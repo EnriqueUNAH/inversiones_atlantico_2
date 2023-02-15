@@ -39,7 +39,7 @@
 
 			if(empty($request))
 			{
-				$query_insert  = "INSERT INTO tbl_ms_usuarios(usuario,nombre_usuario,correo_electronico,contrasena,id_rol,status) 
+				$query_insert  = "INSERT INTO tbl_ms_usuarios(usuario,nombre_usuario,correo_electronico,contrasena,id_rol,estado) 
 								  VALUES(?,?,?,?,?,?)";
 	        	$arrData = array($this->strusuario,
         						$this->strNombre,
@@ -63,18 +63,18 @@
 			if($_SESSION['idUser'] != 1 ){
 				$whereAdmin = " and p.id_usuario != 1 ";
 			}
-			$sql = "SELECT p.id_usuario,p.usuario,p.nombre_usuario,p.correo_electronico,p.status,r.id_rol,r.nombrerol 
+			$sql = "SELECT p.id_usuario,p.usuario,p.nombre_usuario,p.correo_electronico,p.estado,r.id_rol,r.nombrerol 
 					FROM tbl_ms_usuarios p 
 					INNER JOIN tbl_ms_roles r
 					ON p.id_rol = r.id_rol
-					WHERE p.status != 0 ".$whereAdmin;
+					WHERE p.estado != 0 ".$whereAdmin;
 					$request = $this->select_all($sql);
 					return $request;
 		}
 		//Muestra los datos en el botón ver más
 		public function selectUsuario(int $id_usuario){
 			$this->intIdUsuario = $id_usuario;
-			$sql = "SELECT p.id_usuario,p.usuario,p.nombre_usuario,p.preguntas_contestadas,p.correo_electronico,r.id_rol,r.nombrerol,p.status, DATE_FORMAT(p.fecha_creacion, '%d-%m-%Y') as fechaRegistro 
+			$sql = "SELECT p.id_usuario,p.usuario,p.nombre_usuario,p.preguntas_contestadas,p.correo_electronico,r.id_rol,r.nombrerol,p.estado, DATE_FORMAT(p.fecha_creacion, '%d-%m-%Y') as fechaRegistro 
 					FROM tbl_ms_usuarios p
 					INNER JOIN tbl_ms_roles r
 					ON p.id_rol = r.id_rol
@@ -83,7 +83,7 @@
 			return $request;
 		}
 
-		public function updateUsuario(int $idUsuario, string $usuario, string $nombre, string $email, string $password, int $tipoid, int $status){
+		public function updateUsuario(int $idUsuario, string $usuario, string $nombre, string $email, string $password, int $tipoid, int $estado){
 
 			$this->intIdUsuario = $idUsuario;
 			$this->strusuario = $usuario;
@@ -93,7 +93,7 @@
 			$this->strEmail = $email;
 			$this->strPassword = $password;
 			$this->intTipoId = $tipoid;
-			$this->intStatus = $status;
+			$this->intStatus = $estado;
 
 			$sql = "SELECT * FROM tbl_ms_usuarios WHERE (correo_electronico = '{$this->strEmail}' AND id_usuario != $this->intIdUsuario)
 										  OR (usuario = '{$this->strusuario}' AND id_usuario != $this->intIdUsuario) ";
@@ -103,7 +103,7 @@
 			{
 				if($this->strPassword  != "") 
 				{
-					$sql = "UPDATE tbl_ms_usuarios SET usuario=?, nombre_usuario=?, correo_electronico=?, contrasena=?, id_rol=?, status=? 
+					$sql = "UPDATE tbl_ms_usuarios SET usuario=?, nombre_usuario=?, correo_electronico=?, contrasena=?, id_rol=?, estado=? 
 							WHERE id_usuario = $this->intIdUsuario ";
 					$arrData = array($this->strusuario,
 	        						$this->strNombre,
@@ -114,7 +114,7 @@
 	        						$this->intTipoId,
 	        						$this->intStatus);
 				}else{
-					$sql = "UPDATE tbl_ms_usuarios SET usuario=?, nombre_usuario=?, correo_electronico=?, id_rol=?, status=? 
+					$sql = "UPDATE tbl_ms_usuarios SET usuario=?, nombre_usuario=?, correo_electronico=?, id_rol=?, estado=? 
 							WHERE id_usuario = $this->intIdUsuario ";
 					$arrData = array($this->strusuario,
 	        						$this->strNombre,
@@ -134,7 +134,7 @@
 		public function deleteUsuario(int $intid_usuario)
 		{
 			$this->intIdUsuario = $intid_usuario;
-			$sql = "UPDATE tbl_ms_usuarios SET status = ? WHERE id_usuario = $this->intIdUsuario ";
+			$sql = "UPDATE tbl_ms_usuarios SET estado = ? WHERE id_usuario = $this->intIdUsuario ";
 			$arrData = array(0);
 			$request = $this->update($sql,$arrData);
 			return $request;

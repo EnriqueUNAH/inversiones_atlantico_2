@@ -34,15 +34,15 @@
 						$arrResponse = array('' => false, 'msg' => 'El usuario o la contraseña es incorrecto.' ); 
 					}else{
 						$arrData = $requestUser;
-						if($arrData[''] == 1){
+						if($arrData['estado'] == 1){
 							$_SESSION['idUser'] = $arrData['id_usuario'];
 							$_SESSION['login'] = true;
 
 							$arrData = $this->model->sessionLogin($_SESSION['idUser']);
 							sessionUser($_SESSION['idUser']);							
-							$arrResponse = array('' => true, 'msg' => 'ok');
+							$arrResponse = array('status' => true, 'msg' => 'ok');							
 						}else{
-							$arrResponse = array('' => false, 'msg' => 'Usuario inactivo.');
+							$arrResponse = array('status' => false, 'msg' => 'Usuario inactivo.');
 						}
 					}
 				}
@@ -56,14 +56,14 @@
 				error_reporting(0);
 
 				if(empty($_POST['txtEmailReset'])){
-					$arrResponse = array('' => false, 'msg' => 'Error de datos' );
+					$arrResponse = array('status' => false, 'msg' => 'Error de datos' );
 				}else{
 					$token = token();
 					$strEmail  =  strtolower(strClean($_POST['txtEmailReset']));
 					$arrData = $this->model->getUserEmail($strEmail);
 
 					if(empty($arrData)){
-						$arrResponse = array('' => false, 'msg' => 'Usuario no existente.' ); 
+						$arrResponse = array('status' => false, 'msg' => 'Usuario no existente.' ); 
 					}else{
 						$id_usuario = $arrData['id_usuario'];
 						$nombreUsuario = $arrData['usuario'];
@@ -79,15 +79,15 @@
 							$sendEmail = sendMailLocal($dataUsuario,'email_cambioPassword');
 							
 							if($sendEmail){
-								$arrResponse = array('' => true, 'msg' => 'Se ha enviado un email a tu cuenta de correo para cambiar tu contraseña.' );
+								$arrResponse = array('status' => true, 'msg' => 'Se ha enviado un email a tu cuenta de correo para cambiar tu contraseña.' );
 								
 								}else{
-								$arrResponse = array('' => false, 
+								$arrResponse = array('status' => false, 
 												 'msg' => 'No es posible realizar el proceso' );
 																		 
 							}
 						}else{
-							$arrResponse = array('' => false, 
+							$arrResponse = array('status' => false, 
 												 'msg' => 'No es posible realizar el proceso, intenta más tarde.' );
 											
 						}

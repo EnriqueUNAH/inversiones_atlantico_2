@@ -33,11 +33,11 @@
 					$btnEdit = '';
 					$btnDelete = '';
 
-					if($arrData[$i]['status'] == 1)
+					if($arrData[$i]['estado'] == 1)
 					{
-						$arrData[$i]['status'] = '<span class="badge badge-success">Activo</span>';
+						$arrData[$i]['estado'] = '<span class="badge badge-success">Activo</span>';
 					}else{
-						$arrData[$i]['status'] = '<span class="badge badge-danger">Inactivo</span>';
+						$arrData[$i]['estado'] = '<span class="badge badge-danger">Inactivo</span>';
 					}
 
 					$arrData[$i]['precio'] = SMONEY.' '.formatMoney($arrData[$i]['precio']);

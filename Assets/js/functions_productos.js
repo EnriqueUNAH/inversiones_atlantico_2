@@ -24,7 +24,7 @@ tableProductos = $("#tableProductos").dataTable({
     { data: "nombre" },
     { data: "stock" },
     { data: "precio" },
-    { data: "status" },
+    { data: "estado" },
     { data: "options" },
   ],
   columnDefs: [
@@ -69,7 +69,7 @@ window.addEventListener(
         let intCodigo = document.querySelector("#txtCodigo").value;
         let strPrecio = document.querySelector("#txtPrecio").value;
         let intStock = document.querySelector("#txtStock").value;
-        let intStatus = document.querySelector("#listStatus").value;
+        let intestado = document.querySelector("#listStatus").value;
         if (
           strNombre == "" ||
           intCodigo == "" ||
@@ -106,7 +106,7 @@ window.addEventListener(
                 tableProductos.api().ajax.reload();
               } else {
                 htmlStatus =
-                  intStatus == 1
+                  intestado == 1
                     ? '<span class="badge badge-success">Activo</span>'
                     : '<span class="badge badge-danger">Inactivo</span>';
                 rowTable.cells[1].textContent = intCodigo;
@@ -279,7 +279,7 @@ function fntViewInfo(idProducto) {
         let htmlImage = "";
         let objProducto = objData.data;
         let estadoProducto =
-          objProducto.status == 1
+          objProducto.estado == 1
             ? '<span class="badge badge-success">Activo</span>'
             : '<span class="badge badge-danger">Inactivo</span>';
 
@@ -289,7 +289,7 @@ function fntViewInfo(idProducto) {
         document.querySelector("#celStock").innerHTML = objProducto.stock;
         document.querySelector("#celCategoria").innerHTML =
           objProducto.categoria;
-        document.querySelector("#celStatus").innerHTML = estadoProducto;
+        document.querySelector("#celestado").innerHTML = estadoProducto;
         document.querySelector("#celDescripcion").innerHTML =
           objProducto.descripcion;
 
@@ -339,7 +339,7 @@ function fntEditInfo(element, idProducto) {
         document.querySelector("#txtStock").value = objProducto.stock;
         document.querySelector("#listCategoria").value =
           objProducto.categoriaid;
-        document.querySelector("#listStatus").value = objProducto.status;
+        document.querySelector("#listStatus").value = objProducto.estado;
         tinymce.activeEditor.setContent(objProducto.descripcion);
         $("#listCategoria").selectpicker("render");
         $("#listStatus").selectpicker("render");

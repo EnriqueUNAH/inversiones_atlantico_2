@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", function () {
       { data: "id_rol" },
       { data: "nombrerol" },
       { data: "descripcion" },
-      { data: "status" },
+      { data: "estado" },
       { data: "options" },
     ],
     resonsieve: "true",
@@ -32,8 +32,8 @@ document.addEventListener("DOMContentLoaded", function () {
     var intid_rol = document.querySelector("#id_rol").value;
     var strNombre = document.querySelector("#txtNombre").value;
     var strDescripcion = document.querySelector("#txtDescripcion").value;
-    var intStatus = document.querySelector("#listStatus").value;
-    if (strNombre == "" || strDescripcion == "" || intStatus == "") {
+    var intestado = document.querySelector("#listStatus").value;
+    if (strNombre == "" || strDescripcion == "" || intestado == "") {
       swal("Atención", "Todos los campos son obligatorios.", "error");
       return false;
     }

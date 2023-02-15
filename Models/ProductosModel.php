@@ -9,7 +9,7 @@
 		private $intCategoriaId;
 		private $intPrecio;
 		private $intStock;
-		private $intStatus;
+		private $intestado;
 		private $strRuta;
 		private $strImagen;
 
@@ -27,16 +27,16 @@
 							c.nombre as categoria,
 							p.precio,
 							p.stock,
-							p.status 
+							p.estado 
 					FROM producto p 
 					INNER JOIN categoria c
 					ON p.categoriaid = c.idcategoria
-					WHERE p.status != 0 ";
+					WHERE p.estado != 0 ";
 					$request = $this->select_all($sql);
 			return $request;
 		}	
 
-		public function insertProducto(string $nombre, string $descripcion, int $codigo, int $categoriaid, string $precio, int $stock, string $ruta, int $status){
+		public function insertProducto(string $nombre, string $descripcion, int $codigo, int $categoriaid, string $precio, int $stock, string $ruta, int $estado){
 			$this->strNombre = $nombre;
 			$this->strDescripcion = $descripcion;
 			$this->intCodigo = $codigo;
@@ -44,7 +44,7 @@
 			$this->strPrecio = $precio;
 			$this->intStock = $stock;
 			$this->strRuta = $ruta;
-			$this->intStatus = $status;
+			$this->intestado = $estado;
 			$return = 0;
 			$sql = "SELECT * FROM producto WHERE codigo = '{$this->intCodigo}'";
 			$request = $this->select_all($sql);
@@ -57,7 +57,7 @@
 														precio,
 														stock,
 														ruta,
-														status) 
+														estado) 
 								  VALUES(?,?,?,?,?,?,?,?)";
 	        	$arrData = array($this->intCategoriaId,
         						$this->intCodigo,
@@ -66,7 +66,7 @@
         						$this->strPrecio,
         						$this->intStock,
         						$this->strRuta,
-        						$this->intStatus);
+        						$this->intestado);
 	        	$request_insert = $this->insert($query_insert,$arrData);
 	        	$return = $request_insert;
 			}else{
@@ -75,7 +75,7 @@
 	        return $return;
 		}
 
-		public function updateProducto(int $idproducto, string $nombre, string $descripcion, int $codigo, int $categoriaid, string $precio, int $stock, string $ruta, int $status){
+		public function updateProducto(int $idproducto, string $nombre, string $descripcion, int $codigo, int $categoriaid, string $precio, int $stock, string $ruta, int $estado){
 			$this->intIdProducto = $idproducto;
 			$this->strNombre = $nombre;
 			$this->strDescripcion = $descripcion;
@@ -84,7 +84,7 @@
 			$this->strPrecio = $precio;
 			$this->intStock = $stock;
 			$this->strRuta = $ruta;
-			$this->intStatus = $status;
+			$this->intestado = $estado;
 			$return = 0;
 			$sql = "SELECT * FROM producto WHERE codigo = '{$this->intCodigo}' AND idproducto != $this->intIdProducto ";
 			$request = $this->select_all($sql);
@@ -98,7 +98,7 @@
 							precio=?,
 							stock=?,
 							ruta=?,
-							status=? 
+							estado=? 
 						WHERE idproducto = $this->intIdProducto ";
 				$arrData = array($this->intCategoriaId,
         						$this->intCodigo,
@@ -107,7 +107,7 @@
         						$this->strPrecio,
         						$this->intStock,
         						$this->strRuta,
-        						$this->intStatus);
+        						$this->intestado);
 
 	        	$request = $this->update($sql,$arrData);
 	        	$return = $request;
@@ -127,7 +127,7 @@
 							p.stock,
 							p.categoriaid,
 							c.nombre as categoria,
-							p.status
+							p.estado
 					FROM producto p
 					INNER JOIN categoria c
 					ON p.categoriaid = c.idcategoria
@@ -168,7 +168,7 @@
 
 		public function deleteProducto(int $idproducto){
 			$this->intIdProducto = $idproducto;
-			$sql = "UPDATE producto SET status = ? WHERE idproducto = $this->intIdProducto ";
+			$sql = "UPDATE producto SET estado = ? WHERE idproducto = $this->intIdProducto ";
 			$arrData = array(0);
 			$request = $this->update($sql,$arrData);
 			return $request;

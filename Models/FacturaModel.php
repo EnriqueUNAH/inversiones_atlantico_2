@@ -22,7 +22,7 @@
 							p.tipopagoid,
 							t.tipopago,
 							p.direccion_envio,
-							p.status
+							p.estado
 					FROM pedido as p
 					INNER JOIN tipopago t
 					ON p.tipopagoid = t.idtipopago

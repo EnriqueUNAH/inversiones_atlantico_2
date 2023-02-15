@@ -24,7 +24,7 @@ trait TProducto{
 				FROM producto p 
 				INNER JOIN categoria c
 				ON p.categoriaid = c.idcategoria
-				WHERE p.status != 0 ORDER BY p.idproducto DESC LIMIT ".CANTPORDHOME;
+				WHERE p.estado != 0 ORDER BY p.idproducto DESC LIMIT ".CANTPORDHOME;
 				$request = $this->con->select_all($sql);
 				if(count($request) > 0){
 					for ($c=0; $c < count($request) ; $c++) { 
@@ -58,7 +58,7 @@ trait TProducto{
 				FROM producto p 
 				INNER JOIN categoria c
 				ON p.categoriaid = c.idcategoria
-				WHERE p.status = 1 ORDER BY p.idproducto DESC LIMIT $desde,$porpagina";
+				WHERE p.estado = 1 ORDER BY p.idproducto DESC LIMIT $desde,$porpagina";
 				$request = $this->con->select_all($sql);
 				if(count($request) > 0){
 					for ($c=0; $c < count($request) ; $c++) { 
@@ -105,7 +105,7 @@ trait TProducto{
 					FROM producto p 
 					INNER JOIN categoria c
 					ON p.categoriaid = c.idcategoria
-					WHERE p.status != 0 AND p.categoriaid = $this->intIdcategoria AND c.ruta = '{$this->strRuta}'
+					WHERE p.estado != 0 AND p.categoriaid = $this->intIdcategoria AND c.ruta = '{$this->strRuta}'
 					ORDER BY p.idproducto DESC ".$where;
 					$request = $this->con->select_all($sql);
 					if(count($request) > 0){
@@ -150,7 +150,7 @@ trait TProducto{
 				FROM producto p 
 				INNER JOIN categoria c
 				ON p.categoriaid = c.idcategoria
-				WHERE p.status != 0 AND p.idproducto = '{$this->intIdProducto}' AND p.ruta = '{$this->strRuta}' ";
+				WHERE p.estado != 0 AND p.idproducto = '{$this->intIdProducto}' AND p.ruta = '{$this->strRuta}' ";
 				$request = $this->con->select($sql);
 				if(!empty($request)){
 					$intIdProducto = $request['idproducto'];
@@ -196,7 +196,7 @@ trait TProducto{
 				FROM producto p 
 				INNER JOIN categoria c
 				ON p.categoriaid = c.idcategoria
-				WHERE p.status != 0 AND p.categoriaid = $this->intIdcategoria
+				WHERE p.estado != 0 AND p.categoriaid = $this->intIdcategoria
 				ORDER BY $this->option LIMIT  $this->cant ";
 				$request = $this->con->select_all($sql);
 				if(count($request) > 0){
@@ -232,7 +232,7 @@ trait TProducto{
 				FROM producto p 
 				INNER JOIN categoria c
 				ON p.categoriaid = c.idcategoria
-				WHERE p.status != 0 AND p.idproducto = '{$this->intIdProducto}' ";
+				WHERE p.estado != 0 AND p.idproducto = '{$this->intIdProducto}' ";
 				$request = $this->con->select($sql);
 				if(!empty($request)){
 					$intIdProducto = $request['idproducto'];
@@ -258,7 +258,7 @@ trait TProducto{
 			$where = " AND categoriaid = ".$categoria;
 		}
 		$this->con = new Mysql();
-		$sql = "SELECT COUNT(*) as total_registro FROM producto WHERE status = 1 ".$where;
+		$sql = "SELECT COUNT(*) as total_registro FROM producto WHERE estado = 1 ".$where;
 		$result_register = $this->con->select($sql);
 		$total_registro = $result_register;
 		return $total_registro;
@@ -267,7 +267,7 @@ trait TProducto{
 
 	public function cantProdSearch($busqueda){
 		$this->con = new Mysql();
-		$sql = "SELECT COUNT(*) as total_registro FROM producto WHERE nombre LIKE '%$busqueda%' AND status = 1 ";
+		$sql = "SELECT COUNT(*) as total_registro FROM producto WHERE nombre LIKE '%$busqueda%' AND estado = 1 ";
 		$result_register = $this->con->select($sql);
 		$total_registro = $result_register;
 		return $total_registro;
@@ -287,7 +287,7 @@ trait TProducto{
 				FROM producto p 
 				INNER JOIN categoria c
 				ON p.categoriaid = c.idcategoria
-				WHERE p.status = 1 AND p.nombre LIKE '%$busqueda%' ORDER BY p.idproducto DESC LIMIT $desde,$porpagina";
+				WHERE p.estado = 1 AND p.nombre LIKE '%$busqueda%' ORDER BY p.idproducto DESC LIMIT $desde,$porpagina";
 				$request = $this->con->select_all($sql);
 				if(count($request) > 0){
 					for ($c=0; $c < count($request) ; $c++) { 

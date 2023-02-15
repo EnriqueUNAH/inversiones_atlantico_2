@@ -18,6 +18,7 @@
             </a>
         </li>
         <?php } ?>
+        
         <?php if(!empty($_SESSION['permisos'][2]['r'])){ ?>
         <li class="treeview">
             <a class="app-menu__item" href="#" data-toggle="treeview">
