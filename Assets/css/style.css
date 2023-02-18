@@ -18,11 +18,11 @@
 }
 .headerRegister, .header-primary{
 	background: #009688;
-	color: #FFF;
+	color: #0a33bb;
 }
 .headerUpdate{
-	background: #007bff;
-	color: #FFF;
+	background: #0a33bb;
+	color: #0a33bb;
 }
 .textcenter{
 	text-align: center;
