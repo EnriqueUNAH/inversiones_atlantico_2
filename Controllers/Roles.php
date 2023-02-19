@@ -39,9 +39,9 @@
 
 					if($arrData[$i]['estado'] == 1)
 					{
-						$arrData[$i]['estado'] = '<span class="badge badge-success">Activo</span>';
+						$arrData[$i]['estado'] = '<span class="badge badge-success">ACTIVO</span>';
 					}else{
-						$arrData[$i]['estado'] = '<span class="badge badge-danger">Inactivo</span>';
+						$arrData[$i]['estado'] = '<span class="badge badge-danger">INACTIVO</span>';
 					}
 
 					if($_SESSION['permisosMod']['u']){
@@ -153,4 +153,3 @@
 		}
 
 	}
- ?>

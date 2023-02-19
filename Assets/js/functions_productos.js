@@ -107,8 +107,8 @@ window.addEventListener(
               } else {
                 htmlStatus =
                   intestado == 1
-                    ? '<span class="badge badge-success">Activo</span>'
-                    : '<span class="badge badge-danger">Inactivo</span>';
+                    ? '<span class="badge badge-success">ACTIVO</span>'
+                    : '<span class="badge badge-danger">INACTIVO</span>';
                 rowTable.cells[1].textContent = intCodigo;
                 rowTable.cells[2].textContent = strNombre;
                 rowTable.cells[3].textContent = intStock;

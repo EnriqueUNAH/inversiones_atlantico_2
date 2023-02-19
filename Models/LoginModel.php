@@ -17,7 +17,7 @@
 			$this->strUsuario = $usuario;
 			$this->strPassword = $password;
 			$sql = "SELECT id_usuario,estado FROM tbl_ms_usuarios WHERE 
-					correo_electronico = '$this->strUsuario' and  
+					usuario = '$this->strUsuario' and  
 					contrasena = '$this->strPassword' and 
 					estado != 0 ";
 			$request = $this->select($sql);
@@ -81,4 +81,3 @@
 			return $request;
 		}
 	}
- ?>

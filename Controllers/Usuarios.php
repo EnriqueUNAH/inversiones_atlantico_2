@@ -32,10 +32,8 @@
 					$arrResponse = array("status" => false, "msg" => 'Datos incorrectos.');
 				}else{ 
 					$id_usuario = intval($_POST['id_usuario']);
-					$strusuario = strClean($_POST['txtusuario']);
-					$strnombre_usuario = ucwords(strClean($_POST['txtnombre_usuario']));
-					//$strApellido = ucwords(strClean($_POST['txtApellido']));
-					//$intpreguntas_contestadas = 0;
+					$strusuario = strtoupper(strClean($_POST['txtusuario']));
+					$strnombre_usuario = strtoupper(strClean($_POST['txtnombre_usuario']));
 					$strEmail = strtolower(strClean($_POST['txtEmail']));
 					$intTipoId = intval(strClean($_POST['listid_rol']));
 					$intestado = intval(strClean($_POST['listStatus']));
@@ -107,23 +105,33 @@
 					if($_SESSION['permisosMod']['r']){
 						$btnView = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntViewUsuario('.$arrData[$i]['id_usuario'].')" title="Ver usuario"><i class="far fa-eye"></i></button>';
 					}
-					if($_SESSION['permisosMod']['u']){
-						if(($_SESSION['idUser'] == 1 and $_SESSION['userData']['id_rol'] == 1) ||
-							($_SESSION['userData']['id_rol'] == 1 and $arrData[$i]['id_rol'] != 1) ){
+					// if($_SESSION['permisosMod']['u']){
+					// 	if(($_SESSION['idUser'] == 1 and $_SESSION['userData']['id_rol'] == 1) ||
+					// 		($_SESSION['userData']['id_rol'] == 1 and $arrData[$i]['id_rol'] != 1) ){
+					// 		$btnEdit = '<button class="btn btn-primary  btn-sm btnEditUsuario" onClick="fntEditUsuario(this,'.$arrData[$i]['id_usuario'].')" title="Editar usuario"><i class="fas fa-pencil-alt"></i></button>';
+					// 	}else{
+					// 		$btnEdit = '<button class="btn btn-secondary btn-sm" disabled ><i class="fas fa-pencil-alt"></i></button>';
+					// 	}
+					// }
+					if($_SESSION['permisosMod']['u']){						
 							$btnEdit = '<button class="btn btn-primary  btn-sm btnEditUsuario" onClick="fntEditUsuario(this,'.$arrData[$i]['id_usuario'].')" title="Editar usuario"><i class="fas fa-pencil-alt"></i></button>';
-						}else{
-							$btnEdit = '<button class="btn btn-secondary btn-sm" disabled ><i class="fas fa-pencil-alt"></i></button>';
-						}
+					}else{
+							$btnEdit = '<button class="btn btn-secondary btn-sm" disabled ><i class="fas fa-pencil-alt"></i></button>';						
 					}
-					if($_SESSION['permisosMod']['d']){
-						if(($_SESSION['idUser'] == 1 and $_SESSION['userData']['id_rol'] == 1) ||
-							($_SESSION['userData']['id_rol'] == 1 and $arrData[$i]['id_rol'] != 1) and
-							($_SESSION['userData']['id_usuario'] != $arrData[$i]['id_usuario'] )
-							 ){
+					// if($_SESSION['permisosMod']['d']){
+					// 	if(($_SESSION['idUser'] == 1 and $_SESSION['userData']['id_rol'] == 1) ||
+					// 		($_SESSION['userData']['id_rol'] == 1 and $arrData[$i]['id_rol'] != 1) and
+					// 		($_SESSION['userData']['id_usuario'] != $arrData[$i]['id_usuario'] )
+					// 		 ){
+					// 		$btnDelete = '<button class="btn btn-danger btn-sm btnDelUsuario" onClick="fntDelUsuario('.$arrData[$i]['id_usuario'].')" title="Eliminar usuario"><i class="far fa-trash-alt"></i></button>';
+					// 	}else{
+					// 		$btnDelete = '<button class="btn btn-secondary btn-sm" disabled ><i class="far fa-trash-alt"></i></button>';
+					// 	}
+					// }
+					if($_SESSION['permisosMod']['d']){	
 							$btnDelete = '<button class="btn btn-danger btn-sm btnDelUsuario" onClick="fntDelUsuario('.$arrData[$i]['id_usuario'].')" title="Eliminar usuario"><i class="far fa-trash-alt"></i></button>';
-						}else{
+					}else{
 							$btnDelete = '<button class="btn btn-secondary btn-sm" disabled ><i class="far fa-trash-alt"></i></button>';
-						}
 					}
 					$arrData[$i]['options'] = '<div class="text-center">'.$btnView.' '.$btnEdit.' '.$btnDelete.'</div>';
 				}
@@ -254,4 +262,3 @@
 		}
 
 	}
- ?>

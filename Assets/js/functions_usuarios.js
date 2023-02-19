@@ -310,10 +310,10 @@ function fntViewUsuario(id_usuario) {
       if (objData.status) {
         let estadoUsuario =
           objData.data.estado == 1
-            ? '<span class="badge badge-success">Activo</span>'
+            ? '<span class="badge badge-success">ACTIVO</span>'
             : objData.data.estado == 3
-            ? '<span class="badge badge-info">Nuevo</span>'
-            : '<span class="badge badge-danger">Inactivo</span>';
+            ? '<span class="badge badge-info">NUEVO</span>'
+            : '<span class="badge badge-danger">INACTIVO</span>';
 
         document.querySelector("#celusuario").innerHTML = objData.data.usuario;
         document.querySelector("#celNombre").innerHTML =

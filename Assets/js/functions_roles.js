@@ -120,14 +120,14 @@ function fntEditRol(id_rol) {
 
         if (objData.data.status == 1) {
           var optionSelect =
-            '<option value="1" selected class="notBlock">Activo</option>';
+            '<option value="1" selected class="notBlock">ACTIVO</option>';
         } else {
           var optionSelect =
-            '<option value="2" selected class="notBlock">Inactivo</option>';
+            '<option value="2" selected class="notBlock">INACTIVO</option>';
         }
         var htmlSelect = `${optionSelect}
-                                  <option value="1">Activo</option>
-                                  <option value="2">Inactivo</option>
+                                  <option value="1">ACTIVO</option>
+                                  <option value="2">INACTIVO</option>
                                 `;
         document.querySelector("#listStatus").innerHTML = htmlSelect;
         $("#modalFormRol").modal("show");
