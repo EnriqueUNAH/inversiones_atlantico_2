@@ -12,7 +12,7 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
 :root {
-  --blue: #007bff;
+  --blue: #0099ff57;
   --indigo: #6610f2;
   --purple: #6f42c1;
   --pink: #e83e8c;
@@ -23,7 +23,7 @@
   --teal: #20c997;
   --cyan: #17a2b8;
   --white: #fff;
-  --gray: #6c757d;
+  --gray: #6c757d86;
   --gray-dark: #343a40;
   --primary: #009688;
   --secondary: #6c757d;
@@ -15552,7 +15552,7 @@ be a descendant of the grid when it is being dragged.
     flex: 0 0 auto;
     display: block;
     width: 230px;
-    background-color: #0d6efd;
+    background-color: #0040ff;
   }
 }
 
@@ -15799,7 +15799,7 @@ be a descendant of the grid when it is being dragged.
   align-items: center;
   padding: 10px;
   margin-bottom: 20px;
-  color: #0a33bb;
+  color: #0d6efd;
 }
 
 .app-sidebar__user-avatar {
@@ -15842,13 +15842,13 @@ be a descendant of the grid when it is being dragged.
   -webkit-transition: border-left-color 0.3s ease, background-color 0.3s ease;
   -o-transition: border-left-color 0.3s ease, background-color 0.3s ease;
   transition: border-left-color 0.3s ease, background-color 0.3s ease;
-  color: #0a33bb;
+  color: #0d6efd;
 }
 
 .app-menu__item.active,
 .app-menu__item:hover,
 .app-menu__item:focus {
-  background: #0d1214;
+  background: #0084ff7e;
   border-left-color: #009688;
   text-decoration: none;
   color: #fff;
@@ -15870,7 +15870,7 @@ be a descendant of the grid when it is being dragged.
 
 .treeview.is-expanded [data-toggle="treeview"] {
   border-left-color: #009688;
-  background: #0d1214;
+  background: #0084ff7e;
 }
 
 .treeview.is-expanded .treeview-menu {
@@ -15889,7 +15889,7 @@ be a descendant of the grid when it is being dragged.
   -webkit-transition: max-height 0.3s ease;
   -o-transition: max-height 0.3s ease;
   transition: max-height 0.3s ease;
-  background: #2a383e;
+  background: #0099ff57;
 }
 
 .treeview-item {
@@ -15907,7 +15907,7 @@ be a descendant of the grid when it is being dragged.
 .treeview-item.active,
 .treeview-item:hover,
 .treeview-item:focus {
-  background: #0d1214;
+  background:#0084ff7e;
   text-decoration: none;
   color: #fff;
 }
