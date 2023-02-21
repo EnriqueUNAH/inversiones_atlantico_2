@@ -74,19 +74,17 @@ $fecha_v = date("Y-m-d",strtotime($fecha_v."+ $parametro_fecha days"));
         <?php
     }else{
         $contrasenaA = $contrasena;
-        $insertar="INSERT INTO tbl_ms_usuarios VALUES('$filas','$usuario','$nombre','3','$hash','$fechaC','0','0','$fecha_v','$correo','$usuario','$fechaC','$usuario','$fechaC','2')";
+        $insertar="INSERT INTO tbl_ms_usuarios VALUES('$filas','$usuario','$nombre','3','$hash','$fechaC','0','0','$fecha_v','$correo','asdad','$usuario','$fechaC','$usuario','$fechaC','2')";
         mysqli_query( $conexion , $insertar );
 
-        $insertar1="INSERT INTO usuario VALUES('$filas','0','$usuario','$correo','$usuario','$hash','2','1')";
-        mysqli_query( $conexion , $insertar1 );
-
-        $bitacora="INSERT INTO tbl_ms_bitacora VALUES('$filas_bbitacora','$fechaC','$filas','3','AUTOREGISTRO','AUTOREGISTRO DE USUARIO DESDE EL LOGIN')";
+       /* $bitacora="INSERT INTO tbl_ms_bitacora VALUES('$filas_bbitacora','$fechaC','$filas','3','AUTOREGISTRO','AUTOREGISTRO DE USUARIO DESDE EL LOGIN')";
         mysqli_query( $conexion , $bitacora );
-        echo '<script>alert("Usuario Creado satisfactoriamente");</script>';
+        echo '<script>alert("Usuario Creado satisfactoriamente");</script>';*/
 
     //code...
 
     // Load Composer's autolveder
+    /*
     require '../PHPMailer/src/Exception.php';
     require '../PHPMailer/src/PHPMailer.php';
     require '../PHPMailer/src/SMTP.php';
@@ -197,10 +195,12 @@ $body.='</html>';
     
         $mail->send();
 
-    echo '<script>alert("CORREO ENVIADO CON EXITO");</script>';
+    echo '<script>alert("CORREO ENVIADO CON EXITO");</script>';*/
+    echo '<script>alert("USUARIO CREADO, FALTA ENVIAR CORREO Y MANDAR A CONTESTAR PREGUNTAS");</script>';
 
 
-        include('../Login/preguntasPrimeraVez.php');
+
+        //include('../Login/preguntasPrimeraVez.php');
     }
     mysqli_close($conexion);
 
