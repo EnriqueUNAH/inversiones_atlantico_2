@@ -37,6 +37,7 @@
 						if($arrData['estado'] == 1){
 							$_SESSION['idUser'] = $arrData['id_usuario'];
 							$_SESSION['login'] = true;
+							$_SESSION['elUsuario'] = $arrData['usuario'];
 
 							$arrData = $this->model->sessionLogin($_SESSION['idUser']);
 							sessionUser($_SESSION['idUser']);							
@@ -229,4 +230,3 @@
 		}
 
 	}
- ?>
