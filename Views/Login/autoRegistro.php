@@ -195,7 +195,7 @@
                       
                     </div>
                     <div class="col-12">
-                      <p  class="small mb-0">YA TIENES CUENTA? <a href="Login/index.php">INICIAR SESION</a></p>
+                      <p  class="small mb-0">YA TIENES CUENTA? <a href="../../login">INICIAR SESION</a></p>
                     </div>
                   </form>
 
