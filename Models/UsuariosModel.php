@@ -23,7 +23,6 @@ class UsuariosModel extends Mysql
 
 	public function insertUsuario(string $usuario, string $nombre, string $email, string $password, int $tipoid, int $status)
 	{
-
 		$this->strusuario = $usuario;
 		$this->strNombre = $nombre;
 		$this->strEmail = $email;
@@ -102,7 +101,7 @@ class UsuariosModel extends Mysql
 	public function selectUsuario(int $id_usuario)
 	{
 		$this->intIdUsuario = $id_usuario;
-		$sql = "SELECT p.id_usuario,p.usuario,p.nombre_usuario,p.preguntas_contestadas,p.correo_electronico,r.id_rol,r.nombrerol,p.estado, DATE_FORMAT(p.fecha_creacion, '%d-%m-%Y') as fechaRegistro 
+		$sql = "SELECT p.id_usuario,p.usuario,p.nombre_usuario,p.preguntas_contestadas,p.correo_electronico,r.id_rol,r.nombrerol,p.estado,p.creado_por,p.modificado_por,p.fecha_modificacion, DATE_FORMAT(p.fecha_creacion, '%d-%m-%Y') as fechaRegistro 
 					FROM tbl_ms_usuarios p
 					INNER JOIN tbl_ms_roles r
 					ON p.id_rol = r.id_rol
@@ -110,6 +109,10 @@ class UsuariosModel extends Mysql
 		$request = $this->select($sql);
 		return $request;
 	}
+
+
+
+
 
 	public function updateUsuario(int $idUsuario, string $usuario, string $nombre, string $email, string $password, int $tipoid, int $estado)
 	{
@@ -120,6 +123,8 @@ class UsuariosModel extends Mysql
 		$this->strEmail = $email;
 		$this->strPassword = $password;
 		$this->intTipoId = $tipoid;
+		$this->strModificadoPor = $_SESSION['elUsuario'];
+		$this->fechaModificacion = date('Y-m-d H:i:s');
 		$this->intStatus = $estado;
 
 		$sql = "SELECT * FROM tbl_ms_usuarios WHERE (correo_electronico = '{$this->strEmail}' AND id_usuario != $this->intIdUsuario)
@@ -128,28 +133,28 @@ class UsuariosModel extends Mysql
 
 		if (empty($request)) {
 			if ($this->strPassword  != "") {
-				$sql = "UPDATE tbl_ms_usuarios SET usuario=?, nombre_usuario=?, correo_electronico=?, contrasena=?, id_rol=?, estado=? 
+				$sql = "UPDATE tbl_ms_usuarios SET usuario=?, nombre_usuario=?, correo_electronico=?, contrasena=?, id_rol=?, modificado_por=?, fecha_modificacion=?, estado=? 
 							WHERE id_usuario = $this->intIdUsuario ";
 				$arrData = array(
 					$this->strusuario,
 					$this->strNombre,
-					//$this->strApellido,
-					//$this->intpreguntas_contestadas,
 					$this->strEmail,
 					$this->strPassword,
 					$this->intTipoId,
+					$this->strModificadoPor,
+					$this->fechaModificacion,
 					$this->intStatus
 				);
 			} else {
-				$sql = "UPDATE tbl_ms_usuarios SET usuario=?, nombre_usuario=?, correo_electronico=?, id_rol=?, estado=? 
+				$sql = "UPDATE tbl_ms_usuarios SET usuario=?, nombre_usuario=?, correo_electronico=?, id_rol=?, modificado_por=?, fecha_modificacion=?, estado=? 
 							WHERE id_usuario = $this->intIdUsuario ";
 				$arrData = array(
 					$this->strusuario,
 					$this->strNombre,
-					//$this->strApellido,
-					//$this->intpreguntas_contestadas,
 					$this->strEmail,
 					$this->intTipoId,
+					$this->strModificadoPor,
+					$this->fechaModificacion,
 					$this->intStatus
 				);
 			}
