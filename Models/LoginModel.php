@@ -47,8 +47,8 @@ class LoginModel extends Mysql
 	public function getUserEmail(string $strEmail)
 	{
 		$this->strUsuario = $strEmail;
-		$sql = "SELECT id_usuario,nombre_usuario,estado FROM tbl_ms_usuarios WHERE 
-					correo_electronico = '$this->strUsuario' and  
+		$sql = "SELECT id_usuario,nombre_usuario,correo_electronico,estado FROM tbl_ms_usuarios WHERE 
+					usuario = '$this->strUsuario' and  
 					estado = 1 ";
 		$request = $this->select($sql);
 		return $request;

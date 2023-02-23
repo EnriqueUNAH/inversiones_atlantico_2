@@ -55,7 +55,7 @@ document.addEventListener(
 
         let strEmail = document.querySelector("#txtEmailReset").value;
         if (strEmail == "") {
-          swal("Por favor", "Escribe tu correo electrónico.", "error");
+          swal("Por favor", "Escribe tu usuario", "error");
           return false;
         } else {
           divLoading.style.display = "flex";
@@ -72,7 +72,7 @@ document.addEventListener(
 
             if (request.Status == 200) {
               var objData = JSON.parse(request.responseText);
-              if (objData.Status) {
+              if (objData.status) {
                 swal(
                   {
                     title: "",
