@@ -70,7 +70,7 @@ document.addEventListener(
           request.onreadystatechange = function () {
             if (request.readyState != 4) return;
 
-            if (request.Status == 200) {
+            if (request.status == 200) {
               var objData = JSON.parse(request.responseText);
               if (objData.status) {
                 swal(

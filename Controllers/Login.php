@@ -85,15 +85,15 @@ class Login extends Controllers
 						'asunto' => 'Recuperar cuenta - ' . NOMBRE_REMITENTE,
 						'url_recovery' => $url_recovery
 					);
-					if ($requestUpdate) {
-						$sendEmail = sendMailLocal($dataUsuario, 'email_cambioPassword');
 
-						if ($sendEmail) {
-							$arrResponse = array('status' => true, 'msg' => 'Se ha enviado un email a tu cuenta de correo para cambiar tu contraseña.');
-						} else {
+					if ($requestUpdate) {
+						try {
+							$sendEmail = sendMailLocal($dataUsuario, 'email_cambioPassword');
+							$arrResponse = array('status' => true, 'msg' => 'Se ha enviado un email a tu cuenta de correo');
+						} catch (Exception $e) {
 							$arrResponse = array(
 								'status' => false,
-								'msg' => 'No es posible realizar el proceso'
+								'msg' => 'No es posible realizar el proceso. Error en el envío de correo: ' . $e->getMessage()
 							);
 						}
 					} else {
@@ -244,7 +244,7 @@ class Login extends Controllers
 
 					if ($requestPass) {
 						$arrResponse = array(
-							'' => true,
+							'status' => true,
 							'msg' => 'Contraseña actualizada con éxito.'
 						);
 					} else {
