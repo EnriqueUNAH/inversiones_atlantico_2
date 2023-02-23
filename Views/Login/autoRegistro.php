@@ -197,11 +197,9 @@
 
                     </div>
                     <div class="col-12">
-<<<<<<< HEAD
+
                       <p  class="small mb-0">YA TIENES CUENTA? <a href="../../Login">INICIAR SESION</a></p>
-=======
-                      <p class="small mb-0">YA TIENES CUENTA? <a href="../../login">INICIAR SESION</a></p>
->>>>>>> b7e8b282fc77bb2aee62723dcc176b88ecd6a0ee
+
                     </div>
                   </form>
 
