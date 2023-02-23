@@ -152,7 +152,7 @@
                   <form action="registro.php" onsubmit="validatePassword(); return false;" method="post" class="row g-3 needs-validation" novalidate="false">
                     <div class="col-12">
                       <label for="yourName" class="form-label">Nombre Completo:</label>
-                      <input type="text" style="text-transform:uppercase" name="name" placeholder="nombre" class="form-control" id="yourName" required>
+                      <input type="text" style="text-transform:uppercase" name="name" placeholder="nombre" class="form-control" id="yourName" required value="<?php echo isset($_POST['name']) ? $_POST['name'] : ''; ?>">
                       <div class="invalid-feedback">POR FAVOR, INGRESA TU NOMBRE DE USUARIO!</div>
                     </div>
 
@@ -160,7 +160,7 @@
                       <label for="yourUsername" class="form-label">NOMBRE DE USUARIO:</label>
                       <div class="input-group has-validation">
                         <span class="input-group-text" id="inputGroupPrepend">@</span>
-                        <input type="text" style="text-transform:uppercase" name="username" placeholder="Usuario" onkeypress="javascript: return validar_espacio(event,this)" onKeyUp="maximo(this,100)" onKeyDown="maximo(this,100)" class="form-control" id="yourUsername" required>
+                        <input type="text" style="text-transform:uppercase" name="username" placeholder="Usuario" onkeypress="javascript: return validar_espacio(event,this)" onKeyUp="maximo(this,100)" onKeyDown="maximo(this,100)" class="form-control" id="yourUsername" required value="<?php echo isset($_POST['username']) ? $_POST['username'] : ''; ?>">
 
                         <div class="invalid-feedback">POR FAVOR ESCRIBA UN NOMBRE DE USUARIO.</div>
                       </div>
@@ -169,7 +169,7 @@
                     <div class="col-12">
                       <label for="yourPassword" class="form-label">CONTRASEÑA:</label>
                       <div class="input-group">
-                        <input type="Password" Class="form-control" name="password" placeholder="Ingrese su contraseña" onkeypress="javascript: return validar_espacio(event,this)" class="form-control" id="yourPassword" required>
+                        <input type="Password" Class="form-control" name="password" placeholder="Ingrese su contraseña" onkeypress="javascript: return validar_espacio(event,this)" class="form-control" id="yourPassword" required value="<?php echo isset($_POST['password']) ? $_POST['password'] : ''; ?>">
                         <div class="input-group-append">
                           <button id="show_password" class="btn btn-primary" type="button" onclick="mostrarPassword()"> <span class="fa fa-eye-slash icon"></span> </button>
                         </div>
@@ -179,7 +179,7 @@
                     <div class="col-12">
                       <label for="yourPassword" class="form-label">CONFIRMAR CONTRASEÑA:</label>
                       <div class="input-group">
-                        <input type="Password" Class="form-control" name="password1" placeholder="Confirme su contraseña" onkeypress="javascript: return validar_espacio(event,this)" class="form-control" id="yourPassword1" required>
+                        <input type="Password" Class="form-control" name="password1" placeholder="Confirme su contraseña" onkeypress="javascript: return validar_espacio(event,this)" class="form-control" id="yourPassword1" required value="<?php echo isset($_POST['password1']) ? $_POST['password1'] : ''; ?>">
                         <div class="input-group-append">
                           <button id="show_password" class="btn btn-primary" type="button" onclick="mostrarPassword1()"> <span class="fa fa-eye-slash icon"></span> </button>
                         </div>
@@ -188,7 +188,7 @@
 
                     <div class="col-12">
                       <label for="yourEmail" class="form-label">CORREO ELECTRONICO:</label>
-                      <input type="email" name="email" placeholder="nombre@dominio.com" onkeypress="javascript: return validar_espacio(event,this)" class="form-control" id="yourEmail" required>
+                      <input type="email" name="email" placeholder="nombre@dominio.com" onkeypress="javascript: return validar_espacio(event,this)" class="form-control" id="yourEmail" required value="<?php echo isset($_POST['email']) ? $_POST['email'] : ''; ?>">
                       <div class="invalid-feedback">POR FAVOR INGRESA CORREO ELECTRONICO VALIDO!</div>
                     </div>
 
