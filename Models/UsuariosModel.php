@@ -57,6 +57,8 @@ class UsuariosModel extends Mysql
 		return $return;
 	}
 
+	
+
 	//Función para que inserte en bitácora cada vez que se agrega un nuevo usuario
 	public function insertUsuarioBitacora(string $fecha, int $idUsuario, int $idObjeto, string $accion, string $descripcion)
 	{
@@ -82,6 +84,17 @@ class UsuariosModel extends Mysql
 
 		return $return;
 	}
+
+	// public static function evento_bitacora($id_objeto,$id_usuario,$accion,$descripcion)
+	// 	{
+	// 		   require ('../clases/Conexion.php');
+			   
+	// 		   		$sql = "INSERT INTO  tbl_ms_bitacora (Id_objeto, id_usuario,Fecha, Accion , Descripcion)
+    // 			 VALUES ('$id_objeto', '$id_usuario' , sysdate(), '$accion', '$descripcion')";
+		
+	// 		$resultado = $mysqli->query($sql);
+	// 	}
+		
 
 
 	public function selectUsuarios()
