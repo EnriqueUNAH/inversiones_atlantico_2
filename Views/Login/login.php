@@ -19,6 +19,10 @@
       background-color: #0d6efd;
       color: white;
     }
+
+    .form-control {
+      text-transform: uppercase;
+    }
   </style>
 </head>
 
@@ -127,6 +131,8 @@
     formLogin.addEventListener("submit", () => {
       txtEmail.value = txtEmail.value.toUpperCase();
     });
+
+    let strEmail = document.querySelector("#txtEmailReset").value.toUpperCase();
   </script>
 
 
