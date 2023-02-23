@@ -325,8 +325,15 @@ function fntViewUsuario(id_usuario) {
         document.querySelector("#celTipoUsuario").innerHTML =
           objData.data.nombrerol;
         document.querySelector("#celEstado").innerHTML = estadoUsuario;
+        document.querySelector("#celCreadoPor").innerHTML =
+          objData.data.creado_por;
         document.querySelector("#celFechaRegistro").innerHTML =
           objData.data.fechaRegistro;
+        document.querySelector("#celModificadoPor").innerHTML =
+          objData.data.modificado_por;
+        document.querySelector("#celFechaModificacion").innerHTML =
+          objData.data.fecha_modificacion;
+
         $("#modalViewUser").modal("show");
       } else {
         swal("Error", objData.msg, "error");

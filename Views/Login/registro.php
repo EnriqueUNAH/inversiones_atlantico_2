@@ -8,7 +8,7 @@ $nombre = strtoupper($_POST[ 'name' ]);
 $usuario = strtoupper($_POST[ 'username' ]);
 $_SESSION['name']=$usuario;
 $contrasena = ($_POST[ 'password' ]);
-$hash=password_hash($_POST[ 'password' ], PASSWORD_DEFAULT);
+$hash = hash("SHA256",$_POST[ 'password']);
 $correo = ($_POST[ 'email' ]);
 $fechaC = date('Y-m-d');
 $fecha_v = date('Y-m-d');
@@ -200,7 +200,7 @@ $body.='</html>';
 
 
 
-        //include('../Login/preguntasPrimeraVez.php');
+        include('./preguntasPrimeraVez.php');
     }
     mysqli_close($conexion);
 

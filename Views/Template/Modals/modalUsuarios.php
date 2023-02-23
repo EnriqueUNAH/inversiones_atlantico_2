@@ -99,19 +99,31 @@
             </tr>
             <tr>
               <td>Correo Electrónico:</td>
-              <td id="celEmail">Larry</td>
+              <td id="celEmail"></td>
             </tr>
             <tr>
               <td>Rol:</td>
-              <td id="celTipoUsuario">Larry</td>
+              <td id="celTipoUsuario"></td>
             </tr>
             <tr>
               <td>Estado:</td>
-              <td id="celEstado">Larry</td>
+              <td id="celEstado"></td>
             </tr>
             <tr>
-              <td>Fecha de registro:</td>
-              <td id="celFechaRegistro">Larry</td>
+              <td>Creado por:</td>
+              <td id="celCreadoPor"></td>
+            </tr>
+            <tr>
+              <td>Fecha de creación:</td>
+              <td id="celFechaRegistro"></td>
+            </tr>
+            <tr>
+              <td>Modificado por:</td>
+              <td id="celModificadoPor">n</td>
+            </tr>
+            <tr>
+              <td>Fecha de modificación:</td>
+              <td id="celFechaModificacion"></td>
             </tr>
           </tbody>
         </table>

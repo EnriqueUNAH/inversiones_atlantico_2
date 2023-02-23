@@ -19,6 +19,10 @@
       background-color: #0d6efd;
       color: white;
     }
+
+    .form-control {
+      text-transform: uppercase;
+    }
   </style>
 </head>
 
@@ -68,11 +72,12 @@
         </div>
       </form>
 
+      <!-- FORMULARIO PARA RECUPERAR CUENTA -->
       <form id="formRecetPass" name="formRecetPass" class="forget-form" action="">
         <h3 class="login-head"><i class="fa fa-lg fa-fw fa-lock"></i>¿Olvidaste contraseña?</h3>
         <div class="form-group">
-          <label class="control-label">EMAIL</label>
-          <input id="txtEmailReset" name="txtEmailReset" class="form-control" type="email" placeholder="Email">
+          <label class="control-label">USUARIO</label>
+          <input id="txtEmailReset" name="txtEmailReset" class="form-control" placeholder="Usuario">
         </div>
         <div class="form-group btn-container">
           <button type="submit" class="btn btn-primary btn-block"><i class="fa fa-unlock fa-lg fa-fw"></i>RECUPERAR</button>
@@ -126,6 +131,8 @@
     formLogin.addEventListener("submit", () => {
       txtEmail.value = txtEmail.value.toUpperCase();
     });
+
+    let strEmail = document.querySelector("#txtEmailReset").value.toUpperCase();
   </script>
 
 

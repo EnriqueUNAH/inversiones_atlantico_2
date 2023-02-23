@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -36,89 +37,89 @@
 
 
   <script>
-    function mostrarPassword(){
-        var cambio = document.getElementById("yourPassword");
-		if(cambio.type == "password"){
-			cambio.type = "text";
-			$('.icon').removeClass('fa fa-eye-slash').addClass('fa fa-eye');
-		}else{
-			cambio.type = "password";
-			$('.icon').removeClass('fa fa-eye').addClass('fa fa-eye-slash');
-		}
-	} 
-	
-	$(document).ready(function () {
-	//CheckBox mostrar contraseña
-    $('#ShowPassword').click(function () {
-      $('#Password').attr('type', $(this).is(':checked') ? 'text' : 'password');
-    });
-    });
-  </script>
+    function mostrarPassword() {
+      var cambio = document.getElementById("yourPassword");
+      if (cambio.type == "password") {
+        cambio.type = "text";
+        $('.icon').removeClass('fa fa-eye-slash').addClass('fa fa-eye');
+      } else {
+        cambio.type = "password";
+        $('.icon').removeClass('fa fa-eye').addClass('fa fa-eye-slash');
+      }
+    }
 
-<script>
-    function mostrarPassword1(){
-        var cambio = document.getElementById("yourPassword1");
-		if(cambio.type == "password"){
-			cambio.type = "text";
-			$('.icon').removeClass('fa fa-eye-slash').addClass('fa fa-eye');
-		}else{
-			cambio.type = "password";
-			$('.icon').removeClass('fa fa-eye').addClass('fa fa-eye-slash');
-		}
-	} 
-	
-	$(document).ready(function () {
-	//CheckBox mostrar contraseña
-    $('#ShowPassword').click(function () {
-      $('#Password').attr('type', $(this).is(':checked') ? 'text' : 'password');
-    });
+    $(document).ready(function() {
+      //CheckBox mostrar contraseña
+      $('#ShowPassword').click(function() {
+        $('#Password').attr('type', $(this).is(':checked') ? 'text' : 'password');
+      });
     });
   </script>
 
   <script>
-    function validar_espacio(e, campo)
-    {
-		key = e.keyCode ? e.keyCode : e.which;
-		if (key == 32) {return false;}
+    function mostrarPassword1() {
+      var cambio = document.getElementById("yourPassword1");
+      if (cambio.type == "password") {
+        cambio.type = "text";
+        $('.icon').removeClass('fa fa-eye-slash').addClass('fa fa-eye');
+      } else {
+        cambio.type = "password";
+        $('.icon').removeClass('fa fa-eye').addClass('fa fa-eye-slash');
+      }
     }
-    </script>
+
+    $(document).ready(function() {
+      //CheckBox mostrar contraseña
+      $('#ShowPassword').click(function() {
+        $('#Password').attr('type', $(this).is(':checked') ? 'text' : 'password');
+      });
+    });
+  </script>
 
   <script>
-    function maximo(campo,limite)
-    {
-    if(campo.value.length>=limite){
-    campo.value=campo.value.substring(0,limite);
-    }
+    function validar_espacio(e, campo) {
+      key = e.keyCode ? e.keyCode : e.which;
+      if (key == 32) {
+        return false;
+      }
     }
   </script>
 
-<script>
-  function validatePassword() {
-    var p = document.getElementById('yourPassword').value,
+  <script>
+    function maximo(campo, limite) {
+      if (campo.value.length >= limite) {
+        campo.value = campo.value.substring(0, limite);
+      }
+    }
+  </script>
+
+  <script>
+    function validatePassword() {
+      var p = document.getElementById('yourPassword').value,
         errors = [];
-    if (p.length < 8) {
+      if (p.length < 8) {
         errors.push("TU CONTRASEÑA AL MENOS DEBE TENER 8 CARACTERES");
-    }
-    if (p.search(/[a-z]/) < 0) {
-        errors.push("TU CONTRASEÑA AL MENOS DEBE TENER UNA MINUSCULA"); 
-    }
-    if (p.search(/[A-Z]/) < 0) {
-        errors.push("TU CONTRASEÑA AL MENOS DEBE TENER UNA MAYUSCULA"); 
-    }
-    if (p.search(/[0-9]/) < 0) {
+      }
+      if (p.search(/[a-z]/) < 0) {
+        errors.push("TU CONTRASEÑA AL MENOS DEBE TENER UNA MINUSCULA");
+      }
+      if (p.search(/[A-Z]/) < 0) {
+        errors.push("TU CONTRASEÑA AL MENOS DEBE TENER UNA MAYUSCULA");
+      }
+      if (p.search(/[0-9]/) < 0) {
         errors.push("TU CONTRASEÑA AL MENOS DEBE TENER UN NUMERO");
-    }
-    if (p.search(/[*&!^)(#@$?¡\-_]/) < 0) {
+      }
+      if (p.search(/[*&!^)(#@$?¡\-_]/) < 0) {
         errors.push("TU CONTRASEÑA AL MENOS DEBE TENER UN CARACTER ESPECIAL");
-    }
-    if (errors.length > 0) {
+      }
+      if (errors.length > 0) {
         alert(errors.join("\n"));
         return false;
-    }else{
-      return True;
-    }  
-}
-</script>
+      } else {
+        return True;
+      }
+    }
+  </script>
 
 </head>
 
@@ -151,7 +152,7 @@
                   <form action="registro.php" onsubmit="validatePassword(); return false;" method="post" class="row g-3 needs-validation" novalidate="false">
                     <div class="col-12">
                       <label for="yourName" class="form-label">Nombre Completo:</label>
-                      <input type="text" style="text-transform:uppercase" name="name" placeholder="nombre" class="form-control" id="yourName" required>
+                      <input type="text" style="text-transform:uppercase" name="name" placeholder="nombre" class="form-control" id="yourName" required value="<?php echo isset($_POST['name']) ? $_POST['name'] : ''; ?>">
                       <div class="invalid-feedback">POR FAVOR, INGRESA TU NOMBRE DE USUARIO!</div>
                     </div>
 
@@ -159,7 +160,8 @@
                       <label for="yourUsername" class="form-label">NOMBRE DE USUARIO:</label>
                       <div class="input-group has-validation">
                         <span class="input-group-text" id="inputGroupPrepend">@</span>
-                        <input type="text" style="text-transform:uppercase" name="username" placeholder="Usuario" onkeypress="javascript: return validar_espacio(event,this)" onKeyUp="maximo(this,100)" onKeyDown="maximo(this,100)" class="form-control" id="yourUsername" required>
+                        <input type="text" style="text-transform:uppercase" name="username" placeholder="Usuario" onkeypress="javascript: return validar_espacio(event,this)" onKeyUp="maximo(this,100)" onKeyDown="maximo(this,100)" class="form-control" id="yourUsername" required value="<?php echo isset($_POST['username']) ? $_POST['username'] : ''; ?>">
+
                         <div class="invalid-feedback">POR FAVOR ESCRIBA UN NOMBRE DE USUARIO.</div>
                       </div>
                     </div>
@@ -167,9 +169,9 @@
                     <div class="col-12">
                       <label for="yourPassword" class="form-label">CONTRASEÑA:</label>
                       <div class="input-group">
-                        <input type="Password" Class="form-control" name="password" placeholder="Ingrese su contraseña"  onkeypress="javascript: return validar_espacio(event,this)" class="form-control" id="yourPassword" required>
+                        <input type="Password" Class="form-control" name="password" placeholder="Ingrese su contraseña" onkeypress="javascript: return validar_espacio(event,this)" class="form-control" id="yourPassword" required value="<?php echo isset($_POST['password']) ? $_POST['password'] : ''; ?>">
                         <div class="input-group-append">
-                            <button id="show_password" class="btn btn-primary" type="button" onclick="mostrarPassword()"> <span class="fa fa-eye-slash icon"></span> </button>
+                          <button id="show_password" class="btn btn-primary" type="button" onclick="mostrarPassword()"> <span class="fa fa-eye-slash icon"></span> </button>
                         </div>
                       </div>
                     </div>
@@ -177,25 +179,29 @@
                     <div class="col-12">
                       <label for="yourPassword" class="form-label">CONFIRMAR CONTRASEÑA:</label>
                       <div class="input-group">
-                        <input type="Password" Class="form-control" name="password1" placeholder="Confirme su contraseña"  onkeypress="javascript: return validar_espacio(event,this)" class="form-control" id="yourPassword1" required>
+                        <input type="Password" Class="form-control" name="password1" placeholder="Confirme su contraseña" onkeypress="javascript: return validar_espacio(event,this)" class="form-control" id="yourPassword1" required value="<?php echo isset($_POST['password1']) ? $_POST['password1'] : ''; ?>">
                         <div class="input-group-append">
-                            <button id="show_password" class="btn btn-primary" type="button" onclick="mostrarPassword1()"> <span class="fa fa-eye-slash icon"></span> </button>
+                          <button id="show_password" class="btn btn-primary" type="button" onclick="mostrarPassword1()"> <span class="fa fa-eye-slash icon"></span> </button>
                         </div>
                       </div>
                     </div>
 
                     <div class="col-12">
                       <label for="yourEmail" class="form-label">CORREO ELECTRONICO:</label>
-                      <input type="email" name="email" placeholder="nombre@dominio.com" onkeypress="javascript: return validar_espacio(event,this)" class="form-control" id="yourEmail" required>
+                      <input type="email" name="email" placeholder="nombre@dominio.com" onkeypress="javascript: return validar_espacio(event,this)" class="form-control" id="yourEmail" required value="<?php echo isset($_POST['email']) ? $_POST['email'] : ''; ?>">
                       <div class="invalid-feedback">POR FAVOR INGRESA CORREO ELECTRONICO VALIDO!</div>
-                      </div>
-                   
+                    </div>
+
                     <div class="col-12">
                       <button class="btn btn-primary w-100" type="submit">REGISTRAME!</button>
-                      
+
                     </div>
                     <div class="col-12">
+<<<<<<< HEAD
                       <p  class="small mb-0">YA TIENES CUENTA? <a href="../../Login">INICIAR SESION</a></p>
+=======
+                      <p class="small mb-0">YA TIENES CUENTA? <a href="../../login">INICIAR SESION</a></p>
+>>>>>>> b7e8b282fc77bb2aee62723dcc176b88ecd6a0ee
                     </div>
                   </form>
 
