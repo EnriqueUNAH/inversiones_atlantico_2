@@ -80,7 +80,10 @@
           <input id="txtEmailReset" name="txtEmailReset" class="form-control" placeholder="Usuario">
         </div>
         <div class="form-group btn-container">
-          <button type="submit" class="btn btn-primary btn-block"><i class="fa fa-unlock fa-lg fa-fw"></i>RECUPERAR</button>
+          <button type="submit" class="btn btn-primary btn-block" id="btnCorreo"><i class="fa fa-unlock fa-lg fa-fw"></i>Recuperar por correo</button>
+        </div>
+        <div class="form-group btn-container">
+          <button type="submit" class="btn btn-primary btn-block" id="btnPregunta"><i class="fa fa-unlock fa-lg fa-fw"></i>Recuperar por pregunta</button>
         </div>
         <div class="form-group mt-3">
           <p class="semibold-text mb-0"><a href="#" data-toggle="flip"><i class="fa fa-angle-left fa-fw"></i> Atrás</a></p>

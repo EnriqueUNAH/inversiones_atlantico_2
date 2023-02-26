@@ -45,8 +45,7 @@ class Login extends Controllers
 						$arrResponse = array('status' => true, 'msg' => 'ok');
 					} else if ($arrData['estado'] == 3) { //CUANDO EL ESTADO SEA NUEVO
 						//$_SESSION['idUser'] = $arrData['id_usuario'];
-						header("Location: ../Views/Login/preguntasPrimeraVez.php");
-						exit();
+						$arrResponse = array('statusNuevo' => true, 'msg' => 'okd');
 					} else {
 						$arrResponse = array('status' => false, 'msg' => 'Usuario inactivo.');
 					}
@@ -109,7 +108,32 @@ class Login extends Controllers
 		die();
 	}
 
-	public function resetPassPreguntaaaa()
+	public function resetPassPregunta()
+	{
+		if ($_POST) {
+			error_reporting(0);
+
+			if (empty($_POST['txtEmailReset'])) {
+				$arrResponse = array('status' => false, 'msg' => 'Error de datos');
+			} else {
+
+				$strUsuario  =  strtoupper(strClean($_POST['txtEmailReset']));
+				$arrData = $this->model->getUserEmail($strUsuario);
+
+				if (empty($arrData)) {
+					$arrResponse = array('status' => false, 'msg' => 'Usuario no existente.');
+				} else {
+					session_start();
+					$_SESSION['us'] = $strUsuario;
+					$arrResponse = array('status' => true, 'msg' => 'Ir a preguntas secretas');
+				}
+			}
+			echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
+		}
+		die();
+	}
+
+	public function resetPassPregunttta()
 	{
 		if ($_POST) {
 			if (empty($_POST['txtEmailReset'])) {
@@ -122,13 +146,13 @@ class Login extends Controllers
 					$_SESSION['error'] = 'Usuario no existente.';
 				} else {
 					$_SESSION['email'] = $strEmail;
-					header('Location: ' . base_url() . '/Views/Login/route.php');
+					header('Location: ' . base_url() . '/Views/Login/validar.php');
 					exit;
 				}
 			}
 		}
 	}
-	public function resetPassPregunta()
+	public function resetPassPreguntaaa()
 	{
 		if ($_POST) {
 			error_reporting(0);
