@@ -15907,7 +15907,7 @@ be a descendant of the grid when it is being dragged.
 .treeview-item.active,
 .treeview-item:hover,
 .treeview-item:focus {
-  background:#0084ff7e;
+  background: #0084ff7e;
   text-decoration: none;
   color: #fff;
 }
@@ -17045,7 +17045,7 @@ be a descendant of the grid when it is being dragged.
   bottom: 0;
   left: 0;
   right: 0;
-  padding: 40px;
+  padding: 30px;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
   -webkit-transition: all 0.5s ease-in-out;
