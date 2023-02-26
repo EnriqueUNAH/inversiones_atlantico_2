@@ -33,11 +33,6 @@ if ($id == $id_) { //FALTA Y ID_USUARIO ES IGUAL A USUARIO (O ALGO ASI)
     include('cambiar_contrasena_recu.php');
 } else {
 
-    echo '<script>swal({
-        title: "ERROR",
-        text: "RESPUESTA INCORRECTA",
-        type: "error"
-    }).then(function() {
-        window.location = "preguntas_recuperar.php";
-    });</script>';
+    echo '<script>alert("RESPUESTA INCORRECTA");</script>';
+    include('../Login/preguntas_recuperar.php');
 }
