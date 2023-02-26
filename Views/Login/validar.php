@@ -4,7 +4,7 @@ include('db.php');
 session_start();
 $usuario = $_SESSION['us'];
 $_SESSION['usuario'] = $usuario;
-echo "El usuario es: " . $usuario;
+// echo "El usuario es: " . $usuario;
 
 # Consulto si existe el usuario
 $consulta = "SELECT * FROM tbl_ms_usuarios where usuario = '$usuario'";
