@@ -35,6 +35,7 @@ document.addEventListener(
                 //window.location = base_url+'/dashboard';
                 window.location.reload(false);
               } else if (objData.statusNuevo) {
+                //CUANDO EL USUARIO SEA NUEVO
                 window.location =
                   base_url + "/Views/Login/preguntasPrimeraVez.php";
               } else {

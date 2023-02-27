@@ -28,7 +28,7 @@ class Login extends Controllers
 			if (empty($_POST['txtEmail']) || empty($_POST['txtPassword'])) {
 				$arrResponse = array('' => false, 'msg' => 'Error de datos');
 			} else {
-				$strUsuario  =  strtolower(strClean($_POST['txtEmail']));
+				$strUsuario  =  strtoupper(strClean($_POST['txtEmail']));
 				$strPassword = hash("SHA256", $_POST['txtPassword']);
 				$requestUser = $this->model->loginUser($strUsuario, $strPassword);
 				if (empty($requestUser)) {
@@ -45,6 +45,8 @@ class Login extends Controllers
 						$arrResponse = array('status' => true, 'msg' => 'ok');
 					} else if ($arrData['estado'] == 3) { //CUANDO EL ESTADO SEA NUEVO
 						//$_SESSION['idUser'] = $arrData['id_usuario'];
+						//session_start();
+						$_SESSION['usuarioNuevo'] = $strUsuario;
 						$arrResponse = array('statusNuevo' => true, 'msg' => 'okd');
 					} else {
 						$arrResponse = array('status' => false, 'msg' => 'Usuario inactivo.');
