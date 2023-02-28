@@ -25,6 +25,27 @@
 			$data['page_title'] = "Roles Usuario <small>Inversiones Atlantico</small>";
 			$data['page_functions_js'] = "functions_roles.js";
 			$this->views->getView($this,"roles",$data);
+
+            //Estas variables almacenan los valores que se van a ingresar a la tabla bitátora
+				//SE PUEDEN USAR PARA INSERTAR O ACTUALIZAR PORQUE SERÍAN LOS MISMOS DATOS
+				$dateFecha = date('Y-m-d H:i:s');
+				$intIdUsuario = $_SESSION['idUser'];
+				$intIdObjeto = 2;
+				$request_bitacora = "";
+
+				$strAccion = "INGRESO";
+				$strDescripcion = "INGRESO AL MODULO DE ROLES";
+
+				//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
+				$request_bitacora = $this->model->insertRolBitacora(
+					$dateFecha,
+					$intIdUsuario,
+					$intIdObjeto,
+					$strAccion,
+					$strDescripcion
+                );
+
+			
 		}
 
 		public function getRoles()

@@ -21,9 +21,17 @@ class Bitacora extends Controllers
 		$data['page_tag'] = "Bitacora";
 		$data['page_title'] = "BITACORA <small>Inversiones Atlántico</small>";
 		$data['page_name'] = "bitacora";
-		$data['page_functions_js'] = "functions_bitacora.js";
+		$data['page_functions_js'] = "function_bitacora.js";
 		$this->views->getView($this, "bitacora", $data);
 	}
 
+
+	public function getBitacora()
+	{
+	// if ($_SESSION['permisosMod']['r']) {
+			$arrData = $this->model->selectBitacora();
+	 		 echo json_encode($arrData, JSON_UNESCAPED_UNICODE);
+			die();
+		}
 
 }
