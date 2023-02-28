@@ -74,14 +74,17 @@
 
       <!-- FORMULARIO PARA RECUPERAR CUENTA -->
       <form id="formRecetPass" name="formRecetPass" class="forget-form" action="">
-        <h3 class="login-head"><i class="fa fa-lg fa-fw fa-lock"></i>¿Olvidaste contraseña?</h3>
+        <h5 class="login-head"><i class="fa fa-lg fa-fw fa-lock"></i>¿Olvidaste contraseña?</h5>
         <div class="form-group">
           <label class="control-label">USUARIO</label>
           <input id="txtEmailReset" name="txtEmailReset" class="form-control" placeholder="Usuario">
         </div>
         <div class="form-group btn-container">
-          <button type="submit" class="btn btn-primary btn-block"><i class="fa fa-unlock fa-lg fa-fw"></i>RECUPERAR</button>
-        </div>
+          <button type="submit" class="btn btn-primary btn-block" id="btnCorreo"><i class="fa fa-unlock fa-lg fa-fw"></i>Recuperar por correo</button>
+        </div><br>
+        <div class="form-group btn-container">
+          <button type="submit" class="btn btn-primary btn-block" id="btnPregunta"><i class="fa fa-unlock fa-lg fa-fw"></i>Recuperar por pregunta</button>
+        </div><br>
         <div class="form-group mt-3">
           <p class="semibold-text mb-0"><a href="#" data-toggle="flip"><i class="fa fa-angle-left fa-fw"></i> Atrás</a></p>
         </div>

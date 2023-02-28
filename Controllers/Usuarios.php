@@ -122,7 +122,6 @@ class Usuarios extends Controllers
 						$strAccion,
 						$strDescripcion
 					);
-					
 				} //FIN DEL ELSE PARA ACTUALIZAR
 
 				if ($request_user > 0) {

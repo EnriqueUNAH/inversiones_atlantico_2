@@ -55,8 +55,9 @@ document.addEventListener(
         e.preventDefault();
 
         let strusuario = document.querySelector("#txtusuario").value;
-        let strnombre_usuario =
-          document.querySelector("#txtnombre_usuario").value;
+        let strnombre_usuario = document
+          .querySelector("#txtnombre_usuario")
+          .value.toUpperCase();
         let strEmail = document.querySelector("#txtEmail").value;
         let intpreguntas_contestadas = 0;
         let intTipousuario = document.querySelector("#listid_rol").value;

@@ -49,7 +49,7 @@ class LoginModel extends Mysql
 		$this->strUsuario = $strEmail;
 		$sql = "SELECT id_usuario,nombre_usuario,correo_electronico,estado FROM tbl_ms_usuarios WHERE 
 					usuario = '$this->strUsuario' and  
-					estado = 1 ";
+					estado = 1 or estado = 3";
 		$request = $this->select($sql);
 		return $request;
 	}

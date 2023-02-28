@@ -196,11 +196,15 @@ $body.='</html>';
         $mail->send();
 
     echo '<script>alert("CORREO ENVIADO CON EXITO");</script>';*/
-    echo '<script>alert("USUARIO CREADO, FALTA ENVIAR CORREO Y MANDAR A CONTESTAR PREGUNTAS");</script>';
+    echo '<script>alert("USUARIO CREADO EXITOSAMENTE");</script>';
 
+    ?>
+    <script>
+        location.href = "../../login";
+    </SCRipt>
+    <?php
 
-
-        include('./preguntasPrimeraVez.php');
+    
     }
     mysqli_close($conexion);
 

@@ -63,55 +63,57 @@
                     <div class="col-12">
                       <label for="yourName" class="form-label">SELECCIONE UNA PREGUNTA:</label>
                       <select name="pregunta" class="form-control" id="_pregunta">
-                      <?php
-                            include("db.php");
-                            session_start();
-                            $user=$_SESSION['name'];
-                            # Consulto PREGUNTAS CONTESTADAS
-                            $consulta_Pregunta="SELECT PREGUNTAS_CONTESTADAS FROM tbl_ms_usuarios where usuario = '$user'";
-                            $resultado_Pregunta=mysqli_query( $conexion , $consulta_Pregunta );
-                            while ($valor=mysqli_fetch_array( $resultado_Pregunta )) {
-                                  # code... 
-                                  $filas_Pre=$valor['PREGUNTAS_CONTESTADAS'];
-                              }
+                        <?php
+                        include("db.php");
+                        session_start();
+                        // $user=$_SESSION['name'];
+                        $user = $_SESSION['usuarioNuevo'];
+                        echo "El usuario es: " . $user;
+                        # Consulto PREGUNTAS CONTESTADAS
+                        $consulta_Pregunta = "SELECT PREGUNTAS_CONTESTADAS FROM tbl_ms_usuarios where usuario = '$user'";
+                        $resultado_Pregunta = mysqli_query($conexion, $consulta_Pregunta);
+                        while ($valor = mysqli_fetch_array($resultado_Pregunta)) {
+                          # code... 
+                          $filas_Pre = $valor['PREGUNTAS_CONTESTADAS'];
+                        }
 
-                                  # Consulto ID
-                            $consulta_ID="SELECT ID_USUARIO FROM tbl_ms_usuarios where usuario = '$user'";
-                            $resultado_ID=mysqli_query( $conexion , $consulta_ID );
-                            while ($valor2=mysqli_fetch_array( $resultado_ID )) {
-                                  # code...
-                                  $id=$valor2['ID_USUARIO'];
-                              }
+                        # Consulto ID
+                        $consulta_ID = "SELECT ID_USUARIO FROM tbl_ms_usuarios where usuario = '$user'";
+                        $resultado_ID = mysqli_query($conexion, $consulta_ID);
+                        while ($valor2 = mysqli_fetch_array($resultado_ID)) {
+                          # code...
+                          $id = $valor2['ID_USUARIO'];
+                        }
 
-                            if($filas_Pre==0) {
-                              # code...
-                              $consulta = "SELECT * FROM tbl_ms_preguntas";
-                              $filas_Pre=$filas_Pre+1;
-                             // $Actualizar_pregunta="UPDATE tbl_ms_usuario SET PREGUNTAS_CONTESTADAS = '$filas_Pre' WHERE USUARIO = '$user'";
-                             // mysqli_query( $conexion , $Actualizar_pregunta );
-                            }else{
-                              # code...
-                              include("db.php");
-                              $consulta = "SELECT *
+                        if ($filas_Pre == 0) {
+                          # code...
+                          $consulta = "SELECT * FROM tbl_ms_preguntas";
+                          $filas_Pre = $filas_Pre + 1;
+                          // $Actualizar_pregunta="UPDATE tbl_ms_usuario SET PREGUNTAS_CONTESTADAS = '$filas_Pre' WHERE USUARIO = '$user'";
+                          // mysqli_query( $conexion , $Actualizar_pregunta );
+                        } else {
+                          # code...
+                          include("db.php");
+                          $consulta = "SELECT *
                               FROM db_inversiones_atlantico.tbl_ms_preguntas t2
                                WHERE NOT EXISTS (SELECT NULL
                                                FROM db_inversiones_atlantico.tbl_ms_preguntas_usuario t1
                                               WHERE t2.id_pregunta=t1.id_pregunta AND t1.id_usuario='$id')";
-                            }
-                            $ejecutar= mysqli_query($conexion,$consulta);
+                        }
+                        $ejecutar = mysqli_query($conexion, $consulta);
                         ?>
-                      <option selected disabled value="">--Seleccionar pregunta--</option>
+                        <option selected disabled value="">--Seleccionar pregunta--</option>
 
-                        <?php foreach ($ejecutar as $opciones): ?>
-                            <option value="<?php echo $opciones['pregunta']?>"><?php echo $opciones['pregunta'] ?></option>
+                        <?php foreach ($ejecutar as $opciones) : ?>
+                          <option value="<?php echo $opciones['pregunta'] ?>"><?php echo $opciones['pregunta'] ?></option>
                         <?php endforeach ?>
-                        <?php ?>    
-                                            
+                        <?php ?>
+
                       </select>
                       <div class="invalid-feedback">PREGUNTA INVALIDA!</div>
                     </div>
 
-                    
+
                     <div class="col-12">
                       <label for="yourName" class="form-label">RESPUESTA:</label>
                       <input type="text" style="text-transform:uppercase" name="respuesta" class="form-control" id="yourAnswer" required>
