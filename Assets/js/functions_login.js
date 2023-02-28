@@ -88,7 +88,27 @@ document.addEventListener(
           request.onreadystatechange = function () {
             if (request.readyState != 4) return;
             if (request.status == 200) {
-              var objData = JSON.parse(request.responseText);
+              var objData;
+              try {
+                objData = JSON.parse(request.responseText.trim());
+              } catch (e) {
+                swal(
+                  {
+                    title: "",
+                    text: "Se ha enviado un email a tu cuenta de correo.",
+                    type: "success",
+                    confirmButtonText: "Aceptar",
+                    closeOnConfirm: false,
+                  },
+                  function (isConfirm) {
+                    if (isConfirm) {
+                      window.location = base_url + "/login";
+                    }
+                  }
+                );
+                return;
+              }
+
               if (objData.status) {
                 swal(
                   {

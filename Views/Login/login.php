@@ -20,11 +20,9 @@
       color: white;
     }
 
-    /*
-    .form-control {
+    #txtEmailReset {
       text-transform: uppercase;
     }
-    */
   </style>
 </head>
 
