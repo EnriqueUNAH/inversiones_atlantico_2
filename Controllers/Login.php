@@ -54,8 +54,38 @@ class Login extends Controllers
 				}
 			}
 			echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
+
+                //Estas variables almacenan los valores que se van a ingresar a la tabla bitátora
+				//SE PUEDEN USAR PARA INSERTAR O ACTUALIZAR PORQUE SERÍAN LOS MISMOS DATOS
+				$dateFecha = date('Y-m-d H:i:s');
+				$intIdUsuario = $_SESSION['idUser'];
+				$intIdObjeto = 2;
+				$request_bitacora = "";
+
+				$strAccion = "INGRESO";
+				$strDescripcion = "INGRESO AL SISTEMA";
+
+				//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
+				$request_bitacora = $this->model->insertUsuarioBitacora(
+					$dateFecha,
+					$intIdUsuario,
+					$intIdObjeto,
+					$strAccion,
+					$strDescripcion
+                );
+
+
 		}
 		die();
+
+               
+
+
+
+
+
+
+
 	}
 
 	public function resetPass()
