@@ -20,9 +20,11 @@
       color: white;
     }
 
+    /*
     .form-control {
       text-transform: uppercase;
     }
+    */
   </style>
 </head>
 

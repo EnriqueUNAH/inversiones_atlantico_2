@@ -47,7 +47,7 @@ class Login extends Controllers
 						//$_SESSION['idUser'] = $arrData['id_usuario'];
 						//session_start();
 						$_SESSION['usuarioNuevo'] = $strUsuario;
-						$arrResponse = array('statusNuevo' => true, 'msg' => 'okd');
+						$arrResponse = array('statusNuevo' => true, 'msg' => 'Usuario NUEVO, debe contestar preguntas secretas');
 					} else {
 						$arrResponse = array('status' => false, 'msg' => 'Usuario inactivo.');
 					}
@@ -67,7 +67,7 @@ class Login extends Controllers
 				$arrResponse = array('status' => false, 'msg' => 'Error de datos');
 			} else {
 				$token = token();
-				$strUsuario  =  strtolower(strClean($_POST['txtEmailReset']));
+				$strUsuario  =  strtoupper(strClean($_POST['txtEmailReset']));
 				$arrData = $this->model->getUserEmail($strUsuario);
 
 				if (empty($arrData)) {
@@ -89,8 +89,8 @@ class Login extends Controllers
 
 					if ($requestUpdate) {
 						try {
-							$sendEmail = sendMailLocal($dataUsuario, 'email_cambioPassword');
-							$arrResponse = array('status' => true, 'msg' => 'Se ha enviado un email a tu cuenta de correo');
+							sendMailLocal($dataUsuario, 'email_cambioPassword');
+							$arrResponse = array('status' => true, 'msg' => 'Se ha enviado un email a tu cuenta de correo.');
 						} catch (Exception $e) {
 							$arrResponse = array(
 								'status' => false,
@@ -128,79 +128,6 @@ class Login extends Controllers
 					session_start();
 					$_SESSION['us'] = $strUsuario;
 					$arrResponse = array('status' => true, 'msg' => 'Ir a preguntas secretas');
-				}
-			}
-			echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
-		}
-		die();
-	}
-
-	public function resetPassPregunttta()
-	{
-		if ($_POST) {
-			if (empty($_POST['txtEmailReset'])) {
-				$_SESSION['error'] = 'Error de datos';
-			} else {
-				$strEmail = strtolower(strClean($_POST['txtEmailReset']));
-				$arrData = $this->model->getUserEmail($strEmail);
-
-				if (empty($arrData)) {
-					$_SESSION['error'] = 'Usuario no existente.';
-				} else {
-					$_SESSION['email'] = $strEmail;
-					header('Location: ' . base_url() . '/Views/Login/validar.php');
-					exit;
-				}
-			}
-		}
-	}
-	public function resetPassPreguntaaa()
-	{
-		if ($_POST) {
-			error_reporting(0);
-
-			if (empty($_POST['txtEmailReset'])) {
-				$arrResponse = array('' => false, 'msg' => 'Error de datos');
-			} else {
-				$token = token();
-				$strEmail  =  strtolower(strClean($_POST['txtEmailReset']));
-				$arrData = $this->model->getUserEmail($strEmail);
-
-				if (empty($arrData)) {
-					$arrResponse = array('' => false, 'msg' => 'Usuario no existente.');
-				} else {
-					$id_usuario = $arrData['id_usuario'];
-					$nombreUsuario = $arrData['usuario'];
-
-					$url_recovery = base_url() . '/Login/confirmUser/' . $strEmail . '/' . $token;
-					$requestUpdate = $this->model->setTokenUser($id_usuario, $token);
-
-					$dataUsuario = array(
-						'nombre_usuario' => $nombreUsuario,
-						'email' => $strEmail,
-						'asunto' => 'Recuperar cuenta - ' . NOMBRE_REMITENTE,
-						'url_recovery' => $url_recovery
-					);
-					if ($requestUpdate) {
-						$sendEmail = sendMailLocal($dataUsuario, 'email_cambioPassword');
-
-						if ($sendEmail) {
-							$arrResponse = array(
-								'' => true,
-								'msg' => 'Se ha enviado un email a tu cuenta de correo para cambiar tu contraseña.'
-							);
-						} else {
-							$arrResponse = array(
-								'' => false,
-								'msg' => 'No es posible realizar el proceso'
-							);
-						}
-					} else {
-						$arrResponse = array(
-							'' => false,
-							'msg' => 'No es posible realizar el proceso, intenta más tarde.'
-						);
-					}
 				}
 			}
 			echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);

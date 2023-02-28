@@ -36,8 +36,21 @@ document.addEventListener(
                 window.location.reload(false);
               } else if (objData.statusNuevo) {
                 //CUANDO EL USUARIO SEA NUEVO
-                window.location =
-                  base_url + "/Views/Login/preguntasPrimeraVez.php";
+                swal(
+                  {
+                    title: "",
+                    text: objData.msg,
+                    type: "info",
+                    confirmButtonText: "Aceptar",
+                    closeOnConfirm: false,
+                  },
+                  function (isConfirm) {
+                    if (isConfirm) {
+                      window.location =
+                        base_url + "/Views/Login/preguntasPrimeraVez.php";
+                    }
+                  }
+                );
               } else {
                 swal("Atención", objData.msg, "error");
                 document.querySelector("#txtPassword").value = "";
@@ -51,60 +64,6 @@ document.addEventListener(
         }
       };
     }
-    /*
-    //PARA FORMULARIO DE RECUPERACIÒN DE CONTRASEÑA
-    if (document.querySelector("#formRecetPass")) {
-      let formRecetPass = document.querySelector("#formRecetPass");
-      formRecetPass.onsubmit = function (e) {
-        e.preventDefault();
-
-        let strEmail = document.querySelector("#txtEmailReset").value;
-        if (strEmail == "") {
-          swal("Por favor", "Escribe tu usuario", "error");
-          return false;
-        } else {
-          divLoading.style.display = "flex";
-          var request = window.XMLHttpRequest
-            ? new XMLHttpRequest()
-            : new ActiveXObject("Microsoft.XMLHTTP");
-
-          var ajaxUrl = base_url + "/Login/resetPass";
-          var formData = new FormData(formRecetPass);
-          request.open("POST", ajaxUrl, true);
-          request.send(formData);
-          request.onreadystatechange = function () {
-            if (request.readyState != 4) return;
-
-            if (request.status == 200) {
-              var objData = JSON.parse(request.responseText);
-              if (objData.status) {
-                swal(
-                  {
-                    title: "",
-                    text: objData.msg,
-                    type: "success",
-                    confirmButtonText: "Aceptar",
-                    closeOnConfirm: false,
-                  },
-                  function (isConfirm) {
-                    if (isConfirm) {
-                      window.location = base_url;
-                    }
-                  }
-                );
-              } else {
-                swal("Atención", objData.msg, "error");
-              }
-            } else {
-              swal("Atención", "Error en el proceso", "error");
-            }
-            divLoading.style.display = "none";
-            return false;
-          };
-        }
-      };
-    }
-*/
 
     if (document.querySelector("#btnCorreo")) {
       let btnCorreo = document.querySelector("#btnCorreo");
@@ -128,7 +87,6 @@ document.addEventListener(
           request.send(formData);
           request.onreadystatechange = function () {
             if (request.readyState != 4) return;
-
             if (request.status == 200) {
               var objData = JSON.parse(request.responseText);
               if (objData.status) {
@@ -181,7 +139,6 @@ document.addEventListener(
           request.send(formData);
           request.onreadystatechange = function () {
             if (request.readyState != 4) return;
-
             if (request.status == 200) {
               var objData = JSON.parse(request.responseText);
               if (objData.status) {

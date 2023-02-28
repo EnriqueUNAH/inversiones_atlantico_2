@@ -105,7 +105,7 @@ if ($filas_ < $valor_p_p) {
     mysqli_query($conexion, $actualizarPre);
 
     if ($estado == "NUEVO") {
-        $ALTER = "UPDATE tbl_ms_usuarios SET id_estado='2' WHERE  Usuario = '$nombre'";  //obeservar
+        $ALTER = "UPDATE tbl_ms_usuarios SET estado='2' WHERE  Usuario = '$nombre'";  //obeservar
         mysqli_query($conexion, $ALTER);
 
         mysqli_close($conexion);
