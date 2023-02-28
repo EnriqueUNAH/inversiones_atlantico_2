@@ -46,19 +46,6 @@
           </a>
         </div>
         <?php } ?>
-
-        <?php if(!empty($_SESSION['permisos'][5]['r']) ){ ?>
-        <div class="col-md-6 col-lg-3">
-          <a href="<?= base_url() ?>/bitacora" class="linkw">
-            <div class="widget-small warning coloured-icon"><i class="icon fa fa fa-archive fa-3x"></i>
-              <div class="info">
-                <h4>Productos</h4>
-                <p><b><?= $data['bitacora'] ?></b></p>
-              </div>
-            </div>
-          </a>
-        </div>
-        <?php } ?>
         
 
 
