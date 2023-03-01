@@ -16,8 +16,8 @@ document.addEventListener(
       },
       columns: [
         { data: "fecha" },
-        { data: "id_usuario" },
-        { data: "id_objeto" },
+        { data: "usuario" },
+        { data: "objeto" },
         { data: "accion" },
         { data: "descripcion" },
       ],
@@ -47,12 +47,6 @@ document.addEventListener(
       iDisplayLength: 10,
       order: [[0, "desc"]],
     });
-
-
   },
   false
 );
-
-
-
-

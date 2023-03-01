@@ -48,24 +48,21 @@ class BitacoraModel extends Mysql
 		return $return;
 	}
 
-	public function selectBitacora() 
+	public function selectBitacora()
 	{
 
-	 	$whereAdmin = "";
-	 	if ($_SESSION['idUser'] != 1) {
-		$whereAdmin = " and p.id_bitacora != 1 ";	
-		 }
-		$sql = "SELECT p.fecha,p.id_usuario,p.id_objeto,p.accion,p.descripcion,r.usuario
-			FROM tbl_ms_bitacora p 
-			INNER JOIN tbl_ms_usuarios r
+		$whereAdmin = "";
+		if ($_SESSION['idUser'] != 1) {
+			$whereAdmin = " and p.id_bitacora != 1 ";
+		}
+		$sql = "SELECT p.fecha,p.id_usuario,p.id_objeto,p.accion,p.descripcion,r.usuario,o.objeto
+			FROM tbl_ms_usuarios r
+			INNER JOIN tbl_ms_bitacora p 
 			ON p.id_usuario = r.id_usuario
+			INNER JOIN tbl_ms_objetos o 
+			ON p.id_objeto = o.id_objeto
 			WHERE p.id_bitacora != 0 " . $whereAdmin;
 		$request = $this->select_all($sql);
-	 	return $request;
-
-    }
-
-
+		return $request;
+	}
 }
-
-
