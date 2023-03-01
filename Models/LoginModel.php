@@ -102,4 +102,37 @@ class LoginModel extends Mysql
 		$request = $this->update($sql, $arrData);
 		return $request;
 	}
+
+      //Función para que inserte en bitácora cada vez que ingresa un usuario al sistema
+      public function insertUsuarioBitacora(string $fecha, int $idUsuario, int $idObjeto, string $accion, string $descripcion)
+      {
+
+	  $this->dateFecha = $fecha;
+	  $this->intIdUsuario = $idUsuario;
+	  $this->intIdObjeto = $idObjeto;
+	  $this->strAccion = $accion;
+	  $this->strDescripcion = $descripcion;
+	  $return = 0;
+
+	     $query_insert  = "INSERT INTO tbl_ms_bitacora(fecha,id_usuario,id_objeto,accion,descripcion) 
+							  VALUES(?,?,?,?,?)";
+	      $arrData = array(
+		  $this->dateFecha,
+		  $this->intIdUsuario,
+		  $this->intIdObjeto,
+		  $this->strAccion,
+		  $this->strDescripcion,
+	    );
+	    $request_insert = $this->insert($query_insert, $arrData);
+	    $return = $request_insert;
+
+	    return $return;
+}
+
+
+
+
+
+
+
 }
