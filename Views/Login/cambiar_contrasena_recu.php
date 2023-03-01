@@ -149,7 +149,7 @@
                     <p class="text-center small">INGRESO DE DATOS</p>
                   </div>
 
-                  <form action="../php/validarcontra_recu.php" method="post"  onsubmit="validatePassword(); return false;" method="post" class="row g-3 needs-validation" onsubmit="checkPassword(this);">
+                  <form action="validarcontra_recu.php" method="post"  onsubmit="validatePassword(); return false;" method="post" class="row g-3 needs-validation" onsubmit="checkPassword(this);">
                     
 
                   <div class="col-12">
