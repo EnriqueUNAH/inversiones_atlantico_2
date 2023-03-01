@@ -35,11 +35,13 @@ class Login extends Controllers
 				if (empty($requestUser)) {
 
 
-
+					$requestParametro = $this->model->getParametroIntentos();
+					$arrDataParametro = $requestParametro;
+					$valor = $arrDataParametro['valor'];
 					// Contador de intentos fallidos
 					$_SESSION['fallidos'] = ($_SESSION['fallidos'] ?? 0) + 1;
 
-					if ($_SESSION['fallidos'] > 1) {
+					if ($_SESSION['fallidos'] >= $valor) {
 						// Bloquear al usuario después de los intentos fallidos segun el parametro
 						$arrDataa = $requestId;
 
