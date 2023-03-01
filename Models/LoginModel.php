@@ -53,6 +53,14 @@ class LoginModel extends Mysql
 		$request = $this->select($sql);
 		return $request;
 	}
+	public function getParametroIntentos()
+	{
+
+		$sql = "SELECT valor FROM tbl_ms_parametros WHERE 
+					id_parametro = 1";
+		$request = $this->select($sql);
+		return $request;
+	}
 	public function getUserId(string $Usuario)
 	{
 		$this->strUsuario = $Usuario;
@@ -103,36 +111,29 @@ class LoginModel extends Mysql
 		return $request;
 	}
 
-      //Función para que inserte en bitácora cada vez que ingresa un usuario al sistema
-      public function insertUsuarioBitacora(string $fecha, int $idUsuario, int $idObjeto, string $accion, string $descripcion)
-      {
+	//Función para que inserte en bitácora cada vez que ingresa un usuario al sistema
+	public function insertUsuarioBitacora(string $fecha, int $idUsuario, int $idObjeto, string $accion, string $descripcion)
+	{
 
-	  $this->dateFecha = $fecha;
-	  $this->intIdUsuario = $idUsuario;
-	  $this->intIdObjeto = $idObjeto;
-	  $this->strAccion = $accion;
-	  $this->strDescripcion = $descripcion;
-	  $return = 0;
+		$this->dateFecha = $fecha;
+		$this->intIdUsuario = $idUsuario;
+		$this->intIdObjeto = $idObjeto;
+		$this->strAccion = $accion;
+		$this->strDescripcion = $descripcion;
+		$return = 0;
 
-	     $query_insert  = "INSERT INTO tbl_ms_bitacora(fecha,id_usuario,id_objeto,accion,descripcion) 
+		$query_insert  = "INSERT INTO tbl_ms_bitacora(fecha,id_usuario,id_objeto,accion,descripcion) 
 							  VALUES(?,?,?,?,?)";
-	      $arrData = array(
-		  $this->dateFecha,
-		  $this->intIdUsuario,
-		  $this->intIdObjeto,
-		  $this->strAccion,
-		  $this->strDescripcion,
-	    );
-	    $request_insert = $this->insert($query_insert, $arrData);
-	    $return = $request_insert;
+		$arrData = array(
+			$this->dateFecha,
+			$this->intIdUsuario,
+			$this->intIdObjeto,
+			$this->strAccion,
+			$this->strDescripcion,
+		);
+		$request_insert = $this->insert($query_insert, $arrData);
+		$return = $request_insert;
 
-	    return $return;
-}
-
-
-
-
-
-
-
+		return $return;
+	}
 }

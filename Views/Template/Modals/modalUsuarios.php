@@ -17,13 +17,13 @@
           <div class="form-row">
             <div class="form-group col-md-6">
               <label for="txtusuario">Usuario</label>
-              <input type="text" class="form-control" id="txtusuario" name="txtusuario" style="text-transform:uppercase" required="">
+              <input type="text" pattern="[a-zA-Z0-9]+" class="form-control" id="txtusuario" name="txtusuario" style="text-transform:uppercase" required="" title="Ingrese solo letras y números sin espacios">
             </div>
           </div>
           <div class="form-row">
             <div class="form-group col-md-6">
               <label for="txtnombre_usuario">Nombre</label>
-              <input type="text" class="form-control valid validText" id="txtnombre_usuario" name="txtnombre_usuario" style="text-transform:uppercase" required="">
+              <input type="text" pattern="[a-zA-Z ]+" class="form-control valid validText" id="txtnombre_usuario" name="txtnombre_usuario" style="text-transform:uppercase" required="" title="No se puede ingresar números">
             </div>
             <div class="form-group col-md-6">
               <label for="listid_rol">Rol</label>
