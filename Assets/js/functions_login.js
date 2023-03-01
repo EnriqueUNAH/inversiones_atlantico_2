@@ -16,7 +16,7 @@ document.addEventListener(
         let strPassword = document.querySelector("#txtPassword").value;
 
         if (strEmail == "" || strPassword == "") {
-          swal("Por favor", "Escribe usuario y contraseñaa.", "error");
+          swal("Por favor", "Escribe usuario y contraseña.", "error");
           return false;
         } else {
           divLoading.style.display = "flex";
@@ -48,6 +48,22 @@ document.addEventListener(
                     if (isConfirm) {
                       window.location =
                         base_url + "/Views/Login/preguntasPrimeraVez.php";
+                    }
+                  }
+                );
+              } else if (objData.statusBloqueado) {
+                //CUANDO EL USUARIO ESTÉ BLOQUEADO
+                swal(
+                  {
+                    title: "",
+                    text: objData.msg,
+                    type: "error",
+                    confirmButtonText: "Aceptar",
+                    closeOnConfirm: false,
+                  },
+                  function (isConfirm) {
+                    if (isConfirm) {
+                      window.location = base_url + "/login";
                     }
                   }
                 );

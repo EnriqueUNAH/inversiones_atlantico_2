@@ -31,15 +31,32 @@ class Login extends Controllers
 				$strUsuario  =  strtoupper(strClean($_POST['txtEmail']));
 				$strPassword = hash("SHA256", $_POST['txtPassword']);
 				$requestUser = $this->model->loginUser($strUsuario, $strPassword);
+				$requestId = $this->model->getUserId($strUsuario);
 				if (empty($requestUser)) {
-					$arrResponse = array('' => false, 'msg' => 'El usuario o la contraseña es incorrecto.');
+
+
+
+					// Contador de intentos fallidos
+					$_SESSION['fallidos'] = ($_SESSION['fallidos'] ?? 0) + 1;
+
+					if ($_SESSION['fallidos'] > 1) {
+						// Bloquear al usuario después de los intentos fallidos segun el parametro
+						$arrDataa = $requestId;
+
+						$miUsuario = $arrDataa['id_usuario'];
+
+						$requestU = $this->model->setEstado($miUsuario);
+						$arrResponse = array('statusBloqueado' => true, 'msg' => 'USUARIO BLOQUEADO');
+					} else {
+						$arrResponse = array('' => false, 'msg' => 'El usuario o la contraseña es incorrecto.');
+					}
 				} else {
 					$arrData = $requestUser;
 					if ($arrData['estado'] == 1) {
 						$_SESSION['idUser'] = $arrData['id_usuario'];
 						$_SESSION['login'] = true;
 						$_SESSION['elUsuario'] = $arrData['usuario'];
-
+						$_SESSION['fallidos'] = 0;
 						$arrData = $this->model->sessionLogin($_SESSION['idUser']);
 						sessionUser($_SESSION['idUser']);
 						$arrResponse = array('status' => true, 'msg' => 'ok');
@@ -48,6 +65,8 @@ class Login extends Controllers
 						//session_start();
 						$_SESSION['usuarioNuevo'] = $strUsuario;
 						$arrResponse = array('statusNuevo' => true, 'msg' => 'Usuario NUEVO, debe contestar preguntas secretas');
+					} else if ($arrData['estado'] == 4) { //CUANDO EL ESTADO SEA BLOQUEADO
+						$arrResponse = array('statusBloqueado' => true, 'msg' => 'USUARIO BLOQUEADO');
 					} else {
 						$arrResponse = array('status' => false, 'msg' => 'Usuario inactivo.');
 					}
