@@ -70,13 +70,13 @@ mysqli_query($conexion, $insertar_);
 /* $bitacora="INSERT INTO tbl_bitacora VALUES('$filas_bbitacora','$fechaC','$filas','3','AUTOREGISTRO','CONSTESTO PREGUNTA EXITOSAMENTE')";
     mysqli_query( $conexion , $bitacora );*/
 
-$consultar_ = "SELECT * FROM tbl_ms_preguntas_usuario WHERE Creado_Por='$nombre'";
-$resultado_ = mysqli_query($conexion, $consultar_);
-$filas_ = mysqli_num_rows($resultado_);
-$valor_p_p_ = $valor_p_p - 1;
+// $consultar_ = "SELECT * FROM tbl_ms_preguntas_usuario WHERE Creado_Por='$nombre'";
+// $resultado_ = mysqli_query($conexion, $consultar_);
+// $filas_ = mysqli_num_rows($resultado_);
+// $valor_p_p_ = $valor_p_p - 1;
 echo "   El valor parametro es: " . $valor_p_p; /////////////////////////////////////////////////////
 
-if ($valor_contestadas < $valor_p_p) {
+if ($valor_contestadas < $valor_p_p - 1) { ////////////////////////////////////CAMBIADO
     #Trae preguntas contestadas tabla ms_usuarios
     // $preguntascontestadas = "SELECT preguntas_contestadas FROM tbl_ms_usuarios where id_usuario = '$id_Usuario'";
     // $resultado_pregu = mysqli_query($conexion, $preguntascontestadas);
