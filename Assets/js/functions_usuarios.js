@@ -105,6 +105,8 @@ document.addEventListener(
                     ? '<span class="badge badge-success">ACTIVO</span>'
                     : intStatus == 3
                     ? '<span class="badge badge-info">NUEVO</span>'
+                    : intStatus == 4
+                    ? '<span class="badge badge-danger">BLOQUEADO</span>'
                     : '<span class="badge badge-danger">INACTIVO</span>';
 
                 rowTable.cells[0].textContent = strusuario;
