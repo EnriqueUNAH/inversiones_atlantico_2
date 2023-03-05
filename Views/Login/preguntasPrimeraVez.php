@@ -55,13 +55,13 @@
                 <div class="card-body">
 
                   <div class="pt-4 pb-2">
-                    <h5 class="card-title text-center pb-0 fs-4">CONFIGURACION DE PREGUNTAS</h5>
+                    <h4 class="card-title text-center pb-0 fs-4">CONFIGURACION DE PREGUNTAS</h4><br>
                     <p class="text-center small">SELECCIONA PREGUNTAS PARA GESTIONAR TU CUENTA</p>
                   </div>
 
                   <form action="preguntas.php" method="post" class="row g-3 needs-validation" novalidate="false">
                     <div class="col-12">
-                      <label for="yourName" class="form-label">SELECCIONE UNA PREGUNTA:</label>
+                      <!--<label for="yourName" class="form-label">SELECCIONE UNA PREGUNTA:</label> -->
                       <select name="pregunta" class="form-control" id="_pregunta">
                         <?php
                         include("db.php");
@@ -76,7 +76,22 @@
                           # code... 
                           $filas_Pre = $valor['PREGUNTAS_CONTESTADAS'];
                         }
+                        ///////////////////////////////////////////////////////////
+                        # Consulto PREGUNTAS CONTESTADAS PARA MOSTRAR EL DATO, DEBO SUMARLE UNO PARA QUE SALGA BIEN
+                        $consulta_Preguntaa = "SELECT preguntas_contestadas FROM tbl_ms_usuarios where usuario = '$user'";
+                        $resultado_Preguntaa = mysqli_query($conexion, $consulta_Preguntaa);
+                        while ($valor = mysqli_fetch_array($resultado_Preguntaa)) {
+                          # code... 
+                          $Contesta = $valor['preguntas_contestadas'] + 1;
+                        }
+                        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                        $consultar_parametro_contestadas = mysqli_query($conexion, "SELECT valor FROM tbl_ms_parametros WHERE id_parametro='2'");
+                        while ($otra_parametro_pre = mysqli_fetch_array($consultar_parametro_contestadas)) {
+                          # code...
+                          $valor_p_p = $otra_parametro_pre['valor'];
+                        }
 
+                        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                         # Consulto ID
                         $consulta_ID = "SELECT ID_USUARIO FROM tbl_ms_usuarios where usuario = '$user'";
                         $resultado_ID = mysqli_query($conexion, $consulta_ID);
@@ -129,6 +144,7 @@
             </div>
           </div>
         </div>
+        <?php echo "<h4>Pregunta " . $Contesta . " de " . $valor_p_p . "</h4>"; ?>
 
       </section>
 

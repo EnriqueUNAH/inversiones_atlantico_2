@@ -64,7 +64,7 @@ while ($otra_pre = mysqli_fetch_array($consultar_contestadas)) {
 $fechaC = date('Y-m-d');
 echo "   Ha contestado: " . $valor_contestadas; /////////////////////////////////////////////////////
 
-$insertar_ = "INSERT INTO tbl_ms_preguntas_usuario VALUES('$id','$id_Usuario','$respuesta','$nombre','$fechaC','$nombre','$fechaC')";
+$insertar_ = "INSERT INTO tbl_ms_preguntas_usuario VALUES('$id','$id_Usuario','$respuesta')";
 mysqli_query($conexion, $insertar_);
 
 /* $bitacora="INSERT INTO tbl_bitacora VALUES('$filas_bbitacora','$fechaC','$filas','3','AUTOREGISTRO','CONSTESTO PREGUNTA EXITOSAMENTE')";
@@ -74,7 +74,7 @@ mysqli_query($conexion, $insertar_);
 // $resultado_ = mysqli_query($conexion, $consultar_);
 // $filas_ = mysqli_num_rows($resultado_);
 // $valor_p_p_ = $valor_p_p - 1;
-echo "   El valor parametro es: " . $valor_p_p; /////////////////////////////////////////////////////
+echo "   El valor parametro es: " . $valor_p_p + 1; /////////////////////////////////////////////////////
 
 if ($valor_contestadas < $valor_p_p - 1) { ////////////////////////////////////CAMBIADO
     #Trae preguntas contestadas tabla ms_usuarios
@@ -109,6 +109,10 @@ if ($valor_contestadas < $valor_p_p - 1) { ////////////////////////////////////C
     // $actualizarPre = "UPDATE tbl_ms_usuarios SET Preguntas_Contestadas = '$contestadas' WHERE Usuario = '$nombre'";
     // mysqli_query($conexion, $actualizarPre);
     ///////////////////////////////////////////////////////////////////////////////////////////////
+    $contestadas = $valor_contestadas + 1;
+    #Cambio valor de preguntas contestadas
+    $actualizarPre = "UPDATE tbl_ms_usuarios SET preguntas_contestadas = '$contestadas' where id_usuario = '$id_Usuario'";
+    mysqli_query($conexion, $actualizarPre);
 
     $ALTER = "UPDATE tbl_ms_usuarios SET estado='1' where id_usuario = '$id_Usuario'";  //obeservar
     mysqli_query($conexion, $ALTER);
