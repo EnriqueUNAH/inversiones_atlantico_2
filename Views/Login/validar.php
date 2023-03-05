@@ -30,7 +30,7 @@
         include('../Login/preguntas_recuperar.php');
     } else {
 
-        echo '<script>Swal.fire("Error", "SU USUARIO NO EXISTE", "error").then(() => {window.location.href = "../../login";});</script>';
+        echo '<script>Swal.fire("Error", "EL USUARIO NO EXISTE", "error").then(() => {window.location.href = "../../login";});</script>';
     }
     ?>
 
