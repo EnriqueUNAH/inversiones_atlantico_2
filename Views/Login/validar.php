@@ -1,19 +1,39 @@
-<?php
-include('db.php');
+<!DOCTYPE html>
+<html>
 
-session_start();
-$usuario = $_SESSION['us'];
-$_SESSION['usuario'] = $usuario;
-// echo "El usuario es: " . $usuario;
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js"></script>
 
-# Consulto si existe el usuario
-$consulta = "SELECT * FROM tbl_ms_usuarios where usuario = '$usuario'";
-$resultado = mysqli_query($conexion, $consulta);
-$filas = mysqli_num_rows($resultado);
+    <style>
+        .swal2-title,
+        .swal2-content {
+            font-family: Arial, Arial;
+        }
+    </style>
 
-if ($filas) {
-    include('../Login/preguntas_recuperar.php');
-} else {
-    echo '<script>alert("SU USUARIO NO EXISTE");</script>';
-    include("login.php");
-}
+</head>
+
+<body>
+    <?php
+    include('db.php');
+    session_start();
+    $usuario = $_SESSION['us'];
+    $_SESSION['usuario'] = $usuario;
+
+    $consulta = "SELECT * FROM tbl_ms_usuarios where usuario = '$usuario'";
+    $resultado = mysqli_query($conexion, $consulta);
+    $filas = mysqli_num_rows($resultado);
+
+    if ($filas) {
+        include('../Login/preguntas_recuperar.php');
+    } else {
+
+        echo '<script>Swal.fire("Error", "SU USUARIO NO EXISTE", "error").then(() => {window.location.href = "../../login";});</script>';
+    }
+    ?>
+
+</body>
+
+</html>
