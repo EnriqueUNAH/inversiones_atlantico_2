@@ -25,45 +25,59 @@ class Login extends Controllers
 	{
 		//dep($_POST);
 		if ($_POST) {
+			//Cuando alguno de los campos va vacio
 			if (empty($_POST['txtEmail']) || empty($_POST['txtPassword'])) {
 				$arrResponse = array('' => false, 'msg' => 'Error de datos');
+
+				//CUANDO LOS DOS INPUTS LLEVAN ALGUN DATO
 			} else {
 				$strUsuario  =  strtoupper(strClean($_POST['txtEmail']));
 				$strPassword = hash("SHA256", $_POST['txtPassword']);
 				$requestUser = $this->model->loginUser($strUsuario, $strPassword);
 				$requestId = $this->model->getUserId($strUsuario);
-				if (empty($requestUser)) {
+
+				//SI LA PETICION AL MODELO PARA OBTENER UN USUARIO QUE COINCIDA 
+				//CON EL USUARIO INGRESADO ES VACIA, ENTONCES ESE USUARIO NO EXISTE EN
+				//LA BASE DE DATOS, POR ESO DEBE HACER LO SIGUIENTE
+				if (empty($requestUser)) { //Si no existe un usuario con esa contrasena, entonces:
 
 
-
-					$arrDataRolUsuario = $requestId;
-					$UsuarioAdmin = $arrDataRolUsuario['id_usuario'];
-
-
-
-					$requestParametro = $this->model->getParametroIntentos();
-					$arrDataParametro = $requestParametro;
-					$valor = $arrDataParametro['valor'];
-					// Contador de intentos fallidos
-					$_SESSION['fallidos'] = ($_SESSION['fallidos'] ?? 0) + 1;
-
-
-					// if ($UsuarioAdmin == 1) { //IF PARA VER SI USUARIO ES ADMIN
-					// 	$valor++;
-					// }
-					// //FIN IF
-
-					if ($_SESSION['fallidos'] >= $valor) {
-						// Bloquear al usuario después de los intentos fallidos segun el parametro
-						$arrDataa = $requestId;
-
-						$miUsuario = $arrDataa['id_usuario'];
-
-						$requestU = $this->model->setEstado($miUsuario);
-						$arrResponse = array('statusBloqueado' => true, 'msg' => 'USUARIO BLOQUEADO');
-					} else {
+					if (empty($requestId)) {  //SI EL USUARIO NO EXISTE EN LA BASE DE DATOS
 						$arrResponse = array('' => false, 'msg' => 'El usuario o la contraseña es incorrecto.');
+					} else { //SI EL USUARIO EXISTE PERO LA CONTRASENA FUE MAL INGRESADA
+						$arrDataRolUsuario = $requestId;
+						$_SESSION['idUserRol'] = $arrDataRolUsuario['id_usuario'];
+						$idUserRolVar = $_SESSION['idUserRol'];
+
+						$requestParametro = $this->model->getParametroIntentos();
+						$arrDataParametro = $requestParametro;
+						$valor = $arrDataParametro['valor'];
+						// Contador de intentos fallidos
+						$_SESSION['fallidos'] = ($_SESSION['fallidos'] ?? 0) + 1;
+
+
+						if ($idUserRolVar != 1) { //IF PARA VER SI USUARIO ES ADMIN
+							if ($_SESSION['fallidos'] > $valor) {
+								// Bloquear al usuario después de los intentos fallidos segun el parametro
+								$arrDataa = $requestId;
+
+								$miUsuario = $arrDataa['id_usuario'];
+
+								$requestU = $this->model->setEstado($miUsuario);
+								$arrResponse = array('statusBloqueado' => true, 'msg' => 'USUARIO BLOQUEADO');
+							} else {
+								$arrResponse = array('' => false, 'msg' => 'El usuario o la contraseña es incorrecto.');
+							}
+						} else {
+							$arrResponse = array('' => false, 'msg' => 'El usuario o la contraseña es incorrecto.');
+						}
+						//FIN IF
 					}
+
+
+
+					//SI SE ENCUENTRA UN USUARIO QUE COINCIDA CON LA CONTRASENA
+					//ENTOCES EL USUARIO YA PUEDE INGRESAR AL SISTEMA
 				} else {
 					$arrData = $requestUser;
 					if ($arrData['estado'] == 1) {
