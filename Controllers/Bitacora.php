@@ -28,10 +28,11 @@ class Bitacora extends Controllers
 
 	public function getBitacora()
 	{
-	// if ($_SESSION['permisosMod']['r']) {
+	if ($_SESSION['permisosMod']['r']) {
 			$arrData = $this->model->selectBitacora();
 	 		 echo json_encode($arrData, JSON_UNESCAPED_UNICODE);
+
+			}
 			die();
 		}
-
 }
