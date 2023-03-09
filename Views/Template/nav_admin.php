@@ -31,6 +31,7 @@
               <li><a class="treeview-item" href="<?= base_url(); ?>/usuarios"><i class="icon fa fa-circle-o"></i> Usuarios</a></li>
               <li><a class="treeview-item" href="<?= base_url(); ?>/roles"><i class="icon fa fa-circle-o"></i> Roles</a></li>
               <li><a class="treeview-item" href="<?= base_url(); ?>/bitacora"><i class="icon fa fa-circle-o"></i> Bitacora</a></li>
+              <li><a class="treeview-item" href="<?= base_url(); ?>/parametros"><i class="icon fa fa-circle-o"></i> Parámetros</a></li>
             </ul>
           </li>
         <?php } ?>
@@ -46,7 +47,7 @@
               <li><a class="treeview-item" href="<?= base_url(); ?>/promocion"><i class="icon fa fa-circle-o"></i> Promocion</a></li>
               <li><a class="treeview-item" href="<?= base_url(); ?>/preguntas"><i class="icon fa fa-circle-o"></i> Preguntas</a></li>
               <li><a class="treeview-item" href="<?= base_url(); ?>/objetos"><i class="icon fa fa-circle-o"></i> Objetos</a></li>
-              
+
             </ul>
           </li>
         <?php } ?>
