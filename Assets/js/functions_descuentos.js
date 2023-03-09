@@ -1,22 +1,22 @@
-let tableObjetos;
+let tableDescuentos;
 let rowTable = "";
 let divLoading = document.querySelector("#divLoading");
 document.addEventListener(
   "DOMContentLoaded",
   function () {
-    tableObjetos = $("#tableObjetos").dataTable({
+    tableDescuentos = $("#tableDescuentos").dataTable({
       aProcessing: true,
       aServerSide: true,
       language: {
         url: "//cdn.datatables.net/plug-ins/1.10.20/i18n/Spanish.json",
       },
       ajax: {
-        url: " " + base_url + "/Objetos/getObjetos",
+        url: " " + base_url + "/Descuentos/getDescuentos",
         dataSrc: "",
       },
       columns: [
-        { data: "objeto" },
-        { data: "descripcion" },
+        { data: "nombre_descuento" },
+        { data: "porcentaje_descuento" },
         { data: "options" },
       ],
       dom: "lBfrtip",
@@ -27,7 +27,7 @@ document.addEventListener(
           titleAttr: "Exportar a Excel",
           className: "btn btn-success",
           exportOptions: {
-            columns: [0, 1, 2],
+            columns: [0, 1],
           },
         },
         {
@@ -36,7 +36,7 @@ document.addEventListener(
           titleAttr: "Exportar a PDF",
           className: "btn btn-danger",
           exportOptions: {
-            columns: [0, 1, 2],
+            columns: [0, 1],
           },
           customize: function (doc) {
             doc.styles.tableHeader.color = "#ffffff";

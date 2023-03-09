@@ -47,6 +47,7 @@
               <li><a class="treeview-item" href="<?= base_url(); ?>/promocion"><i class="icon fa fa-circle-o"></i> Promocion</a></li>
               <li><a class="treeview-item" href="<?= base_url(); ?>/preguntas"><i class="icon fa fa-circle-o"></i> Preguntas</a></li>
               <li><a class="treeview-item" href="<?= base_url(); ?>/objetos"><i class="icon fa fa-circle-o"></i> Objetos</a></li>
+              <li><a class="treeview-item" href="<?= base_url(); ?>/descuentos"><i class="icon fa fa-circle-o"></i>Descuentos</a></li>
 
             </ul>
           </li>

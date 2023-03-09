@@ -1,6 +1,6 @@
 <?php
 
-class ObjetosModel extends Mysql
+class DescuentosModel extends Mysql
 {
 	private $intIdUsuario;
 	private $strusuario;
@@ -96,15 +96,15 @@ class ObjetosModel extends Mysql
 		
 
 
-	public function selectObjetos()
+	public function selectDescuentos()
 	{
 		$whereAdmin = "";
 		if ($_SESSION['idUser'] != 1) {
-			$whereAdmin = " and p.id_objeto!= 1 ";
+			$whereAdmin = " and p.cod_descuento != 1 ";
 		}
-		$sql = "SELECT p.id_objeto,p.objeto,p.descripcion
-					FROM tbl_ms_objetos p 
-					WHERE p.id_objeto != 0 " . $whereAdmin;
+		$sql = "SELECT p.cod_descuento,p.nombre_descuento,p.porcentaje_descuento
+					FROM tbl_descuento p 
+					WHERE p.cod_descuento != 0 " . $whereAdmin;
 		$request = $this->select_all($sql);
 		return $request;
 	}
