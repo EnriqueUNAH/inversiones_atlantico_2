@@ -51,30 +51,31 @@ class Promocion extends Controllers
 		//dep($_POST);
 		
 		if (empty($_POST['txtnombre_promocion']) || empty($_POST['txtfecha_inicio']) || empty($_POST['txtfecha_final']) || empty($_POST['txtprecio_venta'])) {
-		$arrResponse = array("status" => false, "msg" => 'Datos incorrectos.');
+		$arrResponse = array("msg" => 'Datos incorrectos.');
 	    } else {
 			$cod_promocion = intval($_POST['cod_promocion']);
 		 	$strnombre_promocion = strtoupper(strClean($_POST['txtnombre_promocion']));
-			$datefecha_inicio = date(strClean($_POST['txtfecha_inicio']));
-		 	$datefecha_final = date(strClean($_POST['txtfecha_final']));
+			$datefecha_inicio = strClean($_POST['txtfecha_inicio']);
+		 	$datefecha_final = strClean($_POST['txtfecha_final']);
 		 	$intprecio_venta = intval(strClean($_POST['txtprecio_venta']));
-		 	$request_user = "";
+		 	//$request_user = "";
+ 
 
-
-				// if ($cod_promocion == 0) {
+				//if ($cod_promocion == 0) {
 		 		//$option = 1; //LA OPCIÓN ES 1, ENTONCES ESTARÁ INSERTANDO
 		 		// $strPassword =  empty($_POST['txtPassword']) ? hash("SHA256", passGenerator()) : hash("SHA256", $_POST['txtPassword']);
 
 		 			if ($_SESSION['permisosMod']['w']) {
-	 				$request_user = $this->model->insertPromocion(
+	 				$arrResponse = $this->model->insertPromocion(
 							$strnombre_promocion,
 							$datefecha_inicio,
 		 					$datefecha_final,
 		 					$intprecio_venta
+
 		 			);
 
-		 
-		 			//} //FIN DEL IF DE INSERTAR
+		 $arrResponse = array('msg' => 'Datos guardados correctamente.');
+		 			} //FIN DEL IF DE INSERTAR
 		 		// } else {
 		 		// 	$option = 2; //SI OPTION ES 2, ENTONCES ESTARÁ ACTUALIZANDO
 		 		// 	$strPassword =  empty($_POST['txtPassword']) ? "" : hash("SHA256", $_POST['txtPassword']);
@@ -93,60 +94,92 @@ class Promocion extends Controllers
 		 	
 				// } //FIN DEL ELSE PARA ACTUALIZAR
 
-		 	  if ($request_user > 0) {
-		 		// if ($option == 1) {
-		 		$arrResponse = array("status" => false, 'msg' => 'Datos guardados correctamente.');
-		 		} //else {
-		 		// 		$arrResponse = array('status' => true, 'msg' => 'Datos Actualizados correctamente.');
-		 		// 	}
-		 		// } else if ($request_user == 'exist') {
-		 		// 	$arrResponse = array('status' => false, 'msg' => '¡Atención! el email o la identificación ya existe, ingrese otro.');
-		 		// } else {
-		 		// 	$arrResponse = array("status" => false, "msg" => 'No es posible almacenar los datos.');
-		 		}
-
-				echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
+		 	//    if ($request_user > 0) {
+		 	// 
+		 	// 	} else {
+		 	// 	 		$arrResponse = array('cod_promocion' => true, 'msg' => 'Datos Actualizados correctamente.');
+		 	// 	 	}
+		 		//  } else if ($request_user == 'exist') {
+		 		//  	$arrResponse = array('cod_promocion' => false, 'msg' => '¡Atención! el email o la identificación ya existe, ingrese otro.');
+		 	    // } else {
+		 		// 	$arrResponse = array("cod_promocion" => false, "msg" => 'No es posible almacenar los datos.');
+		 		// } 
+		
+				
 				
 			}
-			
-	     die();
+			echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
+	    
 	    }
-			
+		 die();	
 	}
 
-	public function getPromocion()
-	{
-		if ($_SESSION['permisosMod']['r']) {
-			$arrData = $this->model->selectPromocion();
-		// 	for ($i = 0; $i < count($arrData); $i++) {
+	// public function getPromocion()
+	// {
+	// 	if ($_SESSION['permisosMod']['r']) {
+	// 		$arrData = $this->model->selectPromocion();
+	// 	//for ($i = 0; $i < count($arrData); $i++) {
 				
-		// 		$btnEdit = '';
-		// 		$btnDelete = '';
+	// 	$btnEdit = '';
+	// 	$btnDelete = '';
 
 				
-		// 	if ($_SESSION['permisosMod']['u']) {
-		// 		$btnEdit = '<button class="btn btn-primary  btn-sm btnEditPromocion" onClick="fntEditPromocion(this,' . $arrData[$i]['cod_promocion'] . ')" title="Editar promocion"><i class="fas fa-pencil-alt"></i></button>';
-		// 	} else {
-		// 		$btnEdit = '<button class="btn btn-secondary btn-sm" disabled ><i class="fas fa-pencil-alt"></i></button>';
-		// 	}
+	// 		if ($_SESSION['permisosMod']['u']) {
+	// 		$btnEdit = '<button class="btn btn-primary  btn-sm btnEditPromocion" onClick="fntEditPromocion(this,' . $arrData[$i]['cod_promocion'] . ')" title="Editar promocion"><i class="fas fa-pencil-alt"></i></button>';
+	// 	 	} else {
+	// 			$btnEdit = '<button class="btn btn-secondary btn-sm" disabled ><i class="fas fa-pencil-alt"></i></button>';
+	// 		}
 
-        //     if ($_SESSION['permisosMod']['d']) {
-		// 		$btnDelete = '<button class="btn btn-danger btn-sm btnDelPromocion" onClick="fntDelPromocion(' . $arrData[$i]['cod_promocion'] . ')" title="Eliminar promocion"><i class="far fa-trash-alt"></i></button>';
-		// 	} else {
-		// 		$btnDelete = '<button class="btn btn-secondary btn-sm" disabled ><i class="far fa-trash-alt"></i></button>';
-		// 	}
+    //     //     if ($_SESSION['permisosMod']['d']) {
+	// 	// 		$btnDelete = '<button class="btn btn-danger btn-sm btnDelPromocion" onClick="fntDelPromocion(' . $arrData[$i]['cod_promocion'] . ')" title="Eliminar promocion"><i class="far fa-trash-alt"></i></button>';
+	// 	// 	} else {
+	// 	// 		$btnDelete = '<button class="btn btn-secondary btn-sm" disabled ><i class="far fa-trash-alt"></i></button>';
+	// 	// 	}
 
-		// 	$arrData[$i]['options'] = '<div class="text-center">' . $btnEdit . ' ' . $btnDelete . '</div>';
+	// 		$arrData['options'] = '<div class="text-center">' . $btnEdit . ' ' . $btnDelete . '</div>';
 
-		// }
-        echo json_encode($arrData, JSON_UNESCAPED_UNICODE);
+			
+	// 	//}
+    //     echo json_encode($arrData, JSON_UNESCAPED_UNICODE);
         
 
 
-        }
+    //     }
 			
+	// 	die();
+	// }
+
+
+	public function getPromocion()
+	{
+		if($_SESSION['permisosMod']['r']){
+			$arrData = $this->model->selectPromocion();
+			for ($i=0; $i < count($arrData); $i++) {
+			
+				$btnEdit = '';
+			 	$btnDelete = '';
+			 	
+			 	if($_SESSION['permisosMod']['r']){
+			 		$btnEdit = '<button class="btn btn-primary  btn-sm btnEditPromocion" onClick="fntEditPromocion(this,'.$arrData[$i]['cod_promocion'].')" title="Editar promocion"><i class="fas fa-pencil-alt"></i></button>';
+			 	}
+			 	if($_SESSION['permisosMod']['u']){	
+			 		$btnDelete = '<button class="btn btn-danger btn-sm btnDelPromocion" onClick="fntDelPromocion('.$arrData[$i]['cod_promocion'].')" title="Eliminar promocion"><i class="far fa-trash-alt"></i></button>';
+				}
+			 	$arrData[$i]['options'] = '<div class="text-center">'.$btnEdit.' '.$btnDelete.'</div>';
+			 }
+			echo json_encode($arrData,JSON_UNESCAPED_UNICODE);
+		}
 		die();
 	}
+
+
+
+
+
+
+
+
+
 
 	public function getUsuario($id_usuario)
 	{
@@ -165,36 +198,18 @@ class Promocion extends Controllers
 		die();
 	}
 
-	public function delUsuario()
+	public function delPromocion()
 	{
 		if ($_POST) {
 			if ($_SESSION['permisosMod']['d']) {
-				$intid_usuario = intval($_POST['id_usuario']);
-				$requestDelete = $this->model->deleteUsuario($intid_usuario);
-
-				//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora
-				//SE PUEDEN USAR PARA INSERTAR O ACTUALIZAR PORQUE SERÍAN LOS MISMOS DATOS
-				$dateFecha = date('Y-m-d H:i:s');
-				$intIdUsuario = $_SESSION['idUser'];
-				$intIdObjeto = 2;
-				$request_bitacora = "";
+				$cod_promocion = intval($_POST['cod_promocion']);
+				$requestDelete = $this->model->deletePromocion($cod_promocion);
 
 				if ($requestDelete) {
-					$arrResponse = array('status' => true, 'msg' => 'Se ha eliminado el usuario');
+					$arrResponse = array('status' => true, 'msg' => 'Se ha eliminado la promocion');
 
-					$strAccion = "ELIMINAR";
-					$strDescripcion = "ELIMINACION DE USUARIO";
-
-					//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
-					$request_bitacora = $this->model->insertUsuarioBitacora(
-						$dateFecha,
-						$intIdUsuario,
-						$intIdObjeto,
-						$strAccion,
-						$strDescripcion
-					);
 				} else {
-					$arrResponse = array('status' => false, 'msg' => 'Error al eliminar el usuario.');
+					$arrResponse = array('status' => false, 'msg' => 'Error al eliminar la promocion.');
 				}
 
 				echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);

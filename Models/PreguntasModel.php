@@ -1,48 +1,58 @@
 <?php
 
-class PromocionModel extends Mysql
+class PreguntasModel extends Mysql
 {
-	private $cod_promocion;
-	private $strnombre_promocion;
-	private $datefecha_inicio;
-	private $datefecha_final;
-	private $intprecio_venta;
+	private $intIdUsuario;
+	private $strusuario;
+	private $strNombre;
+	private $strApellido;
+	private $intpreguntas_contestadas;
+	private $strEmail;
+	private $strPassword;
+	private $strToken;
+	private $intTipoId;
 	private $intStatus;
-
-	
+	private $strNit;
+	private $strNomFiscal;
+	private $strDirFiscal;
 
 	public function __construct()
 	{
 		parent::__construct();
 	}
 
-	public function insertPromocion(string $nombre_promocion, string $fecha_inicio, string $fecha_final, int $precio_venta)
+	public function insertUsuario(string $usuario, string $nombre, string $email, string $password, int $tipoid, int $status)
 	{
-		$this->strnombre_promocion = $nombre_promocion;
-		$this->datefecha_inicio = $fecha_inicio;
-		$this->datefecha_final = $fecha_final;
-		$this->intprecio_venta = $precio_venta;
+		$this->strusuario = $usuario;
+		$this->strNombre = $nombre;
+		$this->strEmail = $email;
+		$this->strPassword = $password;
+		$this->intTipoId = $tipoid;
+		$this->strCreadoPor = $_SESSION['elUsuario'];
+		$this->intStatus = $status;
 		$return = 0;
 
-		// $sql = "SELECT * FROM tbl_promocion WHERE 
-		// 			correo_electronico = '{$this->strEmail}' or usuario = '{$this->strusuario}' ";
-		//  $request = $this->select_all($sql);
+		$sql = "SELECT * FROM tbl_ms_usuarios WHERE 
+					correo_electronico = '{$this->strEmail}' or usuario = '{$this->strusuario}' ";
+		$request = $this->select_all($sql);
 
-		// if (empty($request)) {
-			$query_insert  = "INSERT INTO tbl_promocion(nombre_promocion,fecha_inicio,fecha_final,precio_venta) 
-								  VALUES(?,?,?,?)";
+		if (empty($request)) {
+			$query_insert  = "INSERT INTO tbl_ms_usuarios(usuario,nombre_usuario,correo_electronico,contrasena,id_rol,creado_por,estado) 
+								  VALUES(?,?,?,?,?,?,?)";
 			$arrData = array(
-				$this->strnombre_promocion,
-				$this->datefecha_inicio,
-				$this->datefecha_final,
-				$this->intprecio_venta,
-				
+				$this->strusuario,
+				$this->strNombre,
+				$this->strEmail,
+				$this->strPassword,
+				$this->intTipoId,
+				$this->strCreadoPor,
+				$this->intStatus
 			);
 			$request_insert = $this->insert($query_insert, $arrData);
 			$return = $request_insert;
-		// } else {
-		// 	$return = "exist";
-		// }
+		} else {
+			$return = "exist";
+		}
 		return $return;
 	}
 
@@ -86,33 +96,31 @@ class PromocionModel extends Mysql
 		
 
 
-	public function selectPromocion()
+	public function selectPreguntas()
 	{
 		$whereAdmin = "";
 		if ($_SESSION['idUser'] != 1) {
-			$whereAdmin = " and p.cod_promocion != 1 ";
+			$whereAdmin = " and p.id_pregunta!= 1 ";
 		}
-		$sql = "SELECT p.cod_promocion,p.nombre_promocion,p.fecha_inicio,p.fecha_final,p.precio_venta 
-					FROM tbl_promocion p
-					WHERE p.cod_promocion != 0 " . $whereAdmin;
+		$sql = "SELECT p.id_pregunta,p.pregunta,p.creado_por,p.fecha_creacion,p.modificado_por,p.fecha_modificacion
+					FROM tbl_ms_preguntas p 
+					WHERE p.id_pregunta != 0 " . $whereAdmin;
 		$request = $this->select_all($sql);
 		return $request;
 	}
-
-
 	//Muestra los datos en el botón ver más
-	// public function selectUsuario(int $id_usuario)
-	// {
-	// 	$this->intIdUsuario = $id_usuario;
-	// 	$sql = "SELECT p.id_usuario,p.usuario,p.nombre_usuario,p.preguntas_contestadas,p.correo_electronico,r.id_rol,r.nombrerol,
-	// 	p.estado,p.creado_por,p.modificado_por,p.fecha_modificacion, DATE_FORMAT(p.fecha_creacion, '%d-%m-%Y') as fechaRegistro 
-	// 				FROM tbl_ms_usuarios p
-	// 				INNER JOIN tbl_ms_roles r
-	// 				ON p.id_rol = r.id_rol
-	// 				WHERE p.id_usuario = $this->intIdUsuario";
-	// 	$request = $this->select($sql);
-	// 	return $request;
-	// }
+	public function selectUsuario(int $id_usuario)
+	{
+		$this->intIdUsuario = $id_usuario;
+		$sql = "SELECT p.id_usuario,p.usuario,p.nombre_usuario,p.preguntas_contestadas,p.correo_electronico,r.id_rol,r.nombrerol,
+		p.estado,p.creado_por,p.modificado_por,p.fecha_modificacion, DATE_FORMAT(p.fecha_creacion, '%d-%m-%Y') as fechaRegistro 
+					FROM tbl_ms_usuarios p
+					INNER JOIN tbl_ms_roles r
+					ON p.id_rol = r.id_rol
+					WHERE p.id_usuario = $this->intIdUsuario";
+		$request = $this->select($sql);
+		return $request;
+	}
 
 
 
@@ -168,11 +176,10 @@ class PromocionModel extends Mysql
 		}
 		return $request;
 	}
-
-	public function deletePromocion(int $cod_promocion)
+	public function deleteUsuario(int $intid_usuario)
 	{
-		$this->cod_promocion = $cod_promocion;
-		 $sql = "UPDATE tbl_promocion WHERE cod_promocion = $this->cod_promocion ";
+		$this->intIdUsuario = $intid_usuario;
+		$sql = "UPDATE tbl_ms_usuarios SET estado = ? WHERE id_usuario = $this->intIdUsuario ";
 		$arrData = array(0);
 		$request = $this->update($sql, $arrData);
 		return $request;

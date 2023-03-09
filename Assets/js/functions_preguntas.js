@@ -1,24 +1,25 @@
-let tablePromocion;
+let tablePreguntas;
 let rowTable = "";
 let divLoading = document.querySelector("#divLoading");
 document.addEventListener(
   "DOMContentLoaded",
   function () {
-    tablePromocion = $("#tablePromocion").dataTable({
+    tablePreguntas = $("#tablePreguntas").dataTable({
       aProcessing: true,
       aServerSide: true,
       language: {
         url: "//cdn.datatables.net/plug-ins/1.10.20/i18n/Spanish.json",
       },
       ajax: {
-        url: " " + base_url + "/Promocion/getPromocion",
+        url: " " + base_url + "/Preguntas/getPreguntas",
         dataSrc: "",
       },
       columns: [
-        { data: "nombre_promocion" },
-        { data: "fecha_inicio" },
-        { data: "fecha_final" },
-        { data: "precio_venta" },
+        { data: "pregunta" },
+        { data: "creado_por" },
+        { data: "fecha_creacion" },
+        { data: "modificado_por" },
+        { data: "fecha_modificacion" },
         { data: "options" },
       ],
       dom: "lBfrtip",
@@ -29,7 +30,7 @@ document.addEventListener(
           titleAttr: "Exportar a Excel",
           className: "btn btn-success",
           exportOptions: {
-            columns: [0, 1, 2, 3],
+            columns: [0, 1, 2, 3, 4],
           },
         },
         {
@@ -38,7 +39,18 @@ document.addEventListener(
           titleAttr: "Exportar a PDF",
           className: "btn btn-danger",
           exportOptions: {
-            columns: [0, 1, 2, 3],
+            columns: [0, 1, 2, 3, 4],
+          },
+          customize: function (doc) {
+            doc.styles.tableHeader.color = "#ffffff";
+            doc.styles.tableHeader.fillColor = "#007bff";
+            doc.styles.tableBodyEven.fillColor = "#f2f2f2";
+            doc.styles.tableBodyOdd.fillColor = "#ffffff";
+            doc.content[1].table.widths = Array(
+              doc.content[1].table.body[0].length + 1
+            )
+              .join("*")
+              .split("");
           },
         },
       ],
@@ -48,61 +60,85 @@ document.addEventListener(
       order: [[0, "desc"]],
     });
 
-    if (document.querySelector("#formPromocion")) {
-      let formPromocion = document.querySelector("#formPromocion");
-      formPromocion.onsubmit = function (e) {
+    if (document.querySelector("#formUsuario")) {
+      let formUsuario = document.querySelector("#formUsuario");
+      formUsuario.onsubmit = function (e) {
         e.preventDefault();
 
-        let strnombre_promocion = document.querySelector("#txtnombre_promocion").value.toUpperCase();
-        let datefecha_inicio = document.querySelector("#txtfecha_inicio").value;
-        let datefecha_final = document.querySelector("#txtfecha_final").value;
-        let intprecio_venta = document.querySelector("#txtprecio_venta").value;
+        let strusuario = document.querySelector("#txtusuario").value;
+        let strnombre_usuario = document
+          .querySelector("#txtnombre_usuario")
+          .value.toUpperCase();
+        let strEmail = document.querySelector("#txtEmail").value;
+        let intpreguntas_contestadas = 0;
+        let intTipousuario = document.querySelector("#listid_rol").value;
+        let strPassword = document.querySelector("#txtPassword").value;
+        let intStatus = document.querySelector("#listStatus").value;
 
-        if (strnombre_promocion == "" || datefecha_inicio == "" || datefecha_final == "" || intprecio_venta == "") {
+        if (
+          strusuario == "" ||
+          strnombre_usuario == "" ||
+          strEmail == "" ||
+          intTipousuario == ""
+        ) {
           swal("Atención", "Todos los campos son obligatorios.", "error");
           return false;
         }
 
-        // let elementsValid = document.getElementsByClassName("valid");
-        // for (let i = 0; i < elementsValid.length; i++) {
-        //   if (elementsValid[i].classList.contains("is-invalid")) {
-        //     swal(
-        //       "Atención",
-        //       "Por favor verifique los campos en rojo.",
-        //       "error"
-        //     );
-        //     return false;
-        //   }
-        // }
+        let elementsValid = document.getElementsByClassName("valid");
+        for (let i = 0; i < elementsValid.length; i++) {
+          if (elementsValid[i].classList.contains("is-invalid")) {
+            swal(
+              "Atención",
+              "Por favor verifique los campos en rojo.",
+              "error"
+            );
+            return false;
+          }
+        }
         divLoading.style.display = "flex";
-        let request = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
-        let ajaxUrl = base_url + "/Promocion/setPromocion";
-        let formData = new FormData(formPromocion);
+        let request = window.XMLHttpRequest
+          ? new XMLHttpRequest()
+          : new ActiveXObject("Microsoft.XMLHTTP");
+        let ajaxUrl = base_url + "/Usuarios/setUsuario";
+        let formData = new FormData(formUsuario);
         request.open("POST", ajaxUrl, true);
         request.send(formData);
         request.onreadystatechange = function () {
-        //   if (request.readyState == 4 && request.status == 200) {
-        let objData = JSON.parse(request.responseText);
-        //     if (objData.status) {
-          if (rowTable == "") {
-          tablePromocion.api().ajax.reload();
-      
-             rowTable.cells[0].textContent = strnombre_promocion;
-             rowTable.cells[1].textContent = datefecha_inicio;
-             rowTable.cells[2].textContent = datefecha_final;
-             rowTable.cells[3].textContent = intprecio_venta;
-             rowTable.cells[4].innerHTML = htmlStatus;
-             rowTable = "";
-        }
+          if (request.readyState == 4 && request.status == 200) {
+            let objData = JSON.parse(request.responseText);
+            if (objData.status) {
+              if (rowTable == "") {
+                tableUsuarios.api().ajax.reload();
+              } else {
+                htmlStatus =
+                  intStatus == 1
+                    ? '<span class="badge badge-success">ACTIVO</span>'
+                    : intStatus == 3
+                    ? '<span class="badge badge-info">NUEVO</span>'
+                    : intStatus == 4
+                    ? '<span class="badge badge-danger">BLOQUEADO</span>'
+                    : '<span class="badge badge-danger">INACTIVO</span>';
 
-             $("#modalFormPromocion").modal("hide");
+                rowTable.cells[0].textContent = strusuario;
+                rowTable.cells[1].textContent = strnombre_usuario;
+                rowTable.cells[2].textContent = strEmail;
+                rowTable.cells[3].textContent =
+                  document.querySelector("#listid_rol").selectedOptions[0].text;
+                rowTable.cells[4].innerHTML = htmlStatus;
+                rowTable = "";
+              }
 
-         formPromocion.reset();
-              swal("Promocion", objData.msg, "success");
-         
-  
-         divLoading.style.display = "none";
-        return false;
+              $("#modalFormUsuario").modal("hide");
+
+              formUsuario.reset();
+              swal("Usuarios", objData.msg, "success");
+            } else {
+              swal("Error", objData.msg, "error");
+            }
+          }
+          divLoading.style.display = "none";
+          return false;
         };
       };
     }
@@ -375,11 +411,11 @@ function fntEditUsuario(element, id_usuario) {
   };
 }
 
-function fntDelPromocion(cod_promocion) {
+function fntDelUsuario(id_usuario) {
   swal(
     {
-      title: "Eliminar Promocion",
-      text: "¿Realmente quiere eliminar la promocion?",
+      title: "Eliminar Usuario",
+      text: "¿Realmente quiere eliminar el Usuario?",
       type: "warning",
       showCancelButton: true,
       confirmButtonText: "ELIMINAR",
@@ -392,8 +428,8 @@ function fntDelPromocion(cod_promocion) {
         let request = window.XMLHttpRequest
           ? new XMLHttpRequest()
           : new ActiveXObject("Microsoft.XMLHTTP");
-        let ajaxUrl = base_url + "/Promocion/delPromocion";
-        let strData = "cod_promocion=" + cod_promocion;
+        let ajaxUrl = base_url + "/Usuarios/delUsuario";
+        let strData = "id_usuario=" + id_usuario;
         request.open("POST", ajaxUrl, true);
         request.setRequestHeader(
           "Content-type",
@@ -405,7 +441,7 @@ function fntDelPromocion(cod_promocion) {
             let objData = JSON.parse(request.responseText);
             if (objData.status) {
               swal("Eliminar!", objData.msg, "success");
-              tablePromocion.api().ajax.reload();
+              tableUsuarios.api().ajax.reload();
             } else {
               swal("Atención!", objData.msg, "error");
             }
@@ -419,8 +455,8 @@ function fntDelPromocion(cod_promocion) {
 //Abre el modal para agregar usuario
 function openModal() {
   rowTable = "";
-  document.querySelector("#cod_promocion").value = "";
-  document.querySelector("#txtnombre_promocion").removeAttribute("readonly"); //Para quitar el readonly en caso de que antes se haya editado
+  document.querySelector("#id_usuario").value = "";
+  document.querySelector("#txtusuario").removeAttribute("readonly"); //Para quitar el readonly en caso de que antes se haya editado
   //document.querySelector("#listStatus").setAttribute("readonly", true);
   // document.querySelector("#listStatus").setAttribute("disabled", true);
   // if (rowTable) {
@@ -437,12 +473,12 @@ function openModal() {
     .querySelector("#btnActionForm")
     .classList.replace("btn-info", "btn-primary");
   document.querySelector("#btnText").innerHTML = "Guardar";
-  document.querySelector("#titleModal").innerHTML = "Nueva promocion";
-  document.querySelector("#formPromocion").reset();
+  document.querySelector("#titleModal").innerHTML = "Nuevo Usuario";
+  document.querySelector("#formUsuario").reset();
   //$("#listStatus").prop("disabled", true);
   //$("#listStatus").val("3");
 
-  $("#modalFormPromocion").modal("show");
+  $("#modalFormUsuario").modal("show");
 }
 
 function openModalPerfil() {
