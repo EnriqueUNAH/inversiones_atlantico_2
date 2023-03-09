@@ -102,7 +102,7 @@ class ObjetosModel extends Mysql
 		if ($_SESSION['idUser'] != 1) {
 			$whereAdmin = " and p.id_objeto!= 1 ";
 		}
-		$sql = "SELECT p.id_objeto,p.objeto,p.descripcion,p.estado
+		$sql = "SELECT p.id_objeto,p.objeto,p.descripcion
 					FROM tbl_ms_objetos p 
 					WHERE p.id_objeto != 0 " . $whereAdmin;
 		$request = $this->select_all($sql);

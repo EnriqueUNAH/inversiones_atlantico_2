@@ -17,7 +17,6 @@ document.addEventListener(
       columns: [
         { data: "objeto" },
         { data: "descripcion" },
-        { data: "estado" },
         { data: "options" },
       ],
       dom: "lBfrtip",
