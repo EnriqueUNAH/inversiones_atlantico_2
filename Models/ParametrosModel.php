@@ -125,6 +125,9 @@ class ParametrosModel extends Mysql
 		return $request;
 	}
 
+	//OJO TODO EL DELETE PUEDE QUE EN ALGUNOS CASOS NO FUNCIONE POR INTEGRIDAD REFERENCIAL. 
+	//VEREMOS CÓMO HACERLO USANDO EL TRY CATCH, DESPUÉS. 
+	//POR AHORA LO IMPORTANTE ES QUE FUNCIONE TODO LO DEMÁS.
 	public function deleteParametro(int $id_parametro)
 	{
 		$this->intid_parametro = $id_parametro;
