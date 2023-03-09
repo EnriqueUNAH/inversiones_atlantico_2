@@ -3,7 +3,7 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header headerRegister">
-        <h5 class="modal-title" id="titleModal">Nuevo Parametro</h5>
+        <h5 class="modal-title" id="titleModal">Nuevo Parámetro</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -36,6 +36,57 @@
           </div>
         </form>
 
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Modal del botón VER MÁS-->
+<div class="modal fade" id="modalViewParametro" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header header-primary">
+        <h5 class="modal-title" id="titleModal">Datos de los parámetros</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <table class="table table-bordered">
+          <tbody>
+            <tr>
+              <td>Parámetro:</td>
+              <td id="elParametro"></td>
+            </tr>
+            <tr>
+              <td>Valor:</td>
+              <td id="elValor"></td>
+            </tr>
+
+            <tr>
+              <td>Creado Por:</td>
+              <td id="elCreadoPor"></td>
+            </tr>
+            <tr>
+              <td>Fecha Creación:</td>
+              <td id="elFechaCreacion"></td>
+            </tr>
+            <tr>
+              <td>Modificado Por:</td>
+              <td id="elModificadoPor"></td>
+            </tr>
+            <tr>
+              <td>Fecha Modificación:</td>
+              <td id="elFechaModificacion"></td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
       </div>
     </div>
   </div>

@@ -16,12 +16,9 @@ class Parametros extends Controllers
 
 	public function Parametros()
 	{
-		// if (empty($_SESSION['permisosMod']['r'])) {
-		// 	header("Location:" . base_url() . '/dashboard');
-		// }
 		$data['page_tag'] = "Parametros";
-		$data['page_title'] = "PARAMETROS <small>Inversiones Atlántico</small>";
-		$data['page_name'] = "parametros";
+		$data['page_title'] = "PARÁMETROS <small>Inversiones Atlántico</small>";
+		$data['page_name'] = "parámetros";
 		$data['page_functions_js'] = "functions_parametros.js";
 		$this->views->getView($this, "parametros", $data);
 
@@ -33,10 +30,10 @@ class Parametros extends Controllers
 		$request_bitacora = "";
 
 		$strAccion = "INGRESO";
-		$strDescripcion = "INGRESO AL MODULO PARAMETROS";
+		$strDescripcion = "INGRESO AL MÓDULO PARÁMETROS";
 
 		//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
-		$request_bitacora = $this->model->insertUsuarioBitacora(
+		$request_bitacora = $this->model->insertParametroBitacora(
 			$dateFecha,
 			$intIdUsuario,
 			$intIdObjeto,
@@ -60,7 +57,7 @@ class Parametros extends Controllers
 				//SE PUEDEN USAR PARA INSERTAR O ACTUALIZAR PORQUE SERÍAN LOS MISMOS DATOS
 				$dateFecha = date('Y-m-d H:i:s');
 				$intIdUsuario = $_SESSION['idUser'];
-				$intIdObjeto = 2;
+				$intIdObjeto = 2;                // ([["OJO"]]) HAY QUE CAMBIAR ESTE ID DESPUÉS CUANDO YA AGREGUEMOS TODOS LOS OBJETOS
 				$request_bitacora = "";
 
 				if ($id_parametro == 0) {
@@ -75,7 +72,7 @@ class Parametros extends Controllers
 
 						//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora 	en caso de que se esté insertando
 						$strAccion = "CREAR";
-						$strDescripcion = "CREACION DE PARAMETRO";
+						$strDescripcion = "CREACIÓN DE PARÁMETRO";
 
 						//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
 						$request_bitacora = $this->model->insertParametroBitacora(
@@ -198,7 +195,7 @@ class Parametros extends Controllers
 					$strDescripcion = "ELIMINACION DE USUARIO";
 
 					//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
-					$request_bitacora = $this->model->insertUsuarioBitacora(
+					$request_bitacora = $this->model->insertParametroBitacora(
 						$dateFecha,
 						$intIdUsuario,
 						$intIdObjeto,

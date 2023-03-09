@@ -14,12 +14,7 @@ document.addEventListener(
         url: " " + base_url + "/Parametros/getParametros",
         dataSrc: "",
       },
-      columns: [
-        { data: "parametro" },
-        { data: "valor" },
-        // { data: "creado_por" },
-        { data: "options" },
-      ],
+      columns: [{ data: "parametro" }, { data: "valor" }, { data: "options" }],
       dom: "lBfrtip",
       buttons: [
         {
@@ -97,18 +92,8 @@ document.addEventListener(
               if (rowTable == "") {
                 tableParametros.api().ajax.reload();
               } else {
-                // htmlStatus =
-                //   intStatus == 1
-                //     ? '<span class="badge badge-success">ACTIVO</span>'
-                //     : intStatus == 3
-                //     ? '<span class="badge badge-info">NUEVO</span>'
-                //     : intStatus == 4
-                //     ? '<span class="badge badge-danger">BLOQUEADO</span>'
-                //     : '<span class="badge badge-danger">INACTIVO</span>';
-
                 rowTable.cells[0].textContent = strparametro;
                 rowTable.cells[1].textContent = strvalor;
-                // rowTable.cells[2].textContent = strEmail; PUEDE SER CREADO POR
 
                 rowTable = "";
               }
@@ -126,85 +111,46 @@ document.addEventListener(
         };
       };
     }
-  }, //ESTEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+  },
   false
 );
 
-// window.addEventListener(
-//   "load",
-//   function () {
-//     fntRolesUsuario();
-//   },
-//   false
-// );
+function fntViewParametro(id_parametro) {
+  let request = window.XMLHttpRequest
+    ? new XMLHttpRequest()
+    : new ActiveXObject("Microsoft.XMLHTTP");
+  let ajaxUrl = base_url + "/Parametros/getParametro/" + id_parametro;
+  request.open("GET", ajaxUrl, true);
+  request.send();
+  request.onreadystatechange = function () {
+    if (request.readyState == 4 && request.status == 200) {
+      let objData = JSON.parse(request.responseText);
 
-// function fntRolesUsuario() {
-//   if (document.querySelector("#listid_rol")) {
-//     let ajaxUrl = base_url + "/Roles/getSelectRoles";
-//     let request = window.XMLHttpRequest
-//       ? new XMLHttpRequest()
-//       : new ActiveXObject("Microsoft.XMLHTTP");
-//     request.open("GET", ajaxUrl, true);
-//     request.send();
-//     request.onreadystatechange = function () {
-//       if (request.readyState == 4 && request.status == 200) {
-//         document.querySelector("#listid_rol").innerHTML = request.responseText;
-//         $("#listid_rol").selectpicker("render");
-//       }
-//     };
-//   }
-// }
+      if (objData.status) {
+        document.querySelector("#elParametro").innerHTML =
+          objData.data.parametro;
+        document.querySelector("#elValor").innerHTML = objData.data.valor;
+        document.querySelector("#elCreadoPor").innerHTML =
+          objData.data.creado_por;
+        document.querySelector("#elFechaCreacion").innerHTML =
+          objData.data.fecha_creacion;
+        document.querySelector("#elModificadoPor").innerHTML =
+          objData.data.modificado_por;
+        document.querySelector("#elFechaModificacion").innerHTML =
+          objData.data.fecha_modificacion;
 
-// function fntViewUsuario(id_usuario) {
-//   let request = window.XMLHttpRequest
-//     ? new XMLHttpRequest()
-//     : new ActiveXObject("Microsoft.XMLHTTP");
-//   let ajaxUrl = base_url + "/Usuarios/getUsuario/" + id_usuario;
-//   request.open("GET", ajaxUrl, true);
-//   request.send();
-//   request.onreadystatechange = function () {
-//     if (request.readyState == 4 && request.status == 200) {
-//       let objData = JSON.parse(request.responseText);
-
-//       if (objData.status) {
-//         let estadoUsuario =
-//           objData.data.estado == 1
-//             ? '<span class="badge badge-success">ACTIVO</span>'
-//             : objData.data.estado == 3
-//             ? '<span class="badge badge-info">NUEVO</span>'
-//             : '<span class="badge badge-danger">INACTIVO</span>';
-
-//         document.querySelector("#celusuario").innerHTML = objData.data.usuario;
-//         document.querySelector("#celNombre").innerHTML =
-//           objData.data.nombre_usuario;
-//         document.querySelector("#celpreguntas_contestadas").innerHTML =
-//           objData.data.preguntas_contestadas;
-//         document.querySelector("#celEmail").innerHTML =
-//           objData.data.correo_electronico;
-//         document.querySelector("#celTipoUsuario").innerHTML =
-//           objData.data.nombrerol;
-//         document.querySelector("#celEstado").innerHTML = estadoUsuario;
-//         document.querySelector("#celCreadoPor").innerHTML =
-//           objData.data.creado_por;
-//         document.querySelector("#celFechaRegistro").innerHTML =
-//           objData.data.fechaRegistro;
-//         document.querySelector("#celModificadoPor").innerHTML =
-//           objData.data.modificado_por;
-//         document.querySelector("#celFechaModificacion").innerHTML =
-//           objData.data.fecha_modificacion;
-
-//         $("#modalViewUser").modal("show");
-//       } else {
-//         swal("Error", objData.msg, "error");
-//       }
-//     }
-//   };
-// }
+        $("#modalViewParametro").modal("show");
+      } else {
+        swal("Error", objData.msg, "error");
+      }
+    }
+  };
+}
 
 //Función cuando se le da click al botón editar Parámetro
 function fntEditParametro(element, id_parametro) {
   rowTable = element.parentNode.parentNode.parentNode;
-  document.querySelector("#titleModal").innerHTML = "Actualizar Parametro";
+  document.querySelector("#titleModal").innerHTML = "Actualizar Parámetro";
   document
     .querySelector(".modal-header")
     .classList.replace("headerRegister", "headerUpdate");
@@ -228,29 +174,6 @@ function fntEditParametro(element, id_parametro) {
 
         document.querySelector("#txtparametro").value = objData.data.parametro;
         document.querySelector("#txtvalor").value = objData.data.valor;
-
-        //Si recibe un usuario, quiere decir que está editando,
-        //entonces coloca el input de Usuario como solo lectura
-        // if (id_usuario) {
-        //   document.querySelector("#txtusuario").setAttribute("readonly", true);
-        // }
-
-        // document.querySelector("#txtnombre_usuario").value =
-        //   objData.data.nombre_usuario;
-        // document.querySelector("#txtEmail").value =
-        //   objData.data.correo_electronico;
-        // document.querySelector("#listid_rol").value = objData.data.id_rol;
-        // $("#listid_rol").selectpicker("render");
-
-        // if (objData.data.estado == 1) {
-        //   document.querySelector("#listStatus").value = 1;
-        // } else if (objData.data.estado == 2) {
-        //   document.querySelector("#listStatus").value = 2;
-        // } else {
-        //   document.querySelector("#listStatus").value = 3;
-        // }
-
-        // $("#listStatus").selectpicker("render");
       }
     }
 
@@ -261,8 +184,8 @@ function fntEditParametro(element, id_parametro) {
 function fntDelParametro(id_parametro) {
   swal(
     {
-      title: "Eliminar Parametro",
-      text: "¿Realmente quiere eliminar el Parametro?",
+      title: "Eliminar Parámetro",
+      text: "¿Realmente quiere eliminar el Parámetro?",
       type: "warning",
       showCancelButton: true,
       confirmButtonText: "ELIMINAR",
@@ -303,16 +226,6 @@ function fntDelParametro(id_parametro) {
 function openModal() {
   rowTable = "";
   document.querySelector("#id_parametro").value = "";
-  //document.querySelector("#txtusuario").removeAttribute("readonly"); //Para quitar el readonly en caso de que antes se haya editado
-  //document.querySelector("#listStatus").setAttribute("readonly", true);
-  // document.querySelector("#listStatus").setAttribute("disabled", true);
-  // if (rowTable) {
-  //   document.querySelector("#listStatus").removeAttribute("disabled");
-  // } else {
-  //   // Si se está agregando un nuevo registro
-  //   document.querySelector("#listStatus").value = "3";
-  //   document.querySelector("#listStatus").setAttribute("disabled", true);
-  // }
   document
     .querySelector(".modal-header")
     .classList.replace("headerUpdate", "headerRegister");
@@ -320,10 +233,8 @@ function openModal() {
     .querySelector("#btnActionForm")
     .classList.replace("btn-info", "btn-primary");
   document.querySelector("#btnText").innerHTML = "Guardar";
-  document.querySelector("#titleModal").innerHTML = "Nuevo Parametro";
+  document.querySelector("#titleModal").innerHTML = "Nuevo Parámetro";
   document.querySelector("#formParametros").reset();
-  //$("#listStatus").prop("disabled", true);
-  //$("#listStatus").val("3");
 
   $("#modalFormParametros").modal("show");
 }

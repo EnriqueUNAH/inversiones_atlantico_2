@@ -24,9 +24,8 @@ getModal('modalParametros', $data);
             <table class="table table-hover table-bordered" id="tableParametros">
               <thead>
                 <tr>
-                  <th>Parametro</th>
+                  <th>Parámetro</th>
                   <th>Valor</th>
-
                   <th>Acciones</th>
                 </tr>
               </thead>
