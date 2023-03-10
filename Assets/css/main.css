@@ -12291,7 +12291,7 @@ body.stop-scrolling {
 }
 
 .sweet-alert p {
-  color: #797979;
+  color: #000;
   font-size: 16px;
   text-align: center;
   font-weight: 400;
@@ -12442,7 +12442,7 @@ body.stop-scrolling {
 }
 
 .sweet-alert button {
-  background-color: #009688 !important;
+  background-color: #7367f0 !important;
   color: white;
   border: none;
   -webkit-box-shadow: none;
