@@ -23,19 +23,19 @@
 
           <div class="form-row">
             <div class="form-group col-md-6">
-              <label for="txtfecha_inicio">Fecha inicio</label>
+              <label for="txtpromocion">Fecha inicio</label>
               <input type="date" class="form-control" id="txtfecha_inicio" name="txtfecha_inicio" required="" >
             </div>
 
             <div class="form-group col-md-6">
-              <label for="txtfecha_final">Fecha final</label>
+              <label for="txtpromocion">Fecha final</label>
               <input type="date" class="form-control" id="txtfecha_final" name="txtfecha_final" required="" >
             </div>
           </div>
 
           <div class="form-row">
             <div class="form-group col-md-6">
-              <label for="txtprecio_venta">Precio venta </label>
+              <label for="txtpromocion">Precio venta </label>
               <input type="number" class="form-control" id="txtprecio_venta" name="txtprecio_venta" required="">
             </div>
 
