@@ -1,6 +1,6 @@
 <?php
 headerAdmin($data);
-//getModal('modalUsuarios', $data);
+getModal('modalObjetos', $data);
 ?>
 <main class="app-content">
   <div class="app-title">
@@ -26,7 +26,6 @@ headerAdmin($data);
                 <tr>
                   <th>Objeto</th>
                   <th>Descripcion</th>
-                  <!-- <th>Estado</th> -->
                   <th>Acciones</th>
                 </tr>
               </thead>
