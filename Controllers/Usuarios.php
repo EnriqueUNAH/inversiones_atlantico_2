@@ -227,7 +227,7 @@ class Usuarios extends Controllers
 				$intIdObjeto = 2;
 				$request_bitacora = "";
 
-				if ($requestDelete) {
+				if ($requestDelete == 'ok') {
 					$arrResponse = array('status' => true, 'msg' => 'Se ha eliminado el usuario');
 
 					$strAccion = "ELIMINAR";
@@ -241,7 +241,12 @@ class Usuarios extends Controllers
 						$strAccion,
 						$strDescripcion
 					);
-				} else {
+				} else if ($requestDelete == 'exist') {
+					$requestUsuarioInactivo = $this->model->updateUsuarioInactivo($intid_usuario);
+					$arrResponse = array('statusReferencial' => true, 'msg' => 'No es posible eliminar por Integridad Referencial');
+					
+				}				
+				else {
 					$arrResponse = array('status' => false, 'msg' => 'Error al eliminar el usuario.');
 				}
 

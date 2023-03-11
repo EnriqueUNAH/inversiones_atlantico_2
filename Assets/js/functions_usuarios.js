@@ -442,6 +442,9 @@ function fntDelUsuario(id_usuario) {
             if (objData.status) {
               swal("Eliminar!", objData.msg, "success");
               tableUsuarios.api().ajax.reload();
+            } else if (objData.statusReferencial) {
+              swal("Atención!", objData.msg, "error");
+              tableUsuarios.api().ajax.reload();
             } else {
               swal("Atención!", objData.msg, "error");
             }

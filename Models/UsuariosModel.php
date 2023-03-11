@@ -181,18 +181,42 @@ class UsuariosModel extends Mysql
 	public function deleteUsuario(int $intid_usuario)
 	{
 		$this->intIdUsuario = $intid_usuario;
-		$sql = "UPDATE tbl_ms_usuarios SET estado = ? WHERE id_usuario = $this->intIdUsuario ";
-		$arrData = array(0);
-		$request = $this->update($sql, $arrData);
+
+		$sql = "SELECT * FROM tbl_ms_bitacora WHERE id_usuario = $this->intIdUsuario";
+		$request = $this->select_all($sql);
+		if (empty($request)) {
+		
+			$sql = "DELETE FROM tbl_ms_usuarios WHERE id_usuario = $this->intIdUsuario ";
+			$request = $this->delete($sql);
+				if ($request) {
+					$request = 'ok';
+				}  else {
+						$request = 'error';
+				}
+
+		}else{
+			$request = 'exist';
+		}
 		return $request;
 	}
 
+	public function updateUsuarioInactivo(int $idUsuario){
+		$this->intid_Usuario = $idUsuario;
 
+		$sql = "SELECT * FROM tbl_ms_usuarios WHERE id_usuario = $this->intid_Usuario";
+		$request = $this->select_all($sql);
 
-
-
-
-
+		if($request)
+		{
+			$sql = "UPDATE tbl_ms_usuarios SET estado = ? WHERE id_usuario = $this->intid_Usuario ";
+			$arrData = array(2);
+			$request = $this->update($sql,$arrData);
+		}
+		return $request;			
+	}	 
+		
+	
+	
 
 
 

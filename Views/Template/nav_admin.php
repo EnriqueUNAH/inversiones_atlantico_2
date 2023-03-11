@@ -36,7 +36,7 @@
           </li>
         <?php } ?>
 
-        <?php if (!empty($_SESSION['permisos'][3]['r'])) { ?>
+        <?php if (!empty($_SESSION['permisos'][2]['r'])) { ?>
           <li class="treeview">
             <a class="app-menu__item" href="#" data-toggle="treeview">
               <i class="app-menu__icon fa fa-users" aria-hidden="true"></i>
