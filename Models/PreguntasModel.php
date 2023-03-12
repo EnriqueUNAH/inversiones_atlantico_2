@@ -2,51 +2,31 @@
 
 class PreguntasModel extends Mysql
 {
-	private $intIdUsuario;
-	private $strusuario;
-	private $strNombre;
-	private $strApellido;
-	private $intpreguntas_contestadas;
-	private $strEmail;
-	private $strPassword;
-	private $strToken;
-	private $intTipoId;
-	private $intStatus;
-	private $strNit;
-	private $strNomFiscal;
-	private $strDirFiscal;
+	private $id_pregunta;
+	private $strpregunta;
+	
 
 	public function __construct()
 	{
 		parent::__construct();
 	}
 
-	public function insertUsuario(string $usuario, string $nombre, string $email, string $password, int $tipoid, int $status)
-	{
-		$this->strusuario = $usuario;
-		$this->strNombre = $nombre;
-		$this->strEmail = $email;
-		$this->strPassword = $password;
-		$this->intTipoId = $tipoid;
-		$this->strCreadoPor = $_SESSION['elUsuario'];
-		$this->intStatus = $status;
+	public function insertPregunta(string $pregunta) //En este caso recibe los 2 parámetros que ingresa el usuario
+	{																	//Estos parámetros vienen desde el controlador			
+
+		//Se crean estas variables para que reciban los valores que vienen el los parámetros
+		$this->strpregunta = $pregunta;
+
 		$return = 0;
 
-		$sql = "SELECT * FROM tbl_ms_usuarios WHERE 
-					correo_electronico = '{$this->strEmail}' or usuario = '{$this->strusuario}' ";
-		$request = $this->select_all($sql);
+		$sql = "SELECT * FROM tbl_ms_preguntas WHERE pregunta = '{$this->strpregunta}' "; //El Where es muy importante para poder insertar
+		$request = $this->select_all($sql);													//Ese where debe estar de acorde a cada tabla
 
 		if (empty($request)) {
-			$query_insert  = "INSERT INTO tbl_ms_usuarios(usuario,nombre_usuario,correo_electronico,contrasena,id_rol,creado_por,estado) 
-								  VALUES(?,?,?,?,?,?,?)";
-			$arrData = array(
-				$this->strusuario,
-				$this->strNombre,
-				$this->strEmail,
-				$this->strPassword,
-				$this->intTipoId,
-				$this->strCreadoPor,
-				$this->intStatus
+			$query_insert  = "INSERT INTO tbl_ms_preguntas(pregunta) 
+								  VALUES(?)"; //La cantidad de ? debe ser la cantidad de datos que se insertan 
+			$arrData = array(							//En este caso: parámetro, valor , creado_por y fecha_creacion
+				$this->strpregunta
 			);
 			$request_insert = $this->insert($query_insert, $arrData);
 			$return = $request_insert;
@@ -56,12 +36,11 @@ class PreguntasModel extends Mysql
 		return $return;
 	}
 
-	
 
-	//Función para que inserte en bitácora cada vez que se agrega un nuevo usuario
-	public function insertUsuarioBitacora(string $fecha, int $idUsuario, int $idObjeto, string $accion, string $descripcion)
+
+	//Función para que inserte en bitácora cada vez que se agrega un nuevo parámetro
+	public function insertpreguntaBitacora(string $fecha, int $idUsuario, int $idObjeto, string $accion, string $descripcion)
 	{
-
 		$this->dateFecha = $fecha;
 		$this->intIdUsuario = $idUsuario;
 		$this->intIdObjeto = $idObjeto;
@@ -69,14 +48,14 @@ class PreguntasModel extends Mysql
 		$this->strDescripcion = $descripcion;
 		$return = 0;
 
-		$query_insert  = "INSERT INTO tbl_ms_bitacora(fecha,id_usuario,id_objeto,accion,descripcion) 
+		$query_insert  = "INSERT INTO tbl_ms_bitacora(fecha,id_pregunta,id_objeto,accion,descripcion) 
 								  VALUES(?,?,?,?,?)";
 		$arrData = array(
 			$this->dateFecha,
 			$this->intIdUsuario,
 			$this->intIdObjeto,
 			$this->strAccion,
-			$this->strDescripcion,
+			$this->strDescripcion
 		);
 		$request_insert = $this->insert($query_insert, $arrData);
 		$return = $request_insert;
@@ -84,164 +63,74 @@ class PreguntasModel extends Mysql
 		return $return;
 	}
 
-	// public static function evento_bitacora($id_objeto,$id_usuario,$accion,$descripcion)
-	// 	{
-	// 		   require ('../clases/Conexion.php');
-			   
-	// 		   		$sql = "INSERT INTO  tbl_ms_bitacora (Id_objeto, id_usuario,Fecha, Accion , Descripcion)
-    // 			 VALUES ('$id_objeto', '$id_usuario' , sysdate(), '$accion', '$descripcion')";
-		
-	// 		$resultado = $mysqli->query($sql);
-	// 	}
-		
 
-
-	public function selectPreguntas()
+	public function selectpreguntas()
 	{
 		$whereAdmin = "";
 		if ($_SESSION['idUser'] != 1) {
-			$whereAdmin = " and p.id_pregunta!= 1 ";
+			$whereAdmin = " and p.id_pregunta != 1 ";
 		}
-		$sql = "SELECT p.id_pregunta,p.pregunta,p.creado_por,p.fecha_creacion,p.modificado_por,p.fecha_modificacion
-					FROM tbl_ms_preguntas p 
-					WHERE p.id_pregunta != 0 " . $whereAdmin;
+		$sql = "SELECT id_pregunta,pregunta
+					FROM tbl_ms_preguntas
+					
+					 " . $whereAdmin;
 		$request = $this->select_all($sql);
 		return $request;
 	}
-	//Muestra los datos en el botón ver más
-	public function selectUsuario(int $id_usuario)
+	// Muestra los datos en el botón ver más y también sirve para recuperar los datos a la hora de editar
+	public function selectpregunta(int $id_pregunta)
 	{
-		$this->intIdUsuario = $id_usuario;
-		$sql = "SELECT p.id_usuario,p.usuario,p.nombre_usuario,p.preguntas_contestadas,p.correo_electronico,r.id_rol,r.nombrerol,
-		p.estado,p.creado_por,p.modificado_por,p.fecha_modificacion, DATE_FORMAT(p.fecha_creacion, '%d-%m-%Y') as fechaRegistro 
-					FROM tbl_ms_usuarios p
-					INNER JOIN tbl_ms_roles r
-					ON p.id_rol = r.id_rol
-					WHERE p.id_usuario = $this->intIdUsuario";
+		$this->id_pregunta = $id_pregunta;
+		$sql = "SELECT id_pregunta,pregunta
+	 				FROM tbl_ms_preguntas 
+	 					WHERE id_pregunta = $this->id_pregunta";
 		$request = $this->select($sql);
 		return $request;
 	}
 
 
-
-
-
-	public function updateUsuario(int $idUsuario, string $usuario, string $nombre, string $email, string $password, int $tipoid, int $estado)
+	public function updatepregunta(int $id_pregunta, string $pregunta)
 	{
+		$this->id_pregunta = $id_pregunta;
+		$this->strpregunta = $pregunta;
 
-		$this->intIdUsuario = $idUsuario;
-		$this->strusuario = $usuario;
-		$this->strNombre = $nombre;
-		$this->strEmail = $email;
-		$this->strPassword = $password;
-		$this->intTipoId = $tipoid;
-		$this->strModificadoPor = $_SESSION['elUsuario'];
-		$this->fechaModificacion = date('Y-m-d H:i:s');
-		$this->intStatus = $estado;
-
-		$sql = "SELECT * FROM tbl_ms_usuarios WHERE (correo_electronico = '{$this->strEmail}' AND id_usuario != $this->intIdUsuario)
-										  OR (usuario = '{$this->strusuario}' AND id_usuario != $this->intIdUsuario) ";
+		$sql = "SELECT * FROM tbl_ms_preguntas WHERE pregunta = '{$this->strpregunta}' AND id_pregunta != $this->id_pregunta ";
 		$request = $this->select_all($sql);
 
 		if (empty($request)) {
-			if ($this->strPassword  != "") {
-				$sql = "UPDATE tbl_ms_usuarios SET usuario=?, nombre_usuario=?, correo_electronico=?, contrasena=?, id_rol=?, modificado_por=?, fecha_modificacion=?, estado=? 
-							WHERE id_usuario = $this->intIdUsuario ";
-				$arrData = array(
-					$this->strusuario,
-					$this->strNombre,
-					$this->strEmail,
-					$this->strPassword,
-					$this->intTipoId,
-					$this->strModificadoPor,
-					$this->fechaModificacion,
-					$this->intStatus
-				);
-			} else {
-				$sql = "UPDATE tbl_ms_usuarios SET usuario=?, nombre_usuario=?, correo_electronico=?, id_rol=?, modificado_por=?, fecha_modificacion=?, estado=? 
-							WHERE id_usuario = $this->intIdUsuario ";
-				$arrData = array(
-					$this->strusuario,
-					$this->strNombre,
-					$this->strEmail,
-					$this->intTipoId,
-					$this->strModificadoPor,
-					$this->fechaModificacion,
-					$this->intStatus
-				);
-			}
+
+			$sql = "UPDATE tbl_ms_preguntas SET pregunta=?
+							WHERE id_pregunta = $this->id_pregunta ";
+			$arrData = array(
+				$this->strpregunta
+			);
+
 			$request = $this->update($sql, $arrData);
 		} else {
 			$request = "exist";
 		}
 		return $request;
 	}
-	public function deleteUsuario(int $intid_usuario)
+
+	//OJO TODO EL DELETE PUEDE QUE EN ALGUNOS CASOS NO FUNCIONE POR INTEGRIDAD REFERENCIAL. 
+	//VEREMOS CÓMO HACERLO USANDO EL TRY CATCH, DESPUÉS. 
+	//POR AHORA LO IMPORTANTE ES QUE FUNCIONE TODO LO DEMÁS.
+	public function deletepregunta(int $id_pregunta)
 	{
-		$this->intIdUsuario = $intid_usuario;
-		$sql = "UPDATE tbl_ms_usuarios SET estado = ? WHERE id_usuario = $this->intIdUsuario ";
-		$arrData = array(0);
-		$request = $this->update($sql, $arrData);
-		return $request;
-	}
-
-
-
-
-
-
-
-
-
-
-
-	public function updatePerfil(int $idUsuario, string $usuario, string $nombre, int $preguntas_contestadas, string $password)
-	{
-		$this->intIdUsuario = $idUsuario;
-		$this->strusuario = $usuario;
-		$this->strNombre = $nombre;
-		//$this->strApellido = $apellido;
-		$this->intpreguntas_contestadas = $preguntas_contestadas;
-		$this->strPassword = $password;
-
-		if ($this->strPassword != "") {
-			$sql = "UPDATE tbl_ms_usuarios SET usuario=?, nombre_usuario=?, preguntas_contestadas=?, contrasena=? 
-						WHERE id_usuario = $this->intIdUsuario ";
-			$arrData = array(
-				$this->strusuario,
-				$this->strNombre,
-				//$this->strApellido,
-				$this->intpreguntas_contestadas,
-				$this->strPassword
-			);
+		$this->id_pregunta = $id_pregunta;
+		// $sql = "SELECT * FROM tbl_ms_preguntas WHERE id_pregunta = $this->intid_pregunta";
+		// $request = $this->select_all($sql);
+		// if (empty($request)) {
+		$sql = "DELETE FROM tbl_ms_preguntas WHERE id_pregunta = $this->id_pregunta";
+		$request = $this->delete($sql);
+		if ($request) {
+			$request = 'ok';
 		} else {
-			$sql = "UPDATE tbl_ms_usuarios SET usuario=?, nombre_usuario=?, preguntas_contestadas=? 
-						WHERE id_usuario = $this->intIdUsuario ";
-			$arrData = array(
-				$this->strusuario,
-				$this->strNombre,
-				//$this->strApellido,
-				$this->intpreguntas_contestadas
-			);
+			$request = 'error';
 		}
-		$request = $this->update($sql, $arrData);
-		return $request;
-	}
-
-	public function updateDataFiscal(int $idUsuario, string $strNit, string $strNomFiscal, string $strDirFiscal)
-	{
-		$this->intIdUsuario = $idUsuario;
-		$this->strNit = $strNit;
-		$this->strNomFiscal = $strNomFiscal;
-		$this->strDirFiscal = $strDirFiscal;
-		$sql = "UPDATE tbl_ms_usuarios SET nit=?, nombrefiscal=?, direccionfiscal=? 
-						WHERE id_usuario = $this->intIdUsuario ";
-		$arrData = array(
-			$this->strNit,
-			$this->strNomFiscal,
-			$this->strDirFiscal
-		);
-		$request = $this->update($sql, $arrData);
+		// } else {
+		// 	$request = 'exist';
+		// }
 		return $request;
 	}
 }

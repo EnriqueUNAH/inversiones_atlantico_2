@@ -1,6 +1,6 @@
 <?php
 headerAdmin($data);
-//getModal('modalUsuarios', $data);
+getModal('modalPreguntas', $data);
 ?>
 <main class="app-content">
   <div class="app-title">
@@ -25,10 +25,6 @@ headerAdmin($data);
               <thead>
                 <tr>
                   <th>Pregunta</th>
-                  <th>Creado por</th>
-                  <th>Fecha creacion</th>
-                  <th>Modificado por</th>
-                  <th>Fecha modificacion</th>
                   <th>Acciones</th>
                 </tr>
               </thead>
