@@ -11,7 +11,7 @@ class PreguntasModel extends Mysql
 		parent::__construct();
 	}
 
-	public function insertPregunta(string $pregunta) //En este caso recibe los 2 parámetros que ingresa el usuario
+	public function insertPreguntas(string $pregunta) //En este caso recibe los 2 parámetros que ingresa el usuario
 	{																	//Estos parámetros vienen desde el controlador			
 
 		//Se crean estas variables para que reciban los valores que vienen el los parámetros
@@ -26,7 +26,7 @@ class PreguntasModel extends Mysql
 			$query_insert  = "INSERT INTO tbl_ms_preguntas(pregunta) 
 								  VALUES(?)"; //La cantidad de ? debe ser la cantidad de datos que se insertan 
 			$arrData = array(							//En este caso: parámetro, valor , creado_por y fecha_creacion
-				$this->strpregunta
+				$this->strpregunta,
 			);
 			$request_insert = $this->insert($query_insert, $arrData);
 			$return = $request_insert;
@@ -39,7 +39,7 @@ class PreguntasModel extends Mysql
 
 
 	//Función para que inserte en bitácora cada vez que se agrega un nuevo parámetro
-	public function insertpreguntaBitacora(string $fecha, int $idUsuario, int $idObjeto, string $accion, string $descripcion)
+	public function insertPreguntasBitacora(string $fecha, int $idUsuario, int $idObjeto, string $accion, string $descripcion)
 	{
 		$this->dateFecha = $fecha;
 		$this->intIdUsuario = $idUsuario;
@@ -64,7 +64,7 @@ class PreguntasModel extends Mysql
 	}
 
 
-	public function selectpreguntas()
+	public function selectPreguntas()
 	{
 		$whereAdmin = "";
 		if ($_SESSION['idUser'] != 1) {
@@ -72,13 +72,13 @@ class PreguntasModel extends Mysql
 		}
 		$sql = "SELECT id_pregunta,pregunta
 					FROM tbl_ms_preguntas
-					
 					 " . $whereAdmin;
 		$request = $this->select_all($sql);
 		return $request;
 	}
+	
 	// Muestra los datos en el botón ver más y también sirve para recuperar los datos a la hora de editar
-	public function selectpregunta(int $id_pregunta)
+	public function selectPregunta(int $id_pregunta)
 	{
 		$this->id_pregunta = $id_pregunta;
 		$sql = "SELECT id_pregunta,pregunta
@@ -89,7 +89,7 @@ class PreguntasModel extends Mysql
 	}
 
 
-	public function updatepregunta(int $id_pregunta, string $pregunta)
+	public function updatePreguntas(int $id_pregunta, string $pregunta)
 	{
 		$this->id_pregunta = $id_pregunta;
 		$this->strpregunta = $pregunta;
@@ -115,7 +115,7 @@ class PreguntasModel extends Mysql
 	//OJO TODO EL DELETE PUEDE QUE EN ALGUNOS CASOS NO FUNCIONE POR INTEGRIDAD REFERENCIAL. 
 	//VEREMOS CÓMO HACERLO USANDO EL TRY CATCH, DESPUÉS. 
 	//POR AHORA LO IMPORTANTE ES QUE FUNCIONE TODO LO DEMÁS.
-	public function deletepregunta(int $id_pregunta)
+	public function deletePreguntas(int $id_pregunta)
 	{
 		$this->id_pregunta = $id_pregunta;
 		// $sql = "SELECT * FROM tbl_ms_preguntas WHERE id_pregunta = $this->intid_pregunta";

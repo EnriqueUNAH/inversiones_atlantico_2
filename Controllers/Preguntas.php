@@ -11,11 +11,15 @@ class Preguntas extends Controllers
 			die();
 		}
 
-		// getPermisos(MUSUARIOS);
+		getPermisos(MUSUARIOS);
 	}
 
 	public function Preguntas()
 	{
+        if (empty($_SESSION['permisosMod']['r'])) {
+			header("Location:" . base_url() . '/dashboard');
+		}
+
 		$data['page_tag'] = "Preguntas";
 		$data['page_title'] = "PREGUNTAS <small>Inversiones Atlántico</small>";
 		$data['page_name'] = "preguntas";
@@ -33,7 +37,7 @@ class Preguntas extends Controllers
 		$strDescripcion = "INGRESO AL MÓDULO PREGUNTAS";
 
 		//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
-		$request_bitacora = $this->model->insertPreguntaBitacora(
+		$request_bitacora = $this->model->insertPreguntasBitacora(
 			$dateFecha,
 			$intIdUsuario,
 			$intIdObjeto,
@@ -63,9 +67,8 @@ class Preguntas extends Controllers
 					$option = 1; //LA OPCIÓN ES 1, ENTONCES ESTARÁ INSERTANDO
 
 					if ($_SESSION['permisosMod']['w']) {
-						$request_user = $this->model->insertPregunta(
+						$request_user = $this->model->insertPreguntas(
 							$strpregunta,
-							
 
 						);
 
@@ -74,7 +77,7 @@ class Preguntas extends Controllers
 						$strDescripcion = "CREACIÓN DE PREGUNTA";
 
 						//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
-						$request_bitacora = $this->model->insertPreguntaBitacora(
+						$request_bitacora = $this->model->insertPreguntasBitacora(
 							$dateFecha,
 							$intIdUsuario,
 							$intIdObjeto,
@@ -86,7 +89,7 @@ class Preguntas extends Controllers
 					$option = 2; //SI OPTION ES 2, ENTONCES ESTARÁ ACTUALIZANDO
 
 					if ($_SESSION['permisosMod']['u']) {
-						$request_user = $this->model->updatePregunta(
+						$request_user = $this->model->updatePreguntas(
 							$id_pregunta,
 							$strpregunta
 						);
@@ -97,7 +100,7 @@ class Preguntas extends Controllers
 					$strDescripcion = "ACTUALIZACIÓN DE PREGUNTA";
 
 					//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
-					$request_bitacora = $this->model->insertPreguntaBitacora(
+					$request_bitacora = $this->model->insertPreguntasBitacora(
 						$dateFecha,
 						$intIdUsuario,
 						$intIdObjeto,
@@ -173,7 +176,7 @@ class Preguntas extends Controllers
 		if ($_POST) {
 			if ($_SESSION['permisosMod']['d']) {
 				$id_pregunta = intval($_POST['id_pregunta']);
-				$requestDelete = $this->model->deletePregunta($id_pregunta);
+				$requestDelete = $this->model->deletePreguntas($id_pregunta);
 
 				//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora
 				//SE PUEDEN USAR PARA INSERTAR O ACTUALIZAR PORQUE SERÍAN LOS MISMOS DATOS
@@ -189,7 +192,7 @@ class Preguntas extends Controllers
 					$strDescripcion = "ELIMINACION DE PREGUNTA";
 
 					//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
-					$request_bitacora = $this->model->insertPreguntaBitacora(
+					$request_bitacora = $this->model->insertPreguntasBitacora(
 						$dateFecha,
 						$intIdUsuario,
 						$intIdObjeto,
