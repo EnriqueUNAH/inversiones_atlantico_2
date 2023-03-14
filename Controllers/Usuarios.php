@@ -50,7 +50,13 @@ class Usuarios extends Controllers
 		if ($_POST) {
 			if (empty($_POST['txtusuario']) || empty($_POST['txtnombre_usuario']) || empty($_POST['txtEmail']) || empty($_POST['listid_rol']) || empty($_POST['listStatus'])) {
 				$arrResponse = array("status" => false, "msg" => 'Datos incorrectos.');
-			} else {
+
+				/*El siguiente else if, sirve para que valide desde el servidor. Que si se ingresa una letra 
+				ya sea mayúscula o minúscula, que permita ingresar los datos.
+				Al final está el else que mostrará error en caso de que lo insertado sea un número o caracter especial.*/
+			} else if (preg_match('/^[a-zA-Z]+$/', $_POST['txtusuario']) || preg_match('/^[a-zA-Z]+$/', $_POST['txtnombre_usuario'])) {
+
+
 				$id_usuario = intval($_POST['id_usuario']);
 				$strusuario = strtoupper(strClean($_POST['txtusuario']));
 				$strnombre_usuario = strtoupper(strClean($_POST['txtnombre_usuario']));
@@ -133,7 +139,10 @@ class Usuarios extends Controllers
 				} else {
 					$arrResponse = array("status" => false, "msg" => 'No es posible almacenar los datos.');
 				}
+			} else {
+				$arrResponse = array("status" => false, "msg" => 'No se pueden ingresar números ni caracteres especiales');
 			}
+
 			echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
 		}
 		die();
@@ -244,9 +253,7 @@ class Usuarios extends Controllers
 				} else if ($requestDelete == 'exist') {
 					$requestUsuarioInactivo = $this->model->updateUsuarioInactivo($intid_usuario);
 					$arrResponse = array('statusReferencial' => true, 'msg' => 'No es posible eliminar por Integridad Referencial');
-					
-				}				
-				else {
+				} else {
 					$arrResponse = array('status' => false, 'msg' => 'Error al eliminar el usuario.');
 				}
 
