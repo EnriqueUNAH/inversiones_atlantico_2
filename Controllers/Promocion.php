@@ -150,10 +150,10 @@ class Promocion extends Controllers
 				$btnEdit = '';
 			 	$btnDelete = '';
 			 	
-			 	if($_SESSION['permisosMod']['r']){
+			 	if($_SESSION['permisosMod']['u']){
 			 		$btnEdit = '<button class="btn btn-primary  btn-sm btnEditPromocion" onClick="fntEditPromocion(this,'.$arrData[$i]['cod_promocion'].')" title="Editar promocion"><i class="fas fa-pencil-alt"></i></button>';
 			 	}
-			 	if($_SESSION['permisosMod']['u']){	
+			 	if($_SESSION['permisosMod']['d']){	
 			 		$btnDelete = '<button class="btn btn-danger btn-sm btnDelPromocion" onClick="fntDelPromocion('.$arrData[$i]['cod_promocion'].')" title="Eliminar promocion"><i class="far fa-trash-alt"></i></button>';
 				}
 			 	$arrData[$i]['options'] = '<div class="text-center">'.$btnEdit.' '.$btnDelete.'</div>';
