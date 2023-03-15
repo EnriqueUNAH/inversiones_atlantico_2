@@ -24,12 +24,12 @@
           <div class="form-row">
             <div class="form-group col-md-6">
               <label for="txtpromocion">Fecha inicio</label>
-              <input type="date" class="form-control" id="txtfecha_inicio" name="txtfecha_inicio" required="" >
+              <input type="datetime-local" class="form-control" id="txtfecha_inicio" name="txtfecha_inicio" required="" >
             </div>
 
             <div class="form-group col-md-6">
               <label for="txtpromocion">Fecha final</label>
-              <input type="date" class="form-control" id="txtfecha_final" name="txtfecha_final" required="" >
+              <input type="datetime-local" class="form-control" id="txtfecha_final" name="txtfecha_final" required="" >
             </div>
           </div>
 
@@ -55,66 +55,3 @@
 </div>
 
 
-<!-- Modal -->
-<!-- <div class="modal fade" id="modalViewUser" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header header-primary">
-        <h5 class="modal-title" id="titleModal">Datos del usuario</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <table class="table table-bordered">
-          <tbody>
-            <tr>
-              <td>Usuario:</td>
-              <td id="celusuario">654654654</td>
-            </tr>
-            <tr>
-              <td>Nombre:</td>
-              <td id="celNombre">Jacob</td>
-            </tr>
-
-            <tr>
-              <td>Preguntas Contestadas:</td>
-              <td id="celpreguntas_contestadas">Larry</td>
-            </tr>
-            <tr>
-              <td>Correo Electrónico:</td>
-              <td id="celEmail"></td>
-            </tr>
-            <tr>
-              <td>Rol:</td>
-              <td id="celTipoUsuario"></td>
-            </tr>
-            <tr>
-              <td>Estado:</td>
-              <td id="celEstado"></td>
-            </tr>
-            <tr>
-              <td>Creado por:</td>
-              <td id="celCreadoPor"></td>
-            </tr>
-            <tr>
-              <td>Fecha de creación:</td>
-              <td id="celFechaRegistro"></td>
-            </tr>
-            <tr>
-              <td>Modificado por:</td>
-              <td id="celModificadoPor">n</td>
-            </tr>
-            <tr>
-              <td>Fecha de modificación:</td>
-              <td id="celFechaModificacion"></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-      </div>
-    </div>
-  </div>
-</div> -->

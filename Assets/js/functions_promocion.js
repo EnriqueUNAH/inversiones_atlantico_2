@@ -60,8 +60,8 @@ document.addEventListener(
     });
 
     if (document.querySelector("#formPromocion")) {
-      let formParametros = document.querySelector("#formPromocion");
-      formParametros.onsubmit = function (e) {
+      letformPromocion = document.querySelector("#formPromocion");
+     formPromocion.onsubmit = function (e) {
         e.preventDefault();
 
         let strnombre_promocion = document.querySelector("#txtnombre_promocion").value.toUpperCase();
@@ -98,7 +98,7 @@ document.addEventListener(
             let objData = JSON.parse(request.responseText);
             if (objData.status) {
               if (rowTable == "") {
-                tableParametros.api().ajax.reload();
+                tablePromocion.api().ajax.reload();
               } else {
              rowTable.cells[0].textContent = strnombre_promocion;
              rowTable.cells[1].textContent = datefecha_inicio;
@@ -110,7 +110,7 @@ document.addEventListener(
 
               $("#modalFormPromocion").modal("hide");
 
-              formParametros.reset();
+             formPromocion.reset();
               swal("Promocion", objData.msg, "success");
             } else {
               swal("Error", objData.msg, "error");
