@@ -1,20 +1,20 @@
-let tableParametros;
+let tablecai;
 let rowTable = "";
 let divLoading = document.querySelector("#divLoading");
 document.addEventListener(
   "DOMContentLoaded",
   function () {
-    tableParametros = $("#tableParametros").dataTable({
+    tableParametros = $("#tablecai").dataTable({
       aProcessing: true,
       aServerSide: true,
       language: {
         url: "//cdn.datatables.net/plug-ins/1.10.20/i18n/Spanish.json",
       },
       ajax: {
-        url: " " + base_url + "/Parametros/getParametros",
+        url: " " + base_url + "/Cai/getCai",
         dataSrc: "",
       },
-      columns: [{ data: "parametro" }, { data: "valor" }, { data: "options" }],
+      columns: [{ data: "cai" }, { data: "valor" }, { data: "options" }],
       dom: "lBfrtip",
       buttons: [
         {
@@ -53,12 +53,12 @@ document.addEventListener(
       order: [[0, "desc"]],
     });
 
-    if (document.querySelector("#formParametros")) {
-      let formParametros = document.querySelector("#formParametros");
+    if (document.querySelector("#formCai")) {
+      let formParametros = document.querySelector("#formCai");
       formParametros.onsubmit = function (e) {
         e.preventDefault();
 
-        let strparametro = document.querySelector("#txtparametro").value;
+        let strparametro = document.querySelector("#txtcai").value;
         let strvalor = document.querySelector("#txtvalor").value;
 
         if (strparametro == "" || strvalor == "") {
@@ -81,7 +81,7 @@ document.addEventListener(
         let request = window.XMLHttpRequest
           ? new XMLHttpRequest()
           : new ActiveXObject("Microsoft.XMLHTTP");
-        let ajaxUrl = base_url + "/Parametros/setParametro";
+        let ajaxUrl = base_url + "/Cai/setCai";
         let formData = new FormData(formParametros);
         request.open("POST", ajaxUrl, true);
         request.send(formData);
@@ -98,10 +98,10 @@ document.addEventListener(
                 rowTable = "";
               }
 
-              $("#modalFormParametros").modal("hide");
+              $("#modalFormCai").modal("hide");
 
               formParametros.reset();
-              swal("Parametros", objData.msg, "success");
+              swal("Cai", objData.msg, "success");
             } else {
               swal("Error", objData.msg, "error");
             }
@@ -119,7 +119,7 @@ function fntViewParametro(id_parametro) {
   let request = window.XMLHttpRequest
     ? new XMLHttpRequest()
     : new ActiveXObject("Microsoft.XMLHTTP");
-  let ajaxUrl = base_url + "/Parametros/getParametro/" + id_parametro;
+  let ajaxUrl = base_url + "/Cai/getCai/" + id_parametro;
   request.open("GET", ajaxUrl, true);
   request.send();
   request.onreadystatechange = function () {
@@ -161,7 +161,7 @@ function fntEditParametro(element, id_parametro) {
   let request = window.XMLHttpRequest
     ? new XMLHttpRequest()
     : new ActiveXObject("Microsoft.XMLHTTP");
-  let ajaxUrl = base_url + "/Parametros/getParametro/" + id_parametro;
+  let ajaxUrl = base_url + "/Cai/getCai/" + id_parametro;
   request.open("GET", ajaxUrl, true);
   request.send();
   request.onreadystatechange = function () {
@@ -172,19 +172,19 @@ function fntEditParametro(element, id_parametro) {
         document.querySelector("#id_parametro").value =
           objData.data.id_parametro;
 
-        document.querySelector("#txtparametro").value = objData.data.parametro;
+        document.querySelector("#txtcai").value = objData.data.parametro;
         document.querySelector("#txtvalor").value = objData.data.valor;
       }
     }
 
-    $("#modalFormParametros").modal("show");
+    $("#modalFormCai").modal("show");
   };
 }
 
 function fntDelParametro(id_parametro) {
   swal(
     {
-      title: "Eliminar Parámetro",
+      title: "Eliminar",
       text: "¿Realmente quiere eliminar el Parámetro?",
       type: "warning",
       showCancelButton: true,
@@ -198,7 +198,7 @@ function fntDelParametro(id_parametro) {
         let request = window.XMLHttpRequest
           ? new XMLHttpRequest()
           : new ActiveXObject("Microsoft.XMLHTTP");
-        let ajaxUrl = base_url + "/Parametros/delParametro";
+        let ajaxUrl = base_url + "/Cai/delCai";
         let strData = "id_parametro=" + id_parametro;
         request.open("POST", ajaxUrl, true);
         request.setRequestHeader(
@@ -233,7 +233,7 @@ function openModal() {
     .querySelector("#btnActionForm")
     .classList.replace("btn-info", "btn-primary");
   document.querySelector("#btnText").innerHTML = "Guardar";
-  document.querySelector("#titleModal").innerHTML = "Nuevo Parámetro";
+  document.querySelector("#titleModal").innerHTML = "Nueva Configuracion CAI";
   document.querySelector("#formCai").reset();
 
   $("#modalFormCai").modal("show");
