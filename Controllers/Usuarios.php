@@ -63,6 +63,7 @@ class Usuarios extends Controllers
 				$strEmail = strtolower(strClean($_POST['txtEmail']));
 				$intTipoId = intval(strClean($_POST['listid_rol']));
 				$intestado = intval(strClean($_POST['listStatus']));
+				$contrasena = (strClean($_POST['txtPassword']));
 				$request_user = "";
 
 				//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora
@@ -86,6 +87,11 @@ class Usuarios extends Controllers
 							$intestado
 						);
 
+
+
+
+
+						//
 						//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora 	en caso de que se esté insertando
 						$strAccion = "CREAR";
 						$strDescripcion = "CREACION DE USUARIO";
@@ -99,6 +105,8 @@ class Usuarios extends Controllers
 							$strDescripcion
 						);
 					} //FIN DEL IF DE INSERTAR
+
+
 				} else {
 					$option = 2; //SI OPTION ES 2, ENTONCES ESTARÁ ACTUALIZANDO
 					$strPassword =  empty($_POST['txtPassword']) ? "" : hash("SHA256", $_POST['txtPassword']);
@@ -130,7 +138,24 @@ class Usuarios extends Controllers
 
 				if ($request_user > 0) {
 					if ($option == 1) {
+
 						$arrResponse = array('status' => true, 'msg' => 'Datos guardados correctamente.');
+						$dataUsuario = array(
+							'nombreUsuario' => $strnombre_usuario,
+							'usuario' => $strusuario,
+							'email' => $strEmail,
+							'asunto' => 'Mostrar cuenta - ' . NOMBRE_REMITENTE,
+							'contrasena' => $contrasena
+						);
+						sendMailLocal($dataUsuario, 'email_usuario');
+
+
+
+
+
+
+
+						//
 					} else {
 						$arrResponse = array('status' => true, 'msg' => 'Datos Actualizados correctamente.');
 					}

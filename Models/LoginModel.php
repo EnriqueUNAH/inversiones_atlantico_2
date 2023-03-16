@@ -49,7 +49,7 @@ class LoginModel extends Mysql
 		$this->strUsuario = $strEmail;
 		$sql = "SELECT id_usuario,nombre_usuario,correo_electronico,estado FROM tbl_ms_usuarios WHERE 
 					usuario = '$this->strUsuario' and  
-					estado = 1 or estado = 3";
+					estado != 2";
 		$request = $this->select($sql);
 		return $request;
 	}
@@ -96,7 +96,7 @@ class LoginModel extends Mysql
 		$sql = "SELECT id_usuario FROM tbl_ms_usuarios WHERE 
 					correo_electronico = '$this->strUsuario' and 
 					token = '$this->strToken' and 					
-					estado = 1 ";
+					estado != 2 "; //Diferente de 2 porque es el Estado Inactivo
 		$request = $this->select($sql);
 		return $request;
 	}
