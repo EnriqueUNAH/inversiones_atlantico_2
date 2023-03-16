@@ -1,6 +1,6 @@
 <?php
 headerAdmin($data);
-getModal('modalDescuento', $data);
+getModal('modalCai', $data);
 ?>
 <main class="app-content">
   <div class="app-title">
@@ -13,7 +13,7 @@ getModal('modalDescuento', $data);
     </div>
     <ul class="app-breadcrumb breadcrumb">
       <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
-      <li class="breadcrumb-item"><a href="<?= base_url(); ?>/descuentos"><?= $data['page_title'] ?></a></li>
+      <li class="breadcrumb-item"><a href="<?= base_url(); ?>/cai"><?= $data['page_title'] ?></a></li>
     </ul>
   </div>
   <div class="row">
@@ -21,12 +21,13 @@ getModal('modalDescuento', $data);
       <div class="tile">
         <div class="tile-body">
           <div class="table-responsive">
-            <table class="table table-hover table-bordered" id="tableDescuentos">
+            <table class="table table-hover table-bordered" id="tableCai">
               <thead>
                 <tr>
-                  <th>Nombre Descuento</th>
-                  <th>Porcentaje Descuento</th>
-                  <th>Acciones</th>
+                  <th>Codigo Talonario</th>
+                  <th>Rango Inicial</th>
+                  <th>Rango Final</th>
+                  <th>Numero CAI</th>
                 </tr>
               </thead>
               <tbody>
