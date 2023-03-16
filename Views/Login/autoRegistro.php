@@ -169,7 +169,7 @@
                     <div class="col-12">
                       <label for="yourPassword" class="form-label">CONTRASEÑA:</label>
                       <div class="input-group">
-                        <input type="Password" Class="form-control" name="password" placeholder="Ingrese su contraseña" onkeypress="javascript: return validar_espacio(event,this)" class="form-control" id="yourPassword" required value="<?php echo isset($_POST['password']) ? $_POST['password'] : ''; ?>">
+                        <input type="Password" Class="form-control" name="password" placeholder="Ingrese su contraseña" onkeypress="javascript: return validar_espacio(event,this)" class="form-control" id="yourPassword" required value="<?php echo isset($_POST['password']) ? $_POST['password'] : ''; ?>" onpaste="return borrarPegado(event)">
                         <div class="input-group-append">
                           <button id="show_password" class="btn btn-primary" type="button" onclick="mostrarPassword()"> <span class="fa fa-eye-slash icon"></span> </button>
                         </div>
@@ -179,7 +179,7 @@
                     <div class="col-12">
                       <label for="yourPassword" class="form-label">CONFIRMAR CONTRASEÑA:</label>
                       <div class="input-group">
-                        <input type="Password" Class="form-control" name="password1" placeholder="Confirme su contraseña" onkeypress="javascript: return validar_espacio(event,this)" class="form-control" id="yourPassword1" required value="<?php echo isset($_POST['password1']) ? $_POST['password1'] : ''; ?>">
+                        <input type="Password" Class="form-control" name="password1" placeholder="Confirme su contraseña" onkeypress="javascript: return validar_espacio(event,this)" class="form-control" id="yourPassword1" required value="<?php echo isset($_POST['password1']) ? $_POST['password1'] : ''; ?>" onpaste="return borrarPegado(event)">
                         <div class="input-group-append">
                           <button id="show_password" class="btn btn-primary" type="button" onclick="mostrarPassword1()"> <span class="fa fa-eye-slash icon"></span> </button>
                         </div>
@@ -198,7 +198,7 @@
                     </div>
                     <div class="col-12">
 
-                      <p  class="small mb-0">YA TIENES CUENTA? <a href="../../Login">INICIAR SESION</a></p>
+                      <p class="small mb-0">YA TIENES CUENTA? <a href="../../Login">INICIAR SESION</a></p>
 
                     </div>
                   </form>
@@ -228,6 +228,14 @@
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
+
+  <script>
+    //Para que no pueda copiar ni pegar
+    function borrarPegado(event) {
+      event.preventDefault();
+      document.execCommand("insertText", false, "");
+    }
+  </script>
 
 </body>
 
