@@ -33,7 +33,7 @@ class Promocion extends Controllers
 		$request_bitacora = "";
 
 		$strAccion = "INGRESO";
-		$strDescripcion = "INGRESO AL MÓDULO PARÁMETROS";
+		$strDescripcion = "INGRESO AL MÓDULO PROMOCION";
 
 		//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
 		$request_bitacora = $this->model->insertPromocionBitacora(

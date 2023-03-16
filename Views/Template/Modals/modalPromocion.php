@@ -17,7 +17,7 @@
           <div class="form-row">
             <div class="form-group col-md-6">
               <label for="txtnombre_promocion">Nombre Promocion</label>
-              <input type="text" pattern="[a-zA-Z0-9]+" class="form-control" id="txtnombre_promocion" name="txtnombre_promocion" style="text-transform:uppercase" required="" title="Ingrese solo letras y números sin espacios">
+              <input type="text" pattern="[a-zA-Z ]+" class="form-control valid validText" id="txtnombre_promocion" name="txtnombre_promocion" style="text-transform:uppercase" required="" title="Ingrese solo letras y números sin espacios">
             </div>
           </div>
 
