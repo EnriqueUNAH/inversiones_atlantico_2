@@ -17,7 +17,7 @@
           <div class="form-row">
             <div class="form-group col-md-6">
               <label for="txtusuario">Usuario</label>
-              <input type="text" pattern="[a-zA-Z0-9]+" class="form-control" id="txtusuario" name="txtusuario" style="text-transform:uppercase" required="" title="Ingrese solo letras y números sin espacios">
+              <input type="text" pattern="[a-zA-Z]+" class="form-control" id="txtusuario" name="txtusuario" style="text-transform:uppercase" required="" title="Ingrese solo letras sin espacios">
             </div>
           </div>
           <div class="form-row">

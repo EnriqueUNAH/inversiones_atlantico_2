@@ -57,12 +57,12 @@ document.addEventListener(
       order: [[0, "desc"]],
     });
 
-    if (document.querySelector("#formUsuario")) {
-      let formUsuario = document.querySelector("#formUsuario");
+    if (document.querySelector("#formDescuento")) {
+      let formUsuario = document.querySelector("#formDescuento");
       formUsuario.onsubmit = function (e) {
         e.preventDefault();
 
-        let strusuario = document.querySelector("#txtusuario").value;
+        let strusuario = document.querySelector("#txtdescuento").value;
         let strnombre_usuario = document
           .querySelector("#txtnombre_usuario")
           .value.toUpperCase();
@@ -97,8 +97,8 @@ document.addEventListener(
         let request = window.XMLHttpRequest
           ? new XMLHttpRequest()
           : new ActiveXObject("Microsoft.XMLHTTP");
-        let ajaxUrl = base_url + "/Usuarios/setUsuario";
-        let formData = new FormData(formUsuario);
+        let ajaxUrl = base_url + "/Usuarios/setDescuento";
+        let formData = new FormData(formDescuento);
         request.open("POST", ajaxUrl, true);
         request.send(formData);
         request.onreadystatechange = function () {
@@ -126,7 +126,7 @@ document.addEventListener(
                 rowTable = "";
               }
 
-              $("#modalFormUsuario").modal("hide");
+              $("#modalFormDescuento").modal("hide");
 
               formUsuario.reset();
               swal("Usuarios", objData.msg, "success");
@@ -141,8 +141,8 @@ document.addEventListener(
     }
 
     //Actualizar Perfil
-    if (document.querySelector("#formPerfil")) {
-      let formPerfil = document.querySelector("#formPerfil");
+    if (document.querySelector("#formDescuento")) {
+      let formPerfil = document.querySelector("#formDescuento");
       formPerfil.onsubmit = function (e) {
         e.preventDefault();
         let strusuario = document.querySelector("#txtusuario").value;
@@ -204,7 +204,7 @@ document.addEventListener(
           if (request.status == 200) {
             let objData = JSON.parse(request.responseText);
             if (objData.status) {
-              $("#modalFormPerfil").modal("hide");
+              $("#modalFormDescuento").modal("hide");
               swal(
                 {
                   title: "",
@@ -254,7 +254,7 @@ document.addEventListener(
           if (request.status == 200) {
             let objData = JSON.parse(request.responseText);
             if (objData.status) {
-              $("#modalFormPerfil").modal("hide");
+              $("#modalFormDescuento").modal("hide");
               swal(
                 {
                   title: "",
@@ -404,7 +404,7 @@ function fntEditUsuario(element, id_usuario) {
       }
     }
 
-    $("#modalFormUsuario").modal("show");
+    $("#modalFormDescuento").modal("show");
   };
 }
 
@@ -471,13 +471,13 @@ function openModal() {
     .classList.replace("btn-info", "btn-primary");
   document.querySelector("#btnText").innerHTML = "Guardar";
   document.querySelector("#titleModal").innerHTML = "Nuevo Usuario";
-  document.querySelector("#formUsuario").reset();
+  document.querySelector("#formDescuento").reset();
   //$("#listStatus").prop("disabled", true);
   //$("#listStatus").val("3");
 
-  $("#modalFormUsuario").modal("show");
+  $("#modalFormDescuento").modal("show");
 }
 
 function openModalPerfil() {
-  $("#modalFormPerfil").modal("show");
+  $("#modalFormDescuento").modal("show");
 }
