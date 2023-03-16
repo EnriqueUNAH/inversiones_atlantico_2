@@ -50,7 +50,7 @@ class CaiModel extends Mysql
 
 
 	//Función para que inserte en bitácora cada vez que se agrega un nuevo parámetro
-	public function insertParametroBitacora(string $fecha, int $idUsuario, int $idObjeto, string $accion, string $descripcion)
+	public function insertCaiBitacora(string $fecha, int $idUsuario, int $idObjeto, string $accion, string $descripcion)
 	{
 		$this->dateFecha = $fecha;
 		$this->intIdUsuario = $idUsuario;
@@ -79,9 +79,9 @@ class CaiModel extends Mysql
 	 {
 	 	$whereAdmin = "";
 	 	if ($_SESSION['idUser'] != 1) {
-	 		$whereAdmin = " and p.id_usuario != 1 ";
+	 		$whereAdmin = " and p.cod_talonario != 1 ";
 	 	}
-	 	$sql = "SELECT cod_talonario,rango_inicial,rango_final,numero_CAI 
+	 	$sql = "SELECT cod_talonario,rango_inicial,rango_final,rango_actual,numero_CAI,fecha_vencimiento
 	 				FROM tbl_configuracion_cai
 					
 	 				 " . $whereAdmin;
@@ -93,7 +93,7 @@ class CaiModel extends Mysql
 	public function selectCais(int $id_parametro)
 	{
 		$this->intIdParametro = $id_parametro;
-		$sql = "SELECT cod_talonario,rango_inicial,rango_final,numero_CAI,fecha_vencimiento
+		$sql = "SELECT cod_talonario,rango_inicial,rango_final,rango_actual,numero_CAI,fecha_vencimiento
 	 				FROM tbl_configuracion_cai 
 	 					WHERE cod_talonario = $this->intIdParametro";
 		$request = $this->select($sql);

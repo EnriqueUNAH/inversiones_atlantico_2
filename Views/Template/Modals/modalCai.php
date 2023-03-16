@@ -12,21 +12,40 @@
 
 
         <form id="formCai" name="formCai" class="form-horizontal">
-          <input type="hidden" id="id_parametro" name="id_parametro" value="">
-          <!--<p class="text-primary">Todos los campos son obligatorios.</p>-->
+          <input type="hidden" id="cod_talonario" name="cod_talonario" value="">
+          <p class="text-primary">Todos los campos son obligatorios.</p>
           <div class="form-row">
             <div class="form-group col-md-7">
-              <label for="txtcai">CODIGO TALONARIO</label>
-              <input type="text" pattern="[a-zA-Z0-9_]+" class="form-control" id="txtcai" name="txtcai" style="text-transform:uppercase" required="" title="Ingrese solo letras y números sin espacios">
+              <label for="txtRangoI">Rango Inicial</label>
+              <input type="number" class="form-control" id="txtRangoI" name="txtRangoI" required="">
             </div>
+            <div class="form-group col-md-7">
+              <label for="txtRangoF">Rango Final</label>
+              <input type="number" class="form-control" id="txtRangoF" name="txtRangoF" required="">
+            </div>
+
           </div>
+
           <div class="form-row">
 
             <div class="form-group col-md-7">
-              <label for="txtcai">NUMERO CAI</label>
-              <input type="text" pattern="[a-zA-Z0-9_]+" class="form-control" id="txtvalor" name="txtvalor" style="text-transform:uppercase" required="" title="Ingrese solo letras y números sin espacios">
+              <label for="txtRangoA">Rango Actual</label>
+              <input type="number" class="form-control" id="txtRangoA" name="txtRangoA" required="">
+            </div>
+            <div class="form-group col-md-7">
+              <label for="txtnum">NUMERO CAI</label>
+              <input type="text" pattern="[a-zA-Z0-9_]+" class="form-control" id="txtnum" name="txtnum" style="text-transform:uppercase" required="" title="Ingrese solo letras y números sin espacios">
             </div>
 
+          </div>
+
+          <div class="form-row">
+
+            <div class="form-group col-md-7">
+              <label for="txtFecha">Fecha vencimiento</label>
+              <input type="datetime-local" class="form-control" id="txtFecha" name="txtFecha" required="">
+            </div>
+           
           </div>
 
 

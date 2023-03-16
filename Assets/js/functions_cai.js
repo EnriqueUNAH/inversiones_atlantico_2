@@ -1,10 +1,10 @@
-let tablecai;
+let tableCai;
 let rowTable = "";
 let divLoading = document.querySelector("#divLoading");
 document.addEventListener(
   "DOMContentLoaded",
   function () {
-    tableParametros = $("#tablecai").dataTable({
+    tableCai = $("#tableCai").dataTable({
       aProcessing: true,
       aServerSide: true,
       language: {
@@ -14,7 +14,15 @@ document.addEventListener(
         url: " " + base_url + "/Cai/getCai",
         dataSrc: "",
       },
-      columns: [{ data: "cai" }, { data: "valor" }, { data: "options" }],
+      columns: [
+      { data: "rango_inicial" }, 
+      { data: "rango_final" },
+      { data: "rango_actual" }, 
+      { data: "numero_CAI" },
+      { data: "fecha_vencimiento" },
+      { data: "options" },
+    ],
+    
       dom: "lBfrtip",
       buttons: [
         {
@@ -23,7 +31,7 @@ document.addEventListener(
           titleAttr: "Exportar a Excel",
           className: "btn btn-success",
           exportOptions: {
-            columns: [0, 1],
+            columns: [0, 1, 2, 3, 4],
           },
         },
         {
@@ -32,7 +40,7 @@ document.addEventListener(
           titleAttr: "Exportar a PDF",
           className: "btn btn-danger",
           exportOptions: {
-            columns: [0, 1],
+            columns: [0, 1, 2, 3, 4],
           },
           customize: function (doc) {
             doc.styles.tableHeader.color = "#ffffff";
@@ -224,17 +232,17 @@ function fntDelParametro(id_parametro) {
 
 //Abre el modal para agregar parametro
 function openModal() {
-  rowTable = "";
-  document.querySelector("#id_parametro").value = "";
-  document
-    .querySelector(".modal-header")
-    .classList.replace("headerUpdate", "headerRegister");
-  document
-    .querySelector("#btnActionForm")
-    .classList.replace("btn-info", "btn-primary");
-  document.querySelector("#btnText").innerHTML = "Guardar";
-  document.querySelector("#titleModal").innerHTML = "Nueva Configuracion CAI";
-  document.querySelector("#formCai").reset();
+   rowTable = "";
+   document.querySelector("#cod_talonario").value = "";
+   document
+     .querySelector(".modal-header")
+     .classList.replace("headerUpdate", "headerRegister");
+   document
+     .querySelector("#btnActionForm")
+     .classList.replace("btn-info", "btn-primary");
+   document.querySelector("#btnText").innerHTML = "Guardar";
+   document.querySelector("#titleModal").innerHTML = "Nueva Configuracion CAI";
+   document.querySelector("#formCai").reset();
 
-  $("#modalFormCai").modal("show");
-}
+   $("#modalFormCai").modal("show");
+ }

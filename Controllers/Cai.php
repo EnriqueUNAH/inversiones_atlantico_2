@@ -16,8 +16,8 @@ class Cai extends Controllers
 
 	public function Cai()
 	{
-		$data['page_tag'] = "Configuracion CAI";
-		$data['page_title'] = "CONFIGURACION CAI de <small>Inversiones Atlántico</small>";
+		$data['page_tag'] = "Cai";
+		$data['page_title'] = "CONFIGURACION CAI  <small>Inversiones Atlántico</small>";
 		$data['page_name'] = "cai";
 		$data['page_functions_js'] = "functions_cai.js";
 		$this->views->getView($this, "cai", $data);
@@ -30,10 +30,10 @@ class Cai extends Controllers
 		$request_bitacora = "";
 
 		$strAccion = "INGRESO";
-		$strDescripcion = "INGRESO AL MÓDULO PARÁMETROS";
+		$strDescripcion = "INGRESO AL MÓDULO CAI";
 
 		//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
-		$request_bitacora = $this->model->insertParametroBitacora(
+		$request_bitacora = $this->model->insertCaiBitacora(
 			$dateFecha,
 			$intIdUsuario,
 			$intIdObjeto,
@@ -130,27 +130,27 @@ class Cai extends Controllers
 		if ($_SESSION['permisosMod']['r']) {
 			$arrData = $this->model->selectCai();
 			for ($i = 0; $i < count($arrData); $i++) {
-				$btnView = '';
+				// $btnView = '';
 				$btnEdit = '';
 				$btnDelete = '';
 
 
-				if ($_SESSION['permisosMod']['r']) {
-					$btnView = '<button class="btn btn-info btn-sm btnViewParametro" onClick="fntViewParametro(' . $arrData[$i]['id_parametro'] . ')" title="Ver parametro"><i class="far fa-eye"></i></button>';
-				}
+				// if ($_SESSION['permisosMod']['r']) {
+				// 	$btnView = '<button class="btn btn-info btn-sm btnViewParametro" onClick="fntViewParametro(' . $arrData[$i]['id_parametro'] . ')" title="Ver parametro"><i class="far fa-eye"></i></button>';
+				// }
 
 				if ($_SESSION['permisosMod']['u']) {
-					$btnEdit = '<button class="btn btn-primary  btn-sm btnEditParametro" onClick="fntEditParametro(this,' . $arrData[$i]['id_parametro'] . ')" title="Editar parametro"><i class="fas fa-pencil-alt"></i></button>';
+					$btnEdit = '<button class="btn btn-primary  btn-sm btnEditCai" onClick="fntEditCai(this,' . $arrData[$i]['cod_talonario'] . ')" title="Editar parametro"><i class="fas fa-pencil-alt"></i></button>';
 				} else {
 					$btnEdit = '<button class="btn btn-secondary btn-sm" disabled ><i class="fas fa-pencil-alt"></i></button>';
 				}
 
 				if ($_SESSION['permisosMod']['d']) {
-					$btnDelete = '<button class="btn btn-danger btn-sm btnDelParametro" onClick="fntDelParametro(' . $arrData[$i]['id_parametro'] . ')" title="Eliminar parametro"><i class="far fa-trash-alt"></i></button>';
+					$btnDelete = '<button class="btn btn-danger btn-sm btnDelCai" onClick="fntDelCai(' . $arrData[$i]['cod_talonario'] . ')" title="Eliminar parametro"><i class="far fa-trash-alt"></i></button>';
 				} else {
 					$btnDelete = '<button class="btn btn-secondary btn-sm" disabled ><i class="far fa-trash-alt"></i></button>';
 				}
-				$arrData[$i]['options'] = '<div class="text-center">' . $btnView . ' ' . $btnEdit . ' ' . $btnDelete . '</div>';
+				$arrData[$i]['options'] = '<div class="text-center">' . $btnEdit . ' ' . $btnDelete . '</div>';
 			}
 			echo json_encode($arrData, JSON_UNESCAPED_UNICODE);
 		}
