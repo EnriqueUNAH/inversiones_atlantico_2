@@ -222,6 +222,9 @@ class Login extends Controllers
 				$data['token'] = $strToken;
 				$data['id_usuario'] = $arrResponse['id_usuario'];
 				$data['page_functions_js'] = "functions_login.js";
+
+
+
 				$this->views->getView($this, "cambiar_password", $data);
 			}
 		}
@@ -261,6 +264,9 @@ class Login extends Controllers
 					$requestPass = $this->model->insertPassword($intid_usuario, $strPassword);
 
 					if ($requestPass) {
+
+						//$requestEstado = $this->model->updateEstado($intid_usuario);
+
 						$arrResponse = array(
 							'status' => true,
 							'msg' => 'Contraseña actualizada con éxito.'

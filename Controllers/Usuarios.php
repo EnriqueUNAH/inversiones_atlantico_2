@@ -70,7 +70,7 @@ class Usuarios extends Controllers
 				//SE PUEDEN USAR PARA INSERTAR O ACTUALIZAR PORQUE SERÍAN LOS MISMOS DATOS
 				$dateFecha = date('Y-m-d H:i:s');
 				$intIdUsuario = $_SESSION['idUser'];
-				$intIdObjeto = 2;
+				$intIdObjeto = 2; //ESTE VALOR VA A CAMBIAR MAS A DELANTE
 				$request_bitacora = "";
 
 				if ($id_usuario == 0) {
@@ -139,7 +139,7 @@ class Usuarios extends Controllers
 				if ($request_user > 0) {
 					if ($option == 1) {
 
-						$arrResponse = array('status' => true, 'msg' => 'Datos guardados correctamente.');
+
 						$dataUsuario = array(
 							'nombreUsuario' => $strnombre_usuario,
 							'usuario' => $strusuario,
@@ -147,11 +147,23 @@ class Usuarios extends Controllers
 							'asunto' => 'Mostrar cuenta - ' . NOMBRE_REMITENTE,
 							'contrasena' => $contrasena
 						);
-						sendMailLocal($dataUsuario, 'email_usuario');
 
 
 
+						// try {
+						// 	sendMailLocal($dataUsuario, 'email_usuario'); //ENVIAR CORREO
+						$arrResponse = array('status' => true, 'msg' => 'Datos guardados correctamente.');
+						// } catch (Exception $e) {
+						// 	$arrResponse = array('status' => false, 'msg' => 'No se puedo enviar el correo .Datos se guardaron correctamente.');
+						// }
 
+
+						// $resultadoEnvioCorreo = sendMailLocal($dataUsuario, 'email_usuario');
+						// if ($resultadoEnvioCorreo === false) {
+						// 	$arrResponse = array('status' => false, 'msg' => 'No se pudo enviar el correo. Los datos se guardaron correctamente.');
+						// } else {
+						// 	$arrResponse = array('status' => true, 'msg' => 'Datos guardados correctamente.');
+						// }
 
 
 

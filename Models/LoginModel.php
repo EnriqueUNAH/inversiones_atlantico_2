@@ -88,6 +88,16 @@ class LoginModel extends Mysql
 		$request = $this->update($sql, $arrData);
 		return $request;
 	}
+	//CUANDO RECUPERA POR CORREO Y SU ESTADO DEBE PASAR A ACTIVO
+	public function updateEstado(int $Usuario)
+	{
+		$this->intUsuario = $Usuario;
+
+		$sql = "UPDATE tbl_ms_usuarios SET estado = ? WHERE id_usuario = $this->intUsuario ";
+		$arrData = array(1);
+		$request = $this->update($sql, $arrData);
+		return $request;
+	}
 
 	public function getUsuario(string $email, string $token)
 	{
