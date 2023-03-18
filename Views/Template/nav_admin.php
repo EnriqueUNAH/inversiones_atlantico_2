@@ -63,6 +63,8 @@
               <i class="treeview-indicator fa fa-angle-right"></i>
             </a>
             <ul class="treeview-menu">
+              <li><a class="treeview-item" href="<?= base_url(); ?>/productos"><i class="icon fa fa-circle-o"></i>Productos</a></li>
+              <li><a class="treeview-item" href="<?= base_url(); ?>/inventarios"><i class="icon fa fa-circle-o"></i>Inventarios</a></li>
               <li><a class="treeview-item" href="<?= base_url(); ?>/kardex"><i class="icon fa fa-circle-o"></i>Kardex</a></li>
 
             </ul>
