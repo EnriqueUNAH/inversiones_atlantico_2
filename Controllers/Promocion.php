@@ -59,6 +59,12 @@ class Promocion extends Controllers
 					$intprecio_venta = intval(strClean($_POST['txtprecio_venta']));
 					$request_user = "";
 
+                    if($datefecha_final < $datefecha_inicio)
+	              {
+				  $arrResponse = array("status" => false,"msg" => 'La fecha final tiene que ser mayor a la de inicio.');
+	              }else{
+
+					
 				//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora
 				//SE PUEDEN USAR PARA INSERTAR O ACTUALIZAR PORQUE SERÍAN LOS MISMOS DATOS
 				$dateFecha = date('Y-m-d H:i:s');
@@ -129,6 +135,8 @@ class Promocion extends Controllers
 				} else {
 					$arrResponse = array("status" => false, "msg" => 'No es posible almacenar los datos.');
 				}
+			}
+
 			}
 			echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
 		}
