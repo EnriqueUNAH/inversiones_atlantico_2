@@ -154,15 +154,14 @@ class Login extends Controllers
 					);
 
 					if ($requestUpdate) {
-						try {
-							sendMailLocal($dataUsuario, 'email_cambioPassword');
-							$arrResponse = array('status' => true, 'msg' => 'Se ha enviado un email a tu cuenta de correo.');
-						} catch (Exception $e) {
-							$arrResponse = array(
-								'status' => false,
-								'msg' => 'No es posible realizar el proceso. Error en el envío de correo: ' . $e->getMessage()
-							);
-						}
+
+						sendMailLocal($dataUsuario, 'email_cambioPassword');
+						$arrResponse = array('status' => true, 'msg' => 'Se ha enviado un email a tu cuenta de correo.');
+
+						// $arrResponse = array(
+						// 	'status' => false,
+						// 	'msg' => 'No es posible realizar el proceso. Error en el envío de correo: '
+						// );
 					} else {
 						$arrResponse = array(
 							'status' => false,
@@ -207,14 +206,14 @@ class Login extends Controllers
 	{
 
 		if (empty($params)) {
-			header('Location: ' . base_url());
+			header('Location: ' . base_url() . '/login');
 		} else {
 			$arrParams = explode(',', $params);
 			$strEmail = strClean($arrParams[0]);
 			$strToken = strClean($arrParams[1]);
 			$arrResponse = $this->model->getUsuario($strEmail, $strToken);
 			if (empty($arrResponse)) {
-				header("Location: " . base_url());
+				header("Location: " . base_url() . '/login');
 			} else {
 				$data['page_tag'] = "Cambiar contraseña";
 				$data['page_name'] = "cambiar_contrasenia";
@@ -223,6 +222,9 @@ class Login extends Controllers
 				$data['token'] = $strToken;
 				$data['id_usuario'] = $arrResponse['id_usuario'];
 				$data['page_functions_js'] = "functions_login.js";
+
+
+
 				$this->views->getView($this, "cambiar_password", $data);
 			}
 		}
@@ -262,6 +264,9 @@ class Login extends Controllers
 					$requestPass = $this->model->insertPassword($intid_usuario, $strPassword);
 
 					if ($requestPass) {
+
+						//$requestEstado = $this->model->updateEstado($intid_usuario);
+
 						$arrResponse = array(
 							'status' => true,
 							'msg' => 'Contraseña actualizada con éxito.'

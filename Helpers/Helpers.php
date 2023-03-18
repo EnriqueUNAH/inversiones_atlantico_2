@@ -70,18 +70,18 @@ function sendMailLocal($data, $template)
 
     try {
         //Server settings
-        $mail->SMTPDebug = 1;                      //Enable verbose debug output
+        //$mail->SMTPDebug = 1;                      //Enable verbose debug output
         $mail->CharSet = 'UTF-8';                   //Para que las tildes se vean bien en el correo
         $mail->isSMTP();                                            //Send using SMTP
-        $mail->Host       = 'smtp.office365.com';                     //Set the SMTP server to send through
+        $mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
         $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-        $mail->Username   = 'inversiones.uniformes@outlook.com';                     //SMTP username
-        $mail->Password   = 'wwvblnaxkgesruzk';                               //SMTP password
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;            //Enable implicit TLS encryption
-        $mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+        $mail->Username   = 'inversionesatlanticotela@gmail.com';                     //SMTP username
+        $mail->Password   = 'ynjptdxjnlcndsap';                               //SMTP password
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;             //Enable implicit TLS encryption
+        $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
         //Recipients
-        $mail->setFrom('inversiones.uniformes@outlook.com', 'Inversiones del Atlántico');
+        $mail->setFrom('inversionesatlanticotela@gmail.com', 'Inversiones del Atlántico');
         $mail->addAddress($data['email']);     //Add a recipient
         if (!empty($data['emailCopia'])) {
             $mail->addBCC($data['emailCopia']);
@@ -98,6 +98,10 @@ function sendMailLocal($data, $template)
         echo "Error en el envío del mensaje: {$mail->ErrorInfo}";
     }
 }
+
+
+
+
 
 function getPermisos(int $id_objeto)
 {

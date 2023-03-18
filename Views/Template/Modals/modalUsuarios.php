@@ -11,6 +11,13 @@
       <div class="modal-body">
 
 
+        <style>
+          .btn-outline-secondary {
+            background-color: #0d6efd;
+            color: white;
+          }
+        </style>
+
         <form id="formUsuario" name="formUsuario" class="form-horizontal">
           <input type="hidden" id="id_usuario" name="id_usuario" value="">
           <!--<p class="text-primary">Todos los campos son obligatorios.</p>-->
@@ -48,11 +55,18 @@
             </div>
 
           </div>
+          <label for="txtPassword">Contraseña </label>
+          <p class="text-primary">(Opcional)</p>
           <div class="form-row">
-            <div class="form-group col-md-6">
-              <label for="txtPassword">Contraseña </label>
-              <p class="text-primary">(Opcional)</p>
+            <div class="form-group col-md-6 d-flex align-items-center">
+
+
               <input type="password" class="form-control" id="txtPassword" name="txtPassword">
+
+              <button type="button" class="btn btn-outline-secondary" id="btnTogglePassword">
+                <i class="fa fa-eye-slash" id="iconTogglePassword"></i>
+              </button>
+
             </div>
 
           </div>
@@ -70,8 +84,34 @@
   </div>
 </div>
 
+<script>
+  //Para manipular el ojito en la parte de contraseña
+  const btnTogglePassword = document.getElementById("btnTogglePassword");
+  const iconTogglePassword = document.getElementById("iconTogglePassword");
+  const txtPassword = document.getElementById("txtPassword");
 
-<!-- Modal -->
+  btnTogglePassword.addEventListener("click", function() {
+    if (txtPassword.type === "password") {
+      txtPassword.type = "text";
+      iconTogglePassword.classList.remove("fa-eye-slash");
+      iconTogglePassword.classList.add("fa-eye");
+    } else {
+      txtPassword.type = "password";
+      iconTogglePassword.classList.remove("fa-eye");
+      iconTogglePassword.classList.add("fa-eye-slash");
+    }
+  });
+</script>
+
+
+
+
+
+
+
+
+
+<!-- Modal del botón ver más-->
 <div class="modal fade" id="modalViewUser" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
