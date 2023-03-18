@@ -52,8 +52,8 @@ class KardexModel extends Mysql
 			INNER JOIN tbl_kardex p 
 			ON p.cod_tipo_movimiento = r.cod_tipo_movimiento
 			INNER JOIN tbl_producto o 
-			ON p.cod_producto = o.cod_producto
-			WHERE p.cod_kardex != 0 " . $whereAdmin;
+			ON p.cod_producto = o.cod_producto;
+			-- WHERE p.cod_kardex != 0 " . $whereAdmin;
 		$request = $this->select_all($sql);
 		return $request;
 	}

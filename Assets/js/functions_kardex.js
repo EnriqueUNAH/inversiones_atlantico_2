@@ -16,8 +16,8 @@ document.addEventListener(
       },
       columns: [
         { data: "fecha" },
-        { data: "cod_tipo_movimiento" },
-        { data: "cod_producto" },
+        { data: "nombre_movimiento" },
+        { data: "nombre_producto" },
       ],
       dom: "lBfrtip",
       buttons: [
