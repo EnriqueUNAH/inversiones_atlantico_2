@@ -1,120 +1,122 @@
 <!-- Modal -->
-<div class="modal fade" id="modalFormProductos" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog modal-xl" >
+<div class="modal fade" id="modalFormUsuario" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header headerRegister">
-        <h5 class="modal-title" id="titleModal">Nueva Producto</h5>
+        <h5 class="modal-title" id="titleModal">Nuevo Usuario</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-            <form id="formProductos" name="formProductos" class="form-horizontal">
-              <input type="hidden" id="idProducto" name="idProducto" value="">
-              <p class="text-primary">Los campos con asterisco (<span class="required">*</span>) son obligatorios.</p>
-              <div class="row">
-                <div class="col-md-8">
-                    <div class="form-group">
-                      <label class="control-label">Nombre Producto <span class="required">*</span></label>
-                      <input class="form-control" id="txtNombre" name="txtNombre" type="text" required="">
-                    </div>
-                    <div class="form-group">
-                      <label class="control-label">Descripción Producto</label>
-                      <textarea class="form-control" id="txtDescripcion" name="txtDescripcion" ></textarea>
-                    </div>
-                    
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label class="control-label">Código <span class="required">*</span></label>
-                        <input class="form-control" id="txtCodigo" name="txtCodigo" type="text" placeholder="Código de barra" required="">
-                        <br>
-                        <div id="divBarCode" class="notblock textcenter">
-                            <div id="printCode">
-                                <svg id="barcode"></svg> 
-                            </div>
-                            <button class="btn btn-success btn-sm" type="button" onClick="fntPrintBarcode('#printCode')"><i class="fas fa-print"></i> Imprimir</button>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="form-group col-md-6">
-                            <label class="control-label">Precio <span class="required">*</span></label>
-                            <input class="form-control" id="txtPrecio" name="txtPrecio" type="text" required="">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label class="control-label">Stock <span class="required">*</span></label>
-                            <input class="form-control" id="txtStock" name="txtStock" type="text" required="">
-                        </div>
-                    </div>
 
-                    <div class="row">
-                        <div class="form-group col-md-6">
-                            <label for="listCategoria">Categoría <span class="required">*</span></label>
-                            <select class="form-control" data-live-search="true" id="listCategoria" name="listCategoria" required=""></select>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="listStatus">Estado <span class="required">*</span></label>
-                            <select class="form-control selectpicker" id="listStatus" name="listStatus" required="">
-                              <option value="1">Activo</option>
-                              <option value="2">Inactivo</option>
-                            </select>
-                        </div>
-                    </div>
 
-                    <div class="row">
-                       <div class="form-group col-md-6">
-                           <button id="btnActionForm" class="btn btn-primary btn-lg btn-block" type="submit"><i class="fa fa-fw fa-lg fa-check-circle"></i><span id="btnText">Guardar</span></button>
-                       </div> 
-                       <div class="form-group col-md-6">
-                           <button class="btn btn-danger btn-lg btn-block" type="button" data-dismiss="modal"><i class="fa fa-fw fa-lg fa-times-circle"></i>Cerrar</button>
-                       </div> 
-                    </div>  
-                </div>
-              </div>
-              
-              <div class="tile-footer">
-                 <div class="form-group col-md-12">
-                     <div id="containerGallery">
-                         <span>Agregar foto (440 x 545)</span>
-                         <button class="btnAddImage btn btn-info btn-sm" type="button">
-                             <i class="fas fa-plus"></i>
-                         </button>
-                     </div>
-                     <hr>
-                     <div id="containerImages">
-                         <!-- <div id="div24">
-                             <div class="prevImage">
-                                 <img src="<?= media(); ?>/images/uploads/producto1.jpg">
-                             </div>
-                             <input type="file" name="foto" id="img1" class="inputUploadfile">
-                             <label for="img1" class="btnUploadfile"><i class="fas fa-upload "></i></label>
-                             <button class="btnDeleteImage" type="button" onclick="fntDelItem('div24')"><i class="fas fa-trash-alt"></i></button>
-                         </div>
-                         <div id="div24">
-                             <div class="prevImage">
-                                 <img class="loading" src="<?= media(); ?>/images/loading.svg">
-                             </div>
-                             <input type="file" name="foto" id="img1" class="inputUploadfile">
-                             <label for="img1" class="btnUploadfile"><i class="fas fa-upload "></i></label>
-                             <button class="btnDeleteImage" type="button" onclick="fntDelItem('div24')"><i class="fas fa-trash-alt"></i></button>
-                         </div> -->
-                        
-                     </div>
-                 </div>
-                                
-              </div>
-            </form>
+        <style>
+          .btn-outline-secondary {
+            background-color: #0d6efd;
+            color: white;
+          }
+        </style>
+
+        <form id="formUsuario" name="formUsuario" class="form-horizontal">
+          <input type="hidden" id="id_usuario" name="id_usuario" value="">
+          <!--<p class="text-primary">Todos los campos son obligatorios.</p>-->
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="txtusuario">Usuario</label>
+              <input type="text" pattern="[a-zA-Z]+" class="form-control" id="txtusuario" name="txtusuario" style="text-transform:uppercase" required="" title="Ingrese solo letras sin espacios">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="txtnombre_usuario">Nombre</label>
+              <input type="text" pattern="[a-zA-Z ]+" class="form-control valid validText" id="txtnombre_usuario" name="txtnombre_usuario" style="text-transform:uppercase" required="" title="No se puede ingresar números">
+            </div>
+            <div class="form-group col-md-6">
+              <label for="listid_rol">Rol</label>
+              <select class="form-control" data-live-search="true" id="listid_rol" name="listid_rol" required>
+              </select>
+            </div>
+
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="txtEmail">Correo Electrónico</label>
+              <input type="email" class="form-control valid validEmail" id="txtEmail" name="txtEmail" required="">
+            </div>
+            <div class="form-group col-md-6">
+              <label for="listStatus">Estado</label>
+              <select class="form-control selectpicker" id="listStatus" name="listStatus" required>
+                <option value="3">NUEVO</option>
+                <option value="1">ACTIVO</option>
+                <option value="2">INACTIVO</option>
+
+              </select>
+            </div>
+
+          </div>
+          <label for="txtPassword">Contraseña </label>
+          <p class="text-primary">(Opcional)</p>
+          <div class="form-row">
+            <div class="form-group col-md-6 d-flex align-items-center">
+
+
+              <input type="password" class="form-control" id="txtPassword" name="txtPassword">
+
+              <button type="button" class="btn btn-outline-secondary" id="btnTogglePassword">
+                <i class="fa fa-eye-slash" id="iconTogglePassword"></i>
+              </button>
+
+            </div>
+
+          </div>
+          <div class="form-row">
+
+          </div>
+          <div class="tile-footer">
+            <button id="btnActionForm" class="btn btn-primary" type="submit"><i class="fa fa-fw fa-lg fa-check-circle"></i><span id="btnText">Guardar</span></button>&nbsp;&nbsp;&nbsp;
+            <button class="btn btn-danger" type="button" data-dismiss="modal"><i class="fa fa-fw fa-lg fa-times-circle"></i>Cerrar</button>
+          </div>
+        </form>
+
       </div>
     </div>
   </div>
 </div>
 
-<!-- Modal -->
-<div class="modal fade" id="modalViewProducto" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog modal-xl" >
+<script>
+  //Para manipular el ojito en la parte de contraseña
+  const btnTogglePassword = document.getElementById("btnTogglePassword");
+  const iconTogglePassword = document.getElementById("iconTogglePassword");
+  const txtPassword = document.getElementById("txtPassword");
+
+  btnTogglePassword.addEventListener("click", function() {
+    if (txtPassword.type === "password") {
+      txtPassword.type = "text";
+      iconTogglePassword.classList.remove("fa-eye-slash");
+      iconTogglePassword.classList.add("fa-eye");
+    } else {
+      txtPassword.type = "password";
+      iconTogglePassword.classList.remove("fa-eye");
+      iconTogglePassword.classList.add("fa-eye-slash");
+    }
+  });
+</script>
+
+
+
+
+
+
+
+
+
+<!-- Modal del botón ver más-->
+<div class="modal fade" id="modalViewUser" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header header-primary">
-        <h5 class="modal-title" id="titleModal">Datos del Producto</h5>
+        <h5 class="modal-title" id="titleModal">Datos del usuario</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -123,37 +125,45 @@
         <table class="table table-bordered">
           <tbody>
             <tr>
-              <td>Codigo:</td>
-              <td id="celCodigo"></td>
+              <td>Usuario:</td>
+              <td id="celusuario">654654654</td>
             </tr>
             <tr>
-              <td>Nombres:</td>
-              <td id="celNombre"></td>
+              <td>Nombre:</td>
+              <td id="celNombre">Jacob</td>
+            </tr>
+
+            <tr>
+              <td>Preguntas Contestadas:</td>
+              <td id="celpreguntas_contestadas">Larry</td>
             </tr>
             <tr>
-              <td>Precio:</td>
-              <td id="celPrecio"></td>
+              <td>Correo Electrónico:</td>
+              <td id="celEmail"></td>
             </tr>
             <tr>
-              <td>Stock:</td>
-              <td id="celStock"></td>
+              <td>Rol:</td>
+              <td id="celTipoUsuario"></td>
             </tr>
             <tr>
-              <td>Categoría:</td>
-              <td id="celCategoria"></td>
+              <td>Estado:</td>
+              <td id="celEstado"></td>
             </tr>
             <tr>
-              <td>Status:</td>
-              <td id="celStatus"></td>
+              <td>Creado por:</td>
+              <td id="celCreadoPor"></td>
             </tr>
             <tr>
-              <td>Descripción:</td>
-              <td id="celDescripcion"></td>
+              <td>Fecha de creación:</td>
+              <td id="celFechaRegistro"></td>
             </tr>
             <tr>
-              <td>Fotos de referencia:</td>
-              <td id="celFotos">
-              </td>
+              <td>Modificado por:</td>
+              <td id="celModificadoPor">n</td>
+            </tr>
+            <tr>
+              <td>Fecha de modificación:</td>
+              <td id="celFechaModificacion"></td>
             </tr>
           </tbody>
         </table>
@@ -164,4 +174,3 @@
     </div>
   </div>
 </div>
-

@@ -1,121 +1,168 @@
-document.write(
-  `<script src="${base_url}/Assets/js/plugins/JsBarcode.all.min.js"></script>`
-);
 let tableProductos;
 let rowTable = "";
-$(document).on("focusin", function (e) {
-  if ($(e.target).closest(".tox-dialog").length) {
-    e.stopImmediatePropagation();
-  }
-});
-tableProductos = $("#tableProductos").dataTable({
-  aProcessing: true,
-  aServerSide: true,
-  language: {
-    url: "//cdn.datatables.net/plug-ins/1.10.20/i18n/Spanish.json",
-  },
-  ajax: {
-    url: " " + base_url + "/Productos/getProductos",
-    dataSrc: "",
-  },
-  columns: [
-    { data: "idproducto" },
-    { data: "codigo" },
-    { data: "nombre" },
-    { data: "stock" },
-    { data: "precio" },
-    { data: "estado" },
-    { data: "options" },
-  ],
-  columnDefs: [
-    { className: "textcenter", targets: [3] },
-    { className: "textright", targets: [4] },
-    { className: "textcenter", targets: [5] },
-  ],
-  dom: "lBfrtip",
-  buttons: [
-    {
-      extend: "excelHtml5",
-      text: "<i class='fas fa-file-excel'></i> Excel",
-      titleAttr: "Esportar a Excel",
-      className: "btn btn-success",
-      exportOptions: {
-        columns: [0, 1, 2, 3, 4, 5],
-      },
-    },
-    {
-      extend: "pdfHtml5",
-      text: "<i class='fas fa-file-pdf'></i> PDF",
-      titleAttr: "Esportar a PDF",
-      className: "btn btn-danger",
-      exportOptions: {
-        columns: [0, 1, 2, 3, 4, 5],
-      },
-    },
-  ],
-  resonsieve: "true",
-  bDestroy: true,
-  iDisplayLength: 10,
-  order: [[0, "desc"]],
-});
-window.addEventListener(
-  "load",
+let divLoading = document.querySelector("#divLoading");
+document.addEventListener(
+  "DOMContentLoaded",
   function () {
-    if (document.querySelector("#formProductos")) {
-      let formProductos = document.querySelector("#formProductos");
-      formProductos.onsubmit = function (e) {
+    tableProductos = $("#tableProductos").dataTable({
+      aProcessing: true,
+      aServerSide: true,
+      language: {
+        url: "//cdn.datatables.net/plug-ins/1.10.20/i18n/Spanish.json",
+      },
+      ajax: {
+        url: " " + base_url + "/Productos/getProductos",
+        dataSrc: "",
+      },
+      columns: [
+        { data: "nombre_producto" },
+        { data: "descripcion" },
+        { data: "cantidad_minima" },
+        { data: "cantidad_maxima" },
+        { data: "nombre_tipo_producto" },
+        { data: "precio_venta" },
+        { data: "estado" },
+        {
+          data: "foto",
+          render: function (data, type, row) {
+            return '<img src="' + data + '"/>';
+          },
+        },
+      ],
+      dom: "lBfrtip",
+      buttons: [
+        {
+          extend: "excelHtml5",
+          text: "<i class='fas fa-file-excel'></i> Excel",
+          titleAttr: "Exportar a Excel",
+          className: "btn btn-success",
+          exportOptions: {
+            columns: [0, 1, 2, 3, 4, 5],
+          },
+        },
+        {
+          extend: "pdfHtml5",
+          text: "<i class='fas fa-file-pdf'></i> PDF",
+          titleAttr: "Exportar a PDF",
+          className: "btn btn-danger",
+          exportOptions: {
+            columns: [0, 1, 2, 3, 4, 5],
+          },
+          customize: function (doc) {
+            doc.styles.tableHeader.color = "#ffffff";
+            doc.styles.tableHeader.fillColor = "#007bff";
+            doc.styles.tableBodyEven.fillColor = "#f2f2f2";
+            doc.styles.tableBodyOdd.fillColor = "#ffffff";
+            doc.content[1].table.widths = Array(
+              doc.content[1].table.body[0].length + 1
+            )
+              .join("*")
+              .split("");
+          },
+        },
+      ],
+      resonsieve: "true",
+      bDestroy: true,
+      iDisplayLength: 10,
+      order: [[0, "desc"]],
+    });
+
+    if (document.querySelector("#formProducto")) {
+      let formProducto = document.querySelector("#formProducto");
+      formProducto.onsubmit = function (e) {
         e.preventDefault();
-        let strNombre = document.querySelector("#txtNombre").value;
-        let intCodigo = document.querySelector("#txtCodigo").value;
-        let strPrecio = document.querySelector("#txtPrecio").value;
-        let intStock = document.querySelector("#txtStock").value;
-        let intestado = document.querySelector("#listStatus").value;
+
+        let strNombre_Producto = document.querySelector(
+          "#txtNombre_Producto"
+        ).value;
+        let strDescripcion = document
+          .querySelector("#txtdescripcion")
+          .value.toUpperCase();
+        let intCantidad_Minima = document.querySelector(
+          "#txtCantidad_Minima"
+        ).value;
+        let intCantidad_Maxima = document.querySelector(
+          "#txtCantidad_Maxima"
+        ).value;
+        let intTipo_Producto =
+          document.querySelector("#listTipo_Producto").value;
+        let decPrecio_Venta = document.querySelector("#txtPrecio_Venta").value;
+        let intStatus = document.querySelector("#listStatus").value;
+        let foto = document.querySelector("#foto").value;
+
         if (
-          strNombre == "" ||
-          intCodigo == "" ||
-          strPrecio == "" ||
-          intStock == ""
+          strNombre_Producto == "" ||
+          strDescripcion == "" ||
+          intCantidad_Minima == "" ||
+          intCantidad_Maxima == "" ||
+          intTipo_Producto == "" ||
+          decPrecio_Venta == "" ||
+          intStatus == ""
         ) {
           swal("Atención", "Todos los campos son obligatorios.", "error");
           return false;
         }
-        if (intCodigo.length < 5) {
-          swal("Atención", "El código debe ser mayor que 5 dígitos.", "error");
-          return false;
+
+        let elementsValid = document.getElementsByClassName("valid");
+        for (let i = 0; i < elementsValid.length; i++) {
+          if (elementsValid[i].classList.contains("is-invalid")) {
+            swal(
+              "Atención",
+              "Por favor verifique los campos en rojo.",
+              "error"
+            );
+            return false;
+          }
         }
         divLoading.style.display = "flex";
-        tinyMCE.triggerSave();
         let request = window.XMLHttpRequest
           ? new XMLHttpRequest()
           : new ActiveXObject("Microsoft.XMLHTTP");
         let ajaxUrl = base_url + "/Productos/setProducto";
-        let formData = new FormData(formProductos);
+        let formData = new FormData(formProducto);
         request.open("POST", ajaxUrl, true);
         request.send(formData);
         request.onreadystatechange = function () {
           if (request.readyState == 4 && request.status == 200) {
             let objData = JSON.parse(request.responseText);
             if (objData.status) {
-              swal("", objData.msg, "success");
-              document.querySelector("#idProducto").value = objData.idproducto;
-              document
-                .querySelector("#containerGallery")
-                .classList.remove("notblock");
-
               if (rowTable == "") {
                 tableProductos.api().ajax.reload();
               } else {
                 htmlStatus =
-                  intestado == 1
+                  intStatus == 1
                     ? '<span class="badge badge-success">ACTIVO</span>'
+                    : intStatus == 3
+                    ? '<span class="badge badge-info">NUEVO</span>'
+                    : intStatus == 4
+                    ? '<span class="badge badge-danger">BLOQUEADO</span>'
                     : '<span class="badge badge-danger">INACTIVO</span>';
-                rowTable.cells[1].textContent = intCodigo;
-                rowTable.cells[2].textContent = strNombre;
-                rowTable.cells[3].textContent = intStock;
-                rowTable.cells[4].textContent = smony + strPrecio;
-                rowTable.cells[5].innerHTML = htmlStatus;
+
+                rowTable.cells[0].textContent = strNombre_Producto;
+                rowTable.cells[1].textContent = strDescripcion;
+                rowTable.cells[2].textContent = intCantidad_Minima;
+                rowTable.cells[3].textContent = intCantidad_Maxima;
+
+                rowTable.cells[4].textContent =
+                  document.querySelector(
+                    "#listTipo_Producto"
+                  ).selectedOptions[0].text;
+
+                rowTable.cells[5].textContent = decPrecio_Venta;
+
+                rowTable.cells[6].textContent =
+                  document.querySelector("#listStatus").selectedOptions[0].text;
+
+                rowTable.cells[7].textContent = foto;
+
+                rowTable.cells[8].innerHTML = htmlStatus;
                 rowTable = "";
               }
+
+              $("#modalFormProducto").modal("hide");
+
+              formProducto.reset();
+              swal("Productos", objData.msg, "success");
             } else {
               swal("Error", objData.msg, "error");
             }
@@ -125,182 +172,57 @@ window.addEventListener(
         };
       };
     }
-
-    if (document.querySelector(".btnAddImage")) {
-      let btnAddImage = document.querySelector(".btnAddImage");
-      btnAddImage.onclick = function (e) {
-        let key = Date.now();
-        let newElement = document.createElement("div");
-        newElement.id = "div" + key;
-        newElement.innerHTML = `
-            <div class="prevImage"></div>
-            <input type="file" name="foto" id="img${key}" class="inputUploadfile">
-            <label for="img${key}" class="btnUploadfile"><i class="fas fa-upload "></i></label>
-            <button class="btnDeleteImage notblock" type="button" onclick="fntDelItem('#div${key}')"><i class="fas fa-trash-alt"></i></button>`;
-        document.querySelector("#containerImages").appendChild(newElement);
-        document.querySelector("#div" + key + " .btnUploadfile").click();
-        fntInputFile();
-      };
-    }
-
-    fntInputFile();
-    fntCategorias();
   },
   false
 );
 
-if (document.querySelector("#txtCodigo")) {
-  let inputCodigo = document.querySelector("#txtCodigo");
-  inputCodigo.onkeyup = function () {
-    if (inputCodigo.value.length >= 5) {
-      document.querySelector("#divBarCode").classList.remove("notblock");
-      fntBarcode();
-    } else {
-      document.querySelector("#divBarCode").classList.add("notblock");
-    }
-  };
-}
+// window.addEventListener(
+//   "load",
+//   function () {
+//     fntRolesUsuario();
+//   },
+//   false
+// );
 
-tinymce.init({
-  selector: "#txtDescripcion",
-  width: "100%",
-  height: 400,
-  statubar: true,
-  plugins: [
-    "advlist autolink link image lists charmap print preview hr anchor pagebreak",
-    "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
-    "save table contextmenu directionality emoticons template paste textcolor",
-  ],
-  toolbar:
-    "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media fullpage | forecolor backcolor emoticons",
-});
-
-function fntInputFile() {
-  let inputUploadfile = document.querySelectorAll(".inputUploadfile");
-  inputUploadfile.forEach(function (inputUploadfile) {
-    inputUploadfile.addEventListener("change", function () {
-      let idProducto = document.querySelector("#idProducto").value;
-      let parentId = this.parentNode.getAttribute("id");
-      let idFile = this.getAttribute("id");
-      let uploadFoto = document.querySelector("#" + idFile).value;
-      let fileimg = document.querySelector("#" + idFile).files;
-      let prevImg = document.querySelector("#" + parentId + " .prevImage");
-      let nav = window.URL || window.webkitURL;
-      if (uploadFoto != "") {
-        let type = fileimg[0].type;
-        let name = fileimg[0].name;
-        if (
-          type != "image/jpeg" &&
-          type != "image/jpg" &&
-          type != "image/png"
-        ) {
-          prevImg.innerHTML = "Archivo no válido";
-          uploadFoto.value = "";
-          return false;
-        } else {
-          let objeto_url = nav.createObjectURL(this.files[0]);
-          prevImg.innerHTML = `<img class="loading" src="${base_url}/Assets/images/loading.svg" >`;
-
-          let request = window.XMLHttpRequest
-            ? new XMLHttpRequest()
-            : new ActiveXObject("Microsoft.XMLHTTP");
-          let ajaxUrl = base_url + "/Productos/setImage";
-          let formData = new FormData();
-          formData.append("idproducto", idProducto);
-          formData.append("foto", this.files[0]);
-          request.open("POST", ajaxUrl, true);
-          request.send(formData);
-          request.onreadystatechange = function () {
-            if (request.readyState != 4) return;
-            if (request.status == 200) {
-              let objData = JSON.parse(request.responseText);
-              if (objData.status) {
-                prevImg.innerHTML = `<img src="${objeto_url}">`;
-                document
-                  .querySelector("#" + parentId + " .btnDeleteImage")
-                  .setAttribute("imgname", objData.imgname);
-                document
-                  .querySelector("#" + parentId + " .btnUploadfile")
-                  .classList.add("notblock");
-                document
-                  .querySelector("#" + parentId + " .btnDeleteImage")
-                  .classList.remove("notblock");
-              } else {
-                swal("Error", objData.msg, "error");
-              }
-            }
-          };
-        }
-      }
-    });
-  });
-}
-
-function fntDelItem(element) {
-  let nameImg = document
-    .querySelector(element + " .btnDeleteImage")
-    .getAttribute("imgname");
-  let idProducto = document.querySelector("#idProducto").value;
+function fntViewProducto(id_producto) {
   let request = window.XMLHttpRequest
     ? new XMLHttpRequest()
     : new ActiveXObject("Microsoft.XMLHTTP");
-  let ajaxUrl = base_url + "/Productos/delFile";
-
-  let formData = new FormData();
-  formData.append("idproducto", idProducto);
-  formData.append("file", nameImg);
-  request.open("POST", ajaxUrl, true);
-  request.send(formData);
-  request.onreadystatechange = function () {
-    if (request.readyState != 4) return;
-    if (request.status == 200) {
-      let objData = JSON.parse(request.responseText);
-      if (objData.status) {
-        let itemRemove = document.querySelector(element);
-        itemRemove.parentNode.removeChild(itemRemove);
-      } else {
-        swal("", objData.msg, "error");
-      }
-    }
-  };
-}
-
-function fntViewInfo(idProducto) {
-  let request = window.XMLHttpRequest
-    ? new XMLHttpRequest()
-    : new ActiveXObject("Microsoft.XMLHTTP");
-  let ajaxUrl = base_url + "/Productos/getProducto/" + idProducto;
+  let ajaxUrl = base_url + "/Productos/getProducto/" + id_usuario;
   request.open("GET", ajaxUrl, true);
   request.send();
   request.onreadystatechange = function () {
     if (request.readyState == 4 && request.status == 200) {
       let objData = JSON.parse(request.responseText);
+
       if (objData.status) {
-        let htmlImage = "";
-        let objProducto = objData.data;
         let estadoProducto =
-          objProducto.estado == 1
-            ? '<span class="badge badge-success">Activo</span>'
-            : '<span class="badge badge-danger">Inactivo</span>';
+          objData.data.estado == 1
+            ? '<span class="badge badge-success">ACTIVO</span>'
+            : objData.data.estado == 3
+            ? '<span class="badge badge-info">NUEVO</span>'
+            : '<span class="badge badge-danger">INACTIVO</span>';
 
-        document.querySelector("#celCodigo").innerHTML = objProducto.codigo;
-        document.querySelector("#celNombre").innerHTML = objProducto.nombre;
-        document.querySelector("#celPrecio").innerHTML = objProducto.precio;
-        document.querySelector("#celStock").innerHTML = objProducto.stock;
-        document.querySelector("#celCategoria").innerHTML =
-          objProducto.categoria;
-        document.querySelector("#celestado").innerHTML = estadoProducto;
-        document.querySelector("#celDescripcion").innerHTML =
-          objProducto.descripcion;
+        document.querySelector("#celusuario").innerHTML = objData.data.usuario;
+        document.querySelector("#celNombre").innerHTML =
+          objData.data.nombre_usuario;
+        document.querySelector("#celpreguntas_contestadas").innerHTML =
+          objData.data.preguntas_contestadas;
+        document.querySelector("#celEmail").innerHTML =
+          objData.data.correo_electronico;
+        document.querySelector("#celTipoUsuario").innerHTML =
+          objData.data.nombrerol;
+        document.querySelector("#celEstado").innerHTML = estadoUsuario;
+        document.querySelector("#celCreadoPor").innerHTML =
+          objData.data.creado_por;
+        document.querySelector("#celFechaRegistro").innerHTML =
+          objData.data.fechaRegistro;
+        document.querySelector("#celModificadoPor").innerHTML =
+          objData.data.modificado_por;
+        document.querySelector("#celFechaModificacion").innerHTML =
+          objData.data.fecha_modificacion;
 
-        if (objProducto.images.length > 0) {
-          let objProductos = objProducto.images;
-          for (let p = 0; p < objProductos.length; p++) {
-            htmlImage += `<img src="${objProductos[p].url_image}"></img>`;
-          }
-        }
-        document.querySelector("#celFotos").innerHTML = htmlImage;
-        $("#modalViewProducto").modal("show");
+        $("#modalViewUser").modal("show");
       } else {
         swal("Error", objData.msg, "error");
       }
@@ -308,9 +230,10 @@ function fntViewInfo(idProducto) {
   };
 }
 
-function fntEditInfo(element, idProducto) {
+//Función cuando se le da click al botón editar Producto
+function fntEditUsuario(element, id_usuario) {
   rowTable = element.parentNode.parentNode.parentNode;
-  document.querySelector("#titleModal").innerHTML = "Actualizar Producto";
+  document.querySelector("#titleModal").innerHTML = "Actualizar Usuario";
   document
     .querySelector(".modal-header")
     .classList.replace("headerRegister", "headerUpdate");
@@ -321,64 +244,56 @@ function fntEditInfo(element, idProducto) {
   let request = window.XMLHttpRequest
     ? new XMLHttpRequest()
     : new ActiveXObject("Microsoft.XMLHTTP");
-  let ajaxUrl = base_url + "/Productos/getProducto/" + idProducto;
+  let ajaxUrl = base_url + "/Usuarios/getUsuario/" + id_usuario;
   request.open("GET", ajaxUrl, true);
   request.send();
   request.onreadystatechange = function () {
     if (request.readyState == 4 && request.status == 200) {
       let objData = JSON.parse(request.responseText);
-      if (objData.status) {
-        let htmlImage = "";
-        let objProducto = objData.data;
-        document.querySelector("#idProducto").value = objProducto.idproducto;
-        document.querySelector("#txtNombre").value = objProducto.nombre;
-        document.querySelector("#txtDescripcion").value =
-          objProducto.descripcion;
-        document.querySelector("#txtCodigo").value = objProducto.codigo;
-        document.querySelector("#txtPrecio").value = objProducto.precio;
-        document.querySelector("#txtStock").value = objProducto.stock;
-        document.querySelector("#listCategoria").value =
-          objProducto.categoriaid;
-        document.querySelector("#listStatus").value = objProducto.estado;
-        tinymce.activeEditor.setContent(objProducto.descripcion);
-        $("#listCategoria").selectpicker("render");
-        $("#listStatus").selectpicker("render");
-        fntBarcode();
 
-        if (objProducto.images.length > 0) {
-          let objProductos = objProducto.images;
-          for (let p = 0; p < objProductos.length; p++) {
-            let key = Date.now() + p;
-            htmlImage += `<div id="div${key}">
-                            <div class="prevImage">
-                            <img src="${objProductos[p].url_image}"></img>
-                            </div>
-                            <button type="button" class="btnDeleteImage" onclick="fntDelItem('#div${key}')" imgname="${objProductos[p].img}">
-                            <i class="fas fa-trash-alt"></i></button></div>`;
-          }
+      if (objData.status) {
+        document.querySelector("#id_usuario").value = objData.data.id_usuario;
+
+        document.querySelector("#txtusuario").value = objData.data.usuario;
+
+        //Si recibe un usuario, quiere decir que está editando,
+        //entonces coloca el input de Usuario como solo lectura
+        if (id_usuario) {
+          document.querySelector("#txtusuario").setAttribute("readonly", true);
         }
-        document.querySelector("#containerImages").innerHTML = htmlImage;
-        document.querySelector("#divBarCode").classList.remove("notblock");
-        document
-          .querySelector("#containerGallery")
-          .classList.remove("notblock");
-        $("#modalFormProductos").modal("show");
-      } else {
-        swal("Error", objData.msg, "error");
+
+        document.querySelector("#txtnombre_usuario").value =
+          objData.data.nombre_usuario;
+        document.querySelector("#txtEmail").value =
+          objData.data.correo_electronico;
+        document.querySelector("#listid_rol").value = objData.data.id_rol;
+        $("#listid_rol").selectpicker("render");
+
+        if (objData.data.estado == 1) {
+          document.querySelector("#listStatus").value = 1;
+        } else if (objData.data.estado == 2) {
+          document.querySelector("#listStatus").value = 2;
+        } else {
+          document.querySelector("#listStatus").value = 3;
+        }
+
+        $("#listStatus").selectpicker("render");
       }
     }
+
+    $("#modalFormUsuario").modal("show");
   };
 }
 
-function fntDelInfo(idProducto) {
+function fntDelUsuario(id_usuario) {
   swal(
     {
-      title: "Eliminar Producto",
-      text: "¿Realmente quiere eliminar el producto?",
+      title: "Eliminar Usuario",
+      text: "¿Realmente quiere eliminar el Usuario?",
       type: "warning",
       showCancelButton: true,
-      confirmButtonText: "Si, eliminar!",
-      cancelButtonText: "No, cancelar!",
+      confirmButtonText: "ELIMINAR",
+      cancelButtonText: "CANCELAR",
       closeOnConfirm: false,
       closeOnCancel: true,
     },
@@ -387,8 +302,8 @@ function fntDelInfo(idProducto) {
         let request = window.XMLHttpRequest
           ? new XMLHttpRequest()
           : new ActiveXObject("Microsoft.XMLHTTP");
-        let ajaxUrl = base_url + "/Productos/delProducto";
-        let strData = "idProducto=" + idProducto;
+        let ajaxUrl = base_url + "/Usuarios/delUsuario";
+        let strData = "id_usuario=" + id_usuario;
         request.open("POST", ajaxUrl, true);
         request.setRequestHeader(
           "Content-type",
@@ -400,7 +315,10 @@ function fntDelInfo(idProducto) {
             let objData = JSON.parse(request.responseText);
             if (objData.status) {
               swal("Eliminar!", objData.msg, "success");
-              tableProductos.api().ajax.reload();
+              tableUsuarios.api().ajax.reload();
+            } else if (objData.statusReferencial) {
+              swal("Atención!", objData.msg, "error");
+              tableUsuarios.api().ajax.reload();
             } else {
               swal("Atención!", objData.msg, "error");
             }
@@ -411,41 +329,20 @@ function fntDelInfo(idProducto) {
   );
 }
 
-function fntCategorias() {
-  if (document.querySelector("#listCategoria")) {
-    let ajaxUrl = base_url + "/Categorias/getSelectCategorias";
-    let request = window.XMLHttpRequest
-      ? new XMLHttpRequest()
-      : new ActiveXObject("Microsoft.XMLHTTP");
-    request.open("GET", ajaxUrl, true);
-    request.send();
-    request.onreadystatechange = function () {
-      if (request.readyState == 4 && request.status == 200) {
-        document.querySelector("#listCategoria").innerHTML =
-          request.responseText;
-        $("#listCategoria").selectpicker("render");
-      }
-    };
-  }
-}
-
-function fntBarcode() {
-  let codigo = document.querySelector("#txtCodigo").value;
-  JsBarcode("#barcode", codigo);
-}
-
-function fntPrintBarcode(area) {
-  let elemntArea = document.querySelector(area);
-  let vprint = window.open(" ", "popimpr", "height=400,width=600");
-  vprint.document.write(elemntArea.innerHTML);
-  vprint.document.close();
-  vprint.print();
-  vprint.close();
-}
-
+//Abre el modal para agregar usuario
 function openModal() {
   rowTable = "";
-  document.querySelector("#idProducto").value = "";
+  document.querySelector("#id_usuario").value = "";
+  document.querySelector("#txtusuario").removeAttribute("readonly"); //Para quitar el readonly en caso de que antes se haya editado
+  //document.querySelector("#listStatus").setAttribute("readonly", true);
+  // document.querySelector("#listStatus").setAttribute("disabled", true);
+  // if (rowTable) {
+  //   document.querySelector("#listStatus").removeAttribute("disabled");
+  // } else {
+  //   // Si se está agregando un nuevo registro
+  //   document.querySelector("#listStatus").value = "3";
+  //   document.querySelector("#listStatus").setAttribute("disabled", true);
+  // }
   document
     .querySelector(".modal-header")
     .classList.replace("headerUpdate", "headerRegister");
@@ -453,10 +350,14 @@ function openModal() {
     .querySelector("#btnActionForm")
     .classList.replace("btn-info", "btn-primary");
   document.querySelector("#btnText").innerHTML = "Guardar";
-  document.querySelector("#titleModal").innerHTML = "Nuevo Producto";
-  document.querySelector("#formProductos").reset();
-  document.querySelector("#divBarCode").classList.add("notblock");
-  document.querySelector("#containerGallery").classList.add("notblock");
-  document.querySelector("#containerImages").innerHTML = "";
-  $("#modalFormProductos").modal("show");
+  document.querySelector("#titleModal").innerHTML = "Nuevo Usuario";
+  document.querySelector("#formUsuario").reset();
+  //$("#listStatus").prop("disabled", true);
+  //$("#listStatus").val("3");
+
+  $("#modalFormUsuario").modal("show");
+}
+
+function openModalPerfil() {
+  $("#modalFormPerfil").modal("show");
 }

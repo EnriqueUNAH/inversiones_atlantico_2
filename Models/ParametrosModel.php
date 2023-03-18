@@ -72,14 +72,11 @@ class ParametrosModel extends Mysql
 
 	public function selectParametros()
 	{
-		$whereAdmin = "";
-		if ($_SESSION['idUser'] != 1) {
-			$whereAdmin = " and p.id_usuario != 1 ";
-		}
+
 		$sql = "SELECT id_parametro,parametro,valor 
 					FROM tbl_ms_parametros
 					
-					 " . $whereAdmin;
+					 ";
 		$request = $this->select_all($sql);
 		return $request;
 	}
