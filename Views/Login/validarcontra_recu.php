@@ -32,6 +32,9 @@ $fechaC = date('Y-m-d');
 
        // mysqli_query( $conexion , $bitacora );
 
+       $bitacora="INSERT INTO tbl_ms_bitacora(fecha,id_usuario,id_objeto,accion,descripcion) VALUES(now(),'$filas_id','2','CAMBIO DE CONTRASEÑA','CAMBIO DE CONTRAEÑA MEDIANTE PREGUNTAS') ";
+       mysqli_query( $conexion , $bitacora );
+
         echo '<script>alert("CONTRASEÑA CAMBIADA CON EXITO");</script>';
         
         ?>
