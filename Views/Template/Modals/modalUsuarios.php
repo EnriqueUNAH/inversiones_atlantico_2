@@ -56,7 +56,7 @@
 
           </div>
           <label for="txtPassword">Contraseña </label>
-          <p class="text-primary">(Opcional)</p>
+          <!--<p class="text-primary">(Opcional)</p>-->
           <div class="form-row">
             <div class="form-group col-md-6 d-flex align-items-center">
 
@@ -148,6 +148,18 @@
             <tr>
               <td>Estado:</td>
               <td id="celEstado"></td>
+            </tr>
+            <tr>
+              <td>Primer Ingreso:</td>
+              <td id="celPrimerIngreso"></td>
+            </tr>
+            <tr>
+              <td>Última Conexión:</td>
+              <td id="celFechaUltimaConexion"></td>
+            </tr>
+            <tr>
+              <td>Fecha Vencimiento:</td>
+              <td id="celFechaVencimiento"></td>
             </tr>
             <tr>
               <td>Creado por:</td>
