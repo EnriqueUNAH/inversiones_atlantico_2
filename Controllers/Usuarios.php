@@ -48,7 +48,7 @@ class Usuarios extends Controllers
 	public function setUsuario()
 	{
 		if ($_POST) {
-			if (empty($_POST['txtusuario']) || empty($_POST['txtnombre_usuario']) || empty($_POST['txtEmail']) || empty($_POST['listid_rol']) || empty($_POST['listStatus'])) {
+			if (empty($_POST['txtusuario']) || empty($_POST['txtnombre_usuario']) || empty($_POST['txtEmail']) || empty($_POST['listid_rol']) || empty($_POST['listStatus']) || empty($_POST['txtPassword'])) {
 				$arrResponse = array("status" => false, "msg" => 'Datos incorrectos.');
 
 				/*El siguiente else if, sirve para que valide desde el servidor. Que si se ingresa una letra 
@@ -75,7 +75,10 @@ class Usuarios extends Controllers
 
 				if ($id_usuario == 0) {
 					$option = 1; //LA OPCIÓN ES 1, ENTONCES ESTARÁ INSERTANDO
-					$strPassword =  empty($_POST['txtPassword']) ? hash("SHA256", passGenerator()) : hash("SHA256", $_POST['txtPassword']);
+					//$strPassword =  empty($_POST['txtPassword']) ? hash("SHA256", passGenerator()) : hash("SHA256", $_POST['txtPassword']);
+					$strPassword = hash("SHA256", $_POST['txtPassword']);
+
+
 
 					if ($_SESSION['permisosMod']['w']) {
 						$request_user = $this->model->insertUsuario(
@@ -151,7 +154,7 @@ class Usuarios extends Controllers
 
 
 						// try {
-						// 	sendMailLocal($dataUsuario, 'email_usuario'); //ENVIAR CORREO
+						sendMailLocal($dataUsuario, 'email_usuario'); //ENVIAR CORREO
 						$arrResponse = array('status' => true, 'msg' => 'Datos guardados correctamente.');
 						// } catch (Exception $e) {
 						// 	$arrResponse = array('status' => false, 'msg' => 'No se puedo enviar el correo .Datos se guardaron correctamente.');

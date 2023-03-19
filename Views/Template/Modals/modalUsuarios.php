@@ -56,7 +56,7 @@
 
           </div>
           <label for="txtPassword">Contraseña </label>
-          <p class="text-primary">(Opcional)</p>
+          <!--<p class="text-primary">(Opcional)</p>-->
           <div class="form-row">
             <div class="form-group col-md-6 d-flex align-items-center">
 
