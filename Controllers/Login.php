@@ -265,7 +265,7 @@ class Login extends Controllers
 
 					if ($requestPass) {
 
-						//$requestEstado = $this->model->updateEstado($intid_usuario);
+						$requestEstado = $this->model->updateEstado($intid_usuario); //Para que al recuperar contraseña pase a estado Activo
 
 						$arrResponse = array(
 							'status' => true,

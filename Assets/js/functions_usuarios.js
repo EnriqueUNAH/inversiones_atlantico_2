@@ -339,6 +339,12 @@ function fntViewUsuario(id_usuario) {
         document.querySelector("#celTipoUsuario").innerHTML =
           objData.data.nombrerol;
         document.querySelector("#celEstado").innerHTML = estadoUsuario;
+        document.querySelector("#celFechaUltimaConexion").innerHTML =
+          objData.data.fecha_ultima_conexion;
+        document.querySelector("#celFechaVencimiento").innerHTML =
+          objData.data.fecha_vencimiento;
+        document.querySelector("#celPrimerIngreso").innerHTML =
+          objData.data.primer_ingreso;
         document.querySelector("#celCreadoPor").innerHTML =
           objData.data.creado_por;
         document.querySelector("#celFechaRegistro").innerHTML =

@@ -150,6 +150,18 @@
               <td id="celEstado"></td>
             </tr>
             <tr>
+              <td>Primer Ingreso:</td>
+              <td id="celPrimerIngreso"></td>
+            </tr>
+            <tr>
+              <td>Última Conexión:</td>
+              <td id="celFechaUltimaConexion"></td>
+            </tr>
+            <tr>
+              <td>Fecha Vencimiento:</td>
+              <td id="celFechaVencimiento"></td>
+            </tr>
+            <tr>
               <td>Creado por:</td>
               <td id="celCreadoPor"></td>
             </tr>

@@ -56,7 +56,7 @@ class UsuariosModel extends Mysql
 		return $return;
 	}
 
-	
+
 
 	//Función para que inserte en bitácora cada vez que se agrega un nuevo usuario
 	public function insertUsuarioBitacora(string $fecha, int $idUsuario, int $idObjeto, string $accion, string $descripcion)
@@ -87,13 +87,13 @@ class UsuariosModel extends Mysql
 	// public static function evento_bitacora($id_objeto,$id_usuario,$accion,$descripcion)
 	// 	{
 	// 		   require ('../clases/Conexion.php');
-			   
+
 	// 		   		$sql = "INSERT INTO  tbl_ms_bitacora (Id_objeto, id_usuario,Fecha, Accion , Descripcion)
-    // 			 VALUES ('$id_objeto', '$id_usuario' , sysdate(), '$accion', '$descripcion')";
-		
+	// 			 VALUES ('$id_objeto', '$id_usuario' , sysdate(), '$accion', '$descripcion')";
+
 	// 		$resultado = $mysqli->query($sql);
 	// 	}
-		
+
 
 
 	public function selectUsuarios()
@@ -115,6 +115,7 @@ class UsuariosModel extends Mysql
 	{
 		$this->intIdUsuario = $id_usuario;
 		$sql = "SELECT p.id_usuario,p.usuario,p.nombre_usuario,p.preguntas_contestadas,p.correo_electronico,r.id_rol,r.nombrerol,
+		p.fecha_ultima_conexion,p.fecha_vencimiento,p.primer_ingreso,
 		p.estado,p.creado_por,p.modificado_por,p.fecha_modificacion, DATE_FORMAT(p.fecha_creacion, '%d-%m-%Y') as fechaRegistro 
 					FROM tbl_ms_usuarios p
 					INNER JOIN tbl_ms_roles r
@@ -185,38 +186,36 @@ class UsuariosModel extends Mysql
 		$sql = "SELECT * FROM tbl_ms_bitacora WHERE id_usuario = $this->intIdUsuario";
 		$request = $this->select_all($sql);
 		if (empty($request)) {
-		
+
 			$sql = "DELETE FROM tbl_ms_usuarios WHERE id_usuario = $this->intIdUsuario ";
 			$request = $this->delete($sql);
-				if ($request) {
-					$request = 'ok';
-				}  else {
-						$request = 'error';
-				}
-
-		}else{
+			if ($request) {
+				$request = 'ok';
+			} else {
+				$request = 'error';
+			}
+		} else {
 			$request = 'exist';
 		}
 		return $request;
 	}
 
-	public function updateUsuarioInactivo(int $idUsuario){
+	public function updateUsuarioInactivo(int $idUsuario)
+	{
 		$this->intid_Usuario = $idUsuario;
 
 		$sql = "SELECT * FROM tbl_ms_usuarios WHERE id_usuario = $this->intid_Usuario";
 		$request = $this->select_all($sql);
 
-		if($request)
-		{
+		if ($request) {
 			$sql = "UPDATE tbl_ms_usuarios SET estado = ? WHERE id_usuario = $this->intid_Usuario ";
 			$arrData = array(2);
-			$request = $this->update($sql,$arrData);
+			$request = $this->update($sql, $arrData);
 		}
-		return $request;			
-	}	 
-		
-	
-	
+		return $request;
+	}
+
+
 
 
 
