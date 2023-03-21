@@ -15,9 +15,9 @@ document.addEventListener(
         dataSrc: "",
       },
       columns: [
-        { data: "pregunta" },
-        { data: "options" } 
-      ],
+      { data: "pregunta" },
+      { data: "options" },
+    ],
       dom: "lBfrtip",
       buttons: [
         {
@@ -26,7 +26,7 @@ document.addEventListener(
           titleAttr: "Exportar a Excel",
           className: "btn btn-success",
           exportOptions: {
-            columns: [0, 1],
+            columns: [0],
           },
         },
         {
@@ -35,7 +35,7 @@ document.addEventListener(
           titleAttr: "Exportar a PDF",
           className: "btn btn-danger",
           exportOptions: {
-            columns: [0, 1],
+            columns: [0],
           },
           customize: function (doc) {
             doc.styles.tableHeader.color = "#ffffff";
@@ -57,14 +57,13 @@ document.addEventListener(
     });
 
     if (document.querySelector("#formPreguntas")) {
-      let formPreguntas = document.querySelector("#formPreguntas");
-      formPreguntas.onsubmit = function (e) {
+      letformPreguntas = document.querySelector("#formPreguntas");
+     formPreguntas.onsubmit = function (e) {
         e.preventDefault();
 
-        let strPregunta = document.querySelector("#txtpregunta").value;
-        
+        let strpregunta = document.querySelector("#txtpregunta").value.toUpperCase();
 
-        if (strPregunta == "") {
+        if (strpregunta == "") {
           swal("Atención", "Todos los campos son obligatorios.", "error");
           return false;
         }
@@ -84,7 +83,7 @@ document.addEventListener(
         let request = window.XMLHttpRequest
           ? new XMLHttpRequest()
           : new ActiveXObject("Microsoft.XMLHTTP");
-        let ajaxUrl = base_url + "/Preguntas/setPregunta";
+        let ajaxUrl = base_url + "/Preguntas/setPreguntas";
         let formData = new FormData(formPreguntas);
         request.open("POST", ajaxUrl, true);
         request.send(formData);
@@ -95,14 +94,14 @@ document.addEventListener(
               if (rowTable == "") {
                 tablePreguntas.api().ajax.reload();
               } else {
-                rowTable.cells[0].textContent = strPregunta;
+             rowTable.cells[0].textContent = strpregunta;
 
                 rowTable = "";
               }
 
               $("#modalFormPreguntas").modal("hide");
 
-              formPreguntas.reset();
+             formPreguntas.reset();
               swal("Preguntas", objData.msg, "success");
             } else {
               swal("Error", objData.msg, "error");
@@ -118,9 +117,8 @@ document.addEventListener(
 );
 
 
-
 //Función cuando se le da click al botón editar Parámetro
-function fntEditPregunta(element, id_pregunta) {
+function fntEditPreguntas(element, id_pregunta) {
   rowTable = element.parentNode.parentNode.parentNode;
   document.querySelector("#titleModal").innerHTML = "Actualizar Pregunta";
   document
@@ -145,7 +143,8 @@ function fntEditPregunta(element, id_pregunta) {
           objData.data.id_pregunta;
 
         document.querySelector("#txtpregunta").value = objData.data.pregunta;
-        
+       
+
       }
     }
 
@@ -153,7 +152,7 @@ function fntEditPregunta(element, id_pregunta) {
   };
 }
 
-function fntDelPregunta(id_pregunta) {
+function fntDelPreguntas(id_pregunta) {
   swal(
     {
       title: "Eliminar Pregunta",
@@ -170,7 +169,7 @@ function fntDelPregunta(id_pregunta) {
         let request = window.XMLHttpRequest
           ? new XMLHttpRequest()
           : new ActiveXObject("Microsoft.XMLHTTP");
-        let ajaxUrl = base_url + "/Preguntas/delPregunta";
+        let ajaxUrl = base_url + "/Preguntas/delPreguntas";
         let strData = "id_pregunta=" + id_pregunta;
         request.open("POST", ajaxUrl, true);
         request.setRequestHeader(
@@ -193,8 +192,7 @@ function fntDelPregunta(id_pregunta) {
     }
   );
 }
-
-//Abre el modal para agregar pregunta
+//Abre el modal para agregar preguntas
 function openModal() {
   rowTable = "";
   document.querySelector("#id_pregunta").value = "";
@@ -205,10 +203,8 @@ function openModal() {
     .querySelector("#btnActionForm")
     .classList.replace("btn-info", "btn-primary");
   document.querySelector("#btnText").innerHTML = "Guardar";
-  document.querySelector("#titleModal").innerHTML = "Nuevo Parámetro";
+  document.querySelector("#titleModal").innerHTML = "Nueva Pregunta";
   document.querySelector("#formPreguntas").reset();
 
   $("#modalFormPreguntas").modal("show");
 }
-
-

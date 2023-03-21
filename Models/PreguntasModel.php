@@ -4,6 +4,7 @@ class PreguntasModel extends Mysql
 {
 	private $id_pregunta;
 	private $strpregunta;
+
 	
 
 	public function __construct()
@@ -11,22 +12,20 @@ class PreguntasModel extends Mysql
 		parent::__construct();
 	}
 
-	public function insertPreguntas(string $pregunta) //En este caso recibe los 2 parámetros que ingresa el usuario
-	{																	//Estos parámetros vienen desde el controlador			
-
-		//Se crean estas variables para que reciban los valores que vienen el los parámetros
+	public function insertPreguntas(string $pregunta)
+	{
 		$this->strpregunta = $pregunta;
-
 		$return = 0;
 
-		$sql = "SELECT * FROM tbl_ms_preguntas WHERE pregunta = '{$this->strpregunta}' "; //El Where es muy importante para poder insertar
-		$request = $this->select_all($sql);													//Ese where debe estar de acorde a cada tabla
+		$sql = "SELECT * FROM tbl_ms_preguntas WHERE pregunta = '{$this->strpregunta}'";
+		$request = $this->select_all($sql);
 
 		if (empty($request)) {
 			$query_insert  = "INSERT INTO tbl_ms_preguntas(pregunta) 
-								  VALUES(?)"; //La cantidad de ? debe ser la cantidad de datos que se insertan 
-			$arrData = array(							//En este caso: parámetro, valor , creado_por y fecha_creacion
-				$this->strpregunta,
+								  VALUES(?)";
+			$arrData = array(
+				$this->strpregunta
+				
 			);
 			$request_insert = $this->insert($query_insert, $arrData);
 			$return = $request_insert;
@@ -36,11 +35,12 @@ class PreguntasModel extends Mysql
 		return $return;
 	}
 
+	
 
-
-	//Función para que inserte en bitácora cada vez que se agrega un nuevo parámetro
+	//Función para que inserte en bitácora cada vez que se agrega un nuevo usuario
 	public function insertPreguntasBitacora(string $fecha, int $idUsuario, int $idObjeto, string $accion, string $descripcion)
 	{
+
 		$this->dateFecha = $fecha;
 		$this->intIdUsuario = $idUsuario;
 		$this->intIdObjeto = $idObjeto;
@@ -48,14 +48,14 @@ class PreguntasModel extends Mysql
 		$this->strDescripcion = $descripcion;
 		$return = 0;
 
-		$query_insert  = "INSERT INTO tbl_ms_bitacora(fecha,id_pregunta,id_objeto,accion,descripcion) 
+		$query_insert  = "INSERT INTO tbl_ms_bitacora(fecha,id_usuario,id_objeto,accion,descripcion) 
 								  VALUES(?,?,?,?,?)";
 		$arrData = array(
 			$this->dateFecha,
 			$this->intIdUsuario,
 			$this->intIdObjeto,
 			$this->strAccion,
-			$this->strDescripcion
+			$this->strDescripcion,
 		);
 		$request_insert = $this->insert($query_insert, $arrData);
 		$return = $request_insert;
@@ -64,37 +64,44 @@ class PreguntasModel extends Mysql
 	}
 
 
+
 	public function selectPreguntas()
 	{
 		$whereAdmin = "";
 		if ($_SESSION['idUser'] != 1) {
 			$whereAdmin = " and p.id_pregunta != 1 ";
 		}
-		$sql = "SELECT id_pregunta,pregunta
-					FROM tbl_ms_preguntas
-					 " . $whereAdmin;
+		$sql = "SELECT p.id_pregunta,p.pregunta 
+					FROM tbl_ms_preguntas p
+					" . $whereAdmin;
 		$request = $this->select_all($sql);
 		return $request;
 	}
-	
+
+
 	// Muestra los datos en el botón ver más y también sirve para recuperar los datos a la hora de editar
 	public function selectPregunta(int $id_pregunta)
 	{
 		$this->id_pregunta = $id_pregunta;
 		$sql = "SELECT id_pregunta,pregunta
-	 				FROM tbl_ms_preguntas 
+	 				FROM tbl_ms_preguntas
 	 					WHERE id_pregunta = $this->id_pregunta";
 		$request = $this->select($sql);
 		return $request;
 	}
 
 
+
+
 	public function updatePreguntas(int $id_pregunta, string $pregunta)
 	{
-		$this->id_pregunta = $id_pregunta;
-		$this->strpregunta = $pregunta;
 
-		$sql = "SELECT * FROM tbl_ms_preguntas WHERE pregunta = '{$this->strpregunta}' AND id_pregunta != $this->id_pregunta ";
+		$this->id_pregunta = $id_pregunta;
+		$this->strpregunta= $pregunta;
+		
+		
+
+		$sql = "SELECT * FROM tbl_ms_preguntas WHERE pregunta = '{$this->strpregunta}' AND id_pregunta != $this->id_pregunta" ;
 		$request = $this->select_all($sql);
 
 		if (empty($request)) {
@@ -133,4 +140,7 @@ class PreguntasModel extends Mysql
 		// }
 		return $request;
 	}
+
+
+
 }
