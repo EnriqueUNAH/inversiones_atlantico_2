@@ -31,7 +31,7 @@ getModal('modalProductos', $data);
                   <th>Tipo</th>
                   <th>Precio Venta </th>
                   <th>Estado</th>
-                  <th>Foto</th>
+                  <!-- <th>Foto</th> -->
                   <th>Acciones</th>
                 </tr>
               </thead>

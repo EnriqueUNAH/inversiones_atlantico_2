@@ -99,6 +99,11 @@ class Login extends Controllers
 						$strAccion = "INGRESO";
 						$strDescripcion = "INGRESO AL SISTEMA";
 
+
+						$request_creacion = $this->model->updateUltimaConexion($intIdUsuario);
+
+
+
 						//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
 						$request_bitacora = $this->model->insertUsuarioBitacora(
 							$dateFecha,
