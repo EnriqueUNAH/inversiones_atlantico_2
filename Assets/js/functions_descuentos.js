@@ -117,7 +117,7 @@ function fntViewInfo(cod_descuento){
   request.onreadystatechange = function(){
       if(request.readyState == 4 && request.status == 200){
           let objData = JSON.parse(request.responseText);
-          if(objData)
+          if(!objData.status)
           {
              
               let objProducto = objData.data;
@@ -125,9 +125,9 @@ function fntViewInfo(cod_descuento){
             //   '<span class="badge badge-success">Activo</span>' : 
             //   '<span class="badge badge-danger">Inactivo</span>';
 
-              document.querySelector("#celCodigo").innerHTML = objProducto.codigo;
-              document.querySelector("#celNombre").innerHTML = objProducto.nombre;
-              document.querySelector("#celPorcentaje").innerHTML = objProducto.porcentaje;
+              document.querySelector("#elCodigo").innerHTML = objProducto.codigo;
+              document.querySelector("#elNombre").innerHTML = objProducto.nombre;
+              document.querySelector("#elPorcentaje").innerHTML = objProducto.porcentaje;
 
             //   if(objProducto.images.length > 0){
             //       let objProductos = objProducto.images;
@@ -154,7 +154,7 @@ function fntEditInfo(element,cod_descuento){
     let request = (window.XMLHttpRequest) ? 
                     new XMLHttpRequest() : 
                     new ActiveXObject('Microsoft.XMLHTTP');
-    let ajaxUrl = base_url+'/Descuentos/getDescuento/'+cod_descuento;
+    let ajaxUrl = base_url+'/Descuentos/getDescuentos/'+cod_descuento;
     request.open("GET",ajaxUrl,true);
     request.send();
     request.onreadystatechange = function(){

@@ -98,7 +98,7 @@ document.addEventListener(
             let objData = JSON.parse(request.responseText);
             if (objData.status) {
               if (rowTable == "") {
-                tableParametros.api().ajax.reload();
+                tableCai.api().ajax.reload();
               } else {
                 rowTable.cells[0].textContent = strparametro;
                 rowTable.cells[1].textContent = strvalor;
@@ -219,7 +219,7 @@ function fntDelParametro(id_parametro) {
             let objData = JSON.parse(request.responseText);
             if (objData.status) {
               swal("Eliminar!", objData.msg, "success");
-              tableParametros.api().ajax.reload();
+              tableCai.api().ajax.reload();
             } else {
               swal("Atención!", objData.msg, "error");
             }

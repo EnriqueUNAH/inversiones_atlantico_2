@@ -29,9 +29,9 @@
 				$cod_descuento = intval($cod);
 					$arrData = $this->model->selectDescuentos($cod_descuento);
 					if(!empty($arrData)){
-						for ($i=0; $i < count($arrImg); $i++) { 
-							$arrImg[$i]['url_image'] = media().'/images/uploads/'.$arrImg[$i]['img'];
-						}
+						// for ($i=0; $i < count($arrImg); $i++) { 
+						// 	$arrImg[$i]['url_image'] = media().'/images/uploads/'.$arrImg[$i]['img'];
+						// }
 						$arrResponse = array('status' => true, 'data' => $arrData);
 					 }else{
 						$arrResponse = array('status' => false, 'msg' => 'Datos no encontrados.');

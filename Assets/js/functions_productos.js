@@ -22,12 +22,12 @@ document.addEventListener(
         { data: "nombre_tipo_producto" },
         { data: "precio_venta" },
         { data: "estado" },
-        {
-          data: "foto",
-          render: function (data, type, row) {
-            return '<img src="' + data + '"/>';
-          },
-        },
+        // {
+        //   data: "foto",
+        //   render: function (data, type, row) {
+        //     return '<img src="' + data + '"/>';
+        //   },
+        // },
       ],
       dom: "lBfrtip",
       buttons: [

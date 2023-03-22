@@ -18,18 +18,18 @@
           }
         </style>
 
-        <form id="formUsuario" name="formUsuario" class="form-horizontal">
+        <form id="formProducto" name="formProducto" class="form-horizontal">
           <input type="hidden" id="id_usuario" name="id_usuario" value="">
           <!--<p class="text-primary">Todos los campos son obligatorios.</p>-->
           <div class="form-row">
             <div class="form-group col-md-6">
-              <label for="txtusuario">Usuario</label>
+              <label for="txtnombre">Nombre</label>
               <input type="text" pattern="[a-zA-Z]+" class="form-control" id="txtusuario" name="txtusuario" style="text-transform:uppercase" required="" title="Ingrese solo letras sin espacios">
             </div>
           </div>
           <div class="form-row">
             <div class="form-group col-md-6">
-              <label for="txtnombre_usuario">Nombre</label>
+              <label for="txtnombre_usuario">Descripción</label>
               <input type="text" pattern="[a-zA-Z ]+" class="form-control valid validText" id="txtnombre_usuario" name="txtnombre_usuario" style="text-transform:uppercase" required="" title="No se puede ingresar números">
             </div>
             <div class="form-group col-md-6">
@@ -41,10 +41,16 @@
           </div>
           <div class="form-row">
             <div class="form-group col-md-6">
-              <label for="txtEmail">Correo Electrónico</label>
+              <label for="txtEmail">Cantidad Mínima</label>
               <input type="email" class="form-control valid validEmail" id="txtEmail" name="txtEmail" required="">
             </div>
             <div class="form-group col-md-6">
+              <label for="txtEmail">Cantidad Máxima</label>
+              <input type="email" class="form-control valid validEmail" id="txtEmail" name="txtEmail" required="">
+            </div>
+
+
+            <!-- <div class="form-group col-md-6">
               <label for="listStatus">Estado</label>
               <select class="form-control selectpicker" id="listStatus" name="listStatus" required>
                 <option value="3">NUEVO</option>
@@ -52,11 +58,10 @@
                 <option value="2">INACTIVO</option>
 
               </select>
-            </div>
+            </div> -->
 
           </div>
-          <label for="txtPassword">Contraseña </label>
-          <p class="text-primary">(Opcional)</p>
+          <label for="txtPassword">Tipo</label>
           <div class="form-row">
             <div class="form-group col-md-6 d-flex align-items-center">
 

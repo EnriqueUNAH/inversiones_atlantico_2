@@ -55,21 +55,21 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-      </div>odal
+      </div>
       <div class="modal-body">
         <table class="table table-bordered">
           <tbody>
             <tr>
               <td>Codigo:</td>
-              <td id="celCodigo"></td>
+              <td id="elCodigo"></td>
             </tr>
             <tr>
               <td>Nombres:</td>
-              <td id="celNombre"></td>
+              <td id="elNombre"></td>
             </tr>
             <tr>
               <td>Porcentaje:</td>
-              <td id="celPorcentaje"></td>
+              <td id="elPorcentaje"></td>
             </tr>
           </tbody>
         </table>

@@ -116,7 +116,7 @@ class UsuariosModel extends Mysql
 		$this->intIdUsuario = $id_usuario;
 		$sql = "SELECT p.id_usuario,p.usuario,p.nombre_usuario,p.preguntas_contestadas,p.correo_electronico,r.id_rol,r.nombrerol,
 		p.fecha_ultima_conexion,p.fecha_vencimiento,p.primer_ingreso,
-		p.estado,p.creado_por,p.modificado_por,p.fecha_modificacion, DATE_FORMAT(p.fecha_creacion, '%d-%m-%Y') as fechaRegistro 
+		p.estado,p.creado_por,p.modificado_por,p.fecha_modificacion, DATE_FORMAT(p.fecha_creacion, '%Y-%m-%d %H:%i:%s') as fechaRegistro 
 					FROM tbl_ms_usuarios p
 					INNER JOIN tbl_ms_roles r
 					ON p.id_rol = r.id_rol
