@@ -52,6 +52,7 @@
               <li><a class="treeview-item" href="<?= base_url(); ?>/inventarios"><i class="icon fa fa-circle-o"></i>Inventarios</a></li>
               <li><a class="treeview-item" href="<?= base_url(); ?>/kardex"><i class="icon fa fa-circle-o"></i>Kardex</a></li>
               <li><a class="treeview-item" href="<?= base_url(); ?>/compras"><i class="icon fa fa-circle-o"></i>Compras</a></li>
+              <li><a class="treeview-item" href="<?= base_url(); ?>/clientes"><i class="icon fa fa-circle-o"></i>Clientes</a></li>
               
 
             </ul>
