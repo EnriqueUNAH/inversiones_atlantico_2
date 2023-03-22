@@ -1,5 +1,5 @@
 <!-- Modal -->
-<div class="modal fade" id="modalFormUsuario" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade" id="modalFormCompra" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header headerRegister">
@@ -18,18 +18,18 @@
           }
         </style>
 
-        <form id="formProducto" name="formProducto" class="form-horizontal">
-          <input type="hidden" id="id_usuario" name="id_usuario" value="">
+        <form id="formCompra" name="formCompra" class="form-horizontal">
+          <input type="hidden" id="cod_compra" name="cod_compra" value="">
           <!--<p class="text-primary">Todos los campos son obligatorios.</p>-->
           <div class="form-row">
             <div class="form-group col-md-6">
-              <label for="txtnombre">Nombre</label>
+              <label for="txtusuario">Usuario</label>
               <input type="text" pattern="[a-zA-Z]+" class="form-control" id="txtusuario" name="txtusuario" style="text-transform:uppercase" required="" title="Ingrese solo letras sin espacios">
             </div>
           </div>
           <div class="form-row">
             <div class="form-group col-md-6">
-              <label for="txtnombre_usuario">Descripción</label>
+              <label for="txtnombre_usuario">Nombre</label>
               <input type="text" pattern="[a-zA-Z ]+" class="form-control valid validText" id="txtnombre_usuario" name="txtnombre_usuario" style="text-transform:uppercase" required="" title="No se puede ingresar números">
             </div>
             <div class="form-group col-md-6">
@@ -41,16 +41,10 @@
           </div>
           <div class="form-row">
             <div class="form-group col-md-6">
-              <label for="txtEmail">Cantidad Mínima</label>
+              <label for="txtEmail">Correo Electrónico</label>
               <input type="email" class="form-control valid validEmail" id="txtEmail" name="txtEmail" required="">
             </div>
             <div class="form-group col-md-6">
-              <label for="txtEmail">Cantidad Máxima</label>
-              <input type="email" class="form-control valid validEmail" id="txtEmail" name="txtEmail" required="">
-            </div>
-
-
-            <!-- <div class="form-group col-md-6">
               <label for="listStatus">Estado</label>
               <select class="form-control selectpicker" id="listStatus" name="listStatus" required>
                 <option value="3">NUEVO</option>
@@ -58,23 +52,10 @@
                 <option value="2">INACTIVO</option>
 
               </select>
-            </div> -->
-
-          </div>
-          <label for="txtPassword">Tipo</label>
-          <div class="form-row">
-            <div class="form-group col-md-6 d-flex align-items-center">
-
-
-              <input type="password" class="form-control" id="txtPassword" name="txtPassword">
-
-              <button type="button" class="btn btn-outline-secondary" id="btnTogglePassword">
-                <i class="fa fa-eye-slash" id="iconTogglePassword"></i>
-              </button>
-
             </div>
 
           </div>
+          
           <div class="form-row">
 
           </div>
@@ -89,35 +70,12 @@
   </div>
 </div>
 
-<script>
-  //Para manipular el ojito en la parte de contraseña
-  const btnTogglePassword = document.getElementById("btnTogglePassword");
-  const iconTogglePassword = document.getElementById("iconTogglePassword");
-  const txtPassword = document.getElementById("txtPassword");
-
-  btnTogglePassword.addEventListener("click", function() {
-    if (txtPassword.type === "password") {
-      txtPassword.type = "text";
-      iconTogglePassword.classList.remove("fa-eye-slash");
-      iconTogglePassword.classList.add("fa-eye");
-    } else {
-      txtPassword.type = "password";
-      iconTogglePassword.classList.remove("fa-eye");
-      iconTogglePassword.classList.add("fa-eye-slash");
-    }
-  });
-</script>
-
-
-
-
-
 
 
 
 
 <!-- Modal del botón ver más-->
-<div class="modal fade" id="modalViewUser" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade" id="modalViewCompra" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header header-primary">
@@ -153,6 +111,18 @@
             <tr>
               <td>Estado:</td>
               <td id="celEstado"></td>
+            </tr>
+            <tr>
+              <td>Primer Ingreso:</td>
+              <td id="celPrimerIngreso"></td>
+            </tr>
+            <tr>
+              <td>Última Conexión:</td>
+              <td id="celFechaUltimaConexion"></td>
+            </tr>
+            <tr>
+              <td>Fecha Vencimiento:</td>
+              <td id="celFechaVencimiento"></td>
             </tr>
             <tr>
               <td>Creado por:</td>

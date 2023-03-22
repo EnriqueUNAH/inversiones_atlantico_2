@@ -1,6 +1,6 @@
 <?php
 headerAdmin($data);
-getModal('modalProductos', $data);
+getModal('modalCompras', $data);
 ?>
 <main class="app-content">
   <div class="app-title">
@@ -13,7 +13,7 @@ getModal('modalProductos', $data);
     </div>
     <ul class="app-breadcrumb breadcrumb">
       <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
-      <li class="breadcrumb-item"><a href="<?= base_url(); ?>/productos"><?= $data['page_title'] ?></a></li>
+      <li class="breadcrumb-item"><a href="<?= base_url(); ?>/compras"><?= $data['page_title'] ?></a></li>
     </ul>
   </div>
   <div class="row">
@@ -21,17 +21,13 @@ getModal('modalProductos', $data);
       <div class="tile">
         <div class="tile-body">
           <div class="table-responsive">
-            <table class="table table-hover table-bordered" id="tableProductos">
+            <table class="table table-hover table-bordered" id="tableCompras">
               <thead>
                 <tr>
-                  <th>Nombre</th>
-                  <th>Descripcion</th>
-                  <th>Cantidad Mínima</th>
-                  <th>Cantidad Máxima</th>
-                  <th>Tipo</th>
-                  <th>Precio Venta </th>
-                  <th>Estado</th>
-                  <!-- <th>Foto</th> -->
+                  <th>Codigo</th> 
+                  <th>Total</th>
+                  <th>fecha</th>
+                  <th>isv</th>
                   <th>Acciones</th>
                 </tr>
               </thead>

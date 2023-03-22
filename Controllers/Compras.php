@@ -1,6 +1,6 @@
 <?php
 
-class Usuarios extends Controllers
+class Compras extends Controllers
 {
 	public function __construct()
 	{
@@ -14,16 +14,16 @@ class Usuarios extends Controllers
 		getPermisos(MUSUARIOS);
 	}
 
-	public function Usuarios()
+	public function Compras()
 	{
 		if (empty($_SESSION['permisosMod']['r'])) {
 			header("Location:" . base_url() . '/dashboard');
 		}
-		$data['page_tag'] = "Usuarios";
-		$data['page_title'] = "USUARIOS <small>Inversiones Atlántico</small>";
-		$data['page_name'] = "usuarios";
-		$data['page_functions_js'] = "functions_usuarios.js";
-		$this->views->getView($this, "usuarios", $data);
+		$data['page_tag'] = "Compras";
+		$data['page_title'] = "COMPRAS <small>Inversiones Atlántico</small>";
+		$data['page_name'] = "compras";
+		$data['page_functions_js'] = "functions_compras.js";
+		$this->views->getView($this, "compras", $data);
 
 		//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora
 		//SE PUEDEN USAR PARA INSERTAR O ACTUALIZAR PORQUE SERÍAN LOS MISMOS DATOS
@@ -33,10 +33,10 @@ class Usuarios extends Controllers
 		$request_bitacora = "";
 
 		$strAccion = "INGRESO";
-		$strDescripcion = "INGRESO AL MODULO USUARIOS";
+		$strDescripcion = "INGRESO AL MODULO COMPRAS";
 
 		//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
-		$request_bitacora = $this->model->insertUsuarioBitacora(
+		$request_bitacora = $this->model->insertCompraoBitacora(
 			$dateFecha,
 			$intIdUsuario,
 			$intIdObjeto,
@@ -48,47 +48,13 @@ class Usuarios extends Controllers
 	public function setUsuario()
 	{
 		if ($_POST) {
-			$id_usuarioo = intval($_POST['id_usuario']);
-			if (empty($_POST['txtusuario']) || empty($_POST['txtnombre_usuario']) || empty($_POST['txtEmail']) || empty($_POST['listid_rol']) || empty($_POST['listStatus'])) {
+			if (empty($_POST['txtusuario']) || empty($_POST['txtnombre_usuario']) || empty($_POST['txtEmail']) || empty($_POST['listid_rol']) || empty($_POST['listStatus']) || empty($_POST['txtPassword'])) {
 				$arrResponse = array("status" => false, "msg" => 'Datos incorrectos.');
-			}
 
-			//
-
-
-			elseif ($id_usuarioo < 1 and empty($_POST['txtPassword'])) {
-				$arrResponse = array("status" => false, "msg" => 'La contraseña no debe estar vacia');
-			} elseif ($id_usuarioo < 1 and !preg_match('/^(?=.*[a-z]).+$/', $_POST['txtPassword'])) {
-				$arrResponse = array("status" => false, "msg" => 'La contraseña debe contener al menos una minúscula.');
-			} elseif ($id_usuarioo < 1 and !preg_match('/^(?=.*[A-Z]).+$/', $_POST['txtPassword'])) {
-				$arrResponse = array("status" => false, "msg" => 'La contraseña debe contener al menos una mayúscula.');
-			} elseif ($id_usuarioo < 1 and !preg_match('/^(?=.*[^\da-zA-Z]).+$/', $_POST['txtPassword'])) {
-				$arrResponse = array("status" => false, "msg" => 'La contraseña debe contener al menos un caracter especial.');
-			} elseif ($id_usuarioo < 1 and !preg_match('/^.{6,}.+$/', $_POST['txtPassword'])) {
-				$arrResponse = array("status" => false, "msg" => 'La contraseña debe contener tener una longitud mínima de 6 caracteres.');
-			}
-
-			//
-			//elseif (isset($_POST['txtPassword']) and $id_usuarioo > 0) {
-			//
-			// elseif ($id_usuarioo >= 1 and !preg_match('/^(?=.*[a-z]).+$/', $_POST['txtPassword'])) {
-			// 	$arrResponse = array("status" => false, "msg" => 'La contraseña debe contener al menos una minúsculaaaaa.');
-			// } elseif ($id_usuarioo >= 1 and !preg_match('/^(?=.*[A-Z]).+$/', $_POST['txtPassword'])) {
-			// 	$arrResponse = array("status" => false, "msg" => 'La contraseña debe contener al menos una mayúsculaaaa.');
-			// } elseif ($id_usuarioo >= 1 and !preg_match('/^(?=.*[^\da-zA-Z]).+$/', $_POST['txtPassword'])) {
-			// 	$arrResponse = array("status" => false, "msg" => 'La contraseña debe contener al menos un carácter especialaaaa.');
-			// } elseif ($id_usuarioo >= 1 and !preg_match('/^.{6,}.+$/', $_POST['txtPassword'])) {
-			// 	$arrResponse = array("status" => false, "msg" => 'La contraseña debe contener tener una longitud mínima de 6 caractereaaas.');
-			// }
-			//
-			//}
-			//
-
-			/*El siguiente else if, sirve para que valide desde el servidor. Que si se ingresa una letra 
+				/*El siguiente else if, sirve para que valide desde el servidor. Que si se ingresa una letra 
 				ya sea mayúscula o minúscula, que permita ingresar los datos.
 				Al final está el else que mostrará error en caso de que lo insertado sea un número o caracter especial.*/
-			##############################
-			else if (preg_match('/^[a-zA-Z]+$/', $_POST['txtusuario']) || preg_match('/^[a-zA-Z]+$/', $_POST['txtnombre_usuario'])) {
+			} else if (preg_match('/^[a-zA-Z]+$/', $_POST['txtusuario']) || preg_match('/^[a-zA-Z]+$/', $_POST['txtnombre_usuario'])) {
 
 
 				$id_usuario = intval($_POST['id_usuario']);
@@ -107,17 +73,12 @@ class Usuarios extends Controllers
 				$intIdObjeto = 2; //ESTE VALOR VA A CAMBIAR MAS A DELANTE
 				$request_bitacora = "";
 
-
-
-				//CUANDO ESTÁ INSERTANDO
-				#############################################################################################
 				if ($id_usuario == 0) {
-
-
-
 					$option = 1; //LA OPCIÓN ES 1, ENTONCES ESTARÁ INSERTANDO
 					//$strPassword =  empty($_POST['txtPassword']) ? hash("SHA256", passGenerator()) : hash("SHA256", $_POST['txtPassword']);
 					$strPassword = hash("SHA256", $_POST['txtPassword']);
+
+
 
 					if ($_SESSION['permisosMod']['w']) {
 						$request_user = $this->model->insertUsuario(
@@ -128,6 +89,11 @@ class Usuarios extends Controllers
 							$intTipoId,
 							$intestado
 						);
+
+
+
+
+
 						//
 						//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora 	en caso de que se esté insertando
 						$strAccion = "CREAR";
@@ -144,9 +110,6 @@ class Usuarios extends Controllers
 					} //FIN DEL IF DE INSERTAR
 
 
-
-					//CUANDO ESTÁ ACTUALIZANDO
-					###############################################################################################
 				} else {
 					$option = 2; //SI OPTION ES 2, ENTONCES ESTARÁ ACTUALIZANDO
 					$strPassword =  empty($_POST['txtPassword']) ? "" : hash("SHA256", $_POST['txtPassword']);
@@ -191,9 +154,7 @@ class Usuarios extends Controllers
 
 
 						// try {
-						//MANDA CORREO
-						################################################################################
-						//sendMailLocal($dataUsuario, 'email_usuario'); //ENVIAR CORREO
+						sendMailLocal($dataUsuario, 'email_usuario'); //ENVIAR CORREO
 						$arrResponse = array('status' => true, 'msg' => 'Datos guardados correctamente.');
 						// } catch (Exception $e) {
 						// 	$arrResponse = array('status' => false, 'msg' => 'No se puedo enviar el correo .Datos se guardaron correctamente.');
@@ -227,27 +188,17 @@ class Usuarios extends Controllers
 		die();
 	}
 
-	public function getUsuarios()
+	public function getCompras()
 	{
 		if ($_SESSION['permisosMod']['r']) {
-			$arrData = $this->model->selectUsuarios();
+			$arrData = $this->model->selectCompras();
 			for ($i = 0; $i < count($arrData); $i++) {
 				$btnView = '';
 				$btnEdit = '';
 				$btnDelete = '';
 
-				if ($arrData[$i]['estado'] == 1) {
-					$arrData[$i]['estado'] = '<span class="badge badge-success">ACTIVO</span>';   //Aqui le asigna Activo si es 1
-				} else if ($arrData[$i]['estado'] == 2) {
-					$arrData[$i]['estado'] = '<span class="badge badge-danger">INACTIVO</span>';
-				} else if ($arrData[$i]['estado'] == 3) {
-					$arrData[$i]['estado'] = '<span class="badge badge-info">NUEVO</span>';
-				} else if ($arrData[$i]['estado'] == 4) {
-					$arrData[$i]['estado'] = '<span class="badge badge-danger">BLOQUEADO</span>';
-				}
-
 				if ($_SESSION['permisosMod']['r']) {
-					$btnView = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntViewUsuario(' . $arrData[$i]['id_usuario'] . ')" title="Ver usuario"><i class="far fa-eye"></i></button>';
+					$btnView = '<button class="btn btn-info btn-sm btnViewCompra" onClick="fntViewCompra(' . $arrData[$i]['cod_compra'] . ')" title="Ver compra"><i class="far fa-eye"></i></button>';
 				}
 				// if($_SESSION['permisosMod']['u']){
 				// 	if(($_SESSION['idUser'] == 1 and $_SESSION['userData']['id_rol'] == 1) ||
@@ -258,7 +209,7 @@ class Usuarios extends Controllers
 				// 	}
 				// }
 				if ($_SESSION['permisosMod']['u']) {
-					$btnEdit = '<button class="btn btn-primary  btn-sm btnEditUsuario" onClick="fntEditUsuario(this,' . $arrData[$i]['id_usuario'] . ')" title="Editar usuario"><i class="fas fa-pencil-alt"></i></button>';
+					$btnEdit = '<button class="btn btn-primary  btn-sm btnEditCompra" onClick="fntEditCompra(this,' . $arrData[$i]['cod_compra'] . ')" title="Editar compra"><i class="fas fa-pencil-alt"></i></button>';
 				} else {
 					$btnEdit = '<button class="btn btn-secondary btn-sm" disabled ><i class="fas fa-pencil-alt"></i></button>';
 				}
@@ -273,7 +224,7 @@ class Usuarios extends Controllers
 				// 	}
 				// }
 				if ($_SESSION['permisosMod']['d']) {
-					$btnDelete = '<button class="btn btn-danger btn-sm btnDelUsuario" onClick="fntDelUsuario(' . $arrData[$i]['id_usuario'] . ')" title="Eliminar usuario"><i class="far fa-trash-alt"></i></button>';
+					$btnDelete = '<button class="btn btn-danger btn-sm btnDelCompra" onClick="fntDelCompra(' . $arrData[$i]['cod_compra'] . ')" title="Eliminar compra"><i class="far fa-trash-alt"></i></button>';
 				} else {
 					$btnDelete = '<button class="btn btn-secondary btn-sm" disabled ><i class="far fa-trash-alt"></i></button>';
 				}

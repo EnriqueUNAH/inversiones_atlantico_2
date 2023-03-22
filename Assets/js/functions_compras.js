@@ -1,33 +1,25 @@
-let tableProductos;
+let tableCompras;
 let rowTable = "";
 let divLoading = document.querySelector("#divLoading");
 document.addEventListener(
   "DOMContentLoaded",
   function () {
-    tableProductos = $("#tableProductos").dataTable({
+    tableCompras = $("#tableCompras").dataTable({
       aProcessing: true,
       aServerSide: true,
       language: {
         url: "//cdn.datatables.net/plug-ins/1.10.20/i18n/Spanish.json",
       },
       ajax: {
-        url: " " + base_url + "/Productos/getProductos",
+        url: " " + base_url + "/Compras/getCompras",
         dataSrc: "",
       },
       columns: [
-        { data: "nombre_producto" },
-        { data: "descripcion" },
-        { data: "cantidad_minima" },
-        { data: "cantidad_maxima" },
-        { data: "nombre_tipo_producto" },
-        { data: "precio_venta" },
-        { data: "estado" },
-        // {
-        //   data: "foto",
-        //   render: function (data, type, row) {
-        //     return '<img src="' + data + '"/>';
-        //   },
-        // },
+        { data: "cod_compra" },
+        { data: "total_pagado" },
+        { data: "fecha" },
+        { data: "isv" },
+        { data: "options" },
       ],
       dom: "lBfrtip",
       buttons: [
@@ -37,7 +29,7 @@ document.addEventListener(
           titleAttr: "Exportar a Excel",
           className: "btn btn-success",
           exportOptions: {
-            columns: [0, 1, 2, 3, 4, 5],
+            columns: [0, 1, 2, 3, 4],
           },
         },
         {
@@ -46,7 +38,7 @@ document.addEventListener(
           titleAttr: "Exportar a PDF",
           className: "btn btn-danger",
           exportOptions: {
-            columns: [0, 1, 2, 3, 4, 5],
+            columns: [0, 1, 2, 3, 4],
           },
           customize: function (doc) {
             doc.styles.tableHeader.color = "#ffffff";
@@ -67,37 +59,26 @@ document.addEventListener(
       order: [[0, "desc"]],
     });
 
-    if (document.querySelector("#formProducto")) {
-      let formProducto = document.querySelector("#formProducto");
-      formProducto.onsubmit = function (e) {
+    if (document.querySelector("#formUsuario")) {
+      let formUsuario = document.querySelector("#formUsuario");
+      formUsuario.onsubmit = function (e) {
         e.preventDefault();
 
-        let strNombre_Producto = document.querySelector(
-          "#txtNombre_Producto"
-        ).value;
-        let strDescripcion = document
-          .querySelector("#txtdescripcion")
+        let strusuario = document.querySelector("#txtusuario").value;
+        let strnombre_usuario = document
+          .querySelector("#txtnombre_usuario")
           .value.toUpperCase();
-        let intCantidad_Minima = document.querySelector(
-          "#txtCantidad_Minima"
-        ).value;
-        let intCantidad_Maxima = document.querySelector(
-          "#txtCantidad_Maxima"
-        ).value;
-        let intTipo_Producto =
-          document.querySelector("#listTipo_Producto").value;
-        let decPrecio_Venta = document.querySelector("#txtPrecio_Venta").value;
+        let strEmail = document.querySelector("#txtEmail").value;
+        let intpreguntas_contestadas = 0;
+        let intTipousuario = document.querySelector("#listid_rol").value;
+        let strPassword = document.querySelector("#txtPassword").value;
         let intStatus = document.querySelector("#listStatus").value;
-        let foto = document.querySelector("#foto").value;
 
         if (
-          strNombre_Producto == "" ||
-          strDescripcion == "" ||
-          intCantidad_Minima == "" ||
-          intCantidad_Maxima == "" ||
-          intTipo_Producto == "" ||
-          decPrecio_Venta == "" ||
-          intStatus == ""
+          strusuario == "" ||
+          strnombre_usuario == "" ||
+          strEmail == "" ||
+          intTipousuario == ""
         ) {
           swal("Atención", "Todos los campos son obligatorios.", "error");
           return false;
@@ -118,8 +99,8 @@ document.addEventListener(
         let request = window.XMLHttpRequest
           ? new XMLHttpRequest()
           : new ActiveXObject("Microsoft.XMLHTTP");
-        let ajaxUrl = base_url + "/Productos/setProducto";
-        let formData = new FormData(formProducto);
+        let ajaxUrl = base_url + "/Usuarios/setUsuario";
+        let formData = new FormData(formUsuario);
         request.open("POST", ajaxUrl, true);
         request.send(formData);
         request.onreadystatechange = function () {
@@ -127,7 +108,7 @@ document.addEventListener(
             let objData = JSON.parse(request.responseText);
             if (objData.status) {
               if (rowTable == "") {
-                tableProductos.api().ajax.reload();
+                tableUsuarios.api().ajax.reload();
               } else {
                 htmlStatus =
                   intStatus == 1
@@ -138,31 +119,158 @@ document.addEventListener(
                     ? '<span class="badge badge-danger">BLOQUEADO</span>'
                     : '<span class="badge badge-danger">INACTIVO</span>';
 
-                rowTable.cells[0].textContent = strNombre_Producto;
-                rowTable.cells[1].textContent = strDescripcion;
-                rowTable.cells[2].textContent = intCantidad_Minima;
-                rowTable.cells[3].textContent = intCantidad_Maxima;
-
-                rowTable.cells[4].textContent =
-                  document.querySelector(
-                    "#listTipo_Producto"
-                  ).selectedOptions[0].text;
-
-                rowTable.cells[5].textContent = decPrecio_Venta;
-
-                rowTable.cells[6].textContent =
-                  document.querySelector("#listStatus").selectedOptions[0].text;
-
-                rowTable.cells[7].textContent = foto;
-
-                rowTable.cells[8].innerHTML = htmlStatus;
+                rowTable.cells[0].textContent = strusuario;
+                rowTable.cells[1].textContent = strnombre_usuario;
+                rowTable.cells[2].textContent = strEmail;
+                rowTable.cells[3].textContent =
+                  document.querySelector("#listid_rol").selectedOptions[0].text;
+                rowTable.cells[4].innerHTML = htmlStatus;
                 rowTable = "";
               }
 
-              $("#modalFormProducto").modal("hide");
+              $("#modalFormUsuario").modal("hide");
 
-              formProducto.reset();
-              swal("Productos", objData.msg, "success");
+              formUsuario.reset();
+              swal("Usuarios", objData.msg, "success");
+            } else {
+              swal("Error", objData.msg, "error");
+            }
+          }
+          divLoading.style.display = "none";
+          return false;
+        };
+      };
+    }
+
+    //Actualizar Perfil
+    if (document.querySelector("#formPerfil")) {
+      let formPerfil = document.querySelector("#formPerfil");
+      formPerfil.onsubmit = function (e) {
+        e.preventDefault();
+        let strusuario = document.querySelector("#txtusuario").value;
+        let strnombre_usuario =
+          document.querySelector("#txtnombre_usuario").value;
+        let intpreguntas_contestadas = document.querySelector(
+          "#txtpreguntas_contestadas"
+        ).value;
+        let strPassword = document.querySelector("#txtPassword").value;
+        let strPasswordConfirm = document.querySelector(
+          "#txtPasswordConfirm"
+        ).value;
+
+        if (
+          strusuario == "" ||
+          strnombre_usuario == "" ||
+          intpreguntas_contestadas == ""
+        ) {
+          swal("Atención", "Todos los campos son obligatorios.", "error");
+          return false;
+        }
+
+        if (strPassword != "" || strPasswordConfirm != "") {
+          if (strPassword != strPasswordConfirm) {
+            swal("Atención", "Las contraseñas no son iguales.", "info");
+            return false;
+          }
+          if (strPassword.length < 5) {
+            swal(
+              "Atención",
+              "La contraseña debe tener un mínimo de 5 caracteres.",
+              "info"
+            );
+            return false;
+          }
+        }
+
+        let elementsValid = document.getElementsByClassName("valid");
+        for (let i = 0; i < elementsValid.length; i++) {
+          if (elementsValid[i].classList.contains("is-invalid")) {
+            swal(
+              "Atención",
+              "Por favor verifique los campos en rojo.",
+              "error"
+            );
+            return false;
+          }
+        }
+        divLoading.style.display = "flex";
+        let request = window.XMLHttpRequest
+          ? new XMLHttpRequest()
+          : new ActiveXObject("Microsoft.XMLHTTP");
+        let ajaxUrl = base_url + "/Usuarios/putPerfil";
+        let formData = new FormData(formPerfil);
+        request.open("POST", ajaxUrl, true);
+        request.send(formData);
+        request.onreadystatechange = function () {
+          if (request.readyState != 4) return;
+          if (request.status == 200) {
+            let objData = JSON.parse(request.responseText);
+            if (objData.status) {
+              $("#modalFormPerfil").modal("hide");
+              swal(
+                {
+                  title: "",
+                  text: objData.msg,
+                  type: "success",
+                  confirmButtonText: "Aceptar",
+                  closeOnConfirm: false,
+                },
+                function (isConfirm) {
+                  if (isConfirm) {
+                    location.reload();
+                  }
+                }
+              );
+            } else {
+              swal("Error", objData.msg, "error");
+            }
+          }
+          divLoading.style.display = "none";
+          return false;
+        };
+      };
+    }
+    //Actualizar Datos Fiscales
+    if (document.querySelector("#formDataFiscal")) {
+      let formDataFiscal = document.querySelector("#formDataFiscal");
+      formDataFiscal.onsubmit = function (e) {
+        e.preventDefault();
+        let strNit = document.querySelector("#txtNit").value;
+        let strNombreFiscal = document.querySelector("#txtNombreFiscal").value;
+        let strDirFiscal = document.querySelector("#txtDirFiscal").value;
+
+        if (strNit == "" || strNombreFiscal == "" || strDirFiscal == "") {
+          swal("Atención", "Todos los campos son obligatorios.", "error");
+          return false;
+        }
+        divLoading.style.display = "flex";
+        let request = window.XMLHttpRequest
+          ? new XMLHttpRequest()
+          : new ActiveXObject("Microsoft.XMLHTTP");
+        let ajaxUrl = base_url + "/Usuarios/putDFical";
+        let formData = new FormData(formDataFiscal);
+        request.open("POST", ajaxUrl, true);
+        request.send(formData);
+        request.onreadystatechange = function () {
+          if (request.readyState != 4) return;
+          if (request.status == 200) {
+            let objData = JSON.parse(request.responseText);
+            if (objData.status) {
+              $("#modalFormPerfil").modal("hide");
+              swal(
+                {
+                  title: "",
+                  text: objData.msg,
+                  type: "success",
+                  confirmButtonText: "Aceptar",
+                  closeOnConfirm: false,
+                },
+                function (isConfirm) {
+                  if (isConfirm) {
+                    location.reload();
+                  }
+                }
+              );
             } else {
               swal("Error", objData.msg, "error");
             }
@@ -176,19 +284,36 @@ document.addEventListener(
   false
 );
 
-// window.addEventListener(
-//   "load",
-//   function () {
-//     fntRolesUsuario();
-//   },
-//   false
-// );
+window.addEventListener(
+  "load",
+  function () {
+    fntRolesUsuario();
+  },
+  false
+);
 
-function fntViewProducto(id_producto) {
+function fntRolesUsuario() {
+  if (document.querySelector("#listid_rol")) {
+    let ajaxUrl = base_url + "/Roles/getSelectRoles";
+    let request = window.XMLHttpRequest
+      ? new XMLHttpRequest()
+      : new ActiveXObject("Microsoft.XMLHTTP");
+    request.open("GET", ajaxUrl, true);
+    request.send();
+    request.onreadystatechange = function () {
+      if (request.readyState == 4 && request.status == 200) {
+        document.querySelector("#listid_rol").innerHTML = request.responseText;
+        $("#listid_rol").selectpicker("render");
+      }
+    };
+  }
+}
+
+function fntViewUsuario(id_usuario) {
   let request = window.XMLHttpRequest
     ? new XMLHttpRequest()
     : new ActiveXObject("Microsoft.XMLHTTP");
-  let ajaxUrl = base_url + "/Productos/getProducto/" + id_usuario;
+  let ajaxUrl = base_url + "/Usuarios/getUsuario/" + id_usuario;
   request.open("GET", ajaxUrl, true);
   request.send();
   request.onreadystatechange = function () {
@@ -196,7 +321,7 @@ function fntViewProducto(id_producto) {
       let objData = JSON.parse(request.responseText);
 
       if (objData.status) {
-        let estadoProducto =
+        let estadoUsuario =
           objData.data.estado == 1
             ? '<span class="badge badge-success">ACTIVO</span>'
             : objData.data.estado == 3
@@ -213,6 +338,12 @@ function fntViewProducto(id_producto) {
         document.querySelector("#celTipoUsuario").innerHTML =
           objData.data.nombrerol;
         document.querySelector("#celEstado").innerHTML = estadoUsuario;
+        document.querySelector("#celFechaUltimaConexion").innerHTML =
+          objData.data.fecha_ultima_conexion;
+        document.querySelector("#celFechaVencimiento").innerHTML =
+          objData.data.fecha_vencimiento;
+        document.querySelector("#celPrimerIngreso").innerHTML =
+          objData.data.primer_ingreso;
         document.querySelector("#celCreadoPor").innerHTML =
           objData.data.creado_por;
         document.querySelector("#celFechaRegistro").innerHTML =
@@ -230,7 +361,7 @@ function fntViewProducto(id_producto) {
   };
 }
 
-//Función cuando se le da click al botón editar Producto
+//Función cuando se le da click al botón editar Usuario
 function fntEditUsuario(element, id_usuario) {
   rowTable = element.parentNode.parentNode.parentNode;
   document.querySelector("#titleModal").innerHTML = "Actualizar Usuario";
@@ -332,8 +463,8 @@ function fntDelUsuario(id_usuario) {
 //Abre el modal para agregar usuario
 function openModal() {
   rowTable = "";
-  document.querySelector("#id_usuario").value = "";
-  document.querySelector("#txtusuario").removeAttribute("readonly"); //Para quitar el readonly en caso de que antes se haya editado
+  document.querySelector("#cod_compra").value = "";
+  //document.querySelector("#txtusuario").removeAttribute("readonly"); //Para quitar el readonly en caso de que antes se haya editado
   //document.querySelector("#listStatus").setAttribute("readonly", true);
   // document.querySelector("#listStatus").setAttribute("disabled", true);
   // if (rowTable) {
@@ -343,19 +474,15 @@ function openModal() {
   //   document.querySelector("#listStatus").value = "3";
   //   document.querySelector("#listStatus").setAttribute("disabled", true);
   // }
-  document
-    .querySelector(".modal-header")
-    .classList.replace("headerUpdate", "headerRegister");
-  document
-    .querySelector("#btnActionForm")
-    .classList.replace("btn-info", "btn-primary");
+  document.querySelector(".modal-header").classList.replace("headerUpdate", "headerRegister");
+  document.querySelector("#btnActionForm").classList.replace("btn-info", "btn-primary");
   document.querySelector("#btnText").innerHTML = "Guardar";
-  document.querySelector("#titleModal").innerHTML = "Nuevo Usuario";
-  document.querySelector("#formUsuario").reset();
+  document.querySelector("#titleModal").innerHTML = "Nueva compra";
+  document.querySelector("#formCompra").reset();
   //$("#listStatus").prop("disabled", true);
   //$("#listStatus").val("3");
 
-  $("#modalFormUsuario").modal("show");
+  $("#modalFormCompra").modal("show");
 }
 
 function openModalPerfil() {

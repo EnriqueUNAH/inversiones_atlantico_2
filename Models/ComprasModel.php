@@ -1,21 +1,16 @@
 <?php
 
-class UsuariosModel extends Mysql
+class ComprasModel extends Mysql
 {
-	private $intIdUsuario;
-	private $strusuario;
-	private $strNombre;
-	private $strApellido;
-	private $intpreguntas_contestadas;
-	private $strEmail;
-	private $strPassword;
-	private $strToken;
-	private $intTipoId;
-	private $intStatus;
-	private $strNit;
-	private $strNomFiscal;
-	private $strDirFiscal;
-
+	private $cod_compra;
+	private $intTotal_pagado;
+	private $datefecha;
+	private $intIsv;
+	private $cod_detalle_compra;
+	private $intPrecio_compra;
+	private $intCantidad;
+	private $cod_producto;
+	
 	public function __construct()
 	{
 		parent::__construct();
@@ -59,7 +54,7 @@ class UsuariosModel extends Mysql
 
 
 	//Función para que inserte en bitácora cada vez que se agrega un nuevo usuario
-	public function insertUsuarioBitacora(string $fecha, int $idUsuario, int $idObjeto, string $accion, string $descripcion)
+	public function insertCompraBitacora(string $fecha, int $idUsuario, int $idObjeto, string $accion, string $descripcion)
 	{
 
 		$this->dateFecha = $fecha;
@@ -96,27 +91,29 @@ class UsuariosModel extends Mysql
 
 
 
-	public function selectUsuarios()
+	public function selectCompras()
 	{
 		$whereAdmin = "";
 		if ($_SESSION['idUser'] != 1) {
-			$whereAdmin = " and p.id_usuario != 1 ";
+			$whereAdmin = " and p.cod_compra != 1 ";
 		}
-		$sql = "SELECT p.id_usuario,p.usuario,p.nombre_usuario,p.correo_electronico,p.estado,r.id_rol,r.nombrerol 
-					FROM tbl_ms_usuarios p 
-					INNER JOIN tbl_ms_roles r
-					ON p.id_rol = r.id_rol
-					WHERE p.estado != 0 " . $whereAdmin;
+		$sql = "SELECT p.cod_compra,p.total_pagado,p.fecha,p.isv
+					FROM tbl_compra p 
+					-- INNER JOIN tbl_ms_roles r
+					-- ON p.id_rol = r.id_rol
+					-- WHERE p.cod_compra != 0 
+                    " . $whereAdmin;
 		$request = $this->select_all($sql);
 		return $request;
 	}
+	
 	//Muestra los datos en el botón ver más
 	public function selectUsuario(int $id_usuario)
 	{
 		$this->intIdUsuario = $id_usuario;
 		$sql = "SELECT p.id_usuario,p.usuario,p.nombre_usuario,p.preguntas_contestadas,p.correo_electronico,r.id_rol,r.nombrerol,
 		p.fecha_ultima_conexion,p.fecha_vencimiento,p.primer_ingreso,
-		p.estado,p.creado_por,p.modificado_por,p.fecha_modificacion, DATE_FORMAT(p.fecha_creacion, '%Y-%m-%d %H:%i:%s') as fechaRegistro 
+		p.estado,p.creado_por,p.modificado_por,p.fecha_modificacion, DATE_FORMAT(p.fecha_creacion, '%d-%m-%Y') as fechaRegistro 
 					FROM tbl_ms_usuarios p
 					INNER JOIN tbl_ms_roles r
 					ON p.id_rol = r.id_rol
