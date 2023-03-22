@@ -13,9 +13,10 @@
         <?php if (!empty($_SESSION['permisos'][1]['r'])) { ?>
           <li>
             <a class="app-menu__item" href="<?= base_url(); ?>/dashboard">
-              <i class="app-menu__icon fa fa-dashboard"></i>
+              <i class="app-menu__icon fa fa-home"></i>
 
               <span class="app-menu__label">Inicio</span>
+
             </a>
           </li>
         <?php } ?>
@@ -39,7 +40,8 @@
         <?php if (!empty($_SESSION['permisos'][2]['r'])) { ?>
           <li class="treeview">
             <a class="app-menu__item" href="#" data-toggle="treeview">
-              <i class="app-menu__icon fa fa-users" aria-hidden="true"></i>
+              <i class="app-menu__icon fas fa-tools" aria-hidden="true"></i>
+
               <span class="app-menu__label">Mantenimiento</span>
               <i class="treeview-indicator fa fa-angle-right"></i>
             </a>
@@ -58,7 +60,8 @@
         <?php if (!empty($_SESSION['permisos'][2]['r'])) { ?>
           <li class="treeview">
             <a class="app-menu__item" href="#" data-toggle="treeview">
-              <i class="app-menu__icon fa fa-users" aria-hidden="true"></i>
+              <i class="app-menu__icon fas fa-dolly-flatbed" aria-hidden="true"></i>
+
               <span class="app-menu__label">Inventario</span>
               <i class="treeview-indicator fa fa-angle-right"></i>
             </a>
