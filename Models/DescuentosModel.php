@@ -89,7 +89,7 @@
 			$this->intIdDescuento = $codigo;
 			$sql = "SELECT *
 					FROM tbl_descuento
-					WHERE cod_descuento = $this->intIdProducto";
+					WHERE cod_descuento = $this->intIdDescuento";
 			$request = $this->select($sql);
 			return $request;
 
