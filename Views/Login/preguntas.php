@@ -47,8 +47,8 @@ $resultado = mysqli_query($conexion, $consulta);
 // Obtenemos el valor de id_usuario de la primera fila del resultado
 $row = mysqli_fetch_assoc($resultado);
 $id_Usuario = $row['id_usuario'];
-echo "El usuario es: " . $user; /////////////////////////////////////////////////////
-echo "   El id es: " . $id_Usuario; /////////////////////////////////////////////////////
+//echo "El usuario es: " . $user; /////////////////////////////////////////////////////
+//echo "   El id es: " . $id_Usuario; /////////////////////////////////////////////////////
 //consultar valor parametro de preguntas contestadas
 $consultar_parametro_contestadas = mysqli_query($conexion, "SELECT valor FROM tbl_ms_parametros WHERE id_parametro='2'");
 while ($otra_parametro_pre = mysqli_fetch_array($consultar_parametro_contestadas)) {
@@ -66,6 +66,9 @@ echo "   Ha contestado: " . $valor_contestadas; ////////////////////////////////
 
 $insertar_ = "INSERT INTO tbl_ms_preguntas_usuario VALUES('$id','$id_Usuario','$respuesta')";
 mysqli_query($conexion, $insertar_);
+
+$bitacora="INSERT INTO tbl_ms_bitacora(fecha,id_usuario,id_objeto,accion,descripcion) VALUES(now(),'$id_Usuario','2','PREGUNTAS','CONTESTO PREGUNTA CORRECTAMENTE') ";
+mysqli_query( $conexion , $bitacora );
 
 /* $bitacora="INSERT INTO tbl_bitacora VALUES('$filas_bbitacora','$fechaC','$filas','3','AUTOREGISTRO','CONSTESTO PREGUNTA EXITOSAMENTE')";
     mysqli_query( $conexion , $bitacora );*/
