@@ -13,7 +13,7 @@
 
         <form id="formPreguntas" name="formPreguntas" class="form-horizontal">
           <input type="hidden" id="id_pregunta" name="id_pregunta" value="">
-          <!--<p class="text-primary">Todos los campos son obligatorios.</p>-->
+          <!-- <p class="text-primary">Todos los campos son obligatorios.</p> -->
           <div class="form-row">
             <div class="form-group col-md-7">
               <label for="txtpregunta">Pregunta</label>

@@ -87,9 +87,10 @@ if ($filas_) {
     $insertar = "INSERT INTO tbl_ms_usuarios VALUES('$filas','$usuario','$nombre','3','$hash','$fechaC','0','0','$fecha_v','$correo','asdad','$usuario','$fechaC','$usuario','$fechaC','2')";
     mysqli_query($conexion, $insertar);
 
-    /* $bitacora="INSERT INTO tbl_ms_bitacora VALUES('$filas_bbitacora','$fechaC','$filas','3','AUTOREGISTRO','AUTOREGISTRO DE USUARIO DESDE EL LOGIN')";
-        mysqli_query( $conexion , $bitacora );
-      */
+
+    $bitacora="INSERT INTO tbl_ms_bitacora(fecha,id_usuario,id_objeto,accion,descripcion) VALUES(now(),'$filas','2','CREAR','CREO UN NUEVO USUARIO EN AUTOREGISTRO') ";
+    mysqli_query( $conexion , $bitacora );
+      
 
     echo '<script>alert("USUARIO CREADO EXITOSAMENTE");</script>';
 

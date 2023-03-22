@@ -16,10 +16,9 @@ class Preguntas extends Controllers
 
 	public function Preguntas()
 	{
-        if (empty($_SESSION['permisosMod']['r'])) {
+		if (empty($_SESSION['permisosMod']['r'])) {
 			header("Location:" . base_url() . '/dashboard');
 		}
-
 		$data['page_tag'] = "Preguntas";
 		$data['page_title'] = "PREGUNTAS <small>Inversiones Atlántico</small>";
 		$data['page_name'] = "preguntas";
@@ -46,16 +45,18 @@ class Preguntas extends Controllers
 		);
 	}
 
-	public function setPregunta()
+
+	public function setPreguntas()
 	{
 		if ($_POST) {
 			if (empty($_POST['txtpregunta'])) {
-				$arrResponse = array("status" => false, "msg" => 'Datos incorrectos.');
-			} else {
-				$id_pregunta = intval($_POST['id_pregunta']);
-				$strpregunta = strtoupper(strClean($_POST['txtpregunta']));
-				$request_user = "";
+				$arrResponse = array("status" => false,"msg" => 'Datos incorrectos.');
+				} else {
+					$id_pregunta = intval($_POST['id_pregunta']);
+					$strpregunta = strtoupper(strClean($_POST['txtpregunta']));
+					$request_user = "";
 
+					
 				//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora
 				//SE PUEDEN USAR PARA INSERTAR O ACTUALIZAR PORQUE SERÍAN LOS MISMOS DATOS
 				$dateFecha = date('Y-m-d H:i:s');
@@ -68,7 +69,7 @@ class Preguntas extends Controllers
 
 					if ($_SESSION['permisosMod']['w']) {
 						$request_user = $this->model->insertPreguntas(
-							$strpregunta,
+							$strpregunta
 
 						);
 
@@ -121,35 +122,36 @@ class Preguntas extends Controllers
 					$arrResponse = array("status" => false, "msg" => 'No es posible almacenar los datos.');
 				}
 			}
+
 			echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
 		}
 		die();
 	}
 
+
+
+
+
+
+
 	public function getPreguntas()
 	{
-		if ($_SESSION['permisosMod']['r']) {
+		if($_SESSION['permisosMod']['r']){
 			$arrData = $this->model->selectPreguntas();
-			for ($i = 0; $i < count($arrData); $i++) {
-				//$btnView = '';
+			for ($i=0; $i < count($arrData); $i++) {
+			
 				$btnEdit = '';
-				$btnDelete = '';
-
-
-				if ($_SESSION['permisosMod']['u']) {
-					$btnEdit = '<button class="btn btn-primary  btn-sm btnEditPregunta" onClick="fntEditPregunta(this,' . $arrData[$i]['id_pregunta'] . ')" title="Editar pregunta"><i class="fas fa-pencil-alt"></i></button>';
-				} else {
-					$btnEdit = '<button class="btn btn-secondary btn-sm" disabled ><i class="fas fa-pencil-alt"></i></button>';
+			 	$btnDelete = '';
+			 	
+			 	if($_SESSION['permisosMod']['u']){
+			 		$btnEdit = '<button class="btn btn-primary  btn-sm btnEditPreguntas" onClick="fntEditPreguntas(this,'.$arrData[$i]['id_pregunta'].')" title="Editar pregunta"><i class="fas fa-pencil-alt"></i></button>';
+			 	}
+			 	if($_SESSION['permisosMod']['d']){	
+			 		$btnDelete = '<button class="btn btn-danger btn-sm btnDelPreguntas" onClick="fntDelPreguntas('.$arrData[$i]['id_pregunta'].')" title="Eliminar pregunta"><i class="far fa-trash-alt"></i></button>';
 				}
-
-				if ($_SESSION['permisosMod']['d']) {
-					$btnDelete = '<button class="btn btn-danger btn-sm btnDelPregunta" onClick="fntDelPregunta(' . $arrData[$i]['id_pregunta'] . ')" title="Eliminar pregunta"><i class="far fa-trash-alt"></i></button>';
-				} else {
-					$btnDelete = '<button class="btn btn-secondary btn-sm" disabled ><i class="far fa-trash-alt"></i></button>';
-				}
-				$arrData[$i]['options'] = '<div class="text-center">' . $btnEdit . ' ' . $btnDelete . '</div>';
-			}
-			echo json_encode($arrData, JSON_UNESCAPED_UNICODE);
+			 	$arrData[$i]['options'] = '<div class="text-center">'.$btnEdit.' '.$btnDelete.'</div>';
+			 }
+			echo json_encode($arrData,JSON_UNESCAPED_UNICODE);
 		}
 		die();
 	}
@@ -171,7 +173,8 @@ class Preguntas extends Controllers
 		die();
 	}
 
-	public function delPregunta()
+
+	public function delPreguntas()
 	{
 		if ($_POST) {
 			if ($_SESSION['permisosMod']['d']) {
@@ -209,4 +212,7 @@ class Preguntas extends Controllers
 
 		die();
 	}
+
+
+
 }

@@ -5,10 +5,19 @@ class Logout extends Controllers
 	{
 		parent::__construct();
 		session_start();
+
+        //Insertar en bitacora
+		if ($intIdUsuario = $_SESSION['idUser'] ){
+		//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora 
+		$dateFecha = date('Y-m-d H:i:s');
 		$intIdUsuario = $_SESSION['idUser'];
-		$request = $this->model->updateUltimaConexion($intIdUsuario);
-
-
+		$intIdObjeto = 2;
+		$request_bitacora = "";
+		$strAccion = "CERRAR SESION";
+		$strDescripcion = "USUARIO CERRO SESION";
+		  //Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
+		$request = $this->model->insertSalirBitacora($dateFecha,$intIdUsuario,$intIdObjeto,$strAccion,$strDescripcion);
+	}
 		session_unset();
 		session_destroy();
 		header('location: ' . base_url() . '/login');
