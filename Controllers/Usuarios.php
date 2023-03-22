@@ -48,13 +48,47 @@ class Usuarios extends Controllers
 	public function setUsuario()
 	{
 		if ($_POST) {
-			if (empty($_POST['txtusuario']) || empty($_POST['txtnombre_usuario']) || empty($_POST['txtEmail']) || empty($_POST['listid_rol']) || empty($_POST['listStatus']) || empty($_POST['txtPassword'])) {
+			$id_usuarioo = intval($_POST['id_usuario']);
+			if (empty($_POST['txtusuario']) || empty($_POST['txtnombre_usuario']) || empty($_POST['txtEmail']) || empty($_POST['listid_rol']) || empty($_POST['listStatus'])) {
 				$arrResponse = array("status" => false, "msg" => 'Datos incorrectos.');
+			}
 
-				/*El siguiente else if, sirve para que valide desde el servidor. Que si se ingresa una letra 
+			//
+
+
+			elseif ($id_usuarioo < 1 and empty($_POST['txtPassword'])) {
+				$arrResponse = array("status" => false, "msg" => 'La contraseña no debe estar vacia');
+			} elseif ($id_usuarioo < 1 and !preg_match('/^(?=.*[a-z]).+$/', $_POST['txtPassword'])) {
+				$arrResponse = array("status" => false, "msg" => 'La contraseña debe contener al menos una minúscula.');
+			} elseif ($id_usuarioo < 1 and !preg_match('/^(?=.*[A-Z]).+$/', $_POST['txtPassword'])) {
+				$arrResponse = array("status" => false, "msg" => 'La contraseña debe contener al menos una mayúscula.');
+			} elseif ($id_usuarioo < 1 and !preg_match('/^(?=.*[^\da-zA-Z]).+$/', $_POST['txtPassword'])) {
+				$arrResponse = array("status" => false, "msg" => 'La contraseña debe contener al menos un caracter especial.');
+			} elseif ($id_usuarioo < 1 and !preg_match('/^.{6,}.+$/', $_POST['txtPassword'])) {
+				$arrResponse = array("status" => false, "msg" => 'La contraseña debe contener tener una longitud mínima de 6 caracteres.');
+			}
+
+			//
+			//elseif (isset($_POST['txtPassword']) and $id_usuarioo > 0) {
+			//
+			// elseif ($id_usuarioo >= 1 and !preg_match('/^(?=.*[a-z]).+$/', $_POST['txtPassword'])) {
+			// 	$arrResponse = array("status" => false, "msg" => 'La contraseña debe contener al menos una minúsculaaaaa.');
+			// } elseif ($id_usuarioo >= 1 and !preg_match('/^(?=.*[A-Z]).+$/', $_POST['txtPassword'])) {
+			// 	$arrResponse = array("status" => false, "msg" => 'La contraseña debe contener al menos una mayúsculaaaa.');
+			// } elseif ($id_usuarioo >= 1 and !preg_match('/^(?=.*[^\da-zA-Z]).+$/', $_POST['txtPassword'])) {
+			// 	$arrResponse = array("status" => false, "msg" => 'La contraseña debe contener al menos un carácter especialaaaa.');
+			// } elseif ($id_usuarioo >= 1 and !preg_match('/^.{6,}.+$/', $_POST['txtPassword'])) {
+			// 	$arrResponse = array("status" => false, "msg" => 'La contraseña debe contener tener una longitud mínima de 6 caractereaaas.');
+			// }
+			//
+			//}
+			//
+
+			/*El siguiente else if, sirve para que valide desde el servidor. Que si se ingresa una letra 
 				ya sea mayúscula o minúscula, que permita ingresar los datos.
 				Al final está el else que mostrará error en caso de que lo insertado sea un número o caracter especial.*/
-			} else if (preg_match('/^[a-zA-Z]+$/', $_POST['txtusuario']) || preg_match('/^[a-zA-Z]+$/', $_POST['txtnombre_usuario'])) {
+			##############################
+			else if (preg_match('/^[a-zA-Z]+$/', $_POST['txtusuario']) || preg_match('/^[a-zA-Z]+$/', $_POST['txtnombre_usuario'])) {
 
 
 				$id_usuario = intval($_POST['id_usuario']);
@@ -73,12 +107,17 @@ class Usuarios extends Controllers
 				$intIdObjeto = 2; //ESTE VALOR VA A CAMBIAR MAS A DELANTE
 				$request_bitacora = "";
 
+
+
+				//CUANDO ESTÁ INSERTANDO
+				#############################################################################################
 				if ($id_usuario == 0) {
+
+
+
 					$option = 1; //LA OPCIÓN ES 1, ENTONCES ESTARÁ INSERTANDO
 					//$strPassword =  empty($_POST['txtPassword']) ? hash("SHA256", passGenerator()) : hash("SHA256", $_POST['txtPassword']);
 					$strPassword = hash("SHA256", $_POST['txtPassword']);
-
-
 
 					if ($_SESSION['permisosMod']['w']) {
 						$request_user = $this->model->insertUsuario(
@@ -89,11 +128,6 @@ class Usuarios extends Controllers
 							$intTipoId,
 							$intestado
 						);
-
-
-
-
-
 						//
 						//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora 	en caso de que se esté insertando
 						$strAccion = "CREAR";
@@ -110,6 +144,9 @@ class Usuarios extends Controllers
 					} //FIN DEL IF DE INSERTAR
 
 
+
+					//CUANDO ESTÁ ACTUALIZANDO
+					###############################################################################################
 				} else {
 					$option = 2; //SI OPTION ES 2, ENTONCES ESTARÁ ACTUALIZANDO
 					$strPassword =  empty($_POST['txtPassword']) ? "" : hash("SHA256", $_POST['txtPassword']);
@@ -154,7 +191,9 @@ class Usuarios extends Controllers
 
 
 						// try {
-						sendMailLocal($dataUsuario, 'email_usuario'); //ENVIAR CORREO
+						//MANDA CORREO
+						################################################################################
+						//sendMailLocal($dataUsuario, 'email_usuario'); //ENVIAR CORREO
 						$arrResponse = array('status' => true, 'msg' => 'Datos guardados correctamente.');
 						// } catch (Exception $e) {
 						// 	$arrResponse = array('status' => false, 'msg' => 'No se puedo enviar el correo .Datos se guardaron correctamente.');

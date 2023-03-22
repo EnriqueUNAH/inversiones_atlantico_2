@@ -254,6 +254,12 @@ class Login extends Controllers
 					'' => false,
 					'msg' => 'Las contraseñas no son iguales.'
 				);
+			} elseif (!preg_match('/^(?=.*[a-z]).+$/', $_POST['txtPassword'])) {
+				$arrResponse = array("status" => false, "msg" => 'La contraseña debe contener al menos una minúscula.');
+			} elseif (!preg_match('/^(?=.*[A-Z]).+$/', $_POST['txtPassword'])) {
+				$arrResponse = array("status" => false, "msg" => 'La contraseña debe contener al menos una mayúscula.');
+			} elseif (!preg_match('/^(?=.*[^\da-zA-Z]).+$/', $_POST['txtPassword'])) {
+				$arrResponse = array("status" => false, "msg" => 'La contraseña debe contener al menos un caracter especial.');
 			} else {
 				$arrResponseUser = $this->model->getUsuario($strEmail, $strToken);
 				if (empty($arrResponseUser)) {
