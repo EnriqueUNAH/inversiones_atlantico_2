@@ -13,9 +13,10 @@
         <?php if (!empty($_SESSION['permisos'][1]['r'])) { ?>
           <li>
             <a class="app-menu__item" href="<?= base_url(); ?>/dashboard">
-              <i class="app-menu__icon fa fa-dashboard"></i>
+              <i class="app-menu__icon fa fa-home"></i>
 
               <span class="app-menu__label">Inicio</span>
+
             </a>
           </li>
         <?php } ?>
@@ -23,7 +24,8 @@
         <?php if (!empty($_SESSION['permisos'][2]['r'])) { ?>
           <li class="treeview">
             <a class="app-menu__item" href="#" data-toggle="treeview">
-              <i class="app-menu__icon fa fa-users" aria-hidden="true"></i>
+              <i class="app-menu__icon fas fa-lock" aria-hidden="true"></i>
+
               <span class="app-menu__label">Seguridad</span>
               <i class="treeview-indicator fa fa-angle-right"></i>
             </a>
@@ -36,10 +38,30 @@
           </li>
         <?php } ?>
 
+
         <?php if (!empty($_SESSION['permisos'][2]['r'])) { ?>
           <li class="treeview">
             <a class="app-menu__item" href="#" data-toggle="treeview">
-              <i class="app-menu__icon fa fa-users" aria-hidden="true"></i>
+              <i class="app-menu__icon fas fa-dolly-flatbed" aria-hidden="true"></i>
+
+              <span class="app-menu__label">Inventario</span>
+              <i class="treeview-indicator fa fa-angle-right"></i>
+            </a>
+            <ul class="treeview-menu">
+              <li><a class="treeview-item" href="<?= base_url(); ?>/productos"><i class="icon fa fa-circle-o"></i>Productos</a></li>
+              <li><a class="treeview-item" href="<?= base_url(); ?>/inventarios"><i class="icon fa fa-circle-o"></i>Inventarios</a></li>
+              <li><a class="treeview-item" href="<?= base_url(); ?>/kardex"><i class="icon fa fa-circle-o"></i>Kardex</a></li>
+
+            </ul>
+          </li>
+        <?php } ?>
+
+
+        <?php if (!empty($_SESSION['permisos'][2]['r'])) { ?>
+          <li class="treeview">
+            <a class="app-menu__item" href="#" data-toggle="treeview">
+              <i class="app-menu__icon fas fa-tools" aria-hidden="true"></i>
+
               <span class="app-menu__label">Mantenimiento</span>
               <i class="treeview-indicator fa fa-angle-right"></i>
             </a>
@@ -55,6 +77,7 @@
         <?php } ?>
 
 
+<<<<<<< HEAD
         <?php if (!empty($_SESSION['permisos'][2]['r'])) { ?>
           <li class="treeview">
             <a class="app-menu__item" href="#" data-toggle="treeview">
@@ -67,10 +90,9 @@
               <li><a class="treeview-item" href="<?= base_url(); ?>/inventarios"><i class="icon fa fa-circle-o"></i>Inventarios</a></li>
               <li><a class="treeview-item" href="<?= base_url(); ?>/kardex"><i class="icon fa fa-circle-o"></i>Kardex</a></li>
               <li><a class="treeview-item" href="<?= base_url(); ?>/compras"><i class="icon fa fa-circle-o"></i>Compras</a></li>
+=======
+>>>>>>> e7a479ddaf57194b7872d38926794038fbea6882
 
-            </ul>
-          </li>
-        <?php } ?>
 
 
 

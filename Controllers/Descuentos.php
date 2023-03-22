@@ -1,307 +1,172 @@
-<?php
+<?php 
+	class Descuentos extends Controllers{
+		public function __construct()
+		{
+			parent::__construct();
+			session_start();
+			if(empty($_SESSION['login']))
+			{
+				header('Location: '.base_url().'/login');
+				die();
+			}
+			//  getPermisos(MDESCUENTOS);
+		}
 
-class Descuentos extends Controllers
-{
-	public function __construct()
-	{
-		parent::__construct();
-		session_start();
-		if (empty($_SESSION['login'])) {
-			header('Location: ' . base_url() . '/login');
+		public function Descuentos()
+		{
+			if(empty($_SESSION['permisosMod']['r'])){
+				header("Location:".base_url().'/dashboard');
+			}
+			$data['page_tag'] = "Descuentos";
+			$data['page_title'] = "DESCUENTOS <small>Inversiones Atlantico</small>";
+			$data['page_name'] = "descuentos";
+			$data['page_functions_js'] = "functions_descuentos.js";
+			$this->views->getView($this,"descuentos",$data);
+		}
+
+		public function getDescuento($cod){
+			// if($_SESSION['permisosMod']['r']){
+				$cod_descuento = intval($cod);
+					$arrData = $this->model->selectDescuentos($cod_descuento);
+					if(!empty($arrData)){
+						for ($i=0; $i < count($arrImg); $i++) { 
+							$arrImg[$i]['url_image'] = media().'/images/uploads/'.$arrImg[$i]['img'];
+						}
+						$arrResponse = array('status' => true, 'data' => $arrData);
+					 }else{
+						$arrResponse = array('status' => false, 'msg' => 'Datos no encontrados.');
+					 	$arrData['images'] = $arrImg;
+					 }
+					echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);
+				// }
+			}
+			// die();
+
+		public function getDescuentos()
+		{
+			if($_SESSION['permisosMod']['r']){
+				$arrData = $this->model->selectDescuento();
+				for ($i=0; $i < count($arrData); $i++) {
+					$btnView = '';
+					$btnEdit = '';
+					$btnDelete = '';
+
+					// if($arrData[$i]['cod_descuento'] == 1)
+					// {
+					// 	$arrData[$i]['cod_descuento'] = '<span></span>';
+					// }else{
+					// 	$arrData[$i]['cod_descuento'] = '<span></span>';
+					// }
+
+					// $arrData[$i]['porcentaje_descuento'] = SMONEY.' '.formatMoney($arrData[$i]['porcentaje_descuento']);
+					if($_SESSION['permisosMod']['r']){
+						// $btnView = '<button class="btn btn-info btn-sm" onClick="fntViewInfo('.$arrData[$i]['cod_descuento'].')" title="Ver producto"><i class="far fa-eye"></i></button>';
+					}
+					if($_SESSION['permisosMod']['u']){
+						$btnEdit = '<button class="btn btn-primary  btn-sm" onClick="fntEditInfo(this,'.$arrData[$i]['cod_descuento'].')" title="Editar Descuento"><i class="fas fa-pencil-alt"></i></button>';
+					}
+					if($_SESSION['permisosMod']['d']){	
+						$btnDelete = '<button class="btn btn-danger btn-sm" onClick="fntDelInfo('.$arrData[$i]['cod_descuento'].')" title="Eliminar Descuento"><i class="far fa-trash-alt"></i></button>';
+					}
+					$arrData[$i]['options'] = '<div class="text-center">'.$btnView.' '.$btnEdit.' '.$btnDelete.'</div>';
+				}
+				echo json_encode($arrData,JSON_UNESCAPED_UNICODE);
+			}
 			die();
 		}
 
-		getPermisos(MUSUARIOS);
-	}
+		public function setDescuentos(){
+			if($_POST){
+				if(empty($_POST['txtNombre']) || empty($_POST['cod_descuento']) || empty($_POST['listDescuento']) || empty($_POST['txtPorcentaje']) )
+				{
+					$arrResponse = array("status" => false, "msg" => 'Datos incorrectos.');
+				}else{
+					
+					$cod_porcentaje = intval($_POST['cod_porcentaje']);
+					$strNombre = ($_POST['txtNombre']);
+					$intPorcentaje = ($_POST['txtPorcentaje']);
+					$request_descuento = "";
 
-	public function Descuentos()
-	{
-		if (empty($_SESSION['permisosMod']['r'])) {
-			header("Location:" . base_url() . '/dashboard');
-		}
-		$data['page_tag'] = "Descuentos";
-		$data['page_title'] = "DESCUENTOS <small>Inversiones Atlántico</small>";
-		$data['page_name'] = "descuentos";
-		$data['page_functions_js'] = "functions_descuentos.js";
-		$this->views->getView($this, "descuentos", $data);
+					$ruta = strtolower(clear_cadena($strNombre));
+					$ruta = str_replace(" ","-",$ruta);
 
-		//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora
-		//SE PUEDEN USAR PARA INSERTAR O ACTUALIZAR PORQUE SERÍAN LOS MISMOS DATOS
-		$dateFecha = date('Y-m-d H:i:s');
-		$intIdUsuario = $_SESSION['idUser'];
-		$intIdObjeto = 2;
-		$request_bitacora = "";
-
-		$strAccion = "INGRESO";
-		$strDescripcion = "INGRESO AL MODULO USUARIOS";
-
-		//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
-		$request_bitacora = $this->model->insertUsuarioBitacora(
-			$dateFecha,
-			$intIdUsuario,
-			$intIdObjeto,
-			$strAccion,
-			$strDescripcion
-		);
-	}
-
-	public function setUsuario()
-	{
-		if ($_POST) {
-			if (empty($_POST['txtusuario']) || empty($_POST['txtnombre_usuario']) || empty($_POST['txtEmail']) || empty($_POST['listid_rol']) || empty($_POST['listStatus'])) {
-				$arrResponse = array("status" => false, "msg" => 'Datos incorrectos.');
-			} else {
-				$id_usuario = intval($_POST['id_usuario']);
-				$strusuario = strtoupper(strClean($_POST['txtusuario']));
-				$strnombre_usuario = strtoupper(strClean($_POST['txtnombre_usuario']));
-				$strEmail = strtolower(strClean($_POST['txtEmail']));
-				$intTipoId = intval(strClean($_POST['listid_rol']));
-				$intestado = intval(strClean($_POST['listStatus']));
-				$request_user = "";
-
-				//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora
-				//SE PUEDEN USAR PARA INSERTAR O ACTUALIZAR PORQUE SERÍAN LOS MISMOS DATOS
-				$dateFecha = date('Y-m-d H:i:s');
-				$intIdUsuario = $_SESSION['idUser'];
-				$intIdObjeto = 2;
-				$request_bitacora = "";
-
-				if ($id_usuario == 0) {
-					$option = 1; //LA OPCIÓN ES 1, ENTONCES ESTARÁ INSERTANDO
-					$strPassword =  empty($_POST['txtPassword']) ? hash("SHA256", passGenerator()) : hash("SHA256", $_POST['txtPassword']);
-
-					if ($_SESSION['permisosMod']['w']) {
-						$request_user = $this->model->insertUsuario(
-							$strusuario,
-							$strnombre_usuario,
-							$strEmail,
-							$strPassword,
-							$intTipoId,
-							$intestado
-						);
-
-						//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora 	en caso de que se esté insertando
-						$strAccion = "CREAR";
-						$strDescripcion = "CREACION DE USUARIO";
-
-						//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
-						$request_bitacora = $this->model->insertUsuarioBitacora(
-							$dateFecha,
-							$intIdUsuario,
-							$intIdObjeto,
-							$strAccion,
-							$strDescripcion
-						);
-					} //FIN DEL IF DE INSERTAR
-				} else {
-					$option = 2; //SI OPTION ES 2, ENTONCES ESTARÁ ACTUALIZANDO
-					$strPassword =  empty($_POST['txtPassword']) ? "" : hash("SHA256", $_POST['txtPassword']);
-					if ($_SESSION['permisosMod']['u']) {
-						$request_user = $this->model->updateUsuario(
-							$id_usuario,
-							$strusuario,
-							$strnombre_usuario,
-							$strEmail,
-							$strPassword,
-							$intTipoId,
-							$intestado
-						);
+					if($cod_porcentaje == 0)
+					{
+						$option = 1;
+						if($_SESSION['permisosMod']['w']){
+							$request_descuento = $this->model->insertDescuento($strNombre, 
+																		$intPorcentaje,$cod_porcentaje);
+						}
+					}else{
+						$option = 2;
+						if($_SESSION['permisosMod']['u']){
+							$request_descuento = $this->model->updateDescuento($cod_porcentaje,
+																		$strNombre,
+																		$intPorcentaje);
+						}
 					}
-
-					//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora 	en caso de que se esté ACTUALIZANDO
-					$strAccion = "ACTUALIZAR";
-					$strDescripcion = "ACTUALIZACIÓN DE USUARIO";
-
-					//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
-					$request_bitacora = $this->model->insertUsuarioBitacora(
-						$dateFecha,
-						$intIdUsuario,
-						$intIdObjeto,
-						$strAccion,
-						$strDescripcion
-					);
-				} //FIN DEL ELSE PARA ACTUALIZAR
-
-				if ($request_user > 0) {
-					if ($option == 1) {
-						$arrResponse = array('status' => true, 'msg' => 'Datos guardados correctamente.');
-					} else {
-						$arrResponse = array('status' => true, 'msg' => 'Datos Actualizados correctamente.');
+					if($request_descuento > 0 )
+					{
+						if($option == 1){
+							$arrResponse = array('status' => true, 'cod_descuento' => $request_descuento, 'msg' => 'Datos guardados correctamente.');
+						}else{
+							$arrResponse = array('status' => true, 'cod_descuento' => $idProducto, 'msg' => 'Datos Actualizados correctamente.');
+						}
+					}else if($request_descuento == 'exist'){
+						$arrResponse = array('status' => false, 'msg' => '¡Atención! ya existe un descuento con el Código Ingresado.');		
+					}else{
+						$arrResponse = array("status" => false, "msg" => 'No es posible almacenar los datos.');
 					}
-				} else if ($request_user == 'exist') {
-					$arrResponse = array('status' => false, 'msg' => '¡Atención! el email o la identificación ya existe, ingrese otro.');
-				} else {
-					$arrResponse = array("status" => false, "msg" => 'No es posible almacenar los datos.');
+				}
+				echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);
+			}
+			die();
+		}
+
+
+
+
+
+
+	public function setImage(){
+		if($_POST){
+			if(empty($_POST['cod_descuento'])){
+				$arrResponse = array('status' => false, 'msg' => 'Error de dato.');
+			}else{
+				$idProducto = intval($_POST['cod_descuento']);
+				$foto      = $_FILES['foto'];
+				$imgNombre = 'pro_'.md5(date('d-m-Y H:i:s')).'.jpg';
+				$request_image = $this->model->insertImage($cod_descuento,$imgNombre);
+				if($request_image){
+					$uploadImage = uploadImage($foto,$imgNombre);
+					$arrResponse = array('status' => true, 'imgname' => $imgNombre, 'msg' => 'Archivo cargado.');
+				}else{
+					$arrResponse = array('status' => false, 'msg' => 'Error de carga.');
 				}
 			}
-			echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
+			echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);
 		}
 		die();
 	}
 
-	public function getDescuentos()
-	{
-		if($_SESSION['permisosMod']['r']){
-			$arrData = $this->model->selectDescuentos();
-			for ($i=0; $i < count($arrData); $i++) {
-			
-				$btnEdit = '';
-			 	$btnDelete = '';
-			 	
-			 	if($_SESSION['permisosMod']['r']){
-			 		$btnEdit = '<button class="btn btn-primary  btn-sm btnEditDescuento" onClick="fntEditDescuento(this,'.$arrData[$i]['cod_descuento'].')" title="Editar promocion"><i class="fas fa-pencil-alt"></i></button>';
-			 	}
-			 	if($_SESSION['permisosMod']['u']){	
-			 		$btnDelete = '<button class="btn btn-danger btn-sm btnDelDescuento" onClick="fntDelDescuento('.$arrData[$i]['cod_descuento'].')" title="Eliminar promocion"><i class="far fa-trash-alt"></i></button>';
+
+	public function delDescuento(){
+		if($_POST){
+			// if($_SESSION['permisosMod']['d']){
+				$intIdproducto = intval($_POST['cod_descuento']);
+				$requestDelete = $this->model->deleteDescuento($intIdproducto);
+				if($requestDelete)
+				{
+					$arrResponse = array('nombre_descuento' => '','msg' => 'Se ha eliminado el descuento');
+				}else{
+					$arrResponse = array('nombre_descuento' => false, 'msg' => 'Error al eliminar el descuento.');
 				}
-			 	$arrData[$i]['options'] = '<div class="text-center">'.$btnEdit.' '.$btnDelete.'</div>';
-			 }
-			echo json_encode($arrData,JSON_UNESCAPED_UNICODE);
-		}
-		die();
-	}
+				echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);
+			// }
 
-	public function getUsuario($id_usuario)
-	{
-		if ($_SESSION['permisosMod']['r']) {
-			$id_usuario = intval($id_usuario);
-			if ($id_usuario > 0) {
-				$arrData = $this->model->selectUsuario($id_usuario);
-				if (empty($arrData)) {
-					$arrResponse = array('status' => false, 'msg' => 'Datos no encontrados.');
-				} else {
-					$arrResponse = array('status' => true, 'data' => $arrData);
-				}
-				echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
-			}
-		}
-		die();
-	}
-
-	public function delUsuario()
-	{
-		if ($_POST) {
-			if ($_SESSION['permisosMod']['d']) {
-				$intid_usuario = intval($_POST['id_usuario']);
-				$requestDelete = $this->model->deleteUsuario($intid_usuario);
-
-				//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora
-				//SE PUEDEN USAR PARA INSERTAR O ACTUALIZAR PORQUE SERÍAN LOS MISMOS DATOS
-				$dateFecha = date('Y-m-d H:i:s');
-				$intIdUsuario = $_SESSION['idUser'];
-				$intIdObjeto = 2;
-				$request_bitacora = "";
-
-				if ($requestDelete) {
-					$arrResponse = array('status' => true, 'msg' => 'Se ha eliminado el usuario');
-
-					$strAccion = "ELIMINAR";
-					$strDescripcion = "ELIMINACION DE USUARIO";
-
-					//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
-					$request_bitacora = $this->model->insertUsuarioBitacora(
-						$dateFecha,
-						$intIdUsuario,
-						$intIdObjeto,
-						$strAccion,
-						$strDescripcion
-					);
-				} else {
-					$arrResponse = array('status' => false, 'msg' => 'Error al eliminar el usuario.');
-				}
-
-				echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
-			}
-		}
-
-		die();
-	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	public function perfil()
-	{
-		$data['page_tag'] = "Perfil";
-		$data['page_title'] = "Perfil de usuario";
-		$data['page_name'] = "perfil";
-		$data['page_functions_js'] = "functions_usuarios.js";
-		$this->views->getView($this, "perfil", $data);
-	}
-
-	public function putPerfil()
-	{
-		if ($_POST) {
-			if (empty($_POST['txtusuario']) || empty($_POST['txtNombre']) || empty($_POST['txtpreguntas_contestadas'])) {
-				$arrResponse = array("status" => false, "msg" => 'Datos incorrectos.');
-			} else {
-				$id_usuario = $_SESSION['idUser'];
-				$strusuario = strClean($_POST['txtusuario']);
-				$strNombre = strClean($_POST['txtNombre']);
-				//$strApellido = strClean($_POST['txtApellido']);
-				$intpreguntas_contestadas = intval(strClean($_POST['txtpreguntas_contestadas']));
-				$strPassword = "";
-				if (!empty($_POST['txtPassword'])) {
-					$strPassword = hash("SHA256", $_POST['txtPassword']);
-				}
-				$request_user = $this->model->updatePerfil(
-					$id_usuario,
-					$strusuario,
-					$strNombre,
-					$intpreguntas_contestadas,
-					$strPassword
-				);
-				if ($request_user) {
-					sessionUser($_SESSION['idUser']);
-					$arrResponse = array('status' => true, 'msg' => 'Datos Actualizados correctamente.');
-				} else {
-					$arrResponse = array("status" => false, "msg" => 'No es posible actualizar los datos.');
-				}
-			}
-			echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
-		}
-		die();
-	}
-
-	public function putDFical()
-	{
-		if ($_POST) {
-			if (empty($_POST['txtNit']) || empty($_POST['txtNombreFiscal']) || empty($_POST['txtDirFiscal'])) {
-				$arrResponse = array("status" => false, "msg" => 'Datos incorrectos.');
-			} else {
-				$id_usuario = $_SESSION['idUser'];
-				$strNit = strClean($_POST['txtNit']);
-				$strNomFiscal = strClean($_POST['txtNombreFiscal']);
-				$strDirFiscal = strClean($_POST['txtDirFiscal']);
-				$request_datafiscal = $this->model->updateDataFiscal(
-					$id_usuario,
-					$strNit,
-					$strNomFiscal,
-					$strDirFiscal
-				);
-				if ($request_datafiscal) {
-					sessionUser($_SESSION['idUser']);
-					$arrResponse = array('status' => true, 'msg' => 'Datos Actualizados correctamente.');
-				} else {
-					$arrResponse = array("status" => false, "msg" => 'No es posible actualizar los datos.');
-				}
-			}
-			echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
 		}
 		die();
 	}
 }
+
+ ?>

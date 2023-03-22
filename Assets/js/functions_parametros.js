@@ -234,7 +234,7 @@ function openModal() {
     .classList.replace("btn-info", "btn-primary");
   document.querySelector("#btnText").innerHTML = "Guardar";
   document.querySelector("#titleModal").innerHTML = "Nuevo Parámetro";
-  document.querySelector("#formCai").reset();
+  document.querySelector("#formParametros").reset();
 
-  $("#modalFormCai").modal("show");
+  $("#modalFormParametros").modal("show");
 }

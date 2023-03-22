@@ -30,7 +30,7 @@ class Login extends Controllers
 				$arrResponse = array('' => false, 'msg' => 'Error de datos');
 
 				//CUANDO LOS DOS INPUTS LLEVAN ALGUN DATO
-			} else {
+			} else if (preg_match('/^[a-zA-Z]+$/', $_POST['txtEmail'])) {
 				$strUsuario  =  strtoupper(strClean($_POST['txtEmail']));
 				$strPassword = hash("SHA256", $_POST['txtPassword']);
 				$requestUser = $this->model->loginUser($strUsuario, $strPassword);
@@ -118,6 +118,8 @@ class Login extends Controllers
 						$arrResponse = array('status' => false, 'msg' => 'Usuario inactivo.');
 					}
 				}
+			} else {
+				$arrResponse = array('status' => false, 'msg' => 'No se permiten caracteres especiales.');
 			}
 			echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
 		}
