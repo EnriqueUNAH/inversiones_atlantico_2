@@ -38,6 +38,25 @@
           </li>
         <?php } ?>
 
+
+        <?php if (!empty($_SESSION['permisos'][2]['r'])) { ?>
+          <li class="treeview">
+            <a class="app-menu__item" href="#" data-toggle="treeview">
+              <i class="app-menu__icon fas fa-dolly-flatbed" aria-hidden="true"></i>
+
+              <span class="app-menu__label">Inventario</span>
+              <i class="treeview-indicator fa fa-angle-right"></i>
+            </a>
+            <ul class="treeview-menu">
+              <li><a class="treeview-item" href="<?= base_url(); ?>/productos"><i class="icon fa fa-circle-o"></i>Productos</a></li>
+              <li><a class="treeview-item" href="<?= base_url(); ?>/inventarios"><i class="icon fa fa-circle-o"></i>Inventarios</a></li>
+              <li><a class="treeview-item" href="<?= base_url(); ?>/kardex"><i class="icon fa fa-circle-o"></i>Kardex</a></li>
+
+            </ul>
+          </li>
+        <?php } ?>
+
+
         <?php if (!empty($_SESSION['permisos'][2]['r'])) { ?>
           <li class="treeview">
             <a class="app-menu__item" href="#" data-toggle="treeview">
@@ -58,22 +77,7 @@
         <?php } ?>
 
 
-        <?php if (!empty($_SESSION['permisos'][2]['r'])) { ?>
-          <li class="treeview">
-            <a class="app-menu__item" href="#" data-toggle="treeview">
-              <i class="app-menu__icon fas fa-dolly-flatbed" aria-hidden="true"></i>
 
-              <span class="app-menu__label">Inventario</span>
-              <i class="treeview-indicator fa fa-angle-right"></i>
-            </a>
-            <ul class="treeview-menu">
-              <li><a class="treeview-item" href="<?= base_url(); ?>/productos"><i class="icon fa fa-circle-o"></i>Productos</a></li>
-              <li><a class="treeview-item" href="<?= base_url(); ?>/inventarios"><i class="icon fa fa-circle-o"></i>Inventarios</a></li>
-              <li><a class="treeview-item" href="<?= base_url(); ?>/kardex"><i class="icon fa fa-circle-o"></i>Kardex</a></li>
-
-            </ul>
-          </li>
-        <?php } ?>
 
 
 
