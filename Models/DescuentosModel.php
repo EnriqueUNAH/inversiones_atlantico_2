@@ -64,34 +64,26 @@ class DescuentosModel extends Mysql
 		return $request;
 	}
 
-	public function updateDescuento(int $cod, STRING $NAME, FLOAT $Porcentaje){
-
-		// $this->intIdUsuario = $idUsuario;
+	public function updateDescuento(int $cod, string $nombre, float $Porcentaje)
+	{
 		$this->intCodigo = $cod;
 		$this->strNombre = $nombre;
 		$this->intPorcentaje = $Porcentaje;
 
-		$sql = "SELECT * FROM tbl_descuento WHERE (cod_descuento = '$this->intCodigo') ";
+		$sql = "SELECT nombre_descuento,porcentaje_descuento FROM tbl_descuento WHERE cod_descuento = '{$this->intCodigo}'";
 		$request = $this->select_all($sql);
 
-		if(!empty($request))
-		{
-			if($this->intCodigo  != "")
-			{
-				$sql = "UPDATE tbl_descuento SET cod_descuento=?, nombre_descuento=?, porcentaje_descuento=? 
-						WHERE cod_descuento = $this->intCodigo";
-				$arrData = array($this->intCodigo,
-        						$this->strNombre,
-        						$this->intPorcentaje);
-			}else{
-				$sql = "UPDATE tbl_descuento SET cod_descuento=?, nombres_descuento=?, porcentaje_descuento=? 
-						WHERE cod_descuento = $this->intCodigo";
-				$arrData = array($this->intCodigo,
-        						$this->strNombre,
-        						$this->intPorcentaje);
-			}
-			$request = $this->update($sql,$arrData);
-		}else{
+		if (empty($request)) {
+
+			$sql = "UPDATE tbl_descuento SET nombre_descuento=?, porcentaje_descuento=?
+							WHERE cod_descuento = $this->intCodigo ";
+			$arrData = array(
+				$this->strNombre,
+				$this->intPorcentaje
+			);
+
+			$request = $this->update($sql, $arrData);
+		} else {
 			$request = "exist";
 		}
 		return $request;

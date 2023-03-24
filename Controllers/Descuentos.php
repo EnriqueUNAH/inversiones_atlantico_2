@@ -41,9 +41,8 @@ class Descuentos extends Controllers{
 				$intIdUsuario = $_SESSION['idUser'];
 				$intIdObjeto = 2;                
 				$request_bitacora = "";
-
-				if ($strnombre != '') {
-					$option = 1; //LA OPCIÓN ES 1, ENTONCES ESTARÁ INSERTANDO
+				$option = 2;
+				if ($strnombre != '' && $option==2) {
 
 					if ($_SESSION['permisosMod']['w']) {
 						$request_user = $this->model->insertDescuento(
@@ -65,8 +64,8 @@ class Descuentos extends Controllers{
 						// 	$strDescripcion
 						//);
 					} //FIN DEL IF DE INSERTAR
-				} else {
-					$option = 2; //SI OPTION ES 2, ENTONCES ESTARÁ ACTUALIZANDO
+				}else{
+					$option = 1; //SI OPTION ES 2, ENTONCES ESTARÁ ACTUALIZANDO
 
 					if ($_SESSION['permisosMod']['u']) {
 						$request_user = $this->model->updateDescuento(
@@ -91,7 +90,7 @@ class Descuentos extends Controllers{
 				} //FIN DEL ELSE PARA ACTUALIZAR
 
 				if ($request_user > 0) {
-					if ($option == 1) {
+					if ($option == 2) {
 						$arrResponse = array('status' => true, 'msg' => 'Datos guardados correctamente.');
 					} else {
 						$arrResponse = array('status' => true, 'msg' => 'Datos Actualizados correctamente.');

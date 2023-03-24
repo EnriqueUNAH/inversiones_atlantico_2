@@ -105,9 +105,9 @@ function fntViewInfo(cod_descuento){
             let objData = JSON.parse(request.responseText);
             if(objData.status)
             {
-                document.querySelector("#Codigo").innerHTML = objData.data.codigo;
-                document.querySelector("#Nombre").innerHTML = objData.data.nombre;
-                document.querySelector("#Porcentaje").innerHTML = objData.data.porcentaje;
+                document.querySelector("#txtIdCodigo").innerHTML = objData.data.cod_descuento;
+                document.querySelector("#txtNombre").innerHTML = objData.data.nombre;
+                document.querySelector("#txtPorcentaje").innerHTML = objData.data.porcentaje;
                 $('#modalViewDescuento').modal('show');
             }else{
                 swal("Error", objData.msg , "error");
@@ -132,10 +132,10 @@ function fntEditInfo(element, cod_descuento){
             let objData = JSON.parse(request.responseText);
             if(objData.status)
             {
-                document.querySelector("#idUsuario").value = objData.data.idpersona;
+                // document.querySelector("#idUsuario").value = objData.data.idpersona;
                 document.querySelector("#txtIdCodigo").value = objData.data.codigo;
-                document.querySelector("#txtNombre").value = objData.data.nombre;
-                document.querySelector("#txtPorcentaje").value = objData.data.porcentaje;
+                document.querySelector("#txtNombre").value = objData.data.nombre_descuento;
+                document.querySelector("#txtPorcentaje").value = objData.data.porcentaje_descuento;
             }
         }
         $('#modalFormDescuento').modal('show');
