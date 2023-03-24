@@ -9,6 +9,16 @@ document.addEventListener(
   function () {
     if (document.querySelector("#formLogin")) {
       let formLogin = document.querySelector("#formLogin");
+
+      // Validación en tiempo real, para que no pueda ingresar caracteres especiales.
+      let txtEmail = document.querySelector("#txtEmail");
+      txtEmail.onkeypress = function (event) {
+        let regex = /^[a-zA-Z0-9-]*$/;
+        if (!regex.test(event.key)) {
+          event.preventDefault();
+        }
+      };
+
       formLogin.onsubmit = function (e) {
         e.preventDefault();
 
