@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', function(){
             "dataSrc":""
         },
         "columns":[
+            {"data":"cod_descuento"},
             {"data":"nombre_descuento"},
             {"data":"porcentaje_descuento"},
             {"data":"options"}
@@ -42,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function(){
         let formDescuento = document.querySelector("#formDescuento");
         formDescuento.onsubmit = function(e) {
             e.preventDefault();
-            let intIdCodigo = document.querySelector('#txtIdCodigo').value;
+            // let intIdCodigo = document.querySelector('#txtIdCodigo').value;
             let strNombre = document.querySelector('#txtNombre').value;
             let intPorcentaje = document.querySelector('#txtPorcentaje').value;
 
@@ -73,8 +74,8 @@ document.addEventListener('DOMContentLoaded', function(){
                         if(rowTable == ""){
                             tableDescuentos.api().ajax.reload();
                         }else{
-                           rowTable.cells[0].textContent =  strNombre;
-                           rowTable.cells[1].textContent =  intPorcentaje;
+                           rowTable.cells[1].textContent =  strNombre;
+                           rowTable.cells[2].textContent =  intPorcentaje;
                            rowTable = "";
                         }
                         $('#modalFormDescuentos').modal("hide");

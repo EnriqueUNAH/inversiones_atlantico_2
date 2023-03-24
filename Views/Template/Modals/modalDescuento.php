@@ -14,10 +14,10 @@
               <p class="text-primary">Los campos con asterisco (<span class="required">*</span>) son obligatorios.</p>
 
               <div class="form-row">
-                <!-- <div class="form-group col-md-4">
-                  <label for="txtIdCodigo"></label>
+                <div>
+                  <label type="hidden" for="txtIdCodigo"></label>
                   <input type="hidden" class="form-control" id="txtIdCodigo" name="txtIdCodigo" required="">
-                </div> -->
+                </div>
                 <div class="form-group col-md-4">
                   <label for="txtNombre">Nombre Descuento<span class="required">*</span></label>
                   <input type="text" class="form-control valid validText" id="txtNombre" name="txtNombre" required="">

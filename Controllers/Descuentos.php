@@ -42,7 +42,7 @@ class Descuentos extends Controllers{
 				$intIdObjeto = 2;                
 				$request_bitacora = "";
 
-				if ($strnombre <> "") {
+				if ($strnombre != '') {
 					$option = 1; //LA OPCIÓN ES 1, ENTONCES ESTARÁ INSERTANDO
 
 					if ($_SESSION['permisosMod']['w']) {
