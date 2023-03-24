@@ -1,6 +1,6 @@
 <!-- Modal -->
-<div class="modal fade" id="modalFormDescuentos" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog modal-xl" >
+<div class="modal fade" id="modalFormDescuento" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg" >
     <div class="modal-content">
       <div class="modal-header headerRegister">
         <h5 class="modal-title" id="titleModal">Nuevo Descuento</h5>
@@ -9,36 +9,50 @@
         </button>
       </div>
       <div class="modal-body">
-            <form id="formDescuentos" name="formDescuentos" class="form-horizontal">
-              <input type="hidden" id="cod_descuento" name="cod_descuento" value="">
+            <form id="formCliente" name="formCliente" class="form-horizontal">
+              <input type="hidden" id="idUsuario" name="idUsuario" value="">
               <p class="text-primary">Los campos con asterisco (<span class="required">*</span>) son obligatorios.</p>
-              <div class="row">
-                <div class="col-md-8">
-                    <div class="form-group">
-                      <label class="control-label">Nombre Descuento <span class="required">*</span></label>
-                      <input class="form-control" id="txtNombre" name="txtNombre" type="text" required="">
-                    </div>
+
+              <div class="form-row">
+                <div class="form-group col-md-4">
+                  <label for="txtIdentificacion">Codigo Descuento <span class="required">*</span></label>
+                  <input type="text" class="form-control" id="txtIdCodigo" name="txtIdCodigo" required="">
                 </div>
-                <div class="col-md-4">
-                    <div class="row">
-                        <div class="form-group col-md-6">
-                            <label class="control-label">Porcentaje descuento <span class="required">*</span></label>
-                            <input class="form-control" id="txtPorcentaje" name="txtPorcentaje" type="text" required="">
-                        </div>
-                    </div>
-                    <div class="row">
-                       <div class="form-group col-md-6">
-                           <button id="btnActionForm" class="btn btn-primary btn-lg btn-block" type="submit"><i class="fa fa-fw fa-lg fa-check-circle"></i><span id="btnText">Guardar</span></button>
-                       </div> 
-                       <div class="form-group col-md-6">
-                           <button class="btn btn-danger btn-lg btn-block" type="button" data-dismiss="modal"><i class="fa fa-fw fa-lg fa-times-circle"></i>Cerrar</button>
-                       </div> 
-                    </div>  
+                <div class="form-group col-md-4">
+                  <label for="txtNombre">Nombre Descuento<span class="required">*</span></label>
+                  <input type="text" class="form-control valid validText" id="txtNombre" name="txtNombre" required="">
                 </div>
-              </div>    
-                     </div>
-                 </div>
-                                
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-4">
+                  <label for="txtTelefono">Porcentaje <span class="required">*</span></label>
+                  <input type="text" class="form-control valid validNumber" id="txtPorcentaje" name="txtPorcentaje" required="" onkeypress="return controlTag(event);">
+                </div>
+              </div>
+              <hr>
+              <!-- <p class="text-primary">Datos Fiscales.</p>-->
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <!-- <label>Identificación Tributaria <span class="required">*</span></label>
+                  <input class="form-control" type="text" id="txtNit" name="txtNit" required=""> -->
+                </div> 
+                <div class="form-group col-md-6">
+                  <!-- <label>Nombre fiscal <span class="required">*</span></label>
+                  <input class="form-control" type="text" id="txtNombreFiscal" name="txtNombreFiscal" required=""> -->
+                </div> 
+
+                <div class="form-group col-md-12">
+                  <!-- <label>Dirección fiscal <span class="required">*</span></label>
+                  <input class="form-control" type="text" id="txtDirFiscal" name="txtDirFiscal" required=""> -->
+                </div> 
+                
+              </div>
+             <div class="form-row">
+                
+             </div>
+              <div class="tile-footer">
+                <button id="btnActionForm" class="btn btn-primary" type="submit"><i class="fa fa-fw fa-lg fa-check-circle"></i><span id="btnText">Guardar</span></button>&nbsp;&nbsp;&nbsp;
+                <button class="btn btn-danger" type="button" data-dismiss="modal"><i class="fa fa-fw fa-lg fa-times-circle"></i>Cerrar</button>
               </div>
             </form>
       </div>
@@ -47,11 +61,11 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="modalViewDescuentos" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog modal-xl" >
+<div class="modal fade" id="modalViewDescuento" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" >
     <div class="modal-content">
       <div class="modal-header header-primary">
-        <h5 class="modal-title" id="titleModal">Editar Descuento</h5>
+        <h5 class="modal-title" id="titleModal">Datos del Decuento</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -60,16 +74,16 @@
         <table class="table table-bordered">
           <tbody>
             <tr>
-              <td>Codigo:</td>
-              <td id="elCodigo"></td>
+              <td>Codigo descuento:</td>
+              <td id="celCodigo"></td>
             </tr>
             <tr>
-              <td>Nombres:</td>
-              <td id="elNombre"></td>
+              <td>Nombre descuento:</td>
+              <td id="celNombre"></td>
             </tr>
             <tr>
               <td>Porcentaje:</td>
-              <td id="elPorcentaje"></td>
+              <td id="celPorcentaje"></td>
             </tr>
           </tbody>
         </table>
@@ -80,3 +94,4 @@
     </div>
   </div>
 </div>
+
