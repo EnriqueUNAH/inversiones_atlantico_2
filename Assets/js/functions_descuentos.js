@@ -14,7 +14,6 @@ document.addEventListener('DOMContentLoaded', function(){
             "dataSrc":""
         },
         "columns":[
-            {"data":"cod_descuento"},
             {"data":"nombre_descuento"},
             {"data":"porcentaje_descuento"},
             {"data":"options"}
@@ -40,14 +39,14 @@ document.addEventListener('DOMContentLoaded', function(){
     });
 
 	if(document.querySelector("#formDescuento")){
-        let formCliente = document.querySelector("#formDescuento");
-        formCliente.onsubmit = function(e) {
+        let formDescuento = document.querySelector("#formDescuento");
+        formDescuento.onsubmit = function(e) {
             e.preventDefault();
             let intIdCodigo = document.querySelector('#txtIdCodigo').value;
             let strNombre = document.querySelector('#txtNombre').value;
             let intPorcentaje = document.querySelector('#txtPorcentaje').value;
 
-            if(intIdCodigo == '' || strNombre == '' || intPorcentaje == '')
+            if(strNombre == '' || intPorcentaje == '')
             {
                 swal("Atención", "Todos los campos son obligatorios." , "error");
                 return false;
@@ -63,7 +62,7 @@ document.addEventListener('DOMContentLoaded', function(){
             divLoading.style.display = "flex";
             let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
             let ajaxUrl = base_url+'/Descuentos/setDescuento'; 
-            let formData = new FormData(formCliente);
+            let formData = new FormData(formDescuento);
             request.open("POST",ajaxUrl,true);
             request.send(formData);
             request.onreadystatechange = function(){
@@ -74,14 +73,13 @@ document.addEventListener('DOMContentLoaded', function(){
                         if(rowTable == ""){
                             tableDescuentos.api().ajax.reload();
                         }else{
-                           rowTable.cells[0].textContent =  intIdCodigo;
-                           rowTable.cells[1].textContent =  strNombre;
-                           rowTable.cells[2].textContent =  intPorcentaje;
+                           rowTable.cells[0].textContent =  strNombre;
+                           rowTable.cells[1].textContent =  intPorcentaje;
                            rowTable = "";
                         }
                         $('#modalFormDescuentos').modal("hide");
-                        formCliente.reset();
-                        swal("Usuarios", objData.msg ,"success");
+                        formDescuento.reset();
+                        swal("", objData.msg ,"success");
                     }else{
                         swal("Error", objData.msg , "error");
                     }
@@ -106,9 +104,9 @@ function fntViewInfo(cod_descuento){
             let objData = JSON.parse(request.responseText);
             if(objData.status)
             {
-                document.querySelector("#celCodigo").innerHTML = objData.data.codigo;
-                document.querySelector("#celNombre").innerHTML = objData.data.nombre;
-                document.querySelector("#celPorcentaje").innerHTML = objData.data.porcentaje;
+                document.querySelector("#Codigo").innerHTML = objData.data.codigo;
+                document.querySelector("#Nombre").innerHTML = objData.data.nombre;
+                document.querySelector("#Porcentaje").innerHTML = objData.data.porcentaje;
                 $('#modalViewDescuento').modal('show');
             }else{
                 swal("Error", objData.msg , "error");
@@ -124,7 +122,7 @@ function fntEditInfo(element, cod_descuento){
     document.querySelector('#btnActionForm').classList.replace("btn-primary", "btn-info");
     document.querySelector('#btnText').innerHTML ="Actualizar";
     let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-    let ajaxUrl = base_url+'/Descuento/getDescuento/'+cod_descuento;
+    let ajaxUrl = base_url+'/Descuentos/getDescuento/'+cod_descuento;
     request.open("GET",ajaxUrl,true);
     request.send();
     request.onreadystatechange = function(){
@@ -133,53 +131,16 @@ function fntEditInfo(element, cod_descuento){
             let objData = JSON.parse(request.responseText);
             if(objData.status)
             {
-                // document.querySelector("#idUsuario").value = objData.data.idpersona;
-                document.querySelector("#txtIdentificacion").value = objData.data.codigo;
-                document.querySelector("#txtNombre").value = objData.data.nombres;
-                document.querySelector("#txtTelefono").value = objData.data.porcentaje;
+                document.querySelector("#idUsuario").value = objData.data.idpersona;
+                document.querySelector("#txtIdCodigo").value = objData.data.codigo;
+                document.querySelector("#txtNombre").value = objData.data.nombre;
+                document.querySelector("#txtPorcentaje").value = objData.data.porcentaje;
             }
         }
         $('#modalFormDescuento').modal('show');
     }
 }
 
-// function fntDelInfo(cod_descuento){
-//     swal({
-//         title: "Eliminar Descuento",
-//         text: "¿Realmente quiere eliminar el descuento?",
-//         type: "warning",
-//         showCancelButton: true,
-//         confirmButtonText: "Si, eliminar!",
-//         cancelButtonText: "No, cancelar!",
-//         closeOnConfirm: false,
-//         closeOnCancel: true
-//     }, function(isConfirm) {
-        
-//         if (!isConfirm) 
-//         {
-//             let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-//             let ajaxUrl = base_url+'/Descuento/delDescuento';
-//             let strData = "cod_descuento="+cod_descuento;
-//             request.open("POST",ajaxUrl,true);
-//             request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-//             request.send(strData);
-//             request.onreadystatechange = function(){
-//                 if(request.readyState == 4 && request.status == 200){
-//                     let objData = JSON.parse(request.responseText);
-//                     if(objData.status)
-//                     {
-//                         swal("Eliminar!", objData.msg , "success");
-//                         tableDescuentos.api().ajax.reload();
-//                     }else{
-//                         swal("Atención!", objData.msg , "error");
-//                     }
-//                 }
-//             }
-//         }
-
-//     });
-
-// }
 
 function fntDelInfo(cod_descuento){
     swal({
@@ -222,11 +183,11 @@ function fntDelInfo(cod_descuento){
 function openModal()
 {
     rowTable = "";
-    document.querySelector('#idUsuario').value ="";
+    // document.querySelector('#idUsuario').value ="";
     document.querySelector('.modal-header').classList.replace("headerUpdate", "headerRegister");
     document.querySelector('#btnActionForm').classList.replace("btn-info", "btn-primary");
     document.querySelector('#btnText').innerHTML ="Guardar";
     document.querySelector('#titleModal').innerHTML = "Nuevo Descuento";
-    document.querySelector("#formCliente").reset();
+    document.querySelector("#formDescuento").reset();
     $('#modalFormDescuento').modal('show');
 }

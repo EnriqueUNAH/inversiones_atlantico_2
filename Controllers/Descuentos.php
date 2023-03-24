@@ -26,60 +26,86 @@ class Descuentos extends Controllers{
 		$this->views->getView($this,"descuentos",$data);
 	}
 
-	public function setDescuento(){
-		// error_reporting(0);
-		if($_POST){
-			if(empty($_POST['txtIdCodigo']) || empty($_POST['txtNombre']) || empty($_POST['txtPorcentaje']))
-			{
+	public function setDescuento()
+	{
+		if ($_POST) {
+			if (empty($_POST['txtNombre']) || empty($_POST['txtPorcentaje'])) {
 				$arrResponse = array("status" => false, "msg" => 'Datos incorrectos.');
-			}else{ 
-				// $idUsuario = intval($_POST['idUsuario']);
-				$intCodigo = ($_POST['txtIdCodigo']);
-				$strNombre = (($_POST['txtNombre']));
-				$intPorcentaje = (($_POST['txtPorcentaje']));
+			} else {
+				$cod_descuento= ($_POST['txtIdCodigo']);
+				$strnombre = (($_POST['txtNombre']));
+				$intPorcentaje = ($_POST['txtPorcentaje']);
 				$request_user = "";
-				// if($idUsuario == 0)
-				// {
-					// $option = 1;
-					// $strPassword =  empty($_POST['txtPassword']) ? passGenerator() : $_POST['txtPassword'];
-					// $strPasswordEncript = hash("SHA256",$strPassword);
-					if($_SESSION['permisosMod']['w']){
-						$request_user = $this->model->insertDescuento($intCodigo,
-																			$strNombre,  
-																			$intPorcentaje);
-					}
-					// $option = 2;
-					// $strPassword =  empty($_POST['txtPassword']) ? "" : hash("SHA256",$_POST['txtPassword']);
-					if($_SESSION['permisosMod']['u']){
-						$request_user = $this->model->updateDescuento($idUsuario,
-																	$intCodigo, 
-																	$strNombre, 
-																	$intPorcentaje);
-					}
-				}
 
-				// if($request_user > 0 )
-				// {
-				// 	if($option == 1){
-				// 		$arrResponse = array('status' => true, 'msg' => 'Datos guardados correctamente.');
-				// 		$nombreUsuario = $strNombre.' '.$strApellido;
-				// 		$dataUsuario = array('nombreUsuario' => $nombreUsuario,
-				// 							 'email' => $strEmail,
-				// 							 'password' => $strPassword,
-				// 							 'asunto' => 'Bienvenido a tu tienda en línea');
-				// 		sendEmail($dataUsuario,'email_bienvenida');
-				// 	}else{
-				// 		$arrResponse = array('status' => true, 'msg' => 'Datos Actualizados correctamente.');
-				// 	}
-				// }else if($request_user == 'exist'){
-				// 	$arrResponse = array('status' => false, 'msg' => '¡Atención! el email o la identificación ya existe, ingrese otro.');		
-				// }else{
-				// 	$arrResponse = array("status" => false, "msg" => 'No es posible almacenar los datos.');
-				// }
+				$dateFecha = date('Y-m-d H:i:s');
+				$intIdUsuario = $_SESSION['idUser'];
+				$intIdObjeto = 2;                
+				$request_bitacora = "";
+
+				if ($cod_descuento <> 0) {
+					$option = 1; //LA OPCIÓN ES 1, ENTONCES ESTARÁ INSERTANDO
+
+					if ($_SESSION['permisosMod']['w']) {
+						$request_user = $this->model->insertDescuento(
+							$strnombre,
+							$intPorcentaje
+
+						);
+
+						//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora 	en caso de que se esté insertando
+						$strAccion = "CREAR";
+						$strDescripcion = "CREACIÓN DE DESCUENTO";
+
+						//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
+						// $request_bitacora = $this->model->insertParametroBitacora(
+						// 	$dateFecha,
+						// 	$intIdUsuario,
+						// 	$intIdObjeto,
+						// 	$strAccion,
+						// 	$strDescripcion
+						//);
+					} //FIN DEL IF DE INSERTAR
+				} else {
+					$option = 2; //SI OPTION ES 2, ENTONCES ESTARÁ ACTUALIZANDO
+
+					if ($_SESSION['permisosMod']['u']) {
+						$request_user = $this->model->updateDescuento(
+							$cod_descuento,
+							$strnombre,
+							$intPorcentaje
+						);
+					}
+
+					//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora 	en caso de que se esté ACTUALIZANDO
+					$strAccion = "ACTUALIZAR";
+					$strDescripcion = "ACTUALIZACIÓN DE DESCUENTO";
+
+					//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
+					// $request_bitacora = $this->model->insertParametroBitacora(
+					// 	$dateFecha,
+					// 	$intIdUsuario,
+					// 	$intIdObjeto,
+					// 	$strAccion,
+					// 	$strDescripcion
+					// );
+				} //FIN DEL ELSE PARA ACTUALIZAR
+
+				if ($request_user > 0) {
+					if ($option == 1) {
+						$arrResponse = array('status' => true, 'msg' => 'Datos guardados correctamente.');
+					} else {
+						$arrResponse = array('status' => true, 'msg' => 'Datos Actualizados correctamente.');
+					}
+				} else if ($request_user == 'exist') {
+					$arrResponse = array('status' => false, 'msg' => '¡Atención! el email o la identificación ya existe, ingrese otro.');
+				} else {
+					$arrResponse = array("status" => false, "msg" => 'No es posible almacenar los datos.');
+				}
 			}
-			echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);
-			die();
+			echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
 		}
+		die();
+	}
 		
 
 	public function getDescuentos()
@@ -106,12 +132,11 @@ class Descuentos extends Controllers{
 		die();
 	}
 
-	public function getDescuento($idpersona){
+	public function getDescuento($cod_descuento){
 		if($_SESSION['permisosMod']['r']){
-			$idusuario = intval($idpersona);
-			if($idusuario > 0)
+			if($cod_descuento > 0)
 			{
-				$arrData = $this->model->selectDescuento($idusuario);
+				$arrData = $this->model->selectDescuento($cod_descuento);
 				if(empty($arrData))
 				{
 					$arrResponse = array('status' => false, 'msg' => 'Datos no encontrados.');

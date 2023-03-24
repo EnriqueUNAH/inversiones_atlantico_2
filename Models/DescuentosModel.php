@@ -5,7 +5,7 @@ class DescuentosModel extends Mysql
 	private $intCodigo;
 	private $strNombre;
 	// private $strApellido;
-	// private $intPorcentaje;
+	private $intPorcentaje;
 	// private $strEmail;
 	// private $strPassword;
 	// private $strToken;
@@ -20,30 +20,31 @@ class DescuentosModel extends Mysql
 		parent::__construct();
 	}	
 
-	public function insertDescuento(string $identificacion, string $nombre, int $Porcentaje){
+	public function insertDescuento(string $nombre, int $Porcentaje) //En este caso recibe los 2 parámetros que ingresa el usuario
+	{																	//Estos parámetros vienen desde el controlador			
 
-		$this->intCodigo = $identificacion;
+		//Se crean estas variables para que reciban los valores que vienen el los parámetros
 		$this->strNombre = $nombre;
 		$this->intPorcentaje = $Porcentaje;
 
 		$return = 0;
-		$sql = "SELECT * FROM tbl_descuento WHERE 
-				cod_descuento = '{$this->intCodigo}'";
-		$request = $this->select_all($sql);
 
-		if(empty($request))
-		{
-			$query_insert  = "INSERT INTO tbl_descuento(cod_descuento,nombre_descuento,porcentaje_descuento) 
-							  VALUES(?,?,?,?,?,?,?,?,?,?)";
-        	$arrData = array($this->intCodigo,
-    						$this->strNombre,
-    						$this->intPorcentaje);
-        	$request_insert = $this->insert($query_insert,$arrData);
-        	$return = $request_insert;
-		}else{
+		$sql = "SELECT * FROM tbl_descuento WHERE cod_descuento = '{$this->strNombre}' "; //El Where es muy importante para poder insertar
+		$request = $this->select_all($sql);													//Ese where debe estar de acorde a cada tabla
+
+		if (empty($request)) {
+			$query_insert  = "INSERT INTO tbl_descuento(nombre_descuento,porcentaje_descuento) 
+								  VALUES(?,?)"; //La cantidad de ? debe ser la cantidad de datos que se insertan 
+			$arrData = array(							//En este caso: parámetro, valor , creado_por y fecha_creacion
+				$this->strNombre,
+				$this->intPorcentaje,
+			);
+			$request_insert = $this->insert($query_insert, $arrData);
+			$return = $request_insert;
+		} else {
 			$return = "exist";
 		}
-        return $return;
+		return $return;
 	}
 
 	public function selectDescuentos()
@@ -54,11 +55,11 @@ class DescuentosModel extends Mysql
 		return $request;
 	}
 
-	public function selectDescuento(int $idpersona){
-		$this->intIdUsuario = $idpersona;
-		$sql = "SELECT * 
+	public function selectDescuento(int $cod_descuento){
+		$this->intIdCod_descuento = $cod_descuento;
+		$sql = "SELECT cod_descuento,nombre_descuento,porcentaje_descuento 
 				FROM tbl_descuento
-				WHERE cod_descuento = '$this->intIdUsuario'";
+				WHERE cod_descuento = '$this->intIdCod_descuento'";
 		$request = $this->select($sql);
 		return $request;
 	}
@@ -73,7 +74,7 @@ class DescuentosModel extends Mysql
 		$sql = "SELECT * FROM tbl_descuento WHERE (cod_descuento = '$this->intCodigo') ";
 		$request = $this->select_all($sql);
 
-		if(empty($request))
+		if(!empty($request))
 		{
 			if($this->intCodigo  != "")
 			{

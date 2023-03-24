@@ -24,9 +24,8 @@
                     <table class="table table-hover table-bordered" id="tableDescuentos">
                       <thead>
                         <tr>
-                          <th>Identificación</th>
-                          <th>Nombres</th>
-                          <th>Teléfono</th>
+                          <th>Nombre descuento</th>
+                          <th>Porcentaje descuento</th>
                           <th>Acciones</th>
                         </tr>
                       </thead>

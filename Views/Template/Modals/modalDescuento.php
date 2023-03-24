@@ -9,13 +9,13 @@
         </button>
       </div>
       <div class="modal-body">
-            <form id="formCliente" name="formCliente" class="form-horizontal">
+            <form id="formDescuento" name="formDescuento" class="form-horizontal">
               <input type="hidden" id="idUsuario" name="idUsuario" value="">
               <p class="text-primary">Los campos con asterisco (<span class="required">*</span>) son obligatorios.</p>
 
               <div class="form-row">
                 <div class="form-group col-md-4">
-                  <label for="txtIdentificacion">Codigo Descuento <span class="required">*</span></label>
+                  <label for="txtIdCodigo">Codigo Descuento <span class="required">*</span></label>
                   <input type="text" class="form-control" id="txtIdCodigo" name="txtIdCodigo" required="">
                 </div>
                 <div class="form-group col-md-4">
@@ -25,8 +25,8 @@
               </div>
               <div class="form-row">
                 <div class="form-group col-md-4">
-                  <label for="txtTelefono">Porcentaje <span class="required">*</span></label>
-                  <input type="text" class="form-control valid validNumber" id="txtPorcentaje" name="txtPorcentaje" required="" onkeypress="return controlTag(event);">
+                  <label for="txtPorcentaje">Porcentaje <span class="required">*</span></label>
+                  <input type="text" class="form-control valid validNumber" id="txtPorcentaje" name="txtPorcentaje" required="">
                 </div>
               </div>
               <hr>
@@ -65,7 +65,7 @@
   <div class="modal-dialog" >
     <div class="modal-content">
       <div class="modal-header header-primary">
-        <h5 class="modal-title" id="titleModal">Datos del Decuento</h5>
+        <h5 class="modal-title" id="titleModal">Datos del Descuento</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -74,16 +74,16 @@
         <table class="table table-bordered">
           <tbody>
             <tr>
-              <td>Codigo descuento:</td>
-              <td id="celCodigo"></td>
+              <td id="Codigo">Codigo descuento:</td>
+              <td ></td>
             </tr>
             <tr>
-              <td>Nombre descuento:</td>
-              <td id="celNombre"></td>
+              <td id="Nombre" >Nombre descuento:</td>
+              <td ></td>
             </tr>
             <tr>
-              <td>Porcentaje:</td>
-              <td id="celPorcentaje"></td>
+              <td id="Porcentaje">Porcentaje:</td>
+              <td ></td>
             </tr>
           </tbody>
         </table>
