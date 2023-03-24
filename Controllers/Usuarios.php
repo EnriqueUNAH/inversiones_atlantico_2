@@ -193,7 +193,7 @@ class Usuarios extends Controllers
 						// try {
 						//MANDA CORREO
 						################################################################################
-						//sendMailLocal($dataUsuario, 'email_usuario'); //ENVIAR CORREO
+						sendMailLocal($dataUsuario, 'email_usuario'); //ENVIAR CORREO
 						$arrResponse = array('status' => true, 'msg' => 'Datos guardados correctamente.');
 						// } catch (Exception $e) {
 						// 	$arrResponse = array('status' => false, 'msg' => 'No se puedo enviar el correo .Datos se guardaron correctamente.');
