@@ -20,7 +20,7 @@ class DescuentosModel extends Mysql
 		parent::__construct();
 	}	
 
-	public function insertDescuento(string $nombre, int $Porcentaje) //En este caso recibe los 2 parámetros que ingresa el usuario
+	public function insertDescuento(string $nombre, FLOAT $Porcentaje) //En este caso recibe los 2 parámetros que ingresa el usuario
 	{																	//Estos parámetros vienen desde el controlador			
 
 		//Se crean estas variables para que reciban los valores que vienen el los parámetros
@@ -49,7 +49,7 @@ class DescuentosModel extends Mysql
 
 	public function selectDescuentos()
 	{
-		$sql = "SELECT * 
+		$sql = "SELECT cod_descuento,nombre_descuento,porcentaje_descuento  
 				FROM tbl_descuento";
 		$request = $this->select_all($sql);
 		return $request;
@@ -64,10 +64,10 @@ class DescuentosModel extends Mysql
 		return $request;
 	}
 
-	public function updateDescuento(int $idUsuario, string $identificacion, string $nombre, int $Porcentaje){
+	public function updateDescuento(int $cod, STRING $NAME, FLOAT $Porcentaje){
 
-		$this->intIdUsuario = $idUsuario;
-		$this->intCodigo = $identificacion;
+		// $this->intIdUsuario = $idUsuario;
+		$this->intCodigo = $cod;
 		$this->strNombre = $nombre;
 		$this->intPorcentaje = $Porcentaje;
 
@@ -79,13 +79,13 @@ class DescuentosModel extends Mysql
 			if($this->intCodigo  != "")
 			{
 				$sql = "UPDATE tbl_descuento SET cod_descuento=?, nombre_descuento=?, porcentaje_descuento=? 
-						WHERE cod_descuento = $this->intIdUsuario ";
+						WHERE cod_descuento = $this->intCodigo";
 				$arrData = array($this->intCodigo,
         						$this->strNombre,
         						$this->intPorcentaje);
 			}else{
 				$sql = "UPDATE tbl_descuento SET cod_descuento=?, nombres_descuento=?, porcentaje_descuento=? 
-						WHERE cod_descuento = $this->intIdUsuario ";
+						WHERE cod_descuento = $this->intCodigo";
 				$arrData = array($this->intCodigo,
         						$this->strNombre,
         						$this->intPorcentaje);

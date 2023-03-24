@@ -14,10 +14,10 @@
               <p class="text-primary">Los campos con asterisco (<span class="required">*</span>) son obligatorios.</p>
 
               <div class="form-row">
-                <div class="form-group col-md-4">
-                  <label for="txtIdCodigo">Codigo Descuento <span class="required">*</span></label>
-                  <input type="text" class="form-control" id="txtIdCodigo" name="txtIdCodigo" required="">
-                </div>
+                <!-- <div class="form-group col-md-4">
+                  <label for="txtIdCodigo"></label>
+                  <input type="hidden" class="form-control" id="txtIdCodigo" name="txtIdCodigo" required="">
+                </div> -->
                 <div class="form-group col-md-4">
                   <label for="txtNombre">Nombre Descuento<span class="required">*</span></label>
                   <input type="text" class="form-control valid validText" id="txtNombre" name="txtNombre" required="">
@@ -26,7 +26,7 @@
               <div class="form-row">
                 <div class="form-group col-md-4">
                   <label for="txtPorcentaje">Porcentaje <span class="required">*</span></label>
-                  <input type="text" class="form-control valid validNumber" id="txtPorcentaje" name="txtPorcentaje" required="">
+                  <input type="number" step="0.01" class="form-control" id="txtPorcentaje" name="txtPorcentaje" required="">
                 </div>
               </div>
               <hr>
@@ -74,8 +74,8 @@
         <table class="table table-bordered">
           <tbody>
             <tr>
-              <td id="Codigo">Codigo descuento:</td>
-              <td ></td>
+              <!-- <td id="Codigo">Codigo descuento:</td>
+              <td ></td> -->
             </tr>
             <tr>
               <td id="Nombre" >Nombre descuento:</td>
