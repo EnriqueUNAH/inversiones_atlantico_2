@@ -16,7 +16,7 @@
               <div class="form-row">
                 <div>
                   <label type="hidden" for="txtIdCodigo"></label>
-                  <input type="hidden" class="form-control" id="txtIdCodigo" name="txtIdCodigo" required="">
+                  <input type="hidden" class="form-control" id="txtIdCodigo" name="txtIdCodigo">
                 </div>
                 <div class="form-group col-md-4">
                   <label for="txtNombre">Nombre Descuento<span class="required">*</span></label>

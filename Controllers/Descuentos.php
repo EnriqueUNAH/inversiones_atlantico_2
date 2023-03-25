@@ -28,7 +28,7 @@ class Descuentos extends Controllers{
 
 	public function setDescuento()
 	{
-		if ($_POST) {
+		if (isset($_POST)) {
 			if (empty($_POST['txtNombre']) || empty($_POST['txtPorcentaje'])) {
 				$arrResponse = array("status" => false, "msg" => 'Datos incorrectos.');
 			} else {
@@ -41,9 +41,9 @@ class Descuentos extends Controllers{
 				$intIdUsuario = $_SESSION['idUser'];
 				$intIdObjeto = 2;                
 				$request_bitacora = "";
-				$option = 2;
-				if ($strnombre != '' && $option==2) {
 
+				if (empty($_POST['txtIdCodigo'])) {
+					$option = 2;
 					if ($_SESSION['permisosMod']['w']) {
 						$request_user = $this->model->insertDescuento(
 							$strnombre,
@@ -65,14 +65,17 @@ class Descuentos extends Controllers{
 						//);
 					} //FIN DEL IF DE INSERTAR
 				}else{
-					$option = 1; //SI OPTION ES 2, ENTONCES ESTARÁ ACTUALIZANDO
 
+					$cod_descuento= ($_POST['txtIdCodigo']);
+					$strnombre = (($_POST['txtNombre']));
+					$intPorcentaje = ($_POST['txtPorcentaje']);
 					if ($_SESSION['permisosMod']['u']) {
 						$request_user = $this->model->updateDescuento(
 							$cod_descuento,
 							$strnombre,
 							$intPorcentaje
 						);
+						$option = 1;
 					}
 
 					//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora 	en caso de que se esté ACTUALIZANDO
@@ -89,22 +92,18 @@ class Descuentos extends Controllers{
 					// );
 				} //FIN DEL ELSE PARA ACTUALIZAR
 
-				if ($request_user > 0) {
-					if ($option == 2) {
+				if($request_user > 0){
+					if ($option == 2){
 						$arrResponse = array('status' => true, 'msg' => 'Datos guardados correctamente.');
-					} else {
+					}else{
 						$arrResponse = array('status' => true, 'msg' => 'Datos Actualizados correctamente.');
 					}
-				} else if ($request_user == 'exist') {
-					$arrResponse = array('status' => false, 'msg' => '¡Atención! el email o la identificación ya existe, ingrese otro.');
-				} else {
-					$arrResponse = array("status" => false, "msg" => 'No es posible almacenar los datos.');
-				}
 			}
 			echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
+			// die();
 		}
-		die();
 	}
+}
 		
 
 	public function getDescuentos()

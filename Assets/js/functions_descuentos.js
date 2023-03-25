@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function(){
         let formDescuento = document.querySelector("#formDescuento");
         formDescuento.onsubmit = function(e) {
             e.preventDefault();
-            // let intIdCodigo = document.querySelector('#txtIdCodigo').value;
+            let intIdCodigo = document.querySelector('#txtIdCodigo').value;
             let strNombre = document.querySelector('#txtNombre').value;
             let intPorcentaje = document.querySelector('#txtPorcentaje').value;
 
@@ -74,13 +74,14 @@ document.addEventListener('DOMContentLoaded', function(){
                         if(rowTable == ""){
                             tableDescuentos.api().ajax.reload();
                         }else{
+                           rowTable.cells[0].textContent =  cod_descuento;
                            rowTable.cells[1].textContent =  strNombre;
                            rowTable.cells[2].textContent =  intPorcentaje;
                            rowTable = "";
                         }
                         $('#modalFormDescuentos').modal("hide");
                         formDescuento.reset();
-                        swal("", objData.msg ,"success");
+                        swal("Descuento", objData.msg ,"success");
                     }else{
                         swal("Error", objData.msg , "error");
                     }
@@ -133,7 +134,7 @@ function fntEditInfo(element, cod_descuento){
             if(objData.status)
             {
                 // document.querySelector("#idUsuario").value = objData.data.idpersona;
-                document.querySelector("#txtIdCodigo").value = objData.data.codigo;
+                document.querySelector("#txtIdCodigo").value = objData.data.cod_descuento;
                 document.querySelector("#txtNombre").value = objData.data.nombre_descuento;
                 document.querySelector("#txtPorcentaje").value = objData.data.porcentaje_descuento;
             }

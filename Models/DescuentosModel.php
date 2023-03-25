@@ -70,7 +70,7 @@ class DescuentosModel extends Mysql
 		$this->strNombre = $nombre;
 		$this->intPorcentaje = $Porcentaje;
 
-		$sql = "SELECT nombre_descuento,porcentaje_descuento FROM tbl_descuento WHERE cod_descuento = '{$this->intCodigo}'";
+		$sql = "SELECT nombre_descuento,porcentaje_descuento FROM tbl_descuento WHERE cod_descuento = '{$this->strNombre}'";
 		$request = $this->select_all($sql);
 
 		if (empty($request)) {
