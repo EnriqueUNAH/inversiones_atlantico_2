@@ -60,7 +60,7 @@ class CaiModel extends Mysql
 		return $request;
 	}
 
-	public function updateCai(int $cod_talonario, int $rango_inicial, int $rango_final, int $rango_actual, string $numero_CAI, date $fecha)
+	public function updateCai( int $cod_talonario, int $rango_inicial, int $rango_final, int $rango_actual, string $numero_CAI, date $fecha)
 	{
 		$this->intcod=$cod_talonario;
 		$this->intRangoIni = $rango_inicial;
@@ -69,15 +69,14 @@ class CaiModel extends Mysql
 		$this->strCai=$numero_CAI;
 		$this->dateFecha=$fecha;
 
-		$sql = "SELECT rango_inicial,rango_final,rango_actual,numero_CAI,fecha_vencimiento FROM tbl_configuraicon_cai WHERE numero_CAI = '{$this->dateFecha}'";
+		$sql = "SELECT rango_inicial,rango_final,rango_actual,numero_CAI,fecha_vencimiento FROM tbl_configuraicon_cai WHERE fecha_vencimiento = '{$this->strCai}'";
 		$request = $this->select_all($sql);
 
 		if (empty($request)) {
 
 			$sql = "UPDATE tbl_configuracion_cai SET rango_inicial=?, rango_final=?, rango_actual=?, numero_CAI=?,fecha_vencimiento=?
-							WHERE cod_talonario = $this->intCodigo ";
+							WHERE cod_talonario = $this->intcod";
 			$arrData = array(
-				$this->intcod,
 				$this->intRangoIni,
 				$this->intRangoFin,
 				$this->intRangoActual,
