@@ -53,7 +53,7 @@ class CaiModel extends Mysql
 
 	public function selectCai(int $cod_talonario){
 		$this->intIdCod = $cod_talonario;
-		$sql = "SELECT cod_talonario,rango_inicial,rango_final,rango_actual,numero_CAI
+		$sql = "SELECT cod_talonario,rango_inicial,rango_final,rango_actual,numero_CAI,fecha_vencimiento
 				FROM tbl_configuracion_cai
 				WHERE cod_talonario = '$this->intIdCod'";
 		$request = $this->select($sql);
