@@ -40,7 +40,7 @@ class Cai extends Controllers{
 				$fecha_vencimiento = ($_POST['txtFecha']);
 				$request_user = "";
 
-				$dateFecha = date('Y-m-d H:i:s');
+				//$dateFecha = date('Y-m-d H:i:s');
 				// $intIdUsuario = $_SESSION['idUser'];
 				// $intIdObjeto = 2;                
 				// $request_bitacora = "";
