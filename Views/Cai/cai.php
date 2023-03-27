@@ -24,6 +24,7 @@ getModal('modalCai', $data);
             <table class="table table-hover table-bordered" id="tableCai">
               <thead>
                 <tr>
+                  <th>Talonario</th>
                   <th>Rango Inicial</th>
                   <th>Rango Final</th>
                   <th>Rango Actual</th>

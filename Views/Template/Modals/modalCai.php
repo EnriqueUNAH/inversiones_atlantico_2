@@ -12,16 +12,17 @@
 
 
         <form id="formCai" name="formCai" class="form-horizontal">
-          <input type="hidden" id="cod_talonario" name="cod_talonario" value="">
+        <label type="hidden" for="txtIdCodigo"></label>
+          <input type="hidden" id="txtIdCodigo" name="cod_talonario">
           <p class="text-primary">Todos los campos son obligatorios.</p>
           <div class="form-row">
             <div class="form-group col-md-7">
               <label for="txtRangoI">Rango Inicial</label>
-              <input type="number" class="form-control" id="txtRangoI" name="txtRangoI" required="">
+              <input type="number" class="form-control" id="txtRangoIni" name="txtRangoIni" required="">
             </div>
             <div class="form-group col-md-7">
               <label for="txtRangoF">Rango Final</label>
-              <input type="number" class="form-control" id="txtRangoF" name="txtRangoF" required="">
+              <input type="number" class="form-control" id="txtRangoFin" name="txtRangoFin" required="">
             </div>
 
           </div>
@@ -30,11 +31,11 @@
 
             <div class="form-group col-md-7">
               <label for="txtRangoA">Rango Actual</label>
-              <input type="number" class="form-control" id="txtRangoA" name="txtRangoA" required="">
+              <input type="number" class="form-control" id="txtRangoAct" name="txtRangoAct" required="">
             </div>
             <div class="form-group col-md-7">
-              <label for="txtnum">NUMERO CAI</label>
-              <input type="text" pattern="[a-zA-Z0-9_]+" class="form-control" id="txtnum" name="txtnum" style="text-transform:uppercase" required="" title="Ingrese solo letras y números sin espacios">
+              <label for="txtnum">Numero CAI</label>
+              <input type="text" pattern="[a-zA-Z0-9_]+" class="form-control" id="txtCai" name="txtCai" style="text-transform:uppercase" required="" title="Ingrese solo letras y números sin espacios">
             </div>
 
           </div>
@@ -76,31 +77,26 @@
         <table class="table table-bordered">
           <tbody>
             <tr>
+              <td>rango inicial:</td>
+              <td id="txtRangoIni"></td>
+            </tr>
+            <tr>
+              <td>rango final:</td>
+              <td id="txtRangoFin"></td>
+            </tr>
+
+            <tr>
+              <td>rango actual:</td>
+              <td id="txtRangoAct"></td>
+            </tr>
+            <tr>
               <td>CAI:</td>
-              <td id="elParametro"></td>
+              <td id="txtCai"></td>
             </tr>
             <tr>
-              <td>Valor:</td>
-              <td id="elValor"></td>
+              <td>Fecha:</td>
+              <td id="txtFecha"></td>
             </tr>
-
-            <tr>
-              <td>Creado Por:</td>
-              <td id="elCreadoPor"></td>
-            </tr>
-            <tr>
-              <td>Fecha Creación:</td>
-              <td id="elFechaCreacion"></td>
-            </tr>
-            <tr>
-              <td>Modificado Por:</td>
-              <td id="elModificadoPor"></td>
-            </tr>
-            <tr>
-              <td>Fecha Modificación:</td>
-              <td id="elFechaModificacion"></td>
-            </tr>
-
           </tbody>
         </table>
       </div>
