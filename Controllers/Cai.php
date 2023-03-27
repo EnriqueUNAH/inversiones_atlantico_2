@@ -124,13 +124,13 @@ public function getCais()
 			$btnEdit = '';
 			$btnDelete = '';
 			if($_SESSION['permisosMod']['r']){
-				$btnView = '<button class="btn btn-info btn-sm" onClick="fntViewInfo('.$arrData[$i]['cod_talonario'].')" title="Ver descuento"><i class="far fa-eye"></i></button>';
+				$btnView = '<button class="btn btn-info btn-sm" onClick="fntViewInfo('.$arrData[$i]['cod_talonario'].')" title="Ver CAI"><i class="far fa-eye"></i></button>';
 			}
 			if($_SESSION['permisosMod']['u']){
-				$btnEdit = '<button class="btn btn-primary  btn-sm" onClick="fntEditInfo(this,'.$arrData[$i]['cod_talonario'].')" title="Editar descuento"><i class="fas fa-pencil-alt"></i></button>';
+				$btnEdit = '<button class="btn btn-primary  btn-sm" onClick="fntEditInfo(this,'.$arrData[$i]['cod_talonario'].')" title="Editar CAI"><i class="fas fa-pencil-alt"></i></button>';
 			}
 			if($_SESSION['permisosMod']['d']){	
-				$btnDelete = '<button class="btn btn-danger btn-sm" onClick="fntDelInfo('.$arrData[$i]['cod_talonario'].')" title="Eliminar descuento"><i class="far fa-trash-alt"></i></button>';
+				$btnDelete = '<button class="btn btn-danger btn-sm" onClick="fntDelInfo('.$arrData[$i]['cod_talonario'].')" title="Eliminar CAI"><i class="far fa-trash-alt"></i></button>';
 			}
 			$arrData[$i]['options'] = '<div class="text-center">'.$btnEdit.' '.$btnDelete.'</div>';
 		}
