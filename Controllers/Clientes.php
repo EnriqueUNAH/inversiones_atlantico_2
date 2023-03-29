@@ -45,25 +45,26 @@ class Clientes extends Controllers
 		);
 	}
 
-	public function setUsuario()
+	public function setCliente()
 	{
 		if ($_POST) {
-			if (empty($_POST['txtusuario']) || empty($_POST['txtnombre_usuario']) || empty($_POST['txtEmail']) || empty($_POST['listid_rol']) || empty($_POST['listStatus']) || empty($_POST['txtPassword'])) {
+			if (empty($_POST['txtRtn']) || empty($_POST['txtNombres']) || empty($_POST['txtApellidos']) || empty($_POST['txtTelefono'])  || empty($_POST['txtEmail']) || empty($_POST['txtDireccion']) || empty($_POST['listGenero'])) {
 				$arrResponse = array("status" => false, "msg" => 'Datos incorrectos.');
 
 				/*El siguiente else if, sirve para que valide desde el servidor. Que si se ingresa una letra 
 				ya sea mayúscula o minúscula, que permita ingresar los datos.
 				Al final está el else que mostrará error en caso de que lo insertado sea un número o caracter especial.*/
-			} else if (preg_match('/^[a-zA-Z]+$/', $_POST['txtusuario']) || preg_match('/^[a-zA-Z]+$/', $_POST['txtnombre_usuario'])) {
+			} else{
 
 
-				$id_usuario = intval($_POST['id_usuario']);
-				$strusuario = strtoupper(strClean($_POST['txtusuario']));
-				$strnombre_usuario = strtoupper(strClean($_POST['txtnombre_usuario']));
+				$cod_cliente = intval($_POST['cod_cliente']);
+				$strRtn = intval(strClean($_POST['txtRtn']));
+				$strNombres = strtoupper(strClean($_POST['txtNombres']));
+				$strApellidos = strtoupper(strClean($_POST['txtApellidos']));
+				$intTelefono = intval(strClean($_POST['txtTelefono']));
 				$strEmail = strtolower(strClean($_POST['txtEmail']));
-				$intTipoId = intval(strClean($_POST['listid_rol']));
-				$intestado = intval(strClean($_POST['listStatus']));
-				$contrasena = (strClean($_POST['txtPassword']));
+				$strDireccion =strtoupper (strClean($_POST['txtDireccion']));
+				$cod_genero = (strClean($_POST['listGenero']));
 				$request_user = "";
 
 				//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora
@@ -73,34 +74,32 @@ class Clientes extends Controllers
 				$intIdObjeto = 2; //ESTE VALOR VA A CAMBIAR MAS A DELANTE
 				$request_bitacora = "";
 
-				if ($id_usuario == 0) {
+				if ($cod_cliente == 0) {
 					$option = 1; //LA OPCIÓN ES 1, ENTONCES ESTARÁ INSERTANDO
 					//$strPassword =  empty($_POST['txtPassword']) ? hash("SHA256", passGenerator()) : hash("SHA256", $_POST['txtPassword']);
-					$strPassword = hash("SHA256", $_POST['txtPassword']);
+					//$strPassword = hash("SHA256", $_POST['txtPassword']);
 
 
 
 					if ($_SESSION['permisosMod']['w']) {
-						$request_user = $this->model->insertUsuario(
-							$strusuario,
-							$strnombre_usuario,
-							$strEmail,
-							$strPassword,
-							$intTipoId,
-							$intestado
+						$request_user = $this->model->insertCliente(
+						$strRtn,
+		                $strNombres,
+		                $strApellidos,
+		                $intTelefono,
+		                $strEmail,
+		                $strDireccion,
+		                $cod_genero
+		
 						);
-
-
-
-
 
 						//
 						//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora 	en caso de que se esté insertando
 						$strAccion = "CREAR";
-						$strDescripcion = "CREACION DE USUARIO";
+						$strDescripcion = "CREACION DE CLIENTE";
 
 						//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
-						$request_bitacora = $this->model->insertUsuarioBitacora(
+						$request_bitacora = $this->model->insertClientesBitacora(
 							$dateFecha,
 							$intIdUsuario,
 							$intIdObjeto,
@@ -112,25 +111,25 @@ class Clientes extends Controllers
 
 				} else {
 					$option = 2; //SI OPTION ES 2, ENTONCES ESTARÁ ACTUALIZANDO
-					$strPassword =  empty($_POST['txtPassword']) ? "" : hash("SHA256", $_POST['txtPassword']);
 					if ($_SESSION['permisosMod']['u']) {
-						$request_user = $this->model->updateUsuario(
-							$id_usuario,
-							$strusuario,
-							$strnombre_usuario,
-							$strEmail,
-							$strPassword,
-							$intTipoId,
-							$intestado
+						$request_user = $this->model->updateCliente(
+							$cod_cliente,
+							$strRtn,
+		                    $strNombres,
+		                    $strApellidos,
+		                    $intTelefono,
+		                    $strEmail,
+		                    $strDireccion,
+		                    $cod_genero
 						);
 					}
 
 					//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora 	en caso de que se esté ACTUALIZANDO
 					$strAccion = "ACTUALIZAR";
-					$strDescripcion = "ACTUALIZACIÓN DE USUARIO";
+					$strDescripcion = "ACTUALIZACIÓN DE CLIENTE";
 
 					//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
-					$request_bitacora = $this->model->insertUsuarioBitacora(
+					$request_bitacora = $this->model->insertClientesBitacora(
 						$dateFecha,
 						$intIdUsuario,
 						$intIdObjeto,
@@ -141,36 +140,7 @@ class Clientes extends Controllers
 
 				if ($request_user > 0) {
 					if ($option == 1) {
-
-
-						$dataUsuario = array(
-							'nombreUsuario' => $strnombre_usuario,
-							'usuario' => $strusuario,
-							'email' => $strEmail,
-							'asunto' => 'Mostrar cuenta - ' . NOMBRE_REMITENTE,
-							'contrasena' => $contrasena
-						);
-
-
-
-						// try {
-						sendMailLocal($dataUsuario, 'email_usuario'); //ENVIAR CORREO
 						$arrResponse = array('status' => true, 'msg' => 'Datos guardados correctamente.');
-						// } catch (Exception $e) {
-						// 	$arrResponse = array('status' => false, 'msg' => 'No se puedo enviar el correo .Datos se guardaron correctamente.');
-						// }
-
-
-						// $resultadoEnvioCorreo = sendMailLocal($dataUsuario, 'email_usuario');
-						// if ($resultadoEnvioCorreo === false) {
-						// 	$arrResponse = array('status' => false, 'msg' => 'No se pudo enviar el correo. Los datos se guardaron correctamente.');
-						// } else {
-						// 	$arrResponse = array('status' => true, 'msg' => 'Datos guardados correctamente.');
-						// }
-
-
-
-						//
 					} else {
 						$arrResponse = array('status' => true, 'msg' => 'Datos Actualizados correctamente.');
 					}
@@ -179,14 +149,15 @@ class Clientes extends Controllers
 				} else {
 					$arrResponse = array("status" => false, "msg" => 'No es posible almacenar los datos.');
 				}
-			} else {
-				$arrResponse = array("status" => false, "msg" => 'No se pueden ingresar números ni caracteres especiales');
 			}
 
 			echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
 		}
 		die();
 	}
+
+
+	
 
 	public function getClientes()
 	{
@@ -197,28 +168,19 @@ class Clientes extends Controllers
 				$btnEdit = '';
 				$btnDelete = '';
 
-				// if ($arrData[$i]['estado'] == 1) {
-				// 	$arrData[$i]['estado'] = '<span class="badge badge-success">ACTIVO</span>';   //Aqui le asigna Activo si es 1
-				// } else if ($arrData[$i]['estado'] == 2) {
-				// 	$arrData[$i]['estado'] = '<span class="badge badge-danger">INACTIVO</span>';
-				// } else if ($arrData[$i]['estado'] == 3) {
-				// 	$arrData[$i]['estado'] = '<span class="badge badge-info">NUEVO</span>';
-				// } else if ($arrData[$i]['estado'] == 4) {
-				// 	$arrData[$i]['estado'] = '<span class="badge badge-danger">BLOQUEADO</span>';
-				// }
 
 				if ($_SESSION['permisosMod']['r']) {
 					$btnView = '<button class="btn btn-info btn-sm btnViewCliente" onClick="fntViewCliente(' . $arrData[$i]['cod_cliente'] . ')" title="Ver cliente"><i class="far fa-eye"></i></button>';
 				}
 			
 				if ($_SESSION['permisosMod']['u']) {
-					$btnEdit = '<button class="btn btn-primary  btn-sm btnEditUsuario" onClick="fntEditUsuario(this,' . $arrData[$i]['cod_cliente'] . ')" title="Editar cliente"><i class="fas fa-pencil-alt"></i></button>';
+					$btnEdit = '<button class="btn btn-primary  btn-sm btnEditCliente" onClick="fntEditCliente(this,' . $arrData[$i]['cod_cliente'] . ')" title="Editar cliente"><i class="fas fa-pencil-alt"></i></button>';
 				} else {
 					$btnEdit = '<button class="btn btn-secondary btn-sm" disabled ><i class="fas fa-pencil-alt"></i></button>';
 				}
 			
 				if ($_SESSION['permisosMod']['d']) {
-					$btnDelete = '<button class="btn btn-danger btn-sm btnDelUsuario" onClick="fntDelUsuario(' . $arrData[$i]['cod_cliente'] . ')" title="Eliminar cliente"><i class="far fa-trash-alt"></i></button>';
+					$btnDelete = '<button class="btn btn-danger btn-sm btnDelCliente" onClick="fntDelCliente(' . $arrData[$i]['cod_cliente'] . ')" title="Eliminar cliente"><i class="far fa-trash-alt"></i></button>';
 				} else {
 					$btnDelete = '<button class="btn btn-secondary btn-sm" disabled ><i class="far fa-trash-alt"></i></button>';
 				}
@@ -229,12 +191,12 @@ class Clientes extends Controllers
 		die();
 	}
 
-	public function getUsuario($id_usuario)
+	public function getCliente($cod_cliente)
 	{
 		if ($_SESSION['permisosMod']['r']) {
-			$id_usuario = intval($id_usuario);
-			if ($id_usuario > 0) {
-				$arrData = $this->model->selectUsuario($id_usuario);
+			$cod_cliente = intval($cod_cliente);
+			if ($cod_cliente > 0) {
+				$arrData = $this->model->selectCliente($cod_cliente);
 				if (empty($arrData)) {
 					$arrResponse = array('status' => false, 'msg' => 'Datos no encontrados.');
 				} else {
@@ -246,12 +208,33 @@ class Clientes extends Controllers
 		die();
 	}
 
-	public function delUsuario()
+
+	public function getSelectGenero()
+	{
+		$htmlOptions = "";
+		$arrData = $this->model->selectGenero();
+		if (count($arrData) > 0) {
+			for ($i = 0; $i < count($arrData); $i++) {
+			//   if ($arrData[$i]['cod_genero'] == 1) {
+					$htmlOptions .= '<option value="' . $arrData[$i]['cod_genero'] . '">' . $arrData[$i]['nombre_genero'] . '</option>';
+			// }
+			}
+		}
+		echo $htmlOptions;
+		die();
+	}
+
+
+
+
+
+	
+	public function delCliente()
 	{
 		if ($_POST) {
 			if ($_SESSION['permisosMod']['d']) {
-				$intid_usuario = intval($_POST['id_usuario']);
-				$requestDelete = $this->model->deleteUsuario($intid_usuario);
+				$cod_cliente = intval($_POST['cod_cliente']);
+				$requestDelete = $this->model->deleteCliente($cod_cliente);
 
 				//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora
 				//SE PUEDEN USAR PARA INSERTAR O ACTUALIZAR PORQUE SERÍAN LOS MISMOS DATOS
@@ -260,25 +243,22 @@ class Clientes extends Controllers
 				$intIdObjeto = 2;
 				$request_bitacora = "";
 
-				if ($requestDelete == 'ok') {
-					$arrResponse = array('status' => true, 'msg' => 'Se ha eliminado el usuario');
+				if ($requestDelete) {
+					$arrResponse = array('status' => true, 'msg' => 'Se ha eliminado el cliente');
 
 					$strAccion = "ELIMINAR";
-					$strDescripcion = "ELIMINACION DE USUARIO";
+					$strDescripcion = "ELIMINACION DE CLIENTE";
 
 					//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
-					$request_bitacora = $this->model->insertUsuarioBitacora(
+					$request_bitacora = $this->model->insertClientesBitacora(
 						$dateFecha,
 						$intIdUsuario,
 						$intIdObjeto,
 						$strAccion,
 						$strDescripcion
 					);
-				} else if ($requestDelete == 'exist') {
-					$requestUsuarioInactivo = $this->model->updateUsuarioInactivo($intid_usuario);
-					$arrResponse = array('statusReferencial' => true, 'msg' => 'No es posible eliminar por Integridad Referencial');
 				} else {
-					$arrResponse = array('status' => false, 'msg' => 'Error al eliminar el usuario.');
+					$arrResponse = array('status' => false, 'msg' => 'Error al eliminar cliente.');
 				}
 
 				echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
@@ -300,79 +280,6 @@ class Clientes extends Controllers
 
 
 
-
-
-
-
-
-	public function perfil()
-	{
-		$data['page_tag'] = "Perfil";
-		$data['page_title'] = "Perfil de usuario";
-		$data['page_name'] = "perfil";
-		$data['page_functions_js'] = "functions_usuarios.js";
-		$this->views->getView($this, "perfil", $data);
-	}
-
-	public function putPerfil()
-	{
-		if ($_POST) {
-			if (empty($_POST['txtusuario']) || empty($_POST['txtNombre']) || empty($_POST['txtpreguntas_contestadas'])) {
-				$arrResponse = array("status" => false, "msg" => 'Datos incorrectos.');
-			} else {
-				$id_usuario = $_SESSION['idUser'];
-				$strusuario = strClean($_POST['txtusuario']);
-				$strNombre = strClean($_POST['txtNombre']);
-				//$strApellido = strClean($_POST['txtApellido']);
-				$intpreguntas_contestadas = intval(strClean($_POST['txtpreguntas_contestadas']));
-				$strPassword = "";
-				if (!empty($_POST['txtPassword'])) {
-					$strPassword = hash("SHA256", $_POST['txtPassword']);
-				}
-				$request_user = $this->model->updatePerfil(
-					$id_usuario,
-					$strusuario,
-					$strNombre,
-					$intpreguntas_contestadas,
-					$strPassword
-				);
-				if ($request_user) {
-					sessionUser($_SESSION['idUser']);
-					$arrResponse = array('status' => true, 'msg' => 'Datos Actualizados correctamente.');
-				} else {
-					$arrResponse = array("status" => false, "msg" => 'No es posible actualizar los datos.');
-				}
-			}
-			echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
-		}
-		die();
-	}
-
-	public function putDFical()
-	{
-		if ($_POST) {
-			if (empty($_POST['txtNit']) || empty($_POST['txtNombreFiscal']) || empty($_POST['txtDirFiscal'])) {
-				$arrResponse = array("status" => false, "msg" => 'Datos incorrectos.');
-			} else {
-				$id_usuario = $_SESSION['idUser'];
-				$strNit = strClean($_POST['txtNit']);
-				$strNomFiscal = strClean($_POST['txtNombreFiscal']);
-				$strDirFiscal = strClean($_POST['txtDirFiscal']);
-				$request_datafiscal = $this->model->updateDataFiscal(
-					$id_usuario,
-					$strNit,
-					$strNomFiscal,
-					$strDirFiscal
-				);
-				if ($request_datafiscal) {
-					sessionUser($_SESSION['idUser']);
-					$arrResponse = array('status' => true, 'msg' => 'Datos Actualizados correctamente.');
-				} else {
-					$arrResponse = array("status" => false, "msg" => 'No es posible actualizar los datos.');
-				}
-			}
-			echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
-		}
-		die();
-	}
+	
+	
 }
