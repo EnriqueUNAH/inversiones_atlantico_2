@@ -20,7 +20,7 @@
                 </div>
                 <div class="form-group col-md-4">
                   <label for="txtNombre">Nombre Descuento<span class="required">*</span></label>
-                  <input type="text" class="form-control valid validText" id="txtNombre" name="txtNombre" required="">
+                  <input type="text" onkeyup="this.value = this.value.toUpperCase();" class="form-control valid validText" id="txtNombre" name="txtNombre" required="">
                 </div>
               </div>
               <div class="form-row">
