@@ -3,50 +3,49 @@
 class ClientesModel extends Mysql
 {
 	private $cod_cliente;
-	private $strusuario;
-	private $strNombre;
-	private $strApellido;
-	private $intpreguntas_contestadas;
+	private $strRtn;
+	private $strNombres;
+	private $strApellidos;
+	private $intTelefono;
 	private $strEmail;
-	private $strPassword;
-	private $strToken;
-	private $intTipoId;
-	private $intStatus;
-	private $strNit;
-	private $strNomFiscal;
-	private $strDirFiscal;
+	private $strDireccion;
+	private $cod_genero;
+	
 
 	public function __construct()
 	{
 		parent::__construct();
 	}
 
-	public function insertUsuario(string $usuario, string $nombre, string $email, string $password, int $tipoid, int $status)
+	public function insertCliente(int $rtn, string $nombres, string $apellidos, int $telefono, string $correo_electronico, string $direccion, int $cod_genero)
 	{
-		$this->strusuario = $usuario;
-		$this->strNombre = $nombre;
-		$this->strEmail = $email;
-		$this->strPassword = $password;
-		$this->intTipoId = $tipoid;
+		$this->strRtn = $rtn;
+		$this->strNombres = $nombres;
+		$this->strApellidos = $apellidos;
+		$this->intTelefono = $telefono;
+		$this->strEmail = $correo_electronico;
+		$this->strDireccion = $direccion;
+		$this->cod_genero = $cod_genero;
 		$this->strCreadoPor = $_SESSION['elUsuario'];
-		$this->intStatus = $status;
+		
 		$return = 0;
 
-		$sql = "SELECT * FROM tbl_ms_usuarios WHERE 
-					correo_electronico = '{$this->strEmail}' or usuario = '{$this->strusuario}' ";
+		$sql = "SELECT * FROM tbl_cliente WHERE 
+					correo_electronico = '{$this->strEmail}' or nombres = '{$this->strNombres}' ";
 		$request = $this->select_all($sql);
 
 		if (empty($request)) {
-			$query_insert  = "INSERT INTO tbl_ms_usuarios(usuario,nombre_usuario,correo_electronico,contrasena,id_rol,creado_por,estado) 
-								  VALUES(?,?,?,?,?,?,?)";
+			$query_insert  = "INSERT INTO tbl_cliente(rtn,nombres,apellidos,telefono,correo_electronico,direccion,cod_genero,creado_por) 
+								  VALUES(?,?,?,?,?,?,?,?)";
 			$arrData = array(
-				$this->strusuario,
-				$this->strNombre,
+				$this->strRtn,
+				$this->strNombres,
+				$this->strApellidos,
+				$this->intTelefono,
 				$this->strEmail,
-				$this->strPassword,
-				$this->intTipoId,
-				$this->strCreadoPor,
-				$this->intStatus
+				$this->strDireccion,
+				$this->cod_genero,
+				$this->strCreadoPor
 			);
 			$request_insert = $this->insert($query_insert, $arrData);
 			$return = $request_insert;
@@ -58,7 +57,7 @@ class ClientesModel extends Mysql
 
 
 
-	//Función para que inserte en bitácora cada vez que se agrega un nuevo usuario
+	//Función para que inserte en bitácora cada vez que se agrega un nuevo Cliente
 	public function insertClientesBitacora(string $fecha, int $idUsuario, int $idObjeto, string $accion, string $descripcion)
 	{
 
@@ -84,15 +83,6 @@ class ClientesModel extends Mysql
 		return $return;
 	}
 
-	// public static function evento_bitacora($id_objeto,$id_usuario,$accion,$descripcion)
-	// 	{
-	// 		   require ('../clases/Conexion.php');
-
-	// 		   		$sql = "INSERT INTO  tbl_ms_bitacora (Id_objeto, id_usuario,Fecha, Accion , Descripcion)
-	// 			 VALUES ('$id_objeto', '$id_usuario' , sysdate(), '$accion', '$descripcion')";
-
-	// 		$resultado = $mysqli->query($sql);
-	// 	}
 
 
 
@@ -102,172 +92,107 @@ class ClientesModel extends Mysql
 		if ($_SESSION['idUser'] != 1) {
 			$whereAdmin = " and p.cod_cliente != 1 ";
 		}
-		$sql = "SELECT p.cod_cliente,p.rtn,p.nombres,p.apellidos,p.telefono,p.correo_electronico,p.direccion 
+		$sql = "SELECT p.cod_cliente,p.rtn,p.nombres,p.apellidos,p.telefono,p.correo_electronico,p.direccion
 					FROM tbl_cliente p 
-					-- INNER JOIN tbl_ms_roles r
-					-- ON p.id_rol = r.id_rol
+					-- INNER JOIN tbl_genero r
+					-- ON p.cod_genero = r.cod_genero
 					-- WHERE p.estado != 0
                      " . $whereAdmin;
 		$request = $this->select_all($sql);
 		return $request;
 	}
 
+
+	public function selectGenero()
+		{
+			$whereAdmin = "";
+			if($_SESSION['idUser'] != 1 ){
+				$whereAdmin = " and cod_genero != 1 ";
+			}
+			//EXTRAE ROLES
+			$sql = "SELECT * FROM tbl_genero ".$whereAdmin;
+			$request = $this->select_all($sql);
+			return $request;
+		}
+
+
 	//Muestra los datos en el botón ver más
 	public function selectCliente(int $cod_cliente)
 	{
 		$this->cod_cliente= $cod_cliente;
-		$sql = "SELECT p.cod_cliente,p.rtn,p.nombres,p.apellidos,p.telefono,p.correo_electronico,p.direccion,DATE_FORMAT(p.fecha_registro, '%d-%m-%Y'),
-		p.cod_genero,p.estado,p.creado_por,DATE_FORMAT(p.fecha_creacion, '%d-%m-%Y'),p.modificado_por,p.fecha_modificacion 
-					FROM tbl_cliente p
-					-- INNER JOIN tbl_ms_roles r
-					-- ON p.id_rol = r.id_rol
+		$sql = "SELECT p.cod_cliente,p.rtn,p.nombres,p.apellidos,p.telefono,p.correo_electronico,p.direccion,
+		p.cod_genero,r.nombre_genero,p.creado_por,p.modificado_por,p.fecha_modificacion, DATE_FORMAT(p.fecha_creacion, '%Y-%m-%d %H:%i:%s') as fecha_creacion  
+					FROM tbl_genero r
+					INNER JOIN tbl_cliente p
+					ON p.cod_genero = r.cod_genero
 					WHERE p.cod_cliente = $this->cod_cliente";
 		$request = $this->select($sql);
 		return $request;
 	}
 
-
-
-
-
-	public function updateUsuario(int $idUsuario, string $usuario, string $nombre, string $email, string $password, int $tipoid, int $estado)
+	public function updateCliente(int $cod_cliente,int $rtn, string $nombres, string $apellidos, int $telefono, string $correo_electronico, string $direccion, int $cod_genero)
 	{
 
-		$this->intIdUsuario = $idUsuario;
-		$this->strusuario = $usuario;
-		$this->strNombre = $nombre;
-		$this->strEmail = $email;
-		$this->strPassword = $password;
-		$this->intTipoId = $tipoid;
+		$this->cod_cliente = $cod_cliente;
+		$this->strRtn = $rtn;
+		$this->strNombres = $nombres;
+		$this->strApellidos = $apellidos;
+		$this->intTelefono = $telefono;
+		$this->strEmail = $correo_electronico;
+		$this->strDireccion = $direccion;
+		$this->cod_genero = $cod_genero;
 		$this->strModificadoPor = $_SESSION['elUsuario'];
 		$this->fechaModificacion = date('Y-m-d H:i:s');
-		$this->intStatus = $estado;
+		
 
-		$sql = "SELECT * FROM tbl_ms_usuarios WHERE (correo_electronico = '{$this->strEmail}' AND id_usuario != $this->intIdUsuario)
-										  OR (usuario = '{$this->strusuario}' AND id_usuario != $this->intIdUsuario) ";
+		$sql = "SELECT * FROM tbl_cliente WHERE nombres = '{$this->strNombres}' AND cod_cliente != $this->cod_cliente" ;
 		$request = $this->select_all($sql);
 
 		if (empty($request)) {
-			if ($this->strPassword  != "") {
-				$sql = "UPDATE tbl_ms_usuarios SET usuario=?, nombre_usuario=?, correo_electronico=?, contrasena=?, id_rol=?, modificado_por=?, fecha_modificacion=?, estado=? 
-							WHERE id_usuario = $this->intIdUsuario ";
-				$arrData = array(
-					$this->strusuario,
-					$this->strNombre,
-					$this->strEmail,
-					$this->strPassword,
-					$this->intTipoId,
-					$this->strModificadoPor,
-					$this->fechaModificacion,
-					$this->intStatus
-				);
-			} else {
-				$sql = "UPDATE tbl_ms_usuarios SET usuario=?, nombre_usuario=?, correo_electronico=?, id_rol=?, modificado_por=?, fecha_modificacion=?, estado=? 
-							WHERE id_usuario = $this->intIdUsuario ";
-				$arrData = array(
-					$this->strusuario,
-					$this->strNombre,
-					$this->strEmail,
-					$this->intTipoId,
-					$this->strModificadoPor,
-					$this->fechaModificacion,
-					$this->intStatus
-				);
-			}
+
+			$sql = "UPDATE tbl_cliente SET rtn=?, nombres=?, apellidos=? , telefono=?, correo_electronico=?, direccion=?, Cod_genero=?, modificado_por=?, fecha_modificacion=?
+							WHERE cod_cliente = $this->cod_cliente ";
+			$arrData = array(
+				$this->strRtn ,
+				$this->strNombres,
+				$this->strApellidos,
+				$this->intTelefono,
+				$this->strEmail,
+                $this->strDireccion,
+                $this->cod_genero,
+				$this->strModificadoPor,
+				$this->fechaModificacion
+
+			);
+
 			$request = $this->update($sql, $arrData);
 		} else {
 			$request = "exist";
 		}
 		return $request;
 	}
-	public function deleteUsuario(int $intid_usuario)
+
+
+
+	public function deleteCliente(int $cod_cliente)
 	{
-		$this->intIdUsuario = $intid_usuario;
-
-		$sql = "SELECT * FROM tbl_ms_bitacora WHERE id_usuario = $this->intIdUsuario";
-		$request = $this->select_all($sql);
-		if (empty($request)) {
-
-			$sql = "DELETE FROM tbl_ms_usuarios WHERE id_usuario = $this->intIdUsuario ";
-			$request = $this->delete($sql);
-			if ($request) {
-				$request = 'ok';
-			} else {
-				$request = 'error';
-			}
-		} else {
-			$request = 'exist';
-		}
-		return $request;
-	}
-
-	public function updateUsuarioInactivo(int $idUsuario)
-	{
-		$this->intid_Usuario = $idUsuario;
-
-		$sql = "SELECT * FROM tbl_ms_usuarios WHERE id_usuario = $this->intid_Usuario";
-		$request = $this->select_all($sql);
-
+		$this->cod_cliente = $cod_cliente;
+		// $sql = "SELECT * FROM tbl_ms_parametros WHERE id_parametro = $this->intid_parametro";
+		// $request = $this->select_all($sql);
+		// if (empty($request)) {
+		$sql = "DELETE FROM tbl_cliente WHERE cod_cliente = $this->cod_cliente";
+		$request = $this->delete($sql);
 		if ($request) {
-			$sql = "UPDATE tbl_ms_usuarios SET estado = ? WHERE id_usuario = $this->intid_Usuario ";
-			$arrData = array(2);
-			$request = $this->update($sql, $arrData);
-		}
-		return $request;
-	}
-
-
-
-
-
-
-	public function updatePerfil(int $idUsuario, string $usuario, string $nombre, int $preguntas_contestadas, string $password)
-	{
-		$this->intIdUsuario = $idUsuario;
-		$this->strusuario = $usuario;
-		$this->strNombre = $nombre;
-		//$this->strApellido = $apellido;
-		$this->intpreguntas_contestadas = $preguntas_contestadas;
-		$this->strPassword = $password;
-
-		if ($this->strPassword != "") {
-			$sql = "UPDATE tbl_ms_usuarios SET usuario=?, nombre_usuario=?, preguntas_contestadas=?, contrasena=? 
-						WHERE id_usuario = $this->intIdUsuario ";
-			$arrData = array(
-				$this->strusuario,
-				$this->strNombre,
-				//$this->strApellido,
-				$this->intpreguntas_contestadas,
-				$this->strPassword
-			);
+			$request = 'ok';
 		} else {
-			$sql = "UPDATE tbl_ms_usuarios SET usuario=?, nombre_usuario=?, preguntas_contestadas=? 
-						WHERE id_usuario = $this->intIdUsuario ";
-			$arrData = array(
-				$this->strusuario,
-				$this->strNombre,
-				//$this->strApellido,
-				$this->intpreguntas_contestadas
-			);
+			$request = 'error';
 		}
-		$request = $this->update($sql, $arrData);
+		// } else {
+		// 	$request = 'exist';
+		// }
 		return $request;
 	}
 
-	public function updateDataFiscal(int $idUsuario, string $strNit, string $strNomFiscal, string $strDirFiscal)
-	{
-		$this->intIdUsuario = $idUsuario;
-		$this->strNit = $strNit;
-		$this->strNomFiscal = $strNomFiscal;
-		$this->strDirFiscal = $strDirFiscal;
-		$sql = "UPDATE tbl_ms_usuarios SET nit=?, nombrefiscal=?, direccionfiscal=? 
-						WHERE id_usuario = $this->intIdUsuario ";
-		$arrData = array(
-			$this->strNit,
-			$this->strNomFiscal,
-			$this->strDirFiscal
-		);
-		$request = $this->update($sql, $arrData);
-		return $request;
-	}
+	
+
 }

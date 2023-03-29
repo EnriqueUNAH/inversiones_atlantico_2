@@ -147,7 +147,15 @@ function fntEditObjeto(element, id_objeto) {
         document.querySelector("#id_objeto").value = objData.data.id_objeto;
         document.querySelector("#txtobjeto").value = objData.data.objeto;
         document.querySelector("#txtdescripcion").value = objData.data.descripcion;
+
+        //Si recibe un usuario, quiere decir que está editando,
+        //entonces coloca el input de Usuario como solo lectura
+        if (id_objeto) {
+          document.querySelector("#txtobjeto").setAttribute("readonly", true);
+        }
+
       }
+
     }
 
     $("#modalFormObjetos").modal("show");
@@ -199,6 +207,7 @@ function fntDelObjeto(id_objeto) {
 function openModal() {
   rowTable = "";
   document.querySelector("#id_objeto").value = "";
+  document.querySelector("#txtobjeto").removeAttribute("readonly"); //Para quitar el readonly en caso de que antes se haya editado
   document.querySelector(".modal-header").classList.replace("headerUpdate", "headerRegister");
   document.querySelector("#btnActionForm").classList.replace("btn-info", "btn-primary");
   document.querySelector("#btnText").innerHTML = "Guardar";

@@ -137,7 +137,7 @@ class Objetos extends Controllers
 			for ($i = 0; $i < count($arrData); $i++) {
 			
 				$btnEdit = '';
-				$btnDelete = '';
+				//$btnDelete = '';
 
 				if ($_SESSION['permisosMod']['u']) {
 					$btnEdit = '<button class="btn btn-primary  btn-sm btnEditObjeto" onClick="fntEditObjeto(this,' . $arrData[$i]['id_objeto'] . ')" title="Editar objeto"><i class="fas fa-pencil-alt"></i></button>';
@@ -145,12 +145,13 @@ class Objetos extends Controllers
 					$btnEdit = '<button class="btn btn-secondary btn-sm" disabled ><i class="fas fa-pencil-alt"></i></button>';
 				}
 
-				if ($_SESSION['permisosMod']['d']) {
-					$btnDelete = '<button class="btn btn-danger btn-sm btnDelObjeto" onClick="fntDelObjeto(' . $arrData[$i]['id_objeto'] . ')" title="Eliminar objeto"><i class="far fa-trash-alt"></i></button>';
-				} else {
-					$btnDelete = '<button class="btn btn-secondary btn-sm" disabled ><i class="far fa-trash-alt"></i></button>';
-				}
-				$arrData[$i]['options'] = '<div class="text-center">' . $btnEdit . ' ' . $btnDelete . '</div>';
+				// if ($_SESSION['permisosMod']['d']) {
+				// 	$btnDelete = '<button class="btn btn-danger btn-sm btnDelObjeto" onClick="fntDelObjeto(' . $arrData[$i]['id_objeto'] . ')" title="Eliminar objeto"><i class="far fa-trash-alt"></i></button>';
+				// } else {
+				// 	$btnDelete = '<button class="btn btn-secondary btn-sm" disabled ><i class="far fa-trash-alt"></i></button>';
+				// }
+
+				$arrData[$i]['options'] = '<div class="text-center">' . $btnEdit . ' </div>';
 			}
 			echo json_encode($arrData, JSON_UNESCAPED_UNICODE);
 		}
