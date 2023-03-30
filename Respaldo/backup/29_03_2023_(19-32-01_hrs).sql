@@ -1,0 +1,1978 @@
+SET FOREIGN_KEY_CHECKS=0;
+
+CREATE DATABASE IF NOT EXISTS db_inversiones_atlantico;
+
+USE db_inversiones_atlantico;
+
+DROP TABLE IF EXISTS categoria;
+
+CREATE TABLE `categoria` (
+  `idcategoria` bigint NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
+  `descripcion` text CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
+  `portada` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
+  `datecreated` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `ruta` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
+  `estado` int NOT NULL DEFAULT '1',
+  PRIMARY KEY (`idcategoria`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
+
+INSERT INTO categoria VALUES("1","Hombre","Artículos de moda","img_125e45445bd33723d025d7f815ca29f7.jpg","2021-08-20 03:04:04","hombre","1");
+INSERT INTO categoria VALUES("2","Audio y Videojuegos","Lo mejor en tecnología","img_78678a3fe95890d155115d5301e0761d.jpg","2021-08-21 00:47:10","audio-y-videojuegos","1");
+
+
+
+DROP TABLE IF EXISTS imagen;
+
+CREATE TABLE `imagen` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `productoid` bigint NOT NULL,
+  `img` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `productoid` (`productoid`),
+  CONSTRAINT `imagen_ibfk_1` FOREIGN KEY (`productoid`) REFERENCES `producto` (`idproducto`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
+
+
+
+
+DROP TABLE IF EXISTS pedido;
+
+CREATE TABLE `pedido` (
+  `idpedido` bigint NOT NULL AUTO_INCREMENT,
+  `referenciacobro` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci DEFAULT NULL,
+  `idtransaccionpaypal` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci DEFAULT NULL,
+  `datospaypal` text CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci,
+  `personaid` bigint NOT NULL,
+  `fecha` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `costo_envio` decimal(10,2) NOT NULL DEFAULT '0.00',
+  `monto` decimal(11,2) NOT NULL,
+  `tipopagoid` bigint NOT NULL,
+  `direccion_envio` text CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
+  `estado` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci DEFAULT NULL,
+  PRIMARY KEY (`idpedido`),
+  KEY `personaid` (`personaid`),
+  KEY `tipopagoid` (`tipopagoid`),
+  CONSTRAINT `pedido_ibfk_1` FOREIGN KEY (`personaid`) REFERENCES `tbl_ms_usuarios` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `pedido_ibfk_2` FOREIGN KEY (`tipopagoid`) REFERENCES `tipopago` (`idtipopago`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
+
+
+
+
+DROP TABLE IF EXISTS producto;
+
+CREATE TABLE `producto` (
+  `idproducto` bigint NOT NULL AUTO_INCREMENT,
+  `categoriaid` bigint NOT NULL,
+  `codigo` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
+  `nombre` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
+  `descripcion` text CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
+  `precio` decimal(11,2) NOT NULL,
+  `stock` int NOT NULL,
+  `imagen` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci DEFAULT NULL,
+  `datecreated` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `ruta` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
+  `estado` int NOT NULL DEFAULT '1',
+  PRIMARY KEY (`idproducto`),
+  KEY `categoriaid` (`categoriaid`),
+  CONSTRAINT `producto_ibfk_1` FOREIGN KEY (`categoriaid`) REFERENCES `categoria` (`idcategoria`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
+
+
+
+
+DROP TABLE IF EXISTS tbl_cliente;
+
+CREATE TABLE `tbl_cliente` (
+  `cod_cliente` int NOT NULL AUTO_INCREMENT,
+  `rtn` varchar(14) DEFAULT NULL,
+  `nombres` varchar(100) NOT NULL,
+  `apellidos` varchar(100) DEFAULT NULL,
+  `telefono` int DEFAULT NULL,
+  `correo_electronico` varchar(30) DEFAULT NULL,
+  `direccion` varchar(255) DEFAULT NULL,
+  `cod_genero` int DEFAULT NULL,
+  `creado_por` varchar(45) DEFAULT NULL,
+  `fecha_creacion` datetime DEFAULT NULL,
+  `modificado_por` varchar(45) DEFAULT NULL,
+  `fecha_modificacion` datetime DEFAULT NULL,
+  PRIMARY KEY (`cod_cliente`),
+  KEY `tbl_Genero_Cod_Genero_idx` (`cod_genero`),
+  CONSTRAINT `Cliente_CodGenero` FOREIGN KEY (`cod_genero`) REFERENCES `tbl_genero` (`cod_genero`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+INSERT INTO tbl_cliente VALUES("6","801200198769","LOURDES MERARI","AGUILAR CASTRO","90546783","merari@yahoo.es","COL. VILLA NUEVA","1","ADMIN","","ADMIN","2023-03-28 19:46:28");
+INSERT INTO tbl_cliente VALUES("7","801200208766","LUIS JOSEE","FLORES PEREZZ","98945678","luis@gmail.com","COL. VILLA VIEJA","2","ADMIN","","ADMIN","2023-03-29 19:07:49");
+INSERT INTO tbl_cliente VALUES("9","801200009165","DORCA NINOSCA","AGUILAR CASTRO","98345672","dorca_aguilar@yahoo.es","COL. LOS PINOS","1","ADMIN","","","");
+
+
+
+DROP TABLE IF EXISTS tbl_compra;
+
+CREATE TABLE `tbl_compra` (
+  `cod_compra` int NOT NULL AUTO_INCREMENT,
+  `total_pagado` decimal(8,2) DEFAULT NULL,
+  `fecha` datetime DEFAULT NULL,
+  `isv` decimal(8,2) DEFAULT NULL,
+  PRIMARY KEY (`cod_compra`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+
+
+DROP TABLE IF EXISTS tbl_configuracion_cai;
+
+CREATE TABLE `tbl_configuracion_cai` (
+  `cod_talonario` int NOT NULL AUTO_INCREMENT,
+  `rango_inicial` int DEFAULT NULL,
+  `rango_final` int DEFAULT NULL,
+  `rango_actual` int DEFAULT NULL,
+  `numero_CAI` varchar(40) DEFAULT NULL,
+  `fecha_vencimiento` datetime DEFAULT NULL,
+  `id_usuario` bigint DEFAULT NULL,
+  PRIMARY KEY (`cod_talonario`),
+  KEY `CAI_IdUsuario_idx` (`id_usuario`),
+  CONSTRAINT `CAI_IdUsuario` FOREIGN KEY (`id_usuario`) REFERENCES `tbl_ms_usuarios` (`id_usuario`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+
+
+DROP TABLE IF EXISTS tbl_descuento;
+
+CREATE TABLE `tbl_descuento` (
+  `cod_descuento` int NOT NULL AUTO_INCREMENT,
+  `nombre_descuento` varchar(20) DEFAULT NULL,
+  `porcentaje_descuento` decimal(8,2) DEFAULT NULL,
+  PRIMARY KEY (`cod_descuento`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+INSERT INTO tbl_descuento VALUES("1","TEMPORADA","10.00");
+
+
+
+DROP TABLE IF EXISTS tbl_detalle_compra;
+
+CREATE TABLE `tbl_detalle_compra` (
+  `cod_detalle_compra` int NOT NULL AUTO_INCREMENT,
+  `precio_compra` decimal(8,2) DEFAULT NULL,
+  `cantidad` int DEFAULT NULL,
+  `cod_producto` int DEFAULT NULL,
+  `cod_compra` int DEFAULT NULL,
+  PRIMARY KEY (`cod_detalle_compra`),
+  KEY `TBL_PRODUCTO_COD_PRODUCTO_idx` (`cod_producto`),
+  KEY `TBL_COMPRA_COD_COMPRA_idx` (`cod_compra`),
+  CONSTRAINT `DetalleCompra_CodCompra` FOREIGN KEY (`cod_compra`) REFERENCES `tbl_compra` (`cod_compra`),
+  CONSTRAINT `DetalleCompra_CodProducto` FOREIGN KEY (`cod_producto`) REFERENCES `tbl_producto` (`cod_producto`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+
+
+DROP TABLE IF EXISTS tbl_detalle_factura;
+
+CREATE TABLE `tbl_detalle_factura` (
+  `cod_detalle_factura` bigint NOT NULL AUTO_INCREMENT,
+  `cod_factura` bigint DEFAULT NULL,
+  `cod_producto` int DEFAULT NULL,
+  `cantidad` int DEFAULT NULL,
+  `precio_venta` decimal(10,2) DEFAULT NULL,
+  PRIMARY KEY (`cod_detalle_factura`),
+  KEY `DetalleFactura_CodProducto_idx` (`cod_producto`),
+  KEY `DetalleFactura_NoFactura_idx` (`cod_factura`),
+  CONSTRAINT `DetalleFactura_CodProducto` FOREIGN KEY (`cod_producto`) REFERENCES `tbl_producto` (`cod_producto`),
+  CONSTRAINT `DetalleFactura_NoFactura` FOREIGN KEY (`cod_factura`) REFERENCES `tbl_factura` (`cod_factura`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+
+
+DROP TABLE IF EXISTS tbl_detalle_produccion;
+
+CREATE TABLE `tbl_detalle_produccion` (
+  `cod_detalle_produccion` int NOT NULL AUTO_INCREMENT,
+  `cod_producto` int DEFAULT NULL,
+  `cantidad` int DEFAULT NULL,
+  `cod_produccion` int DEFAULT NULL,
+  PRIMARY KEY (`cod_detalle_produccion`),
+  KEY `DetalleProduccion_CodProduccion_idx` (`cod_produccion`),
+  KEY `DetalleProduccion_CodProducto_idx` (`cod_producto`),
+  CONSTRAINT `DetalleProduccion_CodProduccion` FOREIGN KEY (`cod_produccion`) REFERENCES `tbl_produccion` (`cod_produccion`),
+  CONSTRAINT `DetalleProduccion_CodProducto` FOREIGN KEY (`cod_producto`) REFERENCES `tbl_producto` (`cod_producto`)
+) ENGINE=InnoDB AUTO_INCREMENT=207 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+
+
+DROP TABLE IF EXISTS tbl_estante;
+
+CREATE TABLE `tbl_estante` (
+  `cod_estante` int NOT NULL,
+  `nombre_estante` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`cod_estante`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+
+
+DROP TABLE IF EXISTS tbl_factura;
+
+CREATE TABLE `tbl_factura` (
+  `cod_factura` bigint NOT NULL AUTO_INCREMENT,
+  `numero_factura` bigint DEFAULT NULL,
+  `fecha` datetime DEFAULT CURRENT_TIMESTAMP,
+  `id_usuario` bigint DEFAULT NULL,
+  `cod_cliente` int DEFAULT NULL,
+  `total` decimal(10,2) DEFAULT NULL,
+  `estado` int NOT NULL DEFAULT '1',
+  `subtotal` decimal(10,2) DEFAULT NULL,
+  `isv` decimal(10,2) DEFAULT NULL,
+  `porcentaje_isv` decimal(10,2) DEFAULT NULL,
+  PRIMARY KEY (`cod_factura`),
+  KEY `TBL_CLIENTE_COD_CLIENTE_idx` (`cod_cliente`),
+  CONSTRAINT `Venta_CodCliente` FOREIGN KEY (`cod_cliente`) REFERENCES `tbl_cliente` (`cod_cliente`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+
+
+DROP TABLE IF EXISTS tbl_factura_descuento;
+
+CREATE TABLE `tbl_factura_descuento` (
+  `cod_factura_descuento` int NOT NULL AUTO_INCREMENT,
+  `porcentaje_descontado` decimal(8,2) DEFAULT NULL,
+  `total_descontado` decimal(8,2) DEFAULT NULL,
+  `cod_factura` bigint DEFAULT NULL,
+  `cod_descuento` int DEFAULT NULL,
+  PRIMARY KEY (`cod_factura_descuento`),
+  KEY `FacturaDescuento_CodVenta_idx` (`cod_factura`),
+  KEY `FacturaDescuento_CodDescuento_idx` (`cod_descuento`),
+  CONSTRAINT `FacturaDescuento_CodDescuento` FOREIGN KEY (`cod_descuento`) REFERENCES `tbl_descuento` (`cod_descuento`),
+  CONSTRAINT `FacturaDescuento_CodVenta` FOREIGN KEY (`cod_factura`) REFERENCES `tbl_factura` (`cod_factura`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+
+
+DROP TABLE IF EXISTS tbl_factura_promocion;
+
+CREATE TABLE `tbl_factura_promocion` (
+  `cod_factura_Promocion` int NOT NULL AUTO_INCREMENT,
+  `Cantidad` int DEFAULT NULL,
+  `precio_venta` decimal(8,2) DEFAULT NULL,
+  `cod_promocion` int DEFAULT NULL,
+  `cod_factura` bigint DEFAULT NULL,
+  PRIMARY KEY (`cod_factura_Promocion`),
+  KEY `FacturaPromocion_CodVenta_idx` (`cod_factura`),
+  KEY `FacturaPromocion_CodPromocion_idx` (`cod_promocion`),
+  CONSTRAINT `FacturaPromocion_CodPromocion` FOREIGN KEY (`cod_promocion`) REFERENCES `tbl_promocion` (`cod_promocion`),
+  CONSTRAINT `FacturaPromocion_CodVenta` FOREIGN KEY (`cod_factura`) REFERENCES `tbl_factura` (`cod_factura`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+
+
+DROP TABLE IF EXISTS tbl_genero;
+
+CREATE TABLE `tbl_genero` (
+  `cod_genero` int NOT NULL AUTO_INCREMENT,
+  `nombre_genero` varchar(10) DEFAULT NULL,
+  PRIMARY KEY (`cod_genero`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+INSERT INTO tbl_genero VALUES("1","FEMENINO");
+INSERT INTO tbl_genero VALUES("2","MASCULINO");
+
+
+
+DROP TABLE IF EXISTS tbl_inventario;
+
+CREATE TABLE `tbl_inventario` (
+  `cod_inventario` int NOT NULL AUTO_INCREMENT,
+  `fecha` datetime DEFAULT NULL,
+  `descripcion` varchar(255) DEFAULT NULL,
+  `cantidad` int DEFAULT NULL,
+  `cod_producto` int DEFAULT NULL,
+  `cod_tipo_inventario` int DEFAULT NULL,
+  PRIMARY KEY (`cod_inventario`),
+  KEY `TBL_PRODUCTO_COD_PRODUCTO_idx` (`cod_producto`),
+  KEY `TBL_TIPO_INVENTARIO_COD_TIPO_INVENTARIO_idx` (`cod_tipo_inventario`),
+  CONSTRAINT `Inventario_CodTipoInventario` FOREIGN KEY (`cod_tipo_inventario`) REFERENCES `tbl_tipo_inventario` (`cod_tipo_inventario`),
+  CONSTRAINT `InventarioCodProducto` FOREIGN KEY (`cod_producto`) REFERENCES `tbl_producto` (`cod_producto`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+
+
+DROP TABLE IF EXISTS tbl_kardex;
+
+CREATE TABLE `tbl_kardex` (
+  `cod_kardex` int NOT NULL AUTO_INCREMENT,
+  `fecha` datetime DEFAULT NULL,
+  `cod_tipo_movimiento` int DEFAULT NULL,
+  `cod_producto` int DEFAULT NULL,
+  PRIMARY KEY (`cod_kardex`),
+  KEY `tbl_Producto_Cod_Producto_idx` (`cod_producto`),
+  KEY `Kardex_idTipoMovimiento_idx` (`cod_tipo_movimiento`),
+  CONSTRAINT `Kardex_CodProducto` FOREIGN KEY (`cod_producto`) REFERENCES `tbl_producto` (`cod_producto`),
+  CONSTRAINT `Kardex_idTipoMovimiento` FOREIGN KEY (`cod_tipo_movimiento`) REFERENCES `tbl_tipo_movimiento` (`cod_tipo_movimiento`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+INSERT INTO tbl_kardex VALUES("1","2023-03-17 00:00:00","1","12");
+
+
+
+DROP TABLE IF EXISTS tbl_ms_bitacora;
+
+CREATE TABLE `tbl_ms_bitacora` (
+  `id_bitacora` int NOT NULL AUTO_INCREMENT,
+  `fecha` datetime DEFAULT NULL,
+  `id_usuario` bigint DEFAULT NULL,
+  `id_objeto` bigint DEFAULT NULL,
+  `accion` varchar(20) DEFAULT NULL,
+  `descripcion` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id_bitacora`),
+  KEY `bitacora_objeto_idx` (`id_objeto`),
+  KEY `bitacora_usuario_idx` (`id_usuario`),
+  CONSTRAINT `bitacora_objeto` FOREIGN KEY (`id_objeto`) REFERENCES `tbl_ms_objetos` (`id_objeto`),
+  CONSTRAINT `bitacora_usuario` FOREIGN KEY (`id_usuario`) REFERENCES `tbl_ms_usuarios` (`id_usuario`)
+) ENGINE=InnoDB AUTO_INCREMENT=1282 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+INSERT INTO tbl_ms_bitacora VALUES("1","2023-03-06 17:09:16","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("2","2023-03-06 17:10:20","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("3","2023-03-06 17:10:22","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("4","2023-03-06 17:10:57","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("5","2023-03-06 17:11:07","1","2","ACTUALIZAR","ACTUALIZACIÓN DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("6","2023-03-06 17:11:20","19","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("7","2023-03-06 17:11:23","19","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("8","2023-03-06 17:48:36","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("9","2023-03-06 17:48:38","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("10","2023-03-06 17:49:42","1","2","INGRESO","INGRESO AL MODULO DE ROLES");
+INSERT INTO tbl_ms_bitacora VALUES("11","2023-03-06 17:50:43","1","2","INGRESO","INGRESO AL MODULO DE ROLES");
+INSERT INTO tbl_ms_bitacora VALUES("12","2023-03-06 18:03:58","1","2","INGRESO","INGRESO AL MODULO DE ROLES");
+INSERT INTO tbl_ms_bitacora VALUES("13","2023-03-06 18:04:43","1","2","INGRESO","INGRESO AL MODULO DE ROLES");
+INSERT INTO tbl_ms_bitacora VALUES("14","2023-03-06 23:37:57","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("15","2023-03-06 23:42:04","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("16","2023-03-06 23:44:59","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("17","2023-03-06 23:45:00","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("18","2023-03-06 23:45:18","1","2","ACTUALIZAR","ACTUALIZACIÓN DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("19","2023-03-06 23:45:25","20","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("20","2023-03-06 23:47:06","20","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("21","2023-03-07 00:39:52","20","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("22","2023-03-07 00:43:16","20","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("23","2023-03-07 00:43:55","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("24","2023-03-07 00:43:57","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("25","2023-03-07 00:44:16","1","2","ACTUALIZAR","ACTUALIZACIÓN DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("26","2023-03-07 00:44:27","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("27","2023-03-07 00:45:12","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("28","2023-03-07 00:45:14","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("29","2023-03-07 00:45:31","1","2","INGRESO","INGRESO AL MODULO DE ROLES");
+INSERT INTO tbl_ms_bitacora VALUES("30","2023-03-07 01:01:54","1","2","INGRESO","INGRESO AL MODULO DE ROLES");
+INSERT INTO tbl_ms_bitacora VALUES("31","2023-03-07 01:02:21","1","2","INGRESO","INGRESO AL MODULO DE ROLES");
+INSERT INTO tbl_ms_bitacora VALUES("32","2023-03-07 01:03:06","1","2","INGRESO","INGRESO AL MODULO DE ROLES");
+INSERT INTO tbl_ms_bitacora VALUES("33","2023-03-07 01:05:30","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("34","2023-03-07 01:05:36","1","2","INGRESO","INGRESO AL MODULO DE ROLES");
+INSERT INTO tbl_ms_bitacora VALUES("35","2023-03-07 01:06:24","1","2","INGRESO","INGRESO AL MODULO DE ROLES");
+INSERT INTO tbl_ms_bitacora VALUES("36","2023-03-07 01:06:41","1","2","INGRESO","INGRESO AL MODULO DE ROLES");
+INSERT INTO tbl_ms_bitacora VALUES("37","2023-03-07 01:09:48","1","2","INGRESO","INGRESO AL MODULO DE ROLES");
+INSERT INTO tbl_ms_bitacora VALUES("38","2023-03-07 01:10:28","1","2","INGRESO","INGRESO AL MODULO DE ROLES");
+INSERT INTO tbl_ms_bitacora VALUES("39","2023-03-07 01:10:49","1","2","INGRESO","INGRESO AL MODULO DE ROLES");
+INSERT INTO tbl_ms_bitacora VALUES("40","2023-03-07 01:11:33","1","2","INGRESO","INGRESO AL MODULO DE ROLES");
+INSERT INTO tbl_ms_bitacora VALUES("41","2023-03-07 01:12:27","1","2","INGRESO","INGRESO AL MODULO DE ROLES");
+INSERT INTO tbl_ms_bitacora VALUES("42","2023-03-07 01:14:13","1","2","INGRESO","INGRESO AL MODULO DE ROLES");
+INSERT INTO tbl_ms_bitacora VALUES("43","2023-03-07 22:02:57","1","2","INGRESO","INGRESO AL MODULO DE ROLES");
+INSERT INTO tbl_ms_bitacora VALUES("44","2023-03-07 22:04:08","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("45","2023-03-08 14:49:13","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("46","2023-03-08 14:49:27","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("47","2023-03-08 14:50:17","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("48","2023-03-08 14:52:21","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("49","2023-03-08 15:05:58","1","2","CREAR","CREACION DE PARAMETRO");
+INSERT INTO tbl_ms_bitacora VALUES("50","2023-03-08 15:09:13","1","2","CREAR","CREACION DE PARAMETRO");
+INSERT INTO tbl_ms_bitacora VALUES("51","2023-03-08 15:11:36","1","2","CREAR","CREACION DE PARAMETRO");
+INSERT INTO tbl_ms_bitacora VALUES("52","2023-03-08 15:20:23","1","2","CREAR","CREACION DE PARAMETRO");
+INSERT INTO tbl_ms_bitacora VALUES("53","2023-03-08 15:20:37","1","2","CREAR","CREACION DE PARAMETRO");
+INSERT INTO tbl_ms_bitacora VALUES("54","2023-03-08 15:21:38","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("55","2023-03-08 15:22:09","1","2","CREAR","CREACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("56","2023-03-08 15:24:28","1","2","CREAR","CREACION DE PARAMETRO");
+INSERT INTO tbl_ms_bitacora VALUES("57","2023-03-08 15:32:28","1","2","CREAR","CREACION DE PARAMETRO");
+INSERT INTO tbl_ms_bitacora VALUES("58","2023-03-08 15:32:52","1","2","CREAR","CREACION DE PARAMETRO");
+INSERT INTO tbl_ms_bitacora VALUES("59","2023-03-08 15:39:55","1","2","ACTUALIZAR","ACTUALIZACIÓN DE PARAMETRO");
+INSERT INTO tbl_ms_bitacora VALUES("60","2023-03-08 15:40:24","1","2","ACTUALIZAR","ACTUALIZACIÓN DE PARAMETRO");
+INSERT INTO tbl_ms_bitacora VALUES("61","2023-03-08 15:45:36","1","2","ACTUALIZAR","ACTUALIZACIÓN DE PARAMETRO");
+INSERT INTO tbl_ms_bitacora VALUES("62","2023-03-08 16:12:23","1","2","CREAR","CREACION DE PARAMETRO");
+INSERT INTO tbl_ms_bitacora VALUES("63","2023-03-08 16:16:57","1","2","ACTUALIZAR","ACTUALIZACIÓN DE PARAMETRO");
+INSERT INTO tbl_ms_bitacora VALUES("64","2023-03-08 21:41:30","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("65","2023-03-08 21:41:40","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("66","2023-03-08 21:43:05","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("67","2023-03-08 21:43:34","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("68","2023-03-08 23:05:32","1","2","ACTUALIZAR","ACTUALIZACIÓN DE PARAMETRO");
+INSERT INTO tbl_ms_bitacora VALUES("69","2023-03-08 23:12:16","1","2","ACTUALIZAR","ACTUALIZACIÓN DE PARAMETRO");
+INSERT INTO tbl_ms_bitacora VALUES("70","2023-03-08 23:12:31","1","2","ACTUALIZAR","ACTUALIZACIÓN DE PARAMETRO");
+INSERT INTO tbl_ms_bitacora VALUES("71","2023-03-08 23:18:58","1","2","INGRESO","INGRESO AL MODULO DE ROLES");
+INSERT INTO tbl_ms_bitacora VALUES("72","2023-03-08 23:21:46","1","2","INGRESO","INGRESO AL MODULO DE ROLES");
+INSERT INTO tbl_ms_bitacora VALUES("73","2023-03-08 23:22:28","1","2","CREAR","CREACION DE PARAMETRO");
+INSERT INTO tbl_ms_bitacora VALUES("74","2023-03-08 23:26:47","1","2","ELIMINAR","ELIMINACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("75","2023-03-08 23:27:23","1","2","ELIMINAR","ELIMINACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("76","2023-03-08 23:28:01","1","2","ELIMINAR","ELIMINACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("77","2023-03-09 01:03:22","1","2","CREAR","CREACION DE PARAMETRO");
+INSERT INTO tbl_ms_bitacora VALUES("78","2023-03-09 01:03:27","1","2","ELIMINAR","ELIMINACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("79","2023-03-09 01:04:05","1","2","CREAR","CREACION DE PARAMETRO");
+INSERT INTO tbl_ms_bitacora VALUES("80","2023-03-09 01:04:17","1","2","ELIMINAR","ELIMINACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("81","2023-03-09 01:05:41","1","2","ACTUALIZAR","ACTUALIZACIÓN DE PARAMETRO");
+INSERT INTO tbl_ms_bitacora VALUES("82","2023-03-09 01:05:51","1","2","ACTUALIZAR","ACTUALIZACIÓN DE PARAMETRO");
+INSERT INTO tbl_ms_bitacora VALUES("83","2023-03-09 01:07:37","1","2","ELIMINAR","ELIMINACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("84","2023-03-09 01:07:42","1","2","ELIMINAR","ELIMINACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("85","2023-03-09 01:07:45","1","2","ELIMINAR","ELIMINACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("86","2023-03-09 01:07:48","1","2","ELIMINAR","ELIMINACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("87","2023-03-09 01:07:51","1","2","ELIMINAR","ELIMINACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("88","2023-03-09 01:08:10","1","2","CREAR","CREACION DE PARAMETRO");
+INSERT INTO tbl_ms_bitacora VALUES("89","2023-03-09 01:08:52","1","2","CREAR","CREACION DE PARAMETRO");
+INSERT INTO tbl_ms_bitacora VALUES("90","2023-03-09 01:09:07","1","2","CREAR","CREACION DE PARAMETRO");
+INSERT INTO tbl_ms_bitacora VALUES("91","2023-03-09 01:09:26","1","2","CREAR","CREACION DE PARAMETRO");
+INSERT INTO tbl_ms_bitacora VALUES("92","2023-03-09 01:09:34","1","2","ELIMINAR","ELIMINACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("93","2023-03-09 01:10:01","1","2","CREAR","CREACION DE PARAMETRO");
+INSERT INTO tbl_ms_bitacora VALUES("94","2023-03-09 01:10:09","1","2","CREAR","CREACION DE PARAMETRO");
+INSERT INTO tbl_ms_bitacora VALUES("95","2023-03-09 01:12:00","1","2","CREAR","CREACION DE PARAMETRO");
+INSERT INTO tbl_ms_bitacora VALUES("96","2023-03-09 14:30:22","1","2","CREAR","CREACION DE PARAMETRO");
+INSERT INTO tbl_ms_bitacora VALUES("97","2023-03-09 14:34:12","1","2","CREAR","CREACION DE PARAMETRO");
+INSERT INTO tbl_ms_bitacora VALUES("98","2023-03-09 14:37:18","1","2","ACTUALIZAR","ACTUALIZACIÓN DE PARAMETRO");
+INSERT INTO tbl_ms_bitacora VALUES("99","2023-03-09 14:37:39","1","2","ACTUALIZAR","ACTUALIZACIÓN DE PARAMETRO");
+INSERT INTO tbl_ms_bitacora VALUES("100","2023-03-09 15:28:16","1","2","INGRESO","INGRESO AL MÓDULO PARAMETROS");
+INSERT INTO tbl_ms_bitacora VALUES("101","2023-03-09 15:28:49","1","2","INGRESO","INGRESO AL MÓDULO PARÁMETROS");
+INSERT INTO tbl_ms_bitacora VALUES("102","2023-03-09 15:30:18","1","2","INGRESO","INGRESO AL MÓDULO PARÁMETROS");
+INSERT INTO tbl_ms_bitacora VALUES("103","2023-03-09 15:30:40","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("104","2023-03-09 15:30:44","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("105","2023-03-09 15:30:48","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("106","2023-03-10 01:04:44","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("107","2023-03-10 01:04:46","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("108","2023-03-10 01:05:07","1","2","CREAR","CREACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("109","2023-03-10 01:23:58","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("110","2023-03-10 01:24:01","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("111","2023-03-10 01:24:20","1","2","CREAR","CREACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("112","2023-03-10 01:24:31","1","2","ACTUALIZAR","ACTUALIZACIÓN DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("113","2023-03-10 01:45:24","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("114","2023-03-10 01:45:27","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("115","2023-03-10 01:47:42","1","2","INGRESO","INGRESO AL MODULO DE ROLES");
+INSERT INTO tbl_ms_bitacora VALUES("116","2023-03-10 01:47:48","1","2","INGRESO","INGRESO AL MODULO OBJETOS");
+INSERT INTO tbl_ms_bitacora VALUES("117","2023-03-10 01:48:23","1","2","INGRESO","INGRESO AL MÓDULO PARÁMETROS");
+INSERT INTO tbl_ms_bitacora VALUES("118","2023-03-10 01:49:47","1","2","INGRESO","INGRESO AL MÓDULO PARÁMETROS");
+INSERT INTO tbl_ms_bitacora VALUES("119","2023-03-10 01:52:56","1","2","INGRESO","INGRESO AL MÓDULO PARÁMETROS");
+INSERT INTO tbl_ms_bitacora VALUES("120","2023-03-10 01:53:29","1","2","INGRESO","INGRESO AL MÓDULO PARÁMETROS");
+INSERT INTO tbl_ms_bitacora VALUES("121","2023-03-10 01:55:48","1","2","INGRESO","INGRESO AL MÓDULO PARÁMETROS");
+INSERT INTO tbl_ms_bitacora VALUES("122","2023-03-10 01:56:40","1","2","INGRESO","INGRESO AL MÓDULO PARÁMETROS");
+INSERT INTO tbl_ms_bitacora VALUES("123","2023-03-10 01:57:03","1","2","INGRESO","INGRESO AL MÓDULO PARÁMETROS");
+INSERT INTO tbl_ms_bitacora VALUES("124","2023-03-10 01:57:41","1","2","INGRESO","INGRESO AL MÓDULO PARÁMETROS");
+INSERT INTO tbl_ms_bitacora VALUES("125","2023-03-10 01:57:58","1","2","INGRESO","INGRESO AL MÓDULO PARÁMETROS");
+INSERT INTO tbl_ms_bitacora VALUES("126","2023-03-10 02:00:28","1","2","INGRESO","INGRESO AL MÓDULO PARÁMETROS");
+INSERT INTO tbl_ms_bitacora VALUES("127","2023-03-10 02:01:16","1","2","INGRESO","INGRESO AL MÓDULO PARÁMETROS");
+INSERT INTO tbl_ms_bitacora VALUES("128","2023-03-10 02:01:27","1","2","INGRESO","INGRESO AL MÓDULO PARÁMETROS");
+INSERT INTO tbl_ms_bitacora VALUES("129","2023-03-10 02:01:44","1","2","INGRESO","INGRESO AL MÓDULO PARÁMETROS");
+INSERT INTO tbl_ms_bitacora VALUES("130","2023-03-10 02:03:31","1","2","INGRESO","INGRESO AL MÓDULO PARÁMETROS");
+INSERT INTO tbl_ms_bitacora VALUES("131","2023-03-10 02:04:09","1","2","INGRESO","INGRESO AL MÓDULO PARÁMETROS");
+INSERT INTO tbl_ms_bitacora VALUES("132","2023-03-10 02:04:50","1","2","INGRESO","INGRESO AL MÓDULO PARÁMETROS");
+INSERT INTO tbl_ms_bitacora VALUES("133","2023-03-10 02:05:12","1","2","INGRESO","INGRESO AL MÓDULO PARÁMETROS");
+INSERT INTO tbl_ms_bitacora VALUES("134","2023-03-10 02:05:27","1","2","INGRESO","INGRESO AL MÓDULO PARÁMETROS");
+INSERT INTO tbl_ms_bitacora VALUES("135","2023-03-10 02:05:37","1","2","INGRESO","INGRESO AL MÓDULO PARÁMETROS");
+INSERT INTO tbl_ms_bitacora VALUES("136","2023-03-10 02:06:02","1","2","INGRESO","INGRESO AL MÓDULO PARÁMETROS");
+INSERT INTO tbl_ms_bitacora VALUES("137","2023-03-10 02:06:29","1","2","INGRESO","INGRESO AL MÓDULO PARÁMETROS");
+INSERT INTO tbl_ms_bitacora VALUES("138","2023-03-10 02:06:41","1","2","INGRESO","INGRESO AL MÓDULO PARÁMETROS");
+INSERT INTO tbl_ms_bitacora VALUES("139","2023-03-10 02:07:25","1","2","INGRESO","INGRESO AL MÓDULO PARÁMETROS");
+INSERT INTO tbl_ms_bitacora VALUES("140","2023-03-10 02:07:39","1","2","INGRESO","INGRESO AL MÓDULO PARÁMETROS");
+INSERT INTO tbl_ms_bitacora VALUES("141","2023-03-10 02:07:48","1","2","INGRESO","INGRESO AL MÓDULO PARÁMETROS");
+INSERT INTO tbl_ms_bitacora VALUES("142","2023-03-10 02:08:01","1","2","INGRESO","INGRESO AL MÓDULO PARÁMETROS");
+INSERT INTO tbl_ms_bitacora VALUES("143","2023-03-10 02:08:32","1","2","INGRESO","INGRESO AL MÓDULO PARÁMETROS");
+INSERT INTO tbl_ms_bitacora VALUES("144","2023-03-10 02:09:09","1","2","INGRESO","INGRESO AL MÓDULO PARÁMETROS");
+INSERT INTO tbl_ms_bitacora VALUES("145","2023-03-10 02:09:32","1","2","INGRESO","INGRESO AL MÓDULO PARÁMETROS");
+INSERT INTO tbl_ms_bitacora VALUES("146","2023-03-10 02:10:27","1","2","INGRESO","INGRESO AL MÓDULO PARÁMETROS");
+INSERT INTO tbl_ms_bitacora VALUES("147","2023-03-10 02:10:55","1","2","INGRESO","INGRESO AL MÓDULO PARÁMETROS");
+INSERT INTO tbl_ms_bitacora VALUES("148","2023-03-10 02:12:22","1","2","INGRESO","INGRESO AL MÓDULO PARÁMETROS");
+INSERT INTO tbl_ms_bitacora VALUES("149","2023-03-10 02:12:34","1","2","INGRESO","INGRESO AL MÓDULO PARÁMETROS");
+INSERT INTO tbl_ms_bitacora VALUES("150","2023-03-10 21:22:42","1","2","INGRESO","INGRESO AL MÓDULO PARÁMETROS");
+INSERT INTO tbl_ms_bitacora VALUES("151","2023-03-10 21:22:57","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("152","2023-03-10 21:23:01","1","2","INGRESO","INGRESO AL MÓDULO PARÁMETROS");
+INSERT INTO tbl_ms_bitacora VALUES("153","2023-03-10 21:24:09","1","2","ACTUALIZAR","ACTUALIZACIÓN DE PROMOCION");
+INSERT INTO tbl_ms_bitacora VALUES("154","2023-03-10 21:24:28","1","2","ELIMINAR","ELIMINACION DE PROMOCION");
+INSERT INTO tbl_ms_bitacora VALUES("155","2023-03-10 21:29:42","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("156","2023-03-10 21:31:13","1","2","INGRESO","INGRESO AL MODULO OBJETOS");
+INSERT INTO tbl_ms_bitacora VALUES("157","2023-03-10 21:31:22","1","2","ELIMINAR","ELIMINACION DE OBJETO");
+INSERT INTO tbl_ms_bitacora VALUES("158","2023-03-10 21:33:38","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("159","2023-03-10 21:33:56","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("160","2023-03-10 21:34:05","1","2","INGRESO","INGRESO AL MODULO OBJETOS");
+INSERT INTO tbl_ms_bitacora VALUES("161","2023-03-10 21:34:17","1","2","ACTUALIZAR","ACTUALIZACIÓN DE OBJETO");
+INSERT INTO tbl_ms_bitacora VALUES("162","2023-03-10 21:34:23","1","2","ACTUALIZAR","ACTUALIZACIÓN DE OBJETO");
+INSERT INTO tbl_ms_bitacora VALUES("163","2023-03-10 21:34:38","1","2","ACTUALIZAR","ACTUALIZACIÓN DE OBJETO");
+INSERT INTO tbl_ms_bitacora VALUES("164","2023-03-10 21:34:42","1","2","ACTUALIZAR","ACTUALIZACIÓN DE OBJETO");
+INSERT INTO tbl_ms_bitacora VALUES("165","2023-03-10 21:34:48","1","2","ACTUALIZAR","ACTUALIZACIÓN DE OBJETO");
+INSERT INTO tbl_ms_bitacora VALUES("166","2023-03-10 21:35:36","1","2","INGRESO","INGRESO AL MÓDULO PARÁMETROS");
+INSERT INTO tbl_ms_bitacora VALUES("167","2023-03-10 21:35:49","1","2","INGRESO","INGRESO AL MÓDULO PARÁMETROS");
+INSERT INTO tbl_ms_bitacora VALUES("168","2023-03-10 21:38:30","1","2","INGRESO","INGRESO AL MÓDULO PARÁMETROS");
+INSERT INTO tbl_ms_bitacora VALUES("169","2023-03-10 21:46:30","1","2","INGRESO","INGRESO AL MODULO DE ROLES");
+INSERT INTO tbl_ms_bitacora VALUES("170","2023-03-11 00:08:12","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("171","2023-03-11 00:17:22","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("172","2023-03-11 00:17:54","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("173","2023-03-11 00:18:13","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("174","2023-03-11 00:18:17","1","2","INGRESO","INGRESO AL MÓDULO PARÁMETROS");
+INSERT INTO tbl_ms_bitacora VALUES("175","2023-03-11 00:18:19","1","2","INGRESO","INGRESO AL MODULO DE ROLES");
+INSERT INTO tbl_ms_bitacora VALUES("176","2023-03-11 00:18:25","1","2","INGRESO","INGRESO AL MÓDULO PARÁMETROS");
+INSERT INTO tbl_ms_bitacora VALUES("177","2023-03-11 00:18:28","1","2","INGRESO","INGRESO AL MODULO DE ROLES");
+INSERT INTO tbl_ms_bitacora VALUES("178","2023-03-11 00:18:55","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("179","2023-03-11 00:22:10","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("180","2023-03-11 00:22:13","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("181","2023-03-11 00:22:19","1","2","INGRESO","INGRESO AL MÓDULO PARÁMETROS");
+INSERT INTO tbl_ms_bitacora VALUES("182","2023-03-11 00:22:37","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("183","2023-03-11 00:22:42","1","2","ELIMINAR","ELIMINACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("184","2023-03-11 00:23:25","1","2","CREAR","CREACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("185","2023-03-11 00:29:57","1","2","INGRESO","INGRESO AL MÓDULO PARÁMETROS");
+INSERT INTO tbl_ms_bitacora VALUES("186","2023-03-11 00:30:16","1","2","CREAR","CREACIÓN DE PARÁMETRO");
+INSERT INTO tbl_ms_bitacora VALUES("187","2023-03-11 00:30:26","1","2","CREAR","CREACIÓN DE PARÁMETRO");
+INSERT INTO tbl_ms_bitacora VALUES("188","2023-03-11 00:30:47","1","2","ELIMINAR","ELIMINACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("189","2023-03-11 00:31:16","1","2","INGRESO","INGRESO AL MÓDULO PARÁMETROS");
+INSERT INTO tbl_ms_bitacora VALUES("190","2023-03-11 00:31:39","1","2","CREAR","CREACIÓN DE PARÁMETRO");
+INSERT INTO tbl_ms_bitacora VALUES("191","2023-03-11 00:31:45","1","2","ELIMINAR","ELIMINACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("192","2023-03-11 00:31:49","1","2","ELIMINAR","ELIMINACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("193","2023-03-11 00:33:43","1","2","INGRESO","INGRESO AL MÓDULO PARÁMETROS");
+INSERT INTO tbl_ms_bitacora VALUES("194","2023-03-11 00:54:45","1","2","INGRESO","INGRESO AL MÓDULO PARÁMETROS");
+INSERT INTO tbl_ms_bitacora VALUES("195","2023-03-11 00:56:53","1","2","INGRESO","INGRESO AL MÓDULO PARÁMETROS");
+INSERT INTO tbl_ms_bitacora VALUES("196","2023-03-11 00:59:27","1","2","INGRESO","INGRESO AL MÓDULO PARÁMETROS");
+INSERT INTO tbl_ms_bitacora VALUES("197","2023-03-11 00:59:42","1","2","ELIMINAR","ELIMINACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("198","2023-03-11 01:14:55","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("199","2023-03-11 01:15:15","1","2","ACTUALIZAR","ACTUALIZACIÓN DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("200","2023-03-11 01:15:50","104","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("201","2023-03-11 01:15:59","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("202","2023-03-11 01:16:01","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("203","2023-03-11 01:17:38","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("204","2023-03-11 01:17:50","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("205","2023-03-11 01:18:27","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("206","2023-03-11 01:19:06","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("207","2023-03-11 01:19:35","1","2","CREAR","CREACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("208","2023-03-11 01:20:01","1","2","ELIMINAR","ELIMINACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("209","2023-03-11 01:36:56","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("210","2023-03-11 01:37:09","1","2","ACTUALIZAR","ACTUALIZACIÓN DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("211","2023-03-11 01:38:34","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("212","2023-03-11 01:41:52","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("213","2023-03-11 01:42:03","1","2","ACTUALIZAR","ACTUALIZACIÓN DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("214","2023-03-11 01:42:15","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("215","2023-03-11 01:42:38","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("216","2023-03-11 01:42:46","1","2","ACTUALIZAR","ACTUALIZACIÓN DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("217","2023-03-11 01:42:58","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("218","2023-03-11 01:43:14","1","2","ACTUALIZAR","ACTUALIZACIÓN DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("219","2023-03-11 01:48:57","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("220","2023-03-11 01:50:38","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("221","2023-03-11 01:50:47","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("222","2023-03-11 01:50:55","1","2","ACTUALIZAR","ACTUALIZACIÓN DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("223","2023-03-11 01:51:04","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("224","2023-03-11 01:53:55","1","2","ACTUALIZAR","ACTUALIZACIÓN DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("225","2023-03-11 01:54:02","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("226","2023-03-11 01:54:18","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("227","2023-03-11 01:56:24","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("228","2023-03-11 01:56:31","1","2","ACTUALIZAR","ACTUALIZACIÓN DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("229","2023-03-11 01:56:42","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("230","2023-03-11 01:58:04","1","2","ACTUALIZAR","ACTUALIZACIÓN DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("231","2023-03-11 01:58:14","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("232","2023-03-11 01:59:21","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("233","2023-03-11 01:59:27","1","2","ACTUALIZAR","ACTUALIZACIÓN DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("234","2023-03-11 01:59:37","1","2","ACTUALIZAR","ACTUALIZACIÓN DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("235","2023-03-11 01:59:44","1","2","ACTUALIZAR","ACTUALIZACIÓN DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("236","2023-03-11 02:01:43","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("237","2023-03-11 02:01:59","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("238","2023-03-11 02:02:25","1","2","ELIMINAR","ELIMINACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("239","2023-03-11 02:02:43","1","2","ACTUALIZAR","ACTUALIZACIÓN DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("240","2023-03-11 02:08:14","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("241","2023-03-11 02:08:28","1","2","ACTUALIZAR","ACTUALIZACIÓN DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("242","2023-03-11 02:09:09","1","2","CREAR","CREACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("243","2023-03-11 02:09:14","1","2","ELIMINAR","ELIMINACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("244","2023-03-11 02:12:12","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("245","2023-03-11 02:12:21","1","2","ACTUALIZAR","ACTUALIZACIÓN DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("246","2023-03-13 01:34:27","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("247","2023-03-13 01:40:03","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("248","2023-03-13 01:40:22","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("249","2023-03-13 01:41:38","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("250","2023-03-13 01:55:24","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("251","2023-03-13 01:55:54","1","2","CREAR","CREACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("252","2023-03-13 02:03:25","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("253","2023-03-13 02:04:47","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("254","2023-03-13 02:06:13","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("255","2023-03-13 02:11:29","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("256","2023-03-13 02:11:45","1","2","CREAR","CREACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("257","2023-03-13 02:29:20","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("258","2023-03-13 02:30:16","1","2","CREAR","CREACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("259","2023-03-13 02:30:31","1","2","ELIMINAR","ELIMINACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("260","2023-03-13 02:37:49","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("261","2023-03-13 02:39:59","1","2","CREAR","CREACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("262","2023-03-13 02:40:04","1","2","ELIMINAR","ELIMINACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("263","2023-03-13 02:40:08","1","2","ELIMINAR","ELIMINACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("264","2023-03-13 02:40:34","1","2","ACTUALIZAR","ACTUALIZACIÓN DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("265","2023-03-13 02:42:53","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("266","2023-03-13 02:43:45","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("267","2023-03-13 02:43:47","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("268","2023-03-13 02:44:11","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("269","2023-03-13 02:44:13","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("270","2023-03-13 21:17:30","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("271","2023-03-13 21:19:42","1","2","INGRESO","INGRESO AL MÓDULO PARÁMETROS");
+INSERT INTO tbl_ms_bitacora VALUES("272","2023-03-13 21:32:38","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("273","2023-03-13 21:40:46","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("274","2023-03-13 21:40:54","1","2","ACTUALIZAR","ACTUALIZACIÓN DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("275","2023-03-13 21:41:34","1","2","CREAR","CREACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("276","2023-03-13 21:41:47","1","2","ELIMINAR","ELIMINACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("277","2023-03-13 21:47:25","1","2","ACTUALIZAR","ACTUALIZACIÓN DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("278","2023-03-13 21:53:20","19","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("279","2023-03-13 22:05:08","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("280","2023-03-13 22:05:10","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("281","2023-03-13 22:05:27","1","2","ACTUALIZAR","ACTUALIZACIÓN DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("282","2023-03-13 22:05:38","19","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("283","2023-03-13 22:07:50","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("284","2023-03-14 01:01:32","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("285","2023-03-14 01:01:57","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("286","2023-03-14 01:01:59","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("287","2023-03-14 01:02:04","1","2","ACTUALIZAR","ACTUALIZACIÓN DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("288","2023-03-14 01:14:00","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("289","2023-03-14 01:14:02","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("290","2023-03-14 01:14:24","1","2","CREAR","CREACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("291","2023-03-14 01:23:28","1","2","ACTUALIZAR","ACTUALIZACIÓN DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("292","2023-03-14 01:23:56","1","2","CREAR","CREACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("293","2023-03-14 01:24:04","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("294","2023-03-14 01:29:56","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("295","2023-03-14 01:30:06","1","2","ELIMINAR","ELIMINACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("296","2023-03-14 01:30:16","1","2","CREAR","CREACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("297","2023-03-14 01:30:23","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("298","2023-03-14 01:42:18","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("299","2023-03-14 01:42:42","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("300","2023-03-14 01:42:50","1","2","ELIMINAR","ELIMINACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("301","2023-03-14 01:42:55","1","2","ELIMINAR","ELIMINACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("302","2023-03-14 01:43:12","1","2","CREAR","CREACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("303","2023-03-14 01:43:18","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("304","2023-03-14 01:44:19","1","2","ELIMINAR","ELIMINACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("305","2023-03-14 01:44:41","1","2","CREAR","CREACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("306","2023-03-14 01:46:56","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("307","2023-03-14 01:47:10","1","2","ELIMINAR","ELIMINACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("308","2023-03-14 01:47:42","1","2","CREAR","CREACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("309","2023-03-14 01:49:14","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("310","2023-03-14 01:49:19","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("311","2023-03-14 01:49:29","1","2","ELIMINAR","ELIMINACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("312","2023-03-14 01:49:45","1","2","CREAR","CREACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("313","2023-03-14 01:50:37","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("314","2023-03-14 01:51:12","1","2","CREAR","CREACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("315","2023-03-14 01:51:37","1","2","ELIMINAR","ELIMINACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("316","2023-03-14 01:52:03","1","2","CREAR","CREACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("317","2023-03-14 01:59:53","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("318","2023-03-14 01:59:59","1","2","ELIMINAR","ELIMINACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("319","2023-03-14 02:00:15","1","2","CREAR","CREACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("320","2023-03-14 20:56:25","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("321","2023-03-14 20:56:27","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("322","2023-03-14 21:00:25","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("323","2023-03-14 21:02:30","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("324","2023-03-14 21:08:06","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("325","2023-03-14 21:08:08","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("326","2023-03-14 21:09:01","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("327","2023-03-14 21:10:17","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("328","2023-03-14 21:16:46","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("329","2023-03-14 21:17:30","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("330","2023-03-14 21:18:06","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("331","2023-03-14 21:18:30","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("332","2023-03-15 18:11:56","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("333","2023-03-15 18:11:59","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("334","2023-03-15 18:12:07","1","2","ELIMINAR","ELIMINACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("335","2023-03-15 18:12:21","1","2","CREAR","CREACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("336","2023-03-15 18:13:04","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("337","2023-03-15 18:13:09","1","2","ELIMINAR","ELIMINACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("338","2023-03-15 18:13:40","1","2","CREAR","CREACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("339","2023-03-15 18:13:56","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("340","2023-03-15 18:14:02","1","2","ELIMINAR","ELIMINACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("341","2023-03-15 18:14:18","1","2","CREAR","CREACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("342","2023-03-15 18:14:21","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("343","2023-03-15 18:14:39","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("344","2023-03-15 18:14:45","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("345","2023-03-15 18:14:50","1","2","ELIMINAR","ELIMINACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("346","2023-03-15 18:15:13","1","2","CREAR","CREACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("347","2023-03-15 19:12:15","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("348","2023-03-15 19:12:23","1","2","ELIMINAR","ELIMINACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("349","2023-03-15 19:12:29","1","2","CREAR","CREACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("350","2023-03-15 19:13:54","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("351","2023-03-15 19:16:53","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("352","2023-03-15 19:16:54","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("353","2023-03-15 19:17:19","1","2","ELIMINAR","ELIMINACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("354","2023-03-15 19:17:40","1","2","CREAR","CREACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("355","2023-03-15 19:22:47","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("356","2023-03-15 19:22:57","1","2","ELIMINAR","ELIMINACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("357","2023-03-15 19:23:05","1","2","CREAR","CREACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("358","2023-03-15 19:23:10","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("359","2023-03-15 19:23:37","1","2","ELIMINAR","ELIMINACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("360","2023-03-15 19:24:02","1","2","CREAR","CREACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("361","2023-03-15 19:37:10","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("362","2023-03-15 19:37:11","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("363","2023-03-15 19:37:19","1","2","ACTUALIZAR","ACTUALIZACIÓN DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("364","2023-03-15 19:37:28","1","2","ACTUALIZAR","ACTUALIZACIÓN DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("365","2023-03-15 19:37:41","1","2","ELIMINAR","ELIMINACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("366","2023-03-15 19:37:52","1","2","ELIMINAR","ELIMINACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("367","2023-03-15 19:37:57","1","2","ELIMINAR","ELIMINACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("368","2023-03-15 19:38:16","1","2","CREAR","CREACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("369","2023-03-15 19:39:06","1","2","CREAR","CREACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("370","2023-03-15 19:45:03","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("371","2023-03-15 19:45:05","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("372","2023-03-15 19:47:39","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("373","2023-03-15 19:49:28","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("374","2023-03-15 20:41:47","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("375","2023-03-15 20:41:48","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("376","2023-03-15 20:41:53","1","2","ELIMINAR","ELIMINACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("377","2023-03-15 20:42:05","1","2","ELIMINAR","ELIMINACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("378","2023-03-15 20:42:13","1","2","ELIMINAR","ELIMINACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("379","2023-03-15 20:42:32","1","2","ACTUALIZAR","ACTUALIZACIÓN DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("380","2023-03-15 20:43:29","1","2","CREAR","CREACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("381","2023-03-15 20:44:03","1","2","CREAR","CREACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("382","2023-03-15 20:47:46","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("383","2023-03-15 20:48:40","1","2","ELIMINAR","ELIMINACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("384","2023-03-15 20:48:46","1","2","ELIMINAR","ELIMINACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("385","2023-03-15 20:49:00","1","2","CREAR","CREACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("386","2023-03-15 20:49:18","1","2","CREAR","CREACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("387","2023-03-15 20:50:32","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("388","2023-03-15 21:46:42","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("389","2023-03-15 21:46:44","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("390","2023-03-15 21:47:37","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("391","2023-03-15 21:49:35","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("392","2023-03-15 21:50:03","1","2","ACTUALIZAR","ACTUALIZACIÓN DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("393","2023-03-15 21:53:50","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("394","2023-03-15 21:53:52","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("395","2023-03-15 21:53:55","1","2","INGRESO","INGRESO AL MÓDULO PARÁMETROS");
+INSERT INTO tbl_ms_bitacora VALUES("396","2023-03-15 21:54:42","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("397","2023-03-15 21:54:47","1","2","INGRESO","INGRESO AL MODULO DE ROLES");
+INSERT INTO tbl_ms_bitacora VALUES("398","2023-03-15 21:55:28","1","2","INGRESO","INGRESO AL MÓDULO PARÁMETROS");
+INSERT INTO tbl_ms_bitacora VALUES("399","2023-03-15 21:57:15","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("400","2023-03-15 21:57:37","1","2","ELIMINAR","ELIMINACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("401","2023-03-15 21:57:54","1","2","CREAR","CREACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("402","2023-03-15 22:10:39","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("403","2023-03-15 22:10:41","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("404","2023-03-15 22:10:51","1","2","ACTUALIZAR","ACTUALIZACIÓN DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("405","2023-03-15 22:36:27","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("406","2023-03-15 22:36:29","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("407","2023-03-16 00:40:18","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("408","2023-03-16 00:44:26","136","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("409","2023-03-16 00:44:29","136","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("410","2023-03-16 00:46:10","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("411","2023-03-16 00:47:35","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("412","2023-03-16 00:47:36","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("413","2023-03-16 00:47:47","1","2","ELIMINAR","ELIMINACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("414","2023-03-16 00:48:08","1","2","CREAR","CREACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("415","2023-03-16 00:48:41","1","2","ELIMINAR","ELIMINACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("416","2023-03-16 00:49:44","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("417","2023-03-16 00:49:46","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("418","2023-03-16 01:00:25","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("419","2023-03-16 01:00:26","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("420","2023-03-16 01:00:46","1","2","ACTUALIZAR","ACTUALIZACIÓN DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("421","2023-03-16 01:00:54","1","2","ACTUALIZAR","ACTUALIZACIÓN DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("422","2023-03-16 17:28:13","136","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("423","2023-03-16 17:28:42","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("424","2023-03-16 17:28:44","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("425","2023-03-16 17:36:14","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("426","2023-03-16 17:36:15","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("427","2023-03-16 17:44:27","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("428","2023-03-16 17:44:30","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("429","2023-03-16 17:44:46","1","2","CREAR","CREACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("430","2023-03-16 17:48:44","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("431","2023-03-16 17:53:16","1","2","INGRESO","INGRESO AL MÓDULO PARÁMETROS");
+INSERT INTO tbl_ms_bitacora VALUES("432","2023-03-16 17:59:17","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("433","2023-03-16 17:59:30","1","2","ELIMINAR","ELIMINACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("434","2023-03-16 17:59:42","1","2","CREAR","CREACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("435","2023-03-16 17:59:47","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("436","2023-03-16 17:59:51","1","2","ELIMINAR","ELIMINACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("437","2023-03-16 18:00:10","1","2","CREAR","CREACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("438","2023-03-16 18:06:27","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("439","2023-03-16 18:06:35","1","2","ELIMINAR","ELIMINACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("440","2023-03-16 18:06:38","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("441","2023-03-16 18:06:48","1","2","CREAR","CREACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("442","2023-03-16 18:06:54","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("443","2023-03-16 18:07:32","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("444","2023-03-16 18:07:43","1","2","ELIMINAR","ELIMINACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("445","2023-03-16 18:07:51","1","2","CREAR","CREACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("446","2023-03-16 18:07:55","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("447","2023-03-16 18:07:59","1","2","ELIMINAR","ELIMINACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("448","2023-03-16 18:08:17","1","2","CREAR","CREACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("449","2023-03-16 18:09:11","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("450","2023-03-16 18:09:20","1","2","ELIMINAR","ELIMINACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("451","2023-03-16 18:09:24","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("452","2023-03-16 18:09:42","1","2","CREAR","CREACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("453","2023-03-16 18:16:57","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("454","2023-03-16 18:17:18","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("455","2023-03-16 18:17:29","1","2","ELIMINAR","ELIMINACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("456","2023-03-16 18:17:44","1","2","CREAR","CREACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("457","2023-03-16 18:18:26","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("458","2023-03-16 18:18:35","1","2","ELIMINAR","ELIMINACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("459","2023-03-16 18:18:47","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("460","2023-03-16 18:18:58","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("461","2023-03-16 18:19:16","1","2","CREAR","CREACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("462","2023-03-16 18:23:24","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("463","2023-03-16 18:23:35","1","2","CREAR","CREACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("464","2023-03-16 18:23:42","1","2","ELIMINAR","ELIMINACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("465","2023-03-16 18:23:44","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("466","2023-03-16 18:29:20","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("467","2023-03-16 18:29:26","1","2","ELIMINAR","ELIMINACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("468","2023-03-16 18:29:58","1","2","CREAR","CREACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("469","2023-03-16 18:31:11","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("470","2023-03-16 18:31:15","1","2","ELIMINAR","ELIMINACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("471","2023-03-16 18:32:06","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("472","2023-03-16 18:32:27","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("473","2023-03-16 18:32:29","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("474","2023-03-16 18:32:49","1","2","CREAR","CREACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("475","2023-03-16 18:36:21","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("476","2023-03-16 18:36:44","1","2","CREAR","CREACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("477","2023-03-16 18:37:00","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("478","2023-03-16 18:37:23","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("479","2023-03-16 18:37:47","1","2","CREAR","CREACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("480","2023-03-16 19:50:31","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("481","2023-03-16 19:51:00","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("482","2023-03-16 19:51:26","1","2","ELIMINAR","ELIMINACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("483","2023-03-16 19:51:31","1","2","ELIMINAR","ELIMINACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("484","2023-03-16 19:51:38","1","2","ELIMINAR","ELIMINACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("485","2023-03-16 19:51:52","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("486","2023-03-16 19:52:39","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("487","2023-03-16 19:52:51","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("488","2023-03-16 19:52:53","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("489","2023-03-16 19:53:15","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("490","2023-03-16 19:54:10","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("491","2023-03-16 19:54:12","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("492","2023-03-16 19:54:59","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("493","2023-03-16 19:56:17","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("494","2023-03-16 20:13:00","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("495","2023-03-16 20:13:01","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("496","2023-03-16 20:14:00","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("497","2023-03-16 20:14:11","1","2","CREAR","CREACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("498","2023-03-16 20:14:28","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("499","2023-03-16 20:14:34","1","2","ELIMINAR","ELIMINACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("500","2023-03-16 20:14:56","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("501","2023-03-16 20:16:12","1","2","CREAR","CREACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("502","2023-03-16 20:24:58","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("503","2023-03-16 20:25:00","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("504","2023-03-16 20:25:12","1","2","CREAR","CREACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("505","2023-03-16 20:25:16","1","2","ELIMINAR","ELIMINACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("506","2023-03-16 20:25:23","1","2","ELIMINAR","ELIMINACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("507","2023-03-16 20:33:33","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("508","2023-03-16 20:33:55","1","2","CREAR","CREACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("509","2023-03-16 20:34:00","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("510","2023-03-16 20:34:05","1","2","ELIMINAR","ELIMINACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("511","2023-03-16 20:34:27","1","2","CREAR","CREACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("512","2023-03-16 20:36:00","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("513","2023-03-16 20:36:14","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("514","2023-03-16 20:36:20","1","2","ELIMINAR","ELIMINACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("515","2023-03-16 20:37:02","1","2","CREAR","CREACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("516","2023-03-16 20:38:35","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("517","2023-03-16 20:38:47","1","2","ELIMINAR","ELIMINACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("518","2023-03-16 20:38:54","1","2","CREAR","CREACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("519","2023-03-16 20:38:59","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("520","2023-03-16 20:39:03","1","2","ELIMINAR","ELIMINACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("521","2023-03-16 20:39:10","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("522","2023-03-16 20:39:27","1","2","CREAR","CREACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("523","2023-03-16 21:23:43","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("524","2023-03-16 21:23:59","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("525","2023-03-16 21:24:13","1","2","CREAR","CREACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("526","2023-03-16 21:24:25","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("527","2023-03-16 21:24:54","1","2","ELIMINAR","ELIMINACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("528","2023-03-16 21:24:57","1","2","ELIMINAR","ELIMINACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("529","2023-03-16 21:25:14","1","2","CREAR","CREACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("530","2023-03-16 21:25:31","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("531","2023-03-16 21:25:55","1","2","CREAR","CREACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("532","2023-03-16 21:27:27","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("533","2023-03-16 21:32:15","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("534","2023-03-16 21:35:53","1","2","ACTUALIZAR","ACTUALIZACIÓN DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("535","2023-03-17 19:01:44","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("536","2023-03-17 19:01:46","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("537","2023-03-17 19:03:40","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("538","2023-03-17 19:07:02","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("539","2023-03-17 19:07:08","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("540","2023-03-17 19:08:33","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("541","2023-03-17 19:08:53","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("542","2023-03-17 19:08:54","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("543","2023-03-17 19:10:56","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("544","2023-03-17 19:12:33","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("545","2023-03-17 19:12:39","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("546","2023-03-17 19:14:06","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("547","2023-03-17 19:14:35","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("548","2023-03-17 20:03:26","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("549","2023-03-17 20:03:33","1","2","INGRESO","INGRESO AL MÓDULO PARÁMETROS");
+INSERT INTO tbl_ms_bitacora VALUES("550","2023-03-17 20:04:04","1","2","INGRESO","INGRESO AL MÓDULO PARÁMETROS");
+INSERT INTO tbl_ms_bitacora VALUES("551","2023-03-17 20:04:36","1","2","INGRESO","INGRESO AL MÓDULO PARÁMETROS");
+INSERT INTO tbl_ms_bitacora VALUES("552","2023-03-17 20:49:05","1","2","INGRESO","INGRESO AL MÓDULO PARÁMETROS");
+INSERT INTO tbl_ms_bitacora VALUES("553","2023-03-17 20:49:15","1","2","INGRESO","INGRESO AL MÓDULO PARÁMETROS");
+INSERT INTO tbl_ms_bitacora VALUES("554","2023-03-17 21:02:04","1","2","INGRESO","INGRESO AL MÓDULO PARÁMETROS");
+INSERT INTO tbl_ms_bitacora VALUES("555","2023-03-17 21:18:13","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("556","2023-03-17 23:10:04","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("557","2023-03-17 23:11:10","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("558","2023-03-17 23:11:20","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("559","2023-03-17 23:11:33","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("560","2023-03-17 23:13:06","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("561","2023-03-17 23:13:08","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("562","2023-03-17 23:49:11","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("563","2023-03-17 23:49:14","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("564","2023-03-17 23:49:44","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("565","2023-03-18 00:00:28","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("566","2023-03-18 00:21:24","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("567","2023-03-18 00:21:25","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("568","2023-03-18 18:13:39","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("569","2023-03-18 18:13:41","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("570","2023-03-18 18:16:07","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("571","2023-03-18 18:16:08","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("572","2023-03-18 18:17:06","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("573","2023-03-18 18:17:07","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("574","2023-03-18 18:17:40","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("575","2023-03-18 18:17:41","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("576","2023-03-18 18:17:51","1","2","ACTUALIZAR","ACTUALIZACIÓN DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("577","2023-03-18 18:19:06","162","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("578","2023-03-18 18:23:28","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("579","2023-03-18 18:23:29","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("580","2023-03-18 18:26:15","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("581","2023-03-19 00:18:09","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("582","2023-03-19 00:36:30","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("583","2023-03-19 00:37:45","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("584","2023-03-19 00:44:50","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("585","2023-03-19 00:52:13","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("586","2023-03-19 00:55:43","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("587","2023-03-19 00:55:45","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("588","2023-03-19 00:56:43","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("589","2023-03-19 00:56:45","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("590","2023-03-19 00:58:37","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("591","2023-03-19 00:59:02","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("592","2023-03-19 00:59:29","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("593","2023-03-19 01:01:42","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("594","2023-03-19 01:04:58","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("595","2023-03-19 01:09:23","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("596","2023-03-19 01:10:03","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("597","2023-03-19 01:10:23","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("598","2023-03-19 01:10:38","1","2","ACTUALIZAR","ACTUALIZACIÓN DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("599","2023-03-19 01:10:48","162","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("600","2023-03-19 01:14:36","162","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("601","2023-03-19 01:16:52","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("602","2023-03-19 01:25:45","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("603","2023-03-19 01:25:49","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("604","2023-03-19 01:26:45","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("605","2023-03-19 01:27:33","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("606","2023-03-19 01:29:11","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("607","2023-03-19 01:29:23","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("608","2023-03-19 01:29:35","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("609","2023-03-19 01:30:19","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("610","2023-03-19 01:36:48","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("611","2023-03-19 01:49:01","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("612","2023-03-19 01:49:30","1","2","ACTUALIZAR","ACTUALIZACIÓN DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("613","2023-03-19 01:49:46","1","2","CREAR","CREACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("614","2023-03-19 01:52:55","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("615","2023-03-19 01:52:58","1","2","ELIMINAR","ELIMINACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("616","2023-03-19 01:53:20","1","2","CREAR","CREACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("617","2023-03-20 10:44:39","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("618","2023-03-20 10:55:10","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("619","2023-03-20 10:55:12","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("620","2023-03-20 10:55:27","1","2","ACTUALIZAR","ACTUALIZACIÓN DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("621","2023-03-20 10:55:36","1","2","ACTUALIZAR","ACTUALIZACIÓN DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("622","2023-03-20 10:55:48","162","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("623","2023-03-21 11:30:06","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("624","2023-03-21 11:30:09","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("625","2023-03-21 11:46:26","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("626","2023-03-21 12:01:08","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("627","2023-03-21 12:01:14","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("628","2023-03-21 12:12:34","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("629","2023-03-21 12:17:33","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("630","2023-03-21 12:17:54","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("631","2023-03-21 12:19:33","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("632","2023-03-21 12:21:03","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("633","2023-03-21 12:25:38","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("634","2023-03-21 12:30:59","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("635","2023-03-21 12:31:27","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("636","2023-03-21 12:33:18","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("637","2023-03-21 12:35:13","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("638","2023-03-21 12:35:58","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("639","2023-03-21 12:37:33","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("640","2023-03-21 12:37:49","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("641","2023-03-21 12:39:04","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("642","2023-03-21 12:46:42","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("643","2023-03-21 12:47:56","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("644","2023-03-21 12:49:46","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("645","2023-03-21 13:01:58","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("646","2023-03-21 13:02:13","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("647","2023-03-21 18:26:54","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("648","2023-03-21 19:27:17","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("649","2023-03-21 19:38:08","1","2","INGRESO","INGRESO AL MÓDULO PREGUNTAS");
+INSERT INTO tbl_ms_bitacora VALUES("650","2023-03-21 19:38:17","1","2","CREAR","CREACIÓN DE PREGUNTA");
+INSERT INTO tbl_ms_bitacora VALUES("651","2023-03-21 19:38:21","1","2","ACTUALIZAR","ACTUALIZACIÓN DE PREGUNTA");
+INSERT INTO tbl_ms_bitacora VALUES("652","2023-03-21 19:38:25","1","2","ELIMINAR","ELIMINACION DE PREGUNTA");
+INSERT INTO tbl_ms_bitacora VALUES("653","2023-03-21 19:39:40","1","2","INGRESO","INGRESO AL MÓDULO PREGUNTAS");
+INSERT INTO tbl_ms_bitacora VALUES("654","2023-03-21 19:40:10","1","2","INGRESO","INGRESO AL MÓDULO PREGUNTAS");
+INSERT INTO tbl_ms_bitacora VALUES("655","2023-03-21 19:40:49","1","2","INGRESO","INGRESO AL MÓDULO PREGUNTAS");
+INSERT INTO tbl_ms_bitacora VALUES("656","2023-03-21 19:41:01","1","2","INGRESO","INGRESO AL MÓDULO PREGUNTAS");
+INSERT INTO tbl_ms_bitacora VALUES("657","2023-03-21 19:41:45","1","2","INGRESO","INGRESO AL MÓDULO PREGUNTAS");
+INSERT INTO tbl_ms_bitacora VALUES("658","2023-03-21 19:41:46","1","2","INGRESO","INGRESO AL MÓDULO PREGUNTAS");
+INSERT INTO tbl_ms_bitacora VALUES("659","2023-03-21 19:42:16","1","2","INGRESO","INGRESO AL MÓDULO PREGUNTAS");
+INSERT INTO tbl_ms_bitacora VALUES("660","2023-03-21 19:42:48","1","2","INGRESO","INGRESO AL MÓDULO PREGUNTAS");
+INSERT INTO tbl_ms_bitacora VALUES("661","2023-03-21 19:43:05","1","2","INGRESO","INGRESO AL MÓDULO PREGUNTAS");
+INSERT INTO tbl_ms_bitacora VALUES("662","2023-03-21 19:43:15","1","2","INGRESO","INGRESO AL MÓDULO PREGUNTAS");
+INSERT INTO tbl_ms_bitacora VALUES("663","2023-03-21 19:43:36","1","2","INGRESO","INGRESO AL MÓDULO PREGUNTAS");
+INSERT INTO tbl_ms_bitacora VALUES("664","2023-03-21 19:44:26","1","2","INGRESO","INGRESO AL MÓDULO PREGUNTAS");
+INSERT INTO tbl_ms_bitacora VALUES("665","2023-03-21 19:45:21","1","2","INGRESO","INGRESO AL MÓDULO PREGUNTAS");
+INSERT INTO tbl_ms_bitacora VALUES("666","2023-03-21 20:03:49","1","2","INGRESO","INGRESO AL MÓDULO PREGUNTAS");
+INSERT INTO tbl_ms_bitacora VALUES("667","2023-03-21 20:04:01","1","2","INGRESO","INGRESO AL MÓDULO PARÁMETROS");
+INSERT INTO tbl_ms_bitacora VALUES("668","2023-03-21 20:04:14","1","2","CREAR","CREACIÓN DE PARÁMETRO");
+INSERT INTO tbl_ms_bitacora VALUES("669","2023-03-21 20:04:25","1","2","ACTUALIZAR","ACTUALIZACIÓN DE PARAMETRO");
+INSERT INTO tbl_ms_bitacora VALUES("670","2023-03-21 20:04:39","1","2","ELIMINAR","ELIMINACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("671","2023-03-21 20:04:45","1","2","ELIMINAR","ELIMINACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("672","2023-03-21 20:05:17","1","2","INGRESO","INGRESO AL MÓDULO PARÁMETROS");
+INSERT INTO tbl_ms_bitacora VALUES("673","2023-03-21 20:28:35","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("674","2023-03-21 20:49:08","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("675","2023-03-21 20:56:16","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("676","2023-03-21 21:41:26","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("677","2023-03-21 23:34:35","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("678","2023-03-21 23:41:45","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("679","2023-03-21 23:42:18","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("680","2023-03-21 23:42:23","1","2","ACTUALIZAR","ACTUALIZACIÓN DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("681","2023-03-21 23:42:58","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("682","2023-03-21 23:43:20","1","2","ACTUALIZAR","ACTUALIZACIÓN DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("683","2023-03-21 23:43:22","1","2","CERRAR SESION","USUARIO CERRO SESION");
+INSERT INTO tbl_ms_bitacora VALUES("684","2023-03-21 23:43:39","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("685","2023-03-21 23:43:41","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("686","2023-03-21 23:43:56","1","2","ACTUALIZAR","ACTUALIZACIÓN DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("687","2023-03-21 23:43:58","1","2","CERRAR SESION","USUARIO CERRO SESION");
+INSERT INTO tbl_ms_bitacora VALUES("688","2023-03-21 23:44:04","162","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("689","2023-03-21 23:44:06","162","2","CERRAR SESION","USUARIO CERRO SESION");
+INSERT INTO tbl_ms_bitacora VALUES("690","2023-03-21 23:44:11","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("691","2023-03-21 23:44:14","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("692","2023-03-21 23:44:23","1","2","ACTUALIZAR","ACTUALIZACIÓN DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("693","2023-03-21 23:44:33","1","2","ACTUALIZAR","ACTUALIZACIÓN DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("694","2023-03-21 23:44:37","1","2","CERRAR SESION","USUARIO CERRO SESION");
+INSERT INTO tbl_ms_bitacora VALUES("695","2023-03-21 23:44:43","162","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("696","2023-03-21 23:44:45","162","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("697","2023-03-21 23:44:49","162","2","CERRAR SESION","USUARIO CERRO SESION");
+INSERT INTO tbl_ms_bitacora VALUES("698","2023-03-21 23:51:40","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("699","2023-03-21 23:51:42","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("700","2023-03-21 23:51:50","1","2","CREAR","CREACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("701","2023-03-21 23:52:01","1","2","ELIMINAR","ELIMINACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("702","2023-03-21 23:55:08","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("703","2023-03-21 23:57:22","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("704","2023-03-21 23:57:36","1","2","CREAR","CREACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("705","2023-03-22 00:00:17","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("706","2023-03-22 00:06:33","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("707","2023-03-22 00:06:48","1","2","CREAR","CREACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("708","2023-03-22 00:06:53","1","2","ELIMINAR","ELIMINACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("709","2023-03-22 00:15:35","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("710","2023-03-22 00:20:11","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("711","2023-03-22 00:20:40","1","2","ACTUALIZAR","ACTUALIZACIÓN DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("712","2023-03-22 00:20:44","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("713","2023-03-22 00:23:23","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("714","2023-03-22 00:23:59","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("715","2023-03-22 00:27:50","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("716","2023-03-22 00:28:53","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("717","2023-03-22 00:33:10","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("718","2023-03-22 00:33:19","1","2","ACTUALIZAR","ACTUALIZACIÓN DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("719","2023-03-22 00:33:28","1","2","ACTUALIZAR","ACTUALIZACIÓN DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("720","2023-03-22 00:39:46","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("721","2023-03-22 00:39:56","1","2","CREAR","CREACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("722","2023-03-22 00:40:02","1","2","ELIMINAR","ELIMINACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("723","2023-03-22 00:40:04","1","2","ELIMINAR","ELIMINACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("724","2023-03-22 00:40:08","1","2","ELIMINAR","ELIMINACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("725","2023-03-22 00:43:54","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("726","2023-03-22 00:44:09","1","2","CREAR","CREACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("727","2023-03-22 00:44:39","1","2","CREAR","CREACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("728","2023-03-22 01:31:35","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("729","2023-03-22 01:31:46","1","2","CREAR","CREACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("730","2023-03-22 01:32:45","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("731","2023-03-22 01:32:51","1","2","ACTUALIZAR","ACTUALIZACIÓN DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("732","2023-03-22 01:33:04","1","2","ACTUALIZAR","ACTUALIZACIÓN DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("733","2023-03-22 01:33:18","1","2","CREAR","CREACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("734","2023-03-22 01:33:40","1","2","ELIMINAR","ELIMINACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("735","2023-03-22 01:33:43","1","2","ELIMINAR","ELIMINACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("736","2023-03-22 01:34:51","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("737","2023-03-22 01:35:20","1","2","CREAR","CREACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("738","2023-03-22 01:35:28","1","2","ACTUALIZAR","ACTUALIZACIÓN DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("739","2023-03-22 02:20:14","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("740","2023-03-22 02:20:44","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("741","2023-03-22 02:23:54","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("742","2023-03-22 02:26:14","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("743","2023-03-22 02:26:43","1","2","INGRESO","INGRESO AL MÓDULO PROMOCION");
+INSERT INTO tbl_ms_bitacora VALUES("744","2023-03-22 02:26:53","1","2","INGRESO","INGRESO AL MODULO DE ROLES");
+INSERT INTO tbl_ms_bitacora VALUES("745","2023-03-22 02:27:08","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("746","2023-03-22 02:32:30","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("747","2023-03-22 02:37:17","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("748","2023-03-22 02:41:29","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("749","2023-03-22 02:42:03","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("750","2023-03-22 02:43:12","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("751","2023-03-22 02:44:07","1","2","CREAR","CREACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("752","2023-03-22 02:45:17","1","2","ACTUALIZAR","ACTUALIZACIÓN DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("753","2023-03-22 02:45:25","1","2","ACTUALIZAR","ACTUALIZACIÓN DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("754","2023-03-22 02:47:02","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("755","2023-03-22 02:51:52","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("756","2023-03-22 02:52:03","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("757","2023-03-22 02:52:34","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("758","2023-03-22 02:54:26","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("759","2023-03-22 02:56:46","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("760","2023-03-22 02:56:48","1","2","CERRAR SESION","USUARIO CERRO SESION");
+INSERT INTO tbl_ms_bitacora VALUES("761","2023-03-22 02:57:02","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("762","2023-03-22 02:57:04","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("763","2023-03-22 03:00:56","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("764","2023-03-22 03:07:55","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("765","2023-03-22 03:08:44","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("766","2023-03-22 03:09:25","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("767","2023-03-22 03:10:43","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("768","2023-03-22 03:12:32","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("769","2023-03-22 03:12:36","1","2","ACTUALIZAR","ACTUALIZACIÓN DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("770","2023-03-22 03:12:47","1","2","ACTUALIZAR","ACTUALIZACIÓN DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("771","2023-03-22 03:13:30","1","2","CREAR","CREACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("772","2023-03-22 03:14:37","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("773","2023-03-22 03:15:15","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("774","2023-03-22 03:16:46","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("775","2023-03-22 03:17:22","1","2","CREAR","CREACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("776","2023-03-22 03:19:25","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("777","2023-03-22 03:19:32","1","2","CREAR","CREACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("778","2023-03-22 03:20:21","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("779","2023-03-22 03:20:24","1","2","ELIMINAR","ELIMINACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("780","2023-03-22 03:20:27","1","2","ELIMINAR","ELIMINACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("781","2023-03-22 03:20:31","1","2","ELIMINAR","ELIMINACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("782","2023-03-22 03:20:35","1","2","ELIMINAR","ELIMINACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("783","2023-03-22 03:20:38","1","2","ELIMINAR","ELIMINACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("784","2023-03-22 03:20:41","1","2","ELIMINAR","ELIMINACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("785","2023-03-22 03:20:45","1","2","ELIMINAR","ELIMINACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("786","2023-03-22 03:21:17","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("787","2023-03-22 03:21:28","1","2","ACTUALIZAR","ACTUALIZACIÓN DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("788","2023-03-22 03:21:32","1","2","ACTUALIZAR","ACTUALIZACIÓN DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("789","2023-03-22 03:22:38","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("790","2023-03-22 03:23:21","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("791","2023-03-22 03:24:50","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("792","2023-03-22 03:25:02","1","2","CERRAR SESION","USUARIO CERRO SESION");
+INSERT INTO tbl_ms_bitacora VALUES("793","2023-03-22 03:26:10","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("794","2023-03-22 03:26:11","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("795","2023-03-22 03:26:45","1","2","CREAR","CREACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("796","2023-03-22 03:26:56","1","2","ACTUALIZAR","ACTUALIZACIÓN DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("797","2023-03-22 03:27:14","1","2","ACTUALIZAR","ACTUALIZACIÓN DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("798","2023-03-22 03:27:43","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("799","2023-03-22 03:31:12","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("800","2023-03-22 03:31:58","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("801","2023-03-22 03:32:48","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("802","2023-03-22 03:33:24","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("803","2023-03-22 03:35:16","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("804","2023-03-22 03:36:06","1","2","CERRAR SESION","USUARIO CERRO SESION");
+INSERT INTO tbl_ms_bitacora VALUES("805","2023-03-22 03:36:19","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("806","2023-03-22 03:36:21","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("807","2023-03-22 03:38:11","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("808","2023-03-22 03:38:43","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("809","2023-03-22 03:41:17","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("810","2023-03-22 03:41:53","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("811","2023-03-22 03:41:58","1","2","ACTUALIZAR","ACTUALIZACIÓN DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("812","2023-03-22 03:42:02","1","2","ACTUALIZAR","ACTUALIZACIÓN DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("813","2023-03-22 03:42:31","1","2","CERRAR SESION","USUARIO CERRO SESION");
+INSERT INTO tbl_ms_bitacora VALUES("814","2023-03-22 03:42:45","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("815","2023-03-22 03:42:46","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("816","2023-03-22 03:43:03","1","2","ACTUALIZAR","ACTUALIZACIÓN DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("817","2023-03-22 03:43:12","1","2","CERRAR SESION","USUARIO CERRO SESION");
+INSERT INTO tbl_ms_bitacora VALUES("818","2023-03-22 03:58:00","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("819","2023-03-22 09:42:29","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("820","2023-03-22 09:54:36","1","2","CERRAR SESION","USUARIO CERRO SESION");
+INSERT INTO tbl_ms_bitacora VALUES("821","2023-03-22 09:54:43","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("822","2023-03-22 09:54:44","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("823","2023-03-22 10:14:33","1","2","CERRAR SESIÓN","USUARIO CERRÓ SESIÓN");
+INSERT INTO tbl_ms_bitacora VALUES("824","2023-03-22 10:14:40","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("825","2023-03-22 10:14:42","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("826","2023-03-22 10:23:20","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("827","2023-03-22 10:23:24","1","2","ELIMINAR","ELIMINACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("828","2023-03-22 10:23:40","1","2","CREAR","CREACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("829","2023-03-22 10:24:17","1","2","ELIMINAR","ELIMINACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("830","2023-03-22 10:34:59","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("831","2023-03-22 10:35:14","1","2","ACTUALIZAR","ACTUALIZACIÓN DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("832","2023-03-22 10:35:24","1","2","ACTUALIZAR","ACTUALIZACIÓN DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("833","2023-03-22 10:35:34","1","2","ACTUALIZAR","ACTUALIZACIÓN DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("834","2023-03-22 10:35:53","1","2","ACTUALIZAR","ACTUALIZACIÓN DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("835","2023-03-22 10:36:01","1","2","ACTUALIZAR","ACTUALIZACIÓN DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("836","2023-03-22 11:31:48","1","2","CREAR","CREACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("837","2023-03-22 11:32:00","1","2","ACTUALIZAR","ACTUALIZACIÓN DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("838","2023-03-22 11:32:03","1","2","CERRAR SESIÓN","USUARIO CERRÓ SESIÓN");
+INSERT INTO tbl_ms_bitacora VALUES("839","2023-03-22 11:53:03","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("840","2023-03-22 11:53:05","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("841","2023-03-22 11:53:36","1","2","CREAR","CREACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("842","2023-03-22 11:53:47","1","2","CREAR","CREACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("843","2023-03-22 11:54:07","1","2","CREAR","CREACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("844","2023-03-22 11:54:09","1","2","CERRAR SESIÓN","USUARIO CERRÓ SESIÓN");
+INSERT INTO tbl_ms_bitacora VALUES("845","2023-03-22 11:54:49","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("846","2023-03-22 11:54:51","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("847","2023-03-22 11:54:59","1","2","CERRAR SESIÓN","USUARIO CERRÓ SESIÓN");
+INSERT INTO tbl_ms_bitacora VALUES("848","2023-03-22 11:58:22","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("849","2023-03-22 11:58:24","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("850","2023-03-22 11:59:58","1","2","CREAR","CREACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("851","2023-03-22 12:00:01","1","2","CERRAR SESIÓN","USUARIO CERRÓ SESIÓN");
+INSERT INTO tbl_ms_bitacora VALUES("852","2023-03-22 12:07:56","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("853","2023-03-22 12:07:58","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("854","2023-03-22 12:08:52","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("855","2023-03-22 12:09:06","1","2","ACTUALIZAR","ACTUALIZACIÓN DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("856","2023-03-22 12:09:56","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("857","2023-03-22 12:10:01","1","2","ELIMINAR","ELIMINACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("858","2023-03-22 12:10:25","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("859","2023-03-22 12:10:37","1","2","CREAR","CREACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("860","2023-03-22 12:10:50","1","2","CREAR","CREACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("861","2023-03-22 12:11:02","1","2","CREAR","CREACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("862","2023-03-22 12:11:13","1","2","INGRESO","INGRESO AL MÓDULO PREGUNTAS");
+INSERT INTO tbl_ms_bitacora VALUES("863","2023-03-22 12:11:23","1","2","ACTUALIZAR","ACTUALIZACIÓN DE PREGUNTA");
+INSERT INTO tbl_ms_bitacora VALUES("864","2023-03-22 12:11:30","1","2","CERRAR SESIÓN","USUARIO CERRÓ SESIÓN");
+INSERT INTO tbl_ms_bitacora VALUES("865","2023-03-22 12:23:46","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("866","2023-03-22 12:23:48","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("867","2023-03-22 12:24:15","1","2","CREAR","CREACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("868","2023-03-22 12:24:28","1","2","CREAR","CREACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("869","2023-03-22 12:24:30","1","2","CERRAR SESIÓN","USUARIO CERRÓ SESIÓN");
+INSERT INTO tbl_ms_bitacora VALUES("870","2023-03-22 12:27:30","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("871","2023-03-22 12:27:32","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("872","2023-03-22 12:27:36","1","2","ELIMINAR","ELIMINACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("873","2023-03-22 12:27:40","1","2","ELIMINAR","ELIMINACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("874","2023-03-22 12:27:42","1","2","ELIMINAR","ELIMINACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("875","2023-03-22 12:27:51","1","2","ELIMINAR","ELIMINACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("876","2023-03-22 12:27:55","1","2","ELIMINAR","ELIMINACION DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("877","2023-03-22 14:49:35","163","2","CREAR","CREO UN NUEVO USUARIO EN AUTOREGISTRO");
+INSERT INTO tbl_ms_bitacora VALUES("878","2023-03-22 14:50:04","163","2","PREGUNTAS","CONTESTO PREGUNTA CORRECTAMENTE");
+INSERT INTO tbl_ms_bitacora VALUES("879","2023-03-22 14:50:13","163","2","PREGUNTAS","CONTESTO PREGUNTA CORRECTAMENTE");
+INSERT INTO tbl_ms_bitacora VALUES("880","2023-03-22 14:50:26","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("881","2023-03-22 14:53:48","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("882","2023-03-22 14:54:39","1","2","CERRAR SESIÓN","USUARIO CERRÓ SESIÓN");
+INSERT INTO tbl_ms_bitacora VALUES("883","2023-03-22 14:56:04","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("884","2023-03-22 14:59:15","1","2","CERRAR SESIÓN","USUARIO CERRÓ SESIÓN");
+INSERT INTO tbl_ms_bitacora VALUES("885","2023-03-22 15:02:29","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("886","2023-03-22 15:03:12","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("887","2023-03-22 15:03:19","1","2","INGRESO","INGRESO AL MODULO DE ROLES");
+INSERT INTO tbl_ms_bitacora VALUES("888","2023-03-22 15:41:03","1","2","CERRAR SESIÓN","USUARIO CERRÓ SESIÓN");
+INSERT INTO tbl_ms_bitacora VALUES("889","2023-03-22 23:16:45","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("890","2023-03-22 23:16:55","1","2","CERRAR SESIÓN","USUARIO CERRÓ SESIÓN");
+INSERT INTO tbl_ms_bitacora VALUES("891","2023-03-22 23:18:44","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("892","2023-03-22 23:18:57","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("893","2023-03-22 23:19:13","1","2","ACTUALIZAR","ACTUALIZACIÓN DE USUARIO");
+INSERT INTO tbl_ms_bitacora VALUES("894","2023-03-22 23:19:16","1","2","CERRAR SESIÓN","USUARIO CERRÓ SESIÓN");
+INSERT INTO tbl_ms_bitacora VALUES("895","2023-03-22 23:19:23","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("896","2023-03-22 23:19:40","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("897","2023-03-22 23:27:21","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("898","2023-03-22 23:40:03","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("899","2023-03-22 23:41:40","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("900","2023-03-22 23:42:03","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("901","2023-03-22 23:42:15","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("902","2023-03-22 23:42:59","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("903","2023-03-23 00:27:35","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("904","2023-03-23 00:28:31","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("905","2023-03-23 00:28:32","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("906","2023-03-23 00:28:33","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("907","2023-03-23 00:30:18","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("908","2023-03-23 00:30:19","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("909","2023-03-23 00:31:05","1","2","CERRAR SESIÓN","USUARIO CERRÓ SESIÓN");
+INSERT INTO tbl_ms_bitacora VALUES("910","2023-03-23 21:49:57","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("911","2023-03-23 21:50:07","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("912","2023-03-23 21:51:50","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("913","2023-03-23 21:52:34","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("914","2023-03-23 21:52:52","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("915","2023-03-23 21:53:19","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("916","2023-03-23 21:53:29","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("917","2023-03-23 22:02:45","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("918","2023-03-23 22:03:46","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("919","2023-03-23 22:03:49","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("920","2023-03-23 22:04:18","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("921","2023-03-23 22:04:24","1","2","CERRAR SESIÓN","USUARIO CERRÓ SESIÓN");
+INSERT INTO tbl_ms_bitacora VALUES("922","2023-03-23 22:11:06","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("923","2023-03-23 22:11:12","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("924","2023-03-23 22:12:29","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("925","2023-03-23 22:13:18","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("926","2023-03-23 22:13:21","1","2","CERRAR SESIÓN","USUARIO CERRÓ SESIÓN");
+INSERT INTO tbl_ms_bitacora VALUES("927","2023-03-23 22:13:38","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("928","2023-03-23 22:14:30","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("929","2023-03-23 22:15:56","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("930","2023-03-23 22:16:00","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("931","2023-03-23 22:16:01","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("932","2023-03-23 22:16:03","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("933","2023-03-23 22:16:06","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("934","2023-03-23 22:16:06","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("935","2023-03-23 22:17:15","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("936","2023-03-23 22:17:21","1","2","CERRAR SESIÓN","USUARIO CERRÓ SESIÓN");
+INSERT INTO tbl_ms_bitacora VALUES("937","2023-03-23 22:17:52","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("938","2023-03-23 22:17:56","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("939","2023-03-23 22:18:40","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("940","2023-03-23 22:18:42","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("941","2023-03-23 22:18:43","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("942","2023-03-23 22:18:45","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("943","2023-03-23 22:20:19","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("944","2023-03-23 22:20:31","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("945","2023-03-23 22:25:05","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("946","2023-03-23 22:25:14","1","2","CERRAR SESIÓN","USUARIO CERRÓ SESIÓN");
+INSERT INTO tbl_ms_bitacora VALUES("947","2023-03-23 22:28:53","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("948","2023-03-23 22:28:57","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("949","2023-03-23 22:29:08","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("950","2023-03-23 22:29:09","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("951","2023-03-23 22:29:10","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("952","2023-03-23 22:29:10","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("953","2023-03-23 22:29:11","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("954","2023-03-23 22:29:13","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("955","2023-03-23 22:29:16","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("956","2023-03-23 22:44:07","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("957","2023-03-23 22:44:10","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("958","2023-03-23 22:44:16","1","2","CERRAR SESIÓN","USUARIO CERRÓ SESIÓN");
+INSERT INTO tbl_ms_bitacora VALUES("959","2023-03-23 22:51:04","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("960","2023-03-23 22:51:30","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("961","2023-03-23 23:20:42","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("962","2023-03-23 23:25:23","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("963","2023-03-23 23:25:32","1","2","CERRAR SESIÓN","USUARIO CERRÓ SESIÓN");
+INSERT INTO tbl_ms_bitacora VALUES("964","2023-03-24 12:07:04","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("965","2023-03-24 12:07:08","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("966","2023-03-24 12:07:29","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("967","2023-03-24 12:34:45","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("968","2023-03-24 12:35:01","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("969","2023-03-24 12:38:55","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("970","2023-03-24 12:46:10","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("971","2023-03-24 12:55:11","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("972","2023-03-24 12:55:39","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("973","2023-03-24 12:57:27","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("974","2023-03-24 13:00:28","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("975","2023-03-24 13:00:53","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("976","2023-03-24 13:05:55","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("977","2023-03-24 13:06:11","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("978","2023-03-24 13:10:35","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("979","2023-03-24 15:16:19","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("980","2023-03-24 15:16:23","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("981","2023-03-24 15:40:26","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("982","2023-03-24 15:41:24","1","2","CERRAR SESIÓN","USUARIO CERRÓ SESIÓN");
+INSERT INTO tbl_ms_bitacora VALUES("983","2023-03-24 16:15:55","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("984","2023-03-24 16:16:00","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("985","2023-03-24 16:27:02","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("986","2023-03-24 16:28:14","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("987","2023-03-24 16:32:14","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("988","2023-03-24 16:32:52","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("989","2023-03-24 16:35:30","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("990","2023-03-24 16:39:56","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("991","2023-03-24 16:40:10","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("992","2023-03-24 16:40:10","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("993","2023-03-24 16:40:11","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("994","2023-03-24 16:40:11","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("995","2023-03-24 16:40:12","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("996","2023-03-24 16:46:54","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("997","2023-03-24 16:47:18","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("998","2023-03-24 16:47:46","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("999","2023-03-24 16:55:10","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1000","2023-03-24 17:12:28","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1001","2023-03-24 18:37:23","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("1002","2023-03-24 18:50:14","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1003","2023-03-24 19:24:00","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1004","2023-03-24 19:25:11","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1005","2023-03-24 19:25:14","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1006","2023-03-24 19:27:30","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1007","2023-03-24 19:28:06","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1008","2023-03-24 20:00:08","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1009","2023-03-26 21:41:23","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("1010","2023-03-26 21:42:44","1","2","INGRESO","INGRESO AL MÓDULO PREGUNTAS");
+INSERT INTO tbl_ms_bitacora VALUES("1011","2023-03-26 21:42:57","1","2","INGRESO","INGRESO AL MODULO OBJETOS");
+INSERT INTO tbl_ms_bitacora VALUES("1012","2023-03-26 21:43:34","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("1013","2023-03-26 21:43:49","1","2","INGRESO","INGRESO AL MODULO OBJETOS");
+INSERT INTO tbl_ms_bitacora VALUES("1014","2023-03-26 21:44:12","1","2","INGRESO","INGRESO AL MÓDULO PREGUNTAS");
+INSERT INTO tbl_ms_bitacora VALUES("1015","2023-03-26 21:44:27","1","2","INGRESO","INGRESO AL MÓDULO PROMOCION");
+INSERT INTO tbl_ms_bitacora VALUES("1016","2023-03-26 21:44:30","1","2","INGRESO","INGRESO AL MÓDULO PREGUNTAS");
+INSERT INTO tbl_ms_bitacora VALUES("1017","2023-03-26 21:44:38","1","2","INGRESO","INGRESO AL MODULO OBJETOS");
+INSERT INTO tbl_ms_bitacora VALUES("1018","2023-03-26 21:46:41","1","2","INGRESO","INGRESO AL MODULO OBJETOS");
+INSERT INTO tbl_ms_bitacora VALUES("1019","2023-03-26 21:48:24","1","2","INGRESO","INGRESO AL MODULO OBJETOS");
+INSERT INTO tbl_ms_bitacora VALUES("1020","2023-03-26 21:49:35","1","2","INGRESO","INGRESO AL MODULO OBJETOS");
+INSERT INTO tbl_ms_bitacora VALUES("1021","2023-03-26 21:51:19","1","2","INGRESO","INGRESO AL MODULO OBJETOS");
+INSERT INTO tbl_ms_bitacora VALUES("1022","2023-03-26 21:51:20","1","2","INGRESO","INGRESO AL MODULO OBJETOS");
+INSERT INTO tbl_ms_bitacora VALUES("1023","2023-03-26 21:51:22","1","2","INGRESO","INGRESO AL MODULO OBJETOS");
+INSERT INTO tbl_ms_bitacora VALUES("1024","2023-03-26 21:54:16","1","2","INGRESO","INGRESO AL MODULO OBJETOS");
+INSERT INTO tbl_ms_bitacora VALUES("1025","2023-03-26 21:57:33","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("1026","2023-03-26 21:58:34","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("1027","2023-03-26 22:00:35","1","2","INGRESO","INGRESO AL MODULO OBJETOS");
+INSERT INTO tbl_ms_bitacora VALUES("1028","2023-03-26 22:03:35","1","2","INGRESO","INGRESO AL MODULO OBJETOS");
+INSERT INTO tbl_ms_bitacora VALUES("1029","2023-03-26 22:03:46","1","2","CERRAR SESIÓN","USUARIO CERRÓ SESIÓN");
+INSERT INTO tbl_ms_bitacora VALUES("1030","2023-03-26 22:06:31","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("1031","2023-03-26 22:06:41","1","2","INGRESO","INGRESO AL MODULO OBJETOS");
+INSERT INTO tbl_ms_bitacora VALUES("1032","2023-03-26 22:07:27","1","2","ACTUALIZAR","ACTUALIZACIÓN DE OBJETO");
+INSERT INTO tbl_ms_bitacora VALUES("1033","2023-03-26 22:08:41","1","2","INGRESO","INGRESO AL MODULO OBJETOS");
+INSERT INTO tbl_ms_bitacora VALUES("1034","2023-03-26 22:16:03","1","2","INGRESO","INGRESO AL MODULO OBJETOS");
+INSERT INTO tbl_ms_bitacora VALUES("1035","2023-03-26 22:16:05","1","2","INGRESO","INGRESO AL MODULO OBJETOS");
+INSERT INTO tbl_ms_bitacora VALUES("1036","2023-03-26 22:16:09","1","2","INGRESO","INGRESO AL MODULO OBJETOS");
+INSERT INTO tbl_ms_bitacora VALUES("1037","2023-03-26 22:16:13","1","2","INGRESO","INGRESO AL MODULO OBJETOS");
+INSERT INTO tbl_ms_bitacora VALUES("1038","2023-03-26 22:17:52","1","2","INGRESO","INGRESO AL MÓDULO PREGUNTAS");
+INSERT INTO tbl_ms_bitacora VALUES("1039","2023-03-26 22:19:57","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("1040","2023-03-26 22:20:11","1","2","INGRESO","INGRESO AL MÓDULO PARÁMETROS");
+INSERT INTO tbl_ms_bitacora VALUES("1041","2023-03-26 22:21:04","1","2","INGRESO","INGRESO AL MÓDULO PROMOCION");
+INSERT INTO tbl_ms_bitacora VALUES("1042","2023-03-26 22:21:13","1","2","INGRESO","INGRESO AL MÓDULO PREGUNTAS");
+INSERT INTO tbl_ms_bitacora VALUES("1043","2023-03-26 22:34:46","1","2","INGRESO","INGRESO AL MÓDULO PREGUNTAS");
+INSERT INTO tbl_ms_bitacora VALUES("1044","2023-03-26 22:44:49","1","2","INGRESO","INGRESO AL MÓDULO PREGUNTAS");
+INSERT INTO tbl_ms_bitacora VALUES("1045","2023-03-26 22:44:52","1","2","INGRESO","INGRESO AL MODULO OBJETOS");
+INSERT INTO tbl_ms_bitacora VALUES("1046","2023-03-26 22:45:00","1","2","INGRESO","INGRESO AL MÓDULO PREGUNTAS");
+INSERT INTO tbl_ms_bitacora VALUES("1047","2023-03-26 22:45:14","1","2","CERRAR SESIÓN","USUARIO CERRÓ SESIÓN");
+INSERT INTO tbl_ms_bitacora VALUES("1048","2023-03-27 14:57:19","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("1049","2023-03-27 14:57:42","1","2","INGRESO","INGRESO AL MÓDULO PROMOCION");
+INSERT INTO tbl_ms_bitacora VALUES("1050","2023-03-27 14:57:50","1","2","INGRESO","INGRESO AL MÓDULO PREGUNTAS");
+INSERT INTO tbl_ms_bitacora VALUES("1051","2023-03-27 15:00:33","1","2","INGRESO","INGRESO AL MODULO OBJETOS");
+INSERT INTO tbl_ms_bitacora VALUES("1052","2023-03-27 15:00:46","1","2","INGRESO","INGRESO AL MÓDULO PREGUNTAS");
+INSERT INTO tbl_ms_bitacora VALUES("1053","2023-03-27 15:01:14","1","2","INGRESO","INGRESO AL MÓDULO PROMOCION");
+INSERT INTO tbl_ms_bitacora VALUES("1054","2023-03-27 15:01:43","1","2","INGRESO","INGRESO AL MÓDULO PREGUNTAS");
+INSERT INTO tbl_ms_bitacora VALUES("1055","2023-03-27 15:02:10","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1056","2023-03-27 15:08:05","1","2","INGRESO","INGRESO AL MODULO OBJETOS");
+INSERT INTO tbl_ms_bitacora VALUES("1057","2023-03-27 15:08:34","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("1058","2023-03-27 15:11:12","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1059","2023-03-27 15:13:17","1","2","INGRESO","INGRESO AL MÓDULO PREGUNTAS");
+INSERT INTO tbl_ms_bitacora VALUES("1060","2023-03-27 15:13:35","1","2","INGRESO","INGRESO AL MODULO OBJETOS");
+INSERT INTO tbl_ms_bitacora VALUES("1061","2023-03-27 15:17:34","1","2","INGRESO","INGRESO AL MODULO OBJETOS");
+INSERT INTO tbl_ms_bitacora VALUES("1062","2023-03-27 15:19:22","1","2","INGRESO","INGRESO AL MODULO OBJETOS");
+INSERT INTO tbl_ms_bitacora VALUES("1063","2023-03-27 15:19:22","1","2","INGRESO","INGRESO AL MODULO OBJETOS");
+INSERT INTO tbl_ms_bitacora VALUES("1064","2023-03-27 15:19:23","1","2","INGRESO","INGRESO AL MODULO OBJETOS");
+INSERT INTO tbl_ms_bitacora VALUES("1065","2023-03-27 15:19:24","1","2","INGRESO","INGRESO AL MODULO OBJETOS");
+INSERT INTO tbl_ms_bitacora VALUES("1066","2023-03-27 15:19:24","1","2","INGRESO","INGRESO AL MODULO OBJETOS");
+INSERT INTO tbl_ms_bitacora VALUES("1067","2023-03-27 15:19:25","1","2","INGRESO","INGRESO AL MODULO OBJETOS");
+INSERT INTO tbl_ms_bitacora VALUES("1068","2023-03-27 15:19:26","1","2","INGRESO","INGRESO AL MODULO OBJETOS");
+INSERT INTO tbl_ms_bitacora VALUES("1069","2023-03-27 15:19:26","1","2","INGRESO","INGRESO AL MODULO OBJETOS");
+INSERT INTO tbl_ms_bitacora VALUES("1070","2023-03-27 15:21:24","1","2","INGRESO","INGRESO AL MODULO OBJETOS");
+INSERT INTO tbl_ms_bitacora VALUES("1071","2023-03-27 15:21:27","1","2","INGRESO","INGRESO AL MODULO OBJETOS");
+INSERT INTO tbl_ms_bitacora VALUES("1072","2023-03-27 16:49:51","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("1073","2023-03-27 16:49:57","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1074","2023-03-27 17:20:56","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("1075","2023-03-27 17:21:08","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("1076","2023-03-27 17:26:36","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1077","2023-03-27 17:26:45","1","2","INGRESO","INGRESO AL MÓDULO PARÁMETROS");
+INSERT INTO tbl_ms_bitacora VALUES("1078","2023-03-27 17:26:53","1","2","INGRESO","INGRESO AL MÓDULO PROMOCION");
+INSERT INTO tbl_ms_bitacora VALUES("1079","2023-03-27 17:26:59","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1080","2023-03-27 17:50:52","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1081","2023-03-27 18:46:16","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1082","2023-03-27 18:47:44","1","2","CERRAR SESIÓN","USUARIO CERRÓ SESIÓN");
+INSERT INTO tbl_ms_bitacora VALUES("1083","2023-03-27 18:54:04","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("1084","2023-03-27 18:54:27","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1085","2023-03-27 18:56:03","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1086","2023-03-27 18:56:04","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1087","2023-03-27 18:56:05","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1088","2023-03-27 18:56:08","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1089","2023-03-27 18:56:10","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1090","2023-03-27 19:23:30","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("1091","2023-03-27 19:28:57","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("1092","2023-03-27 19:29:00","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1093","2023-03-27 19:35:39","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("1094","2023-03-27 20:51:45","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1095","2023-03-27 21:59:51","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("1096","2023-03-27 21:59:55","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1097","2023-03-27 22:00:40","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1098","2023-03-27 22:00:43","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1099","2023-03-27 22:01:14","1","2","CERRAR SESIÓN","USUARIO CERRÓ SESIÓN");
+INSERT INTO tbl_ms_bitacora VALUES("1100","2023-03-27 22:01:23","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("1101","2023-03-27 22:01:30","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1102","2023-03-27 22:02:12","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1103","2023-03-27 22:02:44","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1104","2023-03-27 22:02:55","1","2","CERRAR SESIÓN","USUARIO CERRÓ SESIÓN");
+INSERT INTO tbl_ms_bitacora VALUES("1105","2023-03-28 15:51:00","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("1106","2023-03-28 15:51:06","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1107","2023-03-28 15:51:23","1","2","ELIMINAR","ELIMINACION DE CLIENTE");
+INSERT INTO tbl_ms_bitacora VALUES("1108","2023-03-28 15:53:42","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1109","2023-03-28 15:55:07","1","2","CREAR","CREACION DE CLIENTE");
+INSERT INTO tbl_ms_bitacora VALUES("1110","2023-03-28 15:55:11","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1111","2023-03-28 15:56:23","1","2","CREAR","CREACION DE CLIENTE");
+INSERT INTO tbl_ms_bitacora VALUES("1112","2023-03-28 15:56:27","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1113","2023-03-28 15:57:29","1","2","CREAR","CREACION DE CLIENTE");
+INSERT INTO tbl_ms_bitacora VALUES("1114","2023-03-28 15:57:56","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1115","2023-03-28 15:59:04","1","2","CREAR","CREACION DE CLIENTE");
+INSERT INTO tbl_ms_bitacora VALUES("1116","2023-03-28 15:59:06","1","2","CREAR","CREACION DE CLIENTE");
+INSERT INTO tbl_ms_bitacora VALUES("1117","2023-03-28 15:59:11","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1118","2023-03-28 15:59:15","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1119","2023-03-28 15:59:18","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1120","2023-03-28 16:05:28","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1121","2023-03-28 16:05:43","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1122","2023-03-28 16:08:22","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1123","2023-03-28 16:21:01","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1124","2023-03-28 16:21:30","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1125","2023-03-28 16:30:19","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1126","2023-03-28 16:30:22","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1127","2023-03-28 16:48:20","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1128","2023-03-28 16:50:16","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1129","2023-03-28 16:50:30","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1130","2023-03-28 16:52:43","1","2","ELIMINAR","ELIMINACION DE CLIENTE");
+INSERT INTO tbl_ms_bitacora VALUES("1131","2023-03-28 17:22:42","1","2","CERRAR SESIÓN","USUARIO CERRÓ SESIÓN");
+INSERT INTO tbl_ms_bitacora VALUES("1132","2023-03-28 17:32:52","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("1133","2023-03-28 17:32:54","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1134","2023-03-28 17:33:48","1","2","CREAR","CREACION DE CLIENTE");
+INSERT INTO tbl_ms_bitacora VALUES("1135","2023-03-28 17:34:53","1","2","CREAR","CREACION DE CLIENTE");
+INSERT INTO tbl_ms_bitacora VALUES("1136","2023-03-28 17:35:26","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1137","2023-03-28 17:48:34","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1138","2023-03-28 17:59:20","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1139","2023-03-28 18:00:32","1","2","INGRESO","INGRESO AL MODULO OBJETOS");
+INSERT INTO tbl_ms_bitacora VALUES("1140","2023-03-28 18:00:44","1","2","ACTUALIZAR","ACTUALIZACIÓN DE OBJETO");
+INSERT INTO tbl_ms_bitacora VALUES("1141","2023-03-28 18:01:13","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("1142","2023-03-28 18:02:54","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("1143","2023-03-28 18:02:58","1","2","INGRESO","INGRESO AL MODULO OBJETOS");
+INSERT INTO tbl_ms_bitacora VALUES("1144","2023-03-28 18:03:13","1","2","CREAR","CREACION DE OBJETO");
+INSERT INTO tbl_ms_bitacora VALUES("1145","2023-03-28 18:03:27","1","2","ACTUALIZAR","ACTUALIZACIÓN DE OBJETO");
+INSERT INTO tbl_ms_bitacora VALUES("1146","2023-03-28 18:50:20","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1147","2023-03-28 18:50:23","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1148","2023-03-28 18:52:34","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1149","2023-03-28 19:03:18","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1150","2023-03-28 19:03:19","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1151","2023-03-28 19:03:20","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1152","2023-03-28 19:03:41","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1153","2023-03-28 19:09:31","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1154","2023-03-28 19:09:34","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1155","2023-03-28 19:21:01","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1156","2023-03-28 19:21:02","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1157","2023-03-28 19:21:11","1","2","ACTUALIZAR","ACTUALIZACIÓN DE CLIENTE");
+INSERT INTO tbl_ms_bitacora VALUES("1158","2023-03-28 19:21:12","1","2","ACTUALIZAR","ACTUALIZACIÓN DE CLIENTE");
+INSERT INTO tbl_ms_bitacora VALUES("1159","2023-03-28 19:21:13","1","2","ACTUALIZAR","ACTUALIZACIÓN DE CLIENTE");
+INSERT INTO tbl_ms_bitacora VALUES("1160","2023-03-28 19:21:13","1","2","ACTUALIZAR","ACTUALIZACIÓN DE CLIENTE");
+INSERT INTO tbl_ms_bitacora VALUES("1161","2023-03-28 19:21:13","1","2","ACTUALIZAR","ACTUALIZACIÓN DE CLIENTE");
+INSERT INTO tbl_ms_bitacora VALUES("1162","2023-03-28 19:21:14","1","2","ACTUALIZAR","ACTUALIZACIÓN DE CLIENTE");
+INSERT INTO tbl_ms_bitacora VALUES("1163","2023-03-28 19:21:14","1","2","ACTUALIZAR","ACTUALIZACIÓN DE CLIENTE");
+INSERT INTO tbl_ms_bitacora VALUES("1164","2023-03-28 19:21:14","1","2","ACTUALIZAR","ACTUALIZACIÓN DE CLIENTE");
+INSERT INTO tbl_ms_bitacora VALUES("1165","2023-03-28 19:21:14","1","2","ACTUALIZAR","ACTUALIZACIÓN DE CLIENTE");
+INSERT INTO tbl_ms_bitacora VALUES("1166","2023-03-28 19:22:29","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1167","2023-03-28 19:22:32","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1168","2023-03-28 19:22:37","1","2","ACTUALIZAR","ACTUALIZACIÓN DE CLIENTE");
+INSERT INTO tbl_ms_bitacora VALUES("1169","2023-03-28 19:22:40","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1170","2023-03-28 19:22:59","1","2","ACTUALIZAR","ACTUALIZACIÓN DE CLIENTE");
+INSERT INTO tbl_ms_bitacora VALUES("1171","2023-03-28 19:23:11","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1172","2023-03-28 19:23:57","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1173","2023-03-28 19:23:58","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1174","2023-03-28 19:23:59","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1175","2023-03-28 19:23:59","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1176","2023-03-28 19:24:00","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1177","2023-03-28 19:24:12","1","2","ACTUALIZAR","ACTUALIZACIÓN DE CLIENTE");
+INSERT INTO tbl_ms_bitacora VALUES("1178","2023-03-28 19:24:38","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1179","2023-03-28 19:24:54","1","2","ACTUALIZAR","ACTUALIZACIÓN DE CLIENTE");
+INSERT INTO tbl_ms_bitacora VALUES("1180","2023-03-28 19:25:00","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1181","2023-03-28 19:46:16","1","2","ACTUALIZAR","ACTUALIZACIÓN DE CLIENTE");
+INSERT INTO tbl_ms_bitacora VALUES("1182","2023-03-28 19:46:21","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1183","2023-03-28 19:46:28","1","2","ACTUALIZAR","ACTUALIZACIÓN DE CLIENTE");
+INSERT INTO tbl_ms_bitacora VALUES("1184","2023-03-28 19:46:32","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1185","2023-03-28 19:53:18","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1186","2023-03-28 19:53:30","1","2","ACTUALIZAR","ACTUALIZACIÓN DE CLIENTE");
+INSERT INTO tbl_ms_bitacora VALUES("1187","2023-03-28 19:53:35","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1188","2023-03-28 19:54:51","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1189","2023-03-28 19:54:52","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1190","2023-03-28 19:55:02","1","2","ACTUALIZAR","ACTUALIZACIÓN DE CLIENTE");
+INSERT INTO tbl_ms_bitacora VALUES("1191","2023-03-28 19:55:05","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1192","2023-03-28 19:58:25","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1193","2023-03-28 20:00:06","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1194","2023-03-28 20:00:14","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1195","2023-03-28 20:00:21","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1196","2023-03-28 20:02:03","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1197","2023-03-28 20:02:55","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1198","2023-03-28 20:02:58","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1199","2023-03-28 20:03:05","1","2","ACTUALIZAR","ACTUALIZACIÓN DE CLIENTE");
+INSERT INTO tbl_ms_bitacora VALUES("1200","2023-03-28 20:03:13","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1201","2023-03-28 20:03:22","1","2","ACTUALIZAR","ACTUALIZACIÓN DE CLIENTE");
+INSERT INTO tbl_ms_bitacora VALUES("1202","2023-03-28 20:03:25","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1203","2023-03-28 20:04:27","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1204","2023-03-28 20:05:44","1","2","ACTUALIZAR","ACTUALIZACIÓN DE CLIENTE");
+INSERT INTO tbl_ms_bitacora VALUES("1205","2023-03-28 20:05:56","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1206","2023-03-28 20:06:51","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1207","2023-03-28 20:07:03","1","2","ACTUALIZAR","ACTUALIZACIÓN DE CLIENTE");
+INSERT INTO tbl_ms_bitacora VALUES("1208","2023-03-28 20:07:06","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1209","2023-03-28 20:07:07","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1210","2023-03-28 20:07:08","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1211","2023-03-28 20:07:08","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1212","2023-03-28 20:07:45","1","2","ACTUALIZAR","ACTUALIZACIÓN DE CLIENTE");
+INSERT INTO tbl_ms_bitacora VALUES("1213","2023-03-28 20:07:52","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1214","2023-03-28 20:08:17","1","2","ACTUALIZAR","ACTUALIZACIÓN DE CLIENTE");
+INSERT INTO tbl_ms_bitacora VALUES("1215","2023-03-28 20:09:42","1","2","CREAR","CREACION DE CLIENTE");
+INSERT INTO tbl_ms_bitacora VALUES("1216","2023-03-28 20:10:30","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1217","2023-03-28 20:10:39","1","2","ELIMINAR","ELIMINACION DE CLIENTE");
+INSERT INTO tbl_ms_bitacora VALUES("1218","2023-03-28 20:11:04","1","2","CREAR","CREACION DE CLIENTE");
+INSERT INTO tbl_ms_bitacora VALUES("1219","2023-03-28 20:26:19","1","2","CERRAR SESIÓN","USUARIO CERRÓ SESIÓN");
+INSERT INTO tbl_ms_bitacora VALUES("1220","2023-03-28 21:19:00","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("1221","2023-03-28 21:21:28","1","2","INGRESO","INGRESO AL MODULO OBJETOS");
+INSERT INTO tbl_ms_bitacora VALUES("1222","2023-03-28 21:44:03","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1223","2023-03-28 22:23:30","1","2","ACTUALIZAR","ACTUALIZACIÓN DE CLIENTE");
+INSERT INTO tbl_ms_bitacora VALUES("1224","2023-03-28 22:23:41","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1225","2023-03-28 22:24:11","1","2","ELIMINAR","ELIMINACION DE CLIENTE");
+INSERT INTO tbl_ms_bitacora VALUES("1226","2023-03-28 22:34:48","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1227","2023-03-28 22:35:52","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1228","2023-03-29 18:28:33","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("1229","2023-03-29 18:35:16","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1230","2023-03-29 18:37:40","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1231","2023-03-29 18:37:42","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1232","2023-03-29 18:47:55","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1233","2023-03-29 18:47:55","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1234","2023-03-29 18:47:56","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1235","2023-03-29 18:47:57","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1236","2023-03-29 18:47:57","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1237","2023-03-29 18:47:58","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1238","2023-03-29 18:47:58","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1239","2023-03-29 18:47:59","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1240","2023-03-29 18:47:59","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1241","2023-03-29 18:48:00","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1242","2023-03-29 18:48:01","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1243","2023-03-29 18:48:01","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1244","2023-03-29 18:48:02","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1245","2023-03-29 18:48:25","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1246","2023-03-29 18:48:38","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1247","2023-03-29 18:48:40","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1248","2023-03-29 18:48:41","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1249","2023-03-29 18:49:18","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1250","2023-03-29 18:49:42","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1251","2023-03-29 18:50:13","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1252","2023-03-29 18:55:47","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1253","2023-03-29 18:55:48","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1254","2023-03-29 18:55:52","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1255","2023-03-29 18:55:53","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1256","2023-03-29 18:55:53","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1257","2023-03-29 18:55:54","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1258","2023-03-29 18:55:55","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1259","2023-03-29 18:55:56","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1260","2023-03-29 18:56:04","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1261","2023-03-29 18:57:31","1","2","CERRAR SESIÓN","USUARIO CERRÓ SESIÓN");
+INSERT INTO tbl_ms_bitacora VALUES("1262","2023-03-29 18:57:53","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("1263","2023-03-29 18:58:05","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1264","2023-03-29 19:02:52","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1265","2023-03-29 19:05:18","1","2","INGRESO","INGRESO AL MODULO USUARIOS");
+INSERT INTO tbl_ms_bitacora VALUES("1266","2023-03-29 19:05:29","1","2","INGRESO","INGRESO AL MÓDULO PREGUNTAS");
+INSERT INTO tbl_ms_bitacora VALUES("1267","2023-03-29 19:05:40","1","2","INGRESO","INGRESO AL MÓDULO PROMOCION");
+INSERT INTO tbl_ms_bitacora VALUES("1268","2023-03-29 19:05:51","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1269","2023-03-29 19:06:11","1","2","ACTUALIZAR","ACTUALIZACIÓN DE CLIENTE");
+INSERT INTO tbl_ms_bitacora VALUES("1270","2023-03-29 19:06:21","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1271","2023-03-29 19:07:49","1","2","ACTUALIZAR","ACTUALIZACIÓN DE CLIENTE");
+INSERT INTO tbl_ms_bitacora VALUES("1272","2023-03-29 19:08:11","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1273","2023-03-29 19:26:17","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1274","2023-03-29 19:26:52","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1275","2023-03-29 19:27:11","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1276","2023-03-29 19:28:15","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1277","2023-03-29 19:28:22","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1278","2023-03-29 19:28:52","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1279","2023-03-29 19:29:01","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1280","2023-03-29 19:30:56","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("1281","2023-03-29 19:31:47","1","2","INGRESO","INGRESO AL MODULO CLIENTES");
+
+
+
+DROP TABLE IF EXISTS tbl_ms_estado;
+
+CREATE TABLE `tbl_ms_estado` (
+  `id_estado` int NOT NULL AUTO_INCREMENT,
+  `nombre_estado` varchar(45) NOT NULL,
+  `descripcion` varchar(100) DEFAULT NULL,
+  `creado_por` varchar(15) DEFAULT NULL,
+  `fecha_creacion` date DEFAULT NULL,
+  `modificado_por` varchar(15) DEFAULT NULL,
+  `fecha_modificacion` date DEFAULT NULL,
+  PRIMARY KEY (`id_estado`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+INSERT INTO tbl_ms_estado VALUES("1","NUEVO","NUEVO","ADMIN","2022-11-07","ADMIN","2022-11-07");
+INSERT INTO tbl_ms_estado VALUES("2","ACTIVO","ACTIVO","ADMIN","2022-11-07","ADMIN","2022-11-07");
+INSERT INTO tbl_ms_estado VALUES("3","INACTIVO","INACTIVO","ADMIN","2022-11-07","ADMIN","2022-11-07");
+INSERT INTO tbl_ms_estado VALUES("4","BLOQUEADO","BLOQUEADO","ADMIN","2022-11-07","ADMIN","2022-11-07");
+INSERT INTO tbl_ms_estado VALUES("5","RESETEO","RESETEO","ADMIN","2022-11-07","ADMIN","2022-11-07");
+INSERT INTO tbl_ms_estado VALUES("6","PENDIENTE","PENDIENTE","ADMIN","2022-11-07","ADMIN","2022-11-07");
+
+
+
+DROP TABLE IF EXISTS tbl_ms_hist_contrasena;
+
+CREATE TABLE `tbl_ms_hist_contrasena` (
+  `id_usuario` bigint NOT NULL,
+  `contrasena` varchar(100) DEFAULT NULL,
+  `creado_por` varchar(15) DEFAULT NULL,
+  `fecha_creacion` datetime DEFAULT NULL,
+  `modificado_por` varchar(15) DEFAULT NULL,
+  `fecha_modificacion` datetime DEFAULT NULL,
+  PRIMARY KEY (`id_usuario`),
+  CONSTRAINT `histContra_idUsuario` FOREIGN KEY (`id_usuario`) REFERENCES `tbl_ms_usuarios` (`id_usuario`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+
+
+DROP TABLE IF EXISTS tbl_ms_objetos;
+
+CREATE TABLE `tbl_ms_objetos` (
+  `id_objeto` bigint NOT NULL AUTO_INCREMENT,
+  `objeto` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
+  `descripcion` text CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
+  `estado` int NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id_objeto`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
+
+INSERT INTO tbl_ms_objetos VALUES("1","INICIO","DASHBOARD","1");
+INSERT INTO tbl_ms_objetos VALUES("2","USUARIOS","USUARIOS DEL SISTEMAA","1");
+INSERT INTO tbl_ms_objetos VALUES("4","PRODUCTOS","Todos los productos","1");
+INSERT INTO tbl_ms_objetos VALUES("10","PROMOCION","Promociones","1");
+INSERT INTO tbl_ms_objetos VALUES("11","DESCUENTO","DESCUENTOS","1");
+INSERT INTO tbl_ms_objetos VALUES("12","PRUEBA","PREUBA DORCA","1");
+
+
+
+DROP TABLE IF EXISTS tbl_ms_parametros;
+
+CREATE TABLE `tbl_ms_parametros` (
+  `id_parametro` int NOT NULL AUTO_INCREMENT,
+  `parametro` varchar(50) DEFAULT NULL,
+  `valor` varchar(100) DEFAULT NULL,
+  `creado_por` varchar(15) DEFAULT NULL,
+  `fecha_creacion` datetime DEFAULT NULL,
+  `modificado_por` varchar(15) DEFAULT NULL,
+  `fecha_modificacion` datetime DEFAULT NULL,
+  PRIMARY KEY (`id_parametro`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+INSERT INTO tbl_ms_parametros VALUES("1","ADMIN_INTENTOS","3","","","","");
+INSERT INTO tbl_ms_parametros VALUES("2","ADMIN_PREGUNTAS","2","","","","");
+INSERT INTO tbl_ms_parametros VALUES("3","ADMIN_CORREO","inversiones@gmail.com","","","","");
+INSERT INTO tbl_ms_parametros VALUES("4","FECHA_VENCIMIENTO","30","","","","");
+
+
+
+DROP TABLE IF EXISTS tbl_ms_permisos;
+
+CREATE TABLE `tbl_ms_permisos` (
+  `idpermiso` bigint NOT NULL AUTO_INCREMENT,
+  `id_rol` bigint NOT NULL,
+  `id_objeto` bigint NOT NULL,
+  `r` int NOT NULL DEFAULT '0',
+  `w` int NOT NULL DEFAULT '0',
+  `u` int NOT NULL DEFAULT '0',
+  `d` int NOT NULL DEFAULT '0',
+  PRIMARY KEY (`idpermiso`),
+  KEY `rolid` (`id_rol`),
+  KEY `moduloid` (`id_objeto`),
+  CONSTRAINT `tbl_ms_permisos_ibfk_1` FOREIGN KEY (`id_rol`) REFERENCES `tbl_ms_roles` (`id_rol`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `tbl_ms_permisos_ibfk_2` FOREIGN KEY (`id_objeto`) REFERENCES `tbl_ms_objetos` (`id_objeto`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=235 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
+
+INSERT INTO tbl_ms_permisos VALUES("3","1","1","1","1","1","1");
+INSERT INTO tbl_ms_permisos VALUES("4","1","2","1","1","1","1");
+INSERT INTO tbl_ms_permisos VALUES("6","1","4","1","1","1","1");
+INSERT INTO tbl_ms_permisos VALUES("39","3","1","1","0","0","0");
+INSERT INTO tbl_ms_permisos VALUES("40","3","2","1","0","0","0");
+INSERT INTO tbl_ms_permisos VALUES("42","3","4","0","0","0","0");
+INSERT INTO tbl_ms_permisos VALUES("93","11","1","1","0","0","0");
+INSERT INTO tbl_ms_permisos VALUES("94","11","2","0","0","0","0");
+INSERT INTO tbl_ms_permisos VALUES("96","11","4","0","0","0","0");
+INSERT INTO tbl_ms_permisos VALUES("219","4","1","1","0","0","0");
+INSERT INTO tbl_ms_permisos VALUES("220","4","2","1","1","1","1");
+INSERT INTO tbl_ms_permisos VALUES("222","4","4","1","0","0","0");
+INSERT INTO tbl_ms_permisos VALUES("223","21","1","1","1","1","1");
+INSERT INTO tbl_ms_permisos VALUES("224","21","2","1","1","1","1");
+INSERT INTO tbl_ms_permisos VALUES("226","21","4","1","0","0","0");
+INSERT INTO tbl_ms_permisos VALUES("231","2","1","0","0","0","0");
+INSERT INTO tbl_ms_permisos VALUES("232","2","2","0","0","0","0");
+INSERT INTO tbl_ms_permisos VALUES("234","2","4","0","0","0","0");
+
+
+
+DROP TABLE IF EXISTS tbl_ms_preguntas;
+
+CREATE TABLE `tbl_ms_preguntas` (
+  `id_pregunta` int NOT NULL AUTO_INCREMENT,
+  `pregunta` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id_pregunta`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+INSERT INTO tbl_ms_preguntas VALUES("3","CANCION FAVORITA");
+INSERT INTO tbl_ms_preguntas VALUES("4","COMIDA FAVORITA");
+
+
+
+DROP TABLE IF EXISTS tbl_ms_preguntas_usuario;
+
+CREATE TABLE `tbl_ms_preguntas_usuario` (
+  `id_pregunta` int NOT NULL,
+  `id_usuario` bigint NOT NULL,
+  `respuesta` varchar(100) DEFAULT NULL,
+  KEY `preguntaUsuario_idUsuario_idx` (`id_usuario`),
+  CONSTRAINT `preguntaUsuario_idUsuario` FOREIGN KEY (`id_usuario`) REFERENCES `tbl_ms_usuarios` (`id_usuario`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+INSERT INTO tbl_ms_preguntas_usuario VALUES("3","163","TQG");
+INSERT INTO tbl_ms_preguntas_usuario VALUES("4","163","PIZZA");
+
+
+
+DROP TABLE IF EXISTS tbl_ms_roles;
+
+CREATE TABLE `tbl_ms_roles` (
+  `id_rol` bigint NOT NULL AUTO_INCREMENT,
+  `nombrerol` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
+  `descripcion` text CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
+  `estado` int NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id_rol`)
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
+
+INSERT INTO tbl_ms_roles VALUES("1","ADMINISTRADOR","Acceso a todo el sistema","1");
+INSERT INTO tbl_ms_roles VALUES("2","DEFAULT","Rol por defecto","1");
+INSERT INTO tbl_ms_roles VALUES("3","Clientes de todo","Clientes en general","0");
+INSERT INTO tbl_ms_roles VALUES("4","VENDEDOR","Operador de tienda","1");
+INSERT INTO tbl_ms_roles VALUES("5","prueba","fddfd","0");
+INSERT INTO tbl_ms_roles VALUES("6","prueba2","gg","0");
+INSERT INTO tbl_ms_roles VALUES("7","prueba33","d","0");
+INSERT INTO tbl_ms_roles VALUES("8","prueba4","f","0");
+INSERT INTO tbl_ms_roles VALUES("9","nuevo1","dch","0");
+INSERT INTO tbl_ms_roles VALUES("10","prueba555","gggggg","0");
+INSERT INTO tbl_ms_roles VALUES("11","Nuevo de prueba","sf","0");
+INSERT INTO tbl_ms_roles VALUES("12","probar cambio","sddd","0");
+INSERT INTO tbl_ms_roles VALUES("13","prueba44","f","0");
+INSERT INTO tbl_ms_roles VALUES("14","prueba4446","d","0");
+INSERT INTO tbl_ms_roles VALUES("15","Nueva Prueba","sssss","0");
+INSERT INTO tbl_ms_roles VALUES("16","rrrr","rf","0");
+INSERT INTO tbl_ms_roles VALUES("17","gu","f","0");
+INSERT INTO tbl_ms_roles VALUES("18","fff","fffd","0");
+INSERT INTO tbl_ms_roles VALUES("19","rrr","rr","0");
+INSERT INTO tbl_ms_roles VALUES("20","j","j","0");
+INSERT INTO tbl_ms_roles VALUES("21","www","www","0");
+INSERT INTO tbl_ms_roles VALUES("22","CONTABILIDAD","rrr","0");
+
+
+
+DROP TABLE IF EXISTS tbl_ms_usuarios;
+
+CREATE TABLE `tbl_ms_usuarios` (
+  `id_usuario` bigint NOT NULL AUTO_INCREMENT,
+  `usuario` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci DEFAULT NULL,
+  `nombre_usuario` varchar(80) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
+  `estado` int NOT NULL DEFAULT '1',
+  `contrasena` varchar(75) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
+  `fecha_ultima_conexion` datetime DEFAULT NULL,
+  `preguntas_contestadas` int DEFAULT '0',
+  `primer_ingreso` int DEFAULT NULL,
+  `fecha_vencimiento` datetime DEFAULT NULL,
+  `correo_electronico` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
+  `token` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci DEFAULT NULL,
+  `creado_por` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci DEFAULT NULL,
+  `fecha_creacion` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `modificado_por` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci DEFAULT NULL,
+  `fecha_modificacion` datetime DEFAULT NULL,
+  `id_rol` bigint NOT NULL,
+  PRIMARY KEY (`id_usuario`),
+  KEY `rolid` (`id_rol`),
+  CONSTRAINT `tbl_ms_usuarios_ibfk_1` FOREIGN KEY (`id_rol`) REFERENCES `tbl_ms_roles` (`id_rol`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=189 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
+
+INSERT INTO tbl_ms_usuarios VALUES("1","ADMIN","ADMINISTRADOR","1","3193f236ac570009b3d33ad9dc89c0ed7decedca09e44491a6a1b501c9cf5a54","2023-03-29 18:57:53","0","","","admin@atlantico.com","733464113f1d79251461-4ff19d069fb2ec635522-a12faeec9a0c21dd0b33-435908728e5136f3ae80","","2021-08-20 01:34:15","ADMIN","2023-03-22 23:19:13","1");
+INSERT INTO tbl_ms_usuarios VALUES("19","ALEXANDER","ALEXANDER AGUILAR","2","3ea87a56da3844b420ec2925ae922bc731ec16a4fc44dcbeafdad49b0e61d39c","","0","","","alex@hotmail.com","","","2023-02-04 01:16:01","ADMIN","2023-03-22 10:36:01","4");
+INSERT INTO tbl_ms_usuarios VALUES("20","ERIKA","ERIKA AYALA","2","18ac3e7343f016890c510e93f935261169d9e3f565436429830faf0934f4f8e4","","0","","","erika3@gmail.com","","","2023-02-08 21:40:58","ADMIN","2023-03-22 10:35:34","2");
+INSERT INTO tbl_ms_usuarios VALUES("104","HECTOR","HECTOR BUSTILLO","2","3ea87a56da3844b420ec2925ae922bc731ec16a4fc44dcbeafdad49b0e61d39c","","2","","","hector@hotmail.com","","ADMIN","2023-03-08 15:22:09","ADMIN","2023-03-22 10:35:24","1");
+INSERT INTO tbl_ms_usuarios VALUES("136","JORGE","JORGE ROMERO","1","0a5bc3e342432f1bad92ffd51b785343ec72906cdba6a26131060b008e786656","","2","","","jorge@gmail.com","","ADMIN","2023-03-15 20:49:18","ADMIN","2023-03-22 10:35:14","1");
+INSERT INTO tbl_ms_usuarios VALUES("162","DORCA","DORCA AGUILAR","2","3ea87a56da3844b420ec2925ae922bc731ec16a4fc44dcbeafdad49b0e61d39c","2023-03-20 10:55:49","2","","","dorcaaguilar@gmail.com","","ADMIN","2023-03-16 21:25:14","ADMIN","2023-03-22 10:35:53","1");
+INSERT INTO tbl_ms_usuarios VALUES("163","DAYANA","DAYANA CASTRO","1","3193f236ac570009b3d33ad9dc89c0ed7decedca09e44491a6a1b501c9cf5a54","2023-03-22 00:00:00","2","0","2023-04-21 00:00:00","dayana@yahoo.es","asdad","DAYANA","2023-03-22 00:00:00","DAYANA","2023-03-22 00:00:00","2");
+
+
+
+DROP TABLE IF EXISTS tbl_produccion;
+
+CREATE TABLE `tbl_produccion` (
+  `cod_produccion` int NOT NULL AUTO_INCREMENT,
+  `fecha` datetime DEFAULT NULL,
+  `id_usuario` int DEFAULT NULL,
+  PRIMARY KEY (`cod_produccion`),
+  KEY `P_Cod_Producto_idx` (`id_usuario`),
+  CONSTRAINT `Produccion_CodProducto` FOREIGN KEY (`id_usuario`) REFERENCES `tbl_producto` (`cod_producto`)
+) ENGINE=InnoDB AUTO_INCREMENT=88 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+
+
+DROP TABLE IF EXISTS tbl_producto;
+
+CREATE TABLE `tbl_producto` (
+  `cod_producto` int NOT NULL AUTO_INCREMENT,
+  `nombre_producto` varchar(30) DEFAULT NULL,
+  `descripcion` varchar(255) DEFAULT NULL,
+  `cantidad_minima` int DEFAULT NULL,
+  `cantidad_maxima` int DEFAULT NULL,
+  `cod_tipo_producto` int DEFAULT NULL,
+  `precio_venta` decimal(8,2) DEFAULT NULL,
+  `estado` int DEFAULT '1',
+  `foto` text,
+  `creado_por` varchar(15) DEFAULT NULL,
+  `fecha_creacion` datetime DEFAULT NULL,
+  `modificado_por` varchar(15) DEFAULT NULL,
+  `fecha_modificacion` datetime DEFAULT NULL,
+  `existencia` int DEFAULT NULL,
+  PRIMARY KEY (`cod_producto`),
+  KEY `TBL_TIPO_PRODUCTO_COD_TIPO_PRODUCTO_idx` (`cod_tipo_producto`),
+  CONSTRAINT `Producto_CodTipoProducto` FOREIGN KEY (`cod_tipo_producto`) REFERENCES `tbl_tipo_producto` (`cod_tipo_producto`)
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+INSERT INTO tbl_producto VALUES("12","TELA","TELA BLANCA","200","30","3","30.00","1","","","","","","120");
+INSERT INTO tbl_producto VALUES("13","PINTURA","ROJA","10","100","3","20.00","1","","","","","","35");
+
+
+
+DROP TABLE IF EXISTS tbl_promocion;
+
+CREATE TABLE `tbl_promocion` (
+  `cod_promocion` int NOT NULL AUTO_INCREMENT,
+  `nombre_promocion` varchar(100) DEFAULT NULL,
+  `fecha_inicio` datetime DEFAULT NULL,
+  `fecha_final` datetime DEFAULT NULL,
+  `precio_venta` decimal(8,2) DEFAULT NULL,
+  PRIMARY KEY (`cod_promocion`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+
+
+DROP TABLE IF EXISTS tbl_promocion_producto;
+
+CREATE TABLE `tbl_promocion_producto` (
+  `id_promocion_producto` int NOT NULL AUTO_INCREMENT,
+  `cod_promocion` int DEFAULT NULL,
+  `cod_producto` int DEFAULT NULL,
+  `cantidad` int DEFAULT NULL,
+  PRIMARY KEY (`id_promocion_producto`),
+  KEY `promocion_producto_idx` (`cod_promocion`),
+  KEY `promocionProducto_Producto_idx` (`cod_producto`),
+  CONSTRAINT `promocionProducto_Producto` FOREIGN KEY (`cod_producto`) REFERENCES `tbl_producto` (`cod_producto`),
+  CONSTRAINT `promocionProducto_Promocion` FOREIGN KEY (`cod_promocion`) REFERENCES `tbl_promocion` (`cod_promocion`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+
+
+DROP TABLE IF EXISTS tbl_resultado_produccion;
+
+CREATE TABLE `tbl_resultado_produccion` (
+  `id_resultado_produccion` int NOT NULL AUTO_INCREMENT,
+  `cod_producto` int DEFAULT NULL,
+  `cantidad` int DEFAULT NULL,
+  `descripcion` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id_resultado_produccion`),
+  KEY `ResultadoProduccion_idProducto_idx` (`cod_producto`),
+  CONSTRAINT `ResultadoProduccion_idProducto` FOREIGN KEY (`cod_producto`) REFERENCES `tbl_producto` (`cod_producto`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+
+
+DROP TABLE IF EXISTS tbl_tipo_inventario;
+
+CREATE TABLE `tbl_tipo_inventario` (
+  `cod_tipo_inventario` int NOT NULL AUTO_INCREMENT,
+  `nombre_tipo_inventario` char(15) DEFAULT NULL,
+  PRIMARY KEY (`cod_tipo_inventario`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+
+
+DROP TABLE IF EXISTS tbl_tipo_movimiento;
+
+CREATE TABLE `tbl_tipo_movimiento` (
+  `cod_tipo_movimiento` int NOT NULL AUTO_INCREMENT,
+  `nombre_movimiento` varchar(7) DEFAULT NULL,
+  PRIMARY KEY (`cod_tipo_movimiento`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+INSERT INTO tbl_tipo_movimiento VALUES("1","ENTRADA");
+
+
+
+DROP TABLE IF EXISTS tbl_tipo_producto;
+
+CREATE TABLE `tbl_tipo_producto` (
+  `cod_tipo_producto` int NOT NULL AUTO_INCREMENT,
+  `nombre_tipo_producto` varchar(30) DEFAULT NULL,
+  PRIMARY KEY (`cod_tipo_producto`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+INSERT INTO tbl_tipo_producto VALUES("3","INSUMO");
+INSERT INTO tbl_tipo_producto VALUES("4","PRODUCTO TERMINADO");
+
+
+
+DROP TABLE IF EXISTS tipopago;
+
+CREATE TABLE `tipopago` (
+  `idtipopago` bigint NOT NULL AUTO_INCREMENT,
+  `tipopago` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
+  `estado` int NOT NULL DEFAULT '1',
+  PRIMARY KEY (`idtipopago`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
+
+INSERT INTO tipopago VALUES("1","PayPal","1");
+INSERT INTO tipopago VALUES("2","Efectivo","1");
+INSERT INTO tipopago VALUES("3","Tarjeta","1");
+INSERT INTO tipopago VALUES("4","Cheque","1");
+INSERT INTO tipopago VALUES("5","Despósito Bancario","1");
+
+
+
+SET FOREIGN_KEY_CHECKS=1;
