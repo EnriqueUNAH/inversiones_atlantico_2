@@ -34,6 +34,8 @@
               <li><a class="treeview-item" href="<?= base_url(); ?>/roles"><i class="icon fa fa-circle-o"></i> Roles</a></li>
               <li><a class="treeview-item" href="<?= base_url(); ?>/bitacora"><i class="icon fa fa-circle-o"></i> Bitacora</a></li>
               <li><a class="treeview-item" href="<?= base_url(); ?>/parametros"><i class="icon fa fa-circle-o"></i> Parámetros</a></li>
+              <li><a class="treeview-item" href="<?= base_url(); ?>.../Respaldo/php/index.php"><i class="icon fa fa-circle-o"></i> Backup</a></li>
+             
             </ul>
           </li>
         <?php } ?>

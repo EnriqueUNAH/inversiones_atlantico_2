@@ -27,6 +27,7 @@ class ClientesModel extends Mysql
 		$this->strDireccion = $direccion;
 		$this->cod_genero = $cod_genero;
 		$this->strCreadoPor = $_SESSION['elUsuario'];
+		$this->fechaCreacion = date('Y-m-d H:i:s');
 		
 		$return = 0;
 
@@ -35,8 +36,8 @@ class ClientesModel extends Mysql
 		$request = $this->select_all($sql);
 
 		if (empty($request)) {
-			$query_insert  = "INSERT INTO tbl_cliente(rtn,nombres,apellidos,telefono,correo_electronico,direccion,cod_genero,creado_por) 
-								  VALUES(?,?,?,?,?,?,?,?)";
+			$query_insert  = "INSERT INTO tbl_cliente(rtn,nombres,apellidos,telefono,correo_electronico,direccion,cod_genero,creado_por,fecha_creacion) 
+								  VALUES(?,?,?,?,?,?,?,?,?)";
 			$arrData = array(
 				$this->strRtn,
 				$this->strNombres,
@@ -45,7 +46,8 @@ class ClientesModel extends Mysql
 				$this->strEmail,
 				$this->strDireccion,
 				$this->cod_genero,
-				$this->strCreadoPor
+				$this->strCreadoPor,
+				$this->fechaCreacion
 			);
 			$request_insert = $this->insert($query_insert, $arrData);
 			$return = $request_insert;
@@ -121,7 +123,7 @@ class ClientesModel extends Mysql
 	{
 		$this->cod_cliente= $cod_cliente;
 		$sql = "SELECT p.cod_cliente,p.rtn,p.nombres,p.apellidos,p.telefono,p.correo_electronico,p.direccion,
-		p.cod_genero,r.nombre_genero,p.creado_por,p.modificado_por,p.fecha_modificacion, DATE_FORMAT(p.fecha_creacion, '%Y-%m-%d %H:%i:%s') as fecha_creacion  
+		p.cod_genero,r.nombre_genero,p.creado_por, DATE_FORMAT(p.fecha_creacion, '%Y-%m-%d %H:%i:%s') as fecha_creacion ,p.modificado_por,p.fecha_modificacion
 					FROM tbl_genero r
 					INNER JOIN tbl_cliente p
 					ON p.cod_genero = r.cod_genero
