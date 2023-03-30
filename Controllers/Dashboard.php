@@ -11,7 +11,7 @@
 				header('Location: '.base_url().'/login');
 				die();
 			}
-			getPermisos(MDASHBOARD);
+			getPermisos(MINICIO);
 		}
 
 		public function dashboard()
@@ -77,5 +77,3 @@
 		// }
 
 	}
- ?>
- 

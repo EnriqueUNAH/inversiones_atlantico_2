@@ -10,7 +10,7 @@ class Kardex extends Controllers
 			header('Location: ' . base_url() . '/login');
 			die();
 		}
-		getPermisos(MUSUARIOS);
+		getPermisos(MKARDEX);
 	}
 
 	public function Kardex()
@@ -28,11 +28,10 @@ class Kardex extends Controllers
 
 	public function getKardex()
 	{
-	if ($_SESSION['permisosMod']['r']) {
+		if ($_SESSION['permisosMod']['r']) {
 			$arrData = $this->model->selectKardex();
-	 		 echo json_encode($arrData, JSON_UNESCAPED_UNICODE);
-
-			}
-			die();
+			echo json_encode($arrData, JSON_UNESCAPED_UNICODE);
 		}
+		die();
+	}
 }

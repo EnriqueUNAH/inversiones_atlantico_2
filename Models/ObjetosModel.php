@@ -26,8 +26,8 @@ class ObjetosModel extends Mysql
 			$arrData = array(
 				$this->strobjeto,
 				$this->strdescripcion,
-				
-				
+
+
 			);
 			$request_insert = $this->insert($query_insert, $arrData);
 			$return = $request_insert;
@@ -37,7 +37,7 @@ class ObjetosModel extends Mysql
 		return $return;
 	}
 
-	
+
 
 	//Función para que inserte en bitácora cada vez que se agrega un nuevo usuario
 	public function insertObjetosBitacora(string $fecha, int $idUsuario, int $idObjeto, string $accion, string $descripcion)
@@ -65,19 +65,16 @@ class ObjetosModel extends Mysql
 		return $return;
 	}
 
-	
-		
+
+
 
 
 	public function selectObjetos()
 	{
-		$whereAdmin = "";
-		if ($_SESSION['idUser'] != 1) {
-			$whereAdmin = " and p.id_objeto!= 1 ";
-		}
+
 		$sql = "SELECT id_objeto,objeto,descripcion
 					FROM tbl_ms_objetos 
-					" . $whereAdmin;
+					";
 		$request = $this->select_all($sql);
 		return $request;
 	}
@@ -86,47 +83,47 @@ class ObjetosModel extends Mysql
 
 	//Muestra los datos en el botón ver más
 	public function selectObjeto(int $id_objeto)
-	
-		{
-			$this->id_objeto = $id_objeto;
-			$sql = "SELECT id_objeto,objeto,descripcion
+
+	{
+		$this->id_objeto = $id_objeto;
+		$sql = "SELECT id_objeto,objeto,descripcion
 						 FROM tbl_ms_objetos
 							 WHERE id_objeto = $this->id_objeto";
-			$request = $this->select($sql);
-			return $request;
-		}
-	
+		$request = $this->select($sql);
+		return $request;
+	}
 
 
 
 
 
 
-		public function updateObjetos(int $id_objeto, string $objeto, string $descripcion)
-		{
-	
-			$this->id_objeto = $id_objeto;
-			$this->strobjeto = $objeto;
-			$this->strdescripcion = $descripcion;
-	
-			$sql = "SELECT * FROM tbl_ms_objetos WHERE objeto = '{$this->strobjeto}' AND id_objeto != $this->id_objeto" ;
-			$request = $this->select_all($sql);
-	
-			if (empty($request)) {
-	
-				$sql = "UPDATE tbl_ms_objetos SET objeto=?, descripcion=? 
+
+	public function updateObjetos(int $id_objeto, string $objeto, string $descripcion)
+	{
+
+		$this->id_objeto = $id_objeto;
+		$this->strobjeto = $objeto;
+		$this->strdescripcion = $descripcion;
+
+		$sql = "SELECT * FROM tbl_ms_objetos WHERE objeto = '{$this->strobjeto}' AND id_objeto != $this->id_objeto";
+		$request = $this->select_all($sql);
+
+		if (empty($request)) {
+
+			$sql = "UPDATE tbl_ms_objetos SET objeto=?, descripcion=? 
 								WHERE id_objeto = $this->id_objeto ";
-				$arrData = array(
-					$this->strobjeto,
-					$this->strdescripcion,
-				);
-	
-				$request = $this->update($sql, $arrData);
-			} else {
-				$request = "exist";
-			}
-			return $request;
+			$arrData = array(
+				$this->strobjeto,
+				$this->strdescripcion,
+			);
+
+			$request = $this->update($sql, $arrData);
+		} else {
+			$request = "exist";
 		}
+		return $request;
+	}
 
 
 	public function deleteObjetos(int $id_objeto)
@@ -147,5 +144,4 @@ class ObjetosModel extends Mysql
 		// }
 		return $request;
 	}
-
 }

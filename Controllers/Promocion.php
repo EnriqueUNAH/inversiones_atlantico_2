@@ -11,7 +11,7 @@ class Promocion extends Controllers
 			die();
 		}
 
-		getPermisos(MUSUARIOS);
+		getPermisos(MPROMOCION);
 	}
 
 	public function Promocion()
@@ -50,43 +50,68 @@ class Promocion extends Controllers
 	{
 		if ($_POST) {
 			if (empty($_POST['txtnombre_promocion']) || empty($_POST['txtfecha_inicio']) || empty($_POST['txtfecha_final']) || empty($_POST['txtprecio_venta'])) {
-				$arrResponse = array("status" => false,"msg" => 'Datos incorrectos.');
+				$arrResponse = array("status" => false, "msg" => 'Datos incorrectos.');
+			} else {
+				$cod_promocion = intval($_POST['cod_promocion']);
+				$strnombre_promocion = strtoupper(strClean($_POST['txtnombre_promocion']));
+				$datefecha_inicio = strClean($_POST['txtfecha_inicio']);
+				$datefecha_final = strClean($_POST['txtfecha_final']);
+				$intprecio_venta = intval(strClean($_POST['txtprecio_venta']));
+				$request_user = "";
+
+				if ($datefecha_final < $datefecha_inicio) {
+					$arrResponse = array("status" => false, "msg" => 'La fecha final tiene que ser mayor a la de inicio.');
 				} else {
-					$cod_promocion = intval($_POST['cod_promocion']);
-					$strnombre_promocion = strtoupper(strClean($_POST['txtnombre_promocion']));
-					$datefecha_inicio = strClean($_POST['txtfecha_inicio']);
-					$datefecha_final = strClean($_POST['txtfecha_final']);
-					$intprecio_venta = intval(strClean($_POST['txtprecio_venta']));
-					$request_user = "";
 
-                    if($datefecha_final < $datefecha_inicio)
-	              {
-				  $arrResponse = array("status" => false,"msg" => 'La fecha final tiene que ser mayor a la de inicio.');
-	              }else{
 
-					
-				//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora
-				//SE PUEDEN USAR PARA INSERTAR O ACTUALIZAR PORQUE SERÍAN LOS MISMOS DATOS
-				$dateFecha = date('Y-m-d H:i:s');
-				$intIdUsuario = $_SESSION['idUser'];
-				$intIdObjeto = 2;                // ([["OJO"]]) HAY QUE CAMBIAR ESTE ID DESPUÉS CUANDO YA AGREGUEMOS TODOS LOS OBJETOS
-				$request_bitacora = "";
+					//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora
+					//SE PUEDEN USAR PARA INSERTAR O ACTUALIZAR PORQUE SERÍAN LOS MISMOS DATOS
+					$dateFecha = date('Y-m-d H:i:s');
+					$intIdUsuario = $_SESSION['idUser'];
+					$intIdObjeto = 2;                // ([["OJO"]]) HAY QUE CAMBIAR ESTE ID DESPUÉS CUANDO YA AGREGUEMOS TODOS LOS OBJETOS
+					$request_bitacora = "";
 
-				if ($cod_promocion == 0) {
-					$option = 1; //LA OPCIÓN ES 1, ENTONCES ESTARÁ INSERTANDO
+					if ($cod_promocion == 0) {
+						$option = 1; //LA OPCIÓN ES 1, ENTONCES ESTARÁ INSERTANDO
 
-					if ($_SESSION['permisosMod']['w']) {
-						$request_user = $this->model->insertPromocion(
-							$strnombre_promocion,
-							$datefecha_inicio,
-		 					$datefecha_final,
-		 					$intprecio_venta
+						if ($_SESSION['permisosMod']['w']) {
+							$request_user = $this->model->insertPromocion(
+								$strnombre_promocion,
+								$datefecha_inicio,
+								$datefecha_final,
+								$intprecio_venta
 
-						);
+							);
 
-						//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora 	en caso de que se esté insertando
-						$strAccion = "CREAR";
-						$strDescripcion = "CREACIÓN DE PROMOCION";
+							//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora 	en caso de que se esté insertando
+							$strAccion = "CREAR";
+							$strDescripcion = "CREACIÓN DE PROMOCION";
+
+							//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
+							$request_bitacora = $this->model->insertPromocionBitacora(
+								$dateFecha,
+								$intIdUsuario,
+								$intIdObjeto,
+								$strAccion,
+								$strDescripcion
+							);
+						} //FIN DEL IF DE INSERTAR
+					} else {
+						$option = 2; //SI OPTION ES 2, ENTONCES ESTARÁ ACTUALIZANDO
+
+						if ($_SESSION['permisosMod']['u']) {
+							$request_user = $this->model->updatePromocion(
+								$cod_promocion,
+								$strnombre_promocion,
+								$datefecha_inicio,
+								$datefecha_final,
+								$intprecio_venta
+							);
+						}
+
+						//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora 	en caso de que se esté ACTUALIZANDO
+						$strAccion = "ACTUALIZAR";
+						$strDescripcion = "ACTUALIZACIÓN DE PROMOCION";
 
 						//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
 						$request_bitacora = $this->model->insertPromocionBitacora(
@@ -96,47 +121,20 @@ class Promocion extends Controllers
 							$strAccion,
 							$strDescripcion
 						);
-					} //FIN DEL IF DE INSERTAR
-				} else {
-					$option = 2; //SI OPTION ES 2, ENTONCES ESTARÁ ACTUALIZANDO
+					} //FIN DEL ELSE PARA ACTUALIZAR
 
-					if ($_SESSION['permisosMod']['u']) {
-						$request_user = $this->model->updatePromocion(
-							$cod_promocion,
-							$strnombre_promocion,
-							$datefecha_inicio,
-		 					$datefecha_final,
-		 					$intprecio_venta
-						);
-					}
-
-					//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora 	en caso de que se esté ACTUALIZANDO
-					$strAccion = "ACTUALIZAR";
-					$strDescripcion = "ACTUALIZACIÓN DE PROMOCION";
-
-					//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
-					$request_bitacora = $this->model->insertPromocionBitacora(
-						$dateFecha,
-						$intIdUsuario,
-						$intIdObjeto,
-						$strAccion,
-						$strDescripcion
-					);
-				} //FIN DEL ELSE PARA ACTUALIZAR
-
-				if ($request_user > 0) {
-					if ($option == 1) {
-						$arrResponse = array('status' => true, 'msg' => 'Datos guardados correctamente.');
+					if ($request_user > 0) {
+						if ($option == 1) {
+							$arrResponse = array('status' => true, 'msg' => 'Datos guardados correctamente.');
+						} else {
+							$arrResponse = array('status' => true, 'msg' => 'Datos Actualizados correctamente.');
+						}
+					} else if ($request_user == 'exist') {
+						$arrResponse = array('status' => false, 'msg' => '¡Atención! el email o la identificación ya existe, ingrese otro.');
 					} else {
-						$arrResponse = array('status' => true, 'msg' => 'Datos Actualizados correctamente.');
+						$arrResponse = array("status" => false, "msg" => 'No es posible almacenar los datos.');
 					}
-				} else if ($request_user == 'exist') {
-					$arrResponse = array('status' => false, 'msg' => '¡Atención! el email o la identificación ya existe, ingrese otro.');
-				} else {
-					$arrResponse = array("status" => false, "msg" => 'No es posible almacenar los datos.');
 				}
-			}
-
 			}
 			echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
 		}
@@ -151,22 +149,22 @@ class Promocion extends Controllers
 
 	public function getPromocion()
 	{
-		if($_SESSION['permisosMod']['r']){
+		if ($_SESSION['permisosMod']['r']) {
 			$arrData = $this->model->selectPromocion();
-			for ($i=0; $i < count($arrData); $i++) {
-			
+			for ($i = 0; $i < count($arrData); $i++) {
+
 				$btnEdit = '';
-			 	$btnDelete = '';
-			 	
-			 	if($_SESSION['permisosMod']['u']){
-			 		$btnEdit = '<button class="btn btn-primary  btn-sm btnEditPromocion" onClick="fntEditPromocion(this,'.$arrData[$i]['cod_promocion'].')" title="Editar promocion"><i class="fas fa-pencil-alt"></i></button>';
-			 	}
-			 	if($_SESSION['permisosMod']['d']){	
-			 		$btnDelete = '<button class="btn btn-danger btn-sm btnDelPromocion" onClick="fntDelPromocion('.$arrData[$i]['cod_promocion'].')" title="Eliminar promocion"><i class="far fa-trash-alt"></i></button>';
+				$btnDelete = '';
+
+				if ($_SESSION['permisosMod']['u']) {
+					$btnEdit = '<button class="btn btn-primary  btn-sm btnEditPromocion" onClick="fntEditPromocion(this,' . $arrData[$i]['cod_promocion'] . ')" title="Editar promocion"><i class="fas fa-pencil-alt"></i></button>';
 				}
-			 	$arrData[$i]['options'] = '<div class="text-center">'.$btnEdit.' '.$btnDelete.'</div>';
-			 }
-			echo json_encode($arrData,JSON_UNESCAPED_UNICODE);
+				if ($_SESSION['permisosMod']['d']) {
+					$btnDelete = '<button class="btn btn-danger btn-sm btnDelPromocion" onClick="fntDelPromocion(' . $arrData[$i]['cod_promocion'] . ')" title="Eliminar promocion"><i class="far fa-trash-alt"></i></button>';
+				}
+				$arrData[$i]['options'] = '<div class="text-center">' . $btnEdit . ' ' . $btnDelete . '</div>';
+			}
+			echo json_encode($arrData, JSON_UNESCAPED_UNICODE);
 		}
 		die();
 	}
@@ -227,7 +225,4 @@ class Promocion extends Controllers
 
 		die();
 	}
-
-
-
 }

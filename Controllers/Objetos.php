@@ -11,7 +11,7 @@ class Objetos extends Controllers
 			die();
 		}
 
-		getPermisos(MUSUARIOS);
+		getPermisos(MOBJETO);
 	}
 
 	public function Objetos()
@@ -71,7 +71,7 @@ class Objetos extends Controllers
 						$request_user = $this->model->insertObjetos(
 							$strobjeto,
 							$strdescripcion,
-							
+
 						);
 
 						//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora 	en caso de que se esté insertando
@@ -95,7 +95,7 @@ class Objetos extends Controllers
 							$id_objeto,
 							$strobjeto,
 							$strdescripcion,
-							
+
 						);
 					}
 
@@ -135,7 +135,7 @@ class Objetos extends Controllers
 		if ($_SESSION['permisosMod']['r']) {
 			$arrData = $this->model->selectObjetos();
 			for ($i = 0; $i < count($arrData); $i++) {
-			
+
 				$btnEdit = '';
 				//$btnDelete = '';
 
@@ -213,5 +213,4 @@ class Objetos extends Controllers
 
 		die();
 	}
-
 }

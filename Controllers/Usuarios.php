@@ -11,7 +11,7 @@ class Usuarios extends Controllers
 			die();
 		}
 
-		getPermisos(MUSUARIOS);
+		getPermisos(MUSUARIO);
 	}
 
 	public function Usuarios()

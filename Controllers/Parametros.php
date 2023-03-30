@@ -11,7 +11,7 @@ class Parametros extends Controllers
 			die();
 		}
 
-		// getPermisos(MUSUARIOS);
+		getPermisos(MPARAMETRO);
 	}
 
 	public function Parametros()

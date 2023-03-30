@@ -11,7 +11,7 @@ class Inventarios extends Controllers
 			die();
 		}
 
-		getPermisos(MPRODUCTOS);
+		getPermisos(MINVENTARIO);
 	}
 
 	public function Inventarios()

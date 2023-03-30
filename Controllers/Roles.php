@@ -11,7 +11,7 @@ class Roles extends Controllers
 			header('Location: ' . base_url() . '/login');
 			die();
 		}
-		getPermisos(MUSUARIOS);
+		getPermisos(MROL);
 	}
 
 	public function Roles()

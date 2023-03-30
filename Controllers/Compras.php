@@ -11,7 +11,7 @@ class Compras extends Controllers
 			die();
 		}
 
-		getPermisos(MUSUARIOS);
+		getPermisos(MCOMPRA);
 	}
 
 	public function Compras()

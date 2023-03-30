@@ -11,7 +11,7 @@ class Productos extends Controllers
 			die();
 		}
 
-		getPermisos(MPRODUCTOS);
+		getPermisos(MPRODUCTO);
 	}
 
 	public function Productos()

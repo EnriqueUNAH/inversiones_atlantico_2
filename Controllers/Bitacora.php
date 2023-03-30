@@ -10,7 +10,7 @@ class Bitacora extends Controllers
 			header('Location: ' . base_url() . '/login');
 			die();
 		}
-		getPermisos(MUSUARIOS);
+		getPermisos(MBITACORA);
 	}
 
 	public function Bitacora()
@@ -28,11 +28,10 @@ class Bitacora extends Controllers
 
 	public function getBitacora()
 	{
-	if ($_SESSION['permisosMod']['r']) {
+		if ($_SESSION['permisosMod']['r']) {
 			$arrData = $this->model->selectBitacora();
-	 		 echo json_encode($arrData, JSON_UNESCAPED_UNICODE);
-
-			}
-			die();
+			echo json_encode($arrData, JSON_UNESCAPED_UNICODE);
 		}
+		die();
+	}
 }

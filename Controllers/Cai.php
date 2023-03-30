@@ -11,7 +11,7 @@ class Cai extends Controllers{
 			header('Location: '.base_url().'/login');
 			die();
 		}
-		// getPermisos(MCLIENTES);
+		 getPermisos(MCAI);
 	}
 
 	public function Cai()
@@ -180,5 +180,3 @@ public function getCais()
 
 
 }
-
-?>

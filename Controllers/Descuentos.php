@@ -11,7 +11,7 @@ class Descuentos extends Controllers{
 			header('Location: '.base_url().'/login');
 			die();
 		}
-		// getPermisos(MCLIENTES);
+		 getPermisos(MDESCUENTO);
 	}
 
 	public function Descuentos()
@@ -171,5 +171,3 @@ class Descuentos extends Controllers{
 
 
 }
-
-?>

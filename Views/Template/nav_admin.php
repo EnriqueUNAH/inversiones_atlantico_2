@@ -21,7 +21,18 @@
           </li>
         <?php } ?>
 
-        <?php if (!empty($_SESSION['permisos'][2]['r'])) { ?>
+
+
+        <!--################################SEGURIDAD################################-->
+        <?php if (
+          !empty($_SESSION['permisos'][2]['r'])
+          || !empty($_SESSION['permisos'][MROL]['r'])
+          || !empty($_SESSION['permisos'][MBITACORA]['r'])
+          || !empty($_SESSION['permisos'][MPARAMETRO]['r'])
+          || !empty($_SESSION['permisos'][MBACKUP]['r'])
+        ) { ?>
+
+
           <li class="treeview">
             <a class="app-menu__item" href="#" data-toggle="treeview">
               <i class="app-menu__icon fas fa-lock" aria-hidden="true"></i>
@@ -30,57 +41,107 @@
               <i class="treeview-indicator fa fa-angle-right"></i>
             </a>
             <ul class="treeview-menu">
-              <li><a class="treeview-item" href="<?= base_url(); ?>/usuarios"><i class="icon fa fa-circle-o"></i> Usuarios</a></li>
-              <li><a class="treeview-item" href="<?= base_url(); ?>/roles"><i class="icon fa fa-circle-o"></i> Roles</a></li>
-              <li><a class="treeview-item" href="<?= base_url(); ?>/bitacora"><i class="icon fa fa-circle-o"></i> Bitacora</a></li>
-              <li><a class="treeview-item" href="<?= base_url(); ?>/parametros"><i class="icon fa fa-circle-o"></i> Parámetros</a></li>
-              <li><a class="treeview-item" href="<?= base_url(); ?>.../Respaldo/php/index.php"><i class="icon fa fa-circle-o"></i> Backup</a></li>
-             
+
+              <?php if (!empty($_SESSION['permisos'][2]['r'])) { ?>
+                <li><a class="treeview-item" href="<?= base_url(); ?>/usuarios"><i class="icon fa fa-circle-o"></i> Usuarios</a></li>
+              <?php } ?>
+
+              <?php if (!empty($_SESSION['permisos'][MROL]['r'])) { ?>
+                <li><a class="treeview-item" href="<?= base_url(); ?>/roles"><i class="icon fa fa-circle-o"></i> Roles</a></li>
+              <?php } ?>
+
+              <?php if (!empty($_SESSION['permisos'][MBITACORA]['r'])) { ?>
+                <li><a class="treeview-item" href="<?= base_url(); ?>/bitacora"><i class="icon fa fa-circle-o"></i> Bitacora</a></li>
+              <?php } ?>
+
+              <?php if (!empty($_SESSION['permisos'][MPARAMETRO]['r'])) { ?>
+                <li><a class="treeview-item" href="<?= base_url(); ?>/parametros"><i class="icon fa fa-circle-o"></i> Parámetros</a></li>
+              <?php } ?>
+
+              <?php if (!empty($_SESSION['permisos'][MBACKUP]['r'])) { ?>
+                <li><a class="treeview-item" href="<?= base_url(); ?>.../Respaldo/php/index.php"><i class="icon fa fa-circle-o"></i> Backup</a></li>
+              <?php } ?>
+
             </ul>
           </li>
         <?php } ?>
+        <!--################################SEGURIDAD################################-->
 
 
-        <?php if (!empty($_SESSION['permisos'][2]['r'])) { ?>
-          <li class="treeview">
-            <a class="app-menu__item" href="#" data-toggle="treeview">
-              <i class="app-menu__icon fas fa-dolly-flatbed" aria-hidden="true"></i>
 
-              <span class="app-menu__label">Inventario</span>
-              <i class="treeview-indicator fa fa-angle-right"></i>
-            </a>
-            <ul class="treeview-menu">
+        <!--################################INVENTARIO################################-->
+
+        <li class="treeview">
+          <a class="app-menu__item" href="#" data-toggle="treeview">
+            <i class="app-menu__icon fas fa-dolly-flatbed" aria-hidden="true"></i>
+
+            <span class="app-menu__label">Inventario</span>
+            <i class="treeview-indicator fa fa-angle-right"></i>
+          </a>
+          <ul class="treeview-menu">
+
+            <?php if (!empty($_SESSION['permisos'][MPRODUCTO]['r'])) { ?>
               <li><a class="treeview-item" href="<?= base_url(); ?>/productos"><i class="icon fa fa-circle-o"></i>Productos</a></li>
+            <?php } ?>
+
+            <?php if (!empty($_SESSION['permisos'][MINVENTARIO]['r'])) { ?>
               <li><a class="treeview-item" href="<?= base_url(); ?>/inventarios"><i class="icon fa fa-circle-o"></i>Inventarios</a></li>
+            <?php } ?>
+
+            <?php if (!empty($_SESSION['permisos'][MKARDEX]['r'])) { ?>
               <li><a class="treeview-item" href="<?= base_url(); ?>/kardex"><i class="icon fa fa-circle-o"></i>Kardex</a></li>
+            <?php } ?>
+
+            <?php if (!empty($_SESSION['permisos'][MCOMPRA]['r'])) { ?>
               <li><a class="treeview-item" href="<?= base_url(); ?>/compras"><i class="icon fa fa-circle-o"></i>Compras</a></li>
+            <?php } ?>
+
+            <?php if (!empty($_SESSION['permisos'][MCLIENTE]['r'])) { ?>
               <li><a class="treeview-item" href="<?= base_url(); ?>/clientes"><i class="icon fa fa-circle-o"></i>Clientes</a></li>
-              
+            <?php } ?>
 
-            </ul>
-          </li>
-        <?php } ?>
+          </ul>
+        </li>
+
+        <!--################################INVENTARIO################################-->
 
 
-        <?php if (!empty($_SESSION['permisos'][2]['r'])) { ?>
-          <li class="treeview">
-            <a class="app-menu__item" href="#" data-toggle="treeview">
-              <i class="app-menu__icon fas fa-tools" aria-hidden="true"></i>
 
-              <span class="app-menu__label">Mantenimiento</span>
-              <i class="treeview-indicator fa fa-angle-right"></i>
-            </a>
-            <ul class="treeview-menu">
+        <!--################################MANTENIMIENTO################################-->
+
+        <li class="treeview">
+          <a class="app-menu__item" href="#" data-toggle="treeview">
+            <i class="app-menu__icon fas fa-tools" aria-hidden="true"></i>
+
+            <span class="app-menu__label">Mantenimiento</span>
+            <i class="treeview-indicator fa fa-angle-right"></i>
+          </a>
+          <ul class="treeview-menu">
+
+            <?php if (!empty($_SESSION['permisos'][MPROMOCION]['r'])) { ?>
               <li><a class="treeview-item" href="<?= base_url(); ?>/promocion"><i class="icon fa fa-circle-o"></i> Promocion</a></li>
+            <?php } ?>
+
+            <?php if (!empty($_SESSION['permisos'][MPREGUNTA]['r'])) { ?>
               <li><a class="treeview-item" href="<?= base_url(); ?>/preguntas"><i class="icon fa fa-circle-o"></i> Preguntas</a></li>
+            <?php } ?>
+
+            <?php if (!empty($_SESSION['permisos'][MOBJETO]['r'])) { ?>
               <li><a class="treeview-item" href="<?= base_url(); ?>/objetos"><i class="icon fa fa-circle-o"></i> Objetos</a></li>
+            <?php } ?>
+
+            <?php if (!empty($_SESSION['permisos'][MDESCUENTO]['r'])) { ?>
               <li><a class="treeview-item" href="<?= base_url(); ?>/descuentos"><i class="icon fa fa-circle-o"></i>Descuentos</a></li>
+            <?php } ?>
+
+            <?php if (!empty($_SESSION['permisos'][MCAI]['r'])) { ?>
               <li><a class="treeview-item" href="<?= base_url(); ?>/cai"><i class="icon fa fa-circle-o"></i>CAI</a></li>
+            <?php } ?>
 
-            </ul>
-          </li>
-        <?php } ?>
+          </ul>
+        </li>
 
+        <!--################################MANTENIMIENTO################################-->
 
 
 

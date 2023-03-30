@@ -11,7 +11,7 @@ class Clientes extends Controllers
 			die();
 		}
 
-		getPermisos(MUSUARIOS);
+		getPermisos(MCLIENTE);
 	}
 
 	public function Clientes()
@@ -54,7 +54,7 @@ class Clientes extends Controllers
 				/*El siguiente else if, sirve para que valide desde el servidor. Que si se ingresa una letra 
 				ya sea mayúscula o minúscula, que permita ingresar los datos.
 				Al final está el else que mostrará error en caso de que lo insertado sea un número o caracter especial.*/
-			} else{
+			} else {
 
 
 				$cod_cliente = intval($_POST['cod_cliente']);
@@ -63,7 +63,7 @@ class Clientes extends Controllers
 				$strApellidos = strtoupper(strClean($_POST['txtApellidos']));
 				$intTelefono = intval(strClean($_POST['txtTelefono']));
 				$strEmail = strtolower(strClean($_POST['txtEmail']));
-				$strDireccion =strtoupper (strClean($_POST['txtDireccion']));
+				$strDireccion = strtoupper(strClean($_POST['txtDireccion']));
 				$cod_genero = (strClean($_POST['listGenero']));
 				$request_user = "";
 
@@ -83,14 +83,14 @@ class Clientes extends Controllers
 
 					if ($_SESSION['permisosMod']['w']) {
 						$request_user = $this->model->insertCliente(
-						$strRtn,
-		                $strNombres,
-		                $strApellidos,
-		                $intTelefono,
-		                $strEmail,
-		                $strDireccion,
-		                $cod_genero
-		
+							$strRtn,
+							$strNombres,
+							$strApellidos,
+							$intTelefono,
+							$strEmail,
+							$strDireccion,
+							$cod_genero
+
 						);
 
 						//
@@ -115,12 +115,12 @@ class Clientes extends Controllers
 						$request_user = $this->model->updateCliente(
 							$cod_cliente,
 							$strRtn,
-		                    $strNombres,
-		                    $strApellidos,
-		                    $intTelefono,
-		                    $strEmail,
-		                    $strDireccion,
-		                    $cod_genero
+							$strNombres,
+							$strApellidos,
+							$intTelefono,
+							$strEmail,
+							$strDireccion,
+							$cod_genero
 						);
 					}
 
@@ -157,7 +157,7 @@ class Clientes extends Controllers
 	}
 
 
-	
+
 
 	public function getClientes()
 	{
@@ -172,13 +172,13 @@ class Clientes extends Controllers
 				if ($_SESSION['permisosMod']['r']) {
 					$btnView = '<button class="btn btn-info btn-sm btnViewCliente" onClick="fntViewCliente(' . $arrData[$i]['cod_cliente'] . ')" title="Ver cliente"><i class="far fa-eye"></i></button>';
 				}
-			
+
 				if ($_SESSION['permisosMod']['u']) {
 					$btnEdit = '<button class="btn btn-primary  btn-sm btnEditCliente" onClick="fntEditCliente(this,' . $arrData[$i]['cod_cliente'] . ')" title="Editar cliente"><i class="fas fa-pencil-alt"></i></button>';
 				} else {
 					$btnEdit = '<button class="btn btn-secondary btn-sm" disabled ><i class="fas fa-pencil-alt"></i></button>';
 				}
-			
+
 				if ($_SESSION['permisosMod']['d']) {
 					$btnDelete = '<button class="btn btn-danger btn-sm btnDelCliente" onClick="fntDelCliente(' . $arrData[$i]['cod_cliente'] . ')" title="Eliminar cliente"><i class="far fa-trash-alt"></i></button>';
 				} else {
@@ -215,9 +215,9 @@ class Clientes extends Controllers
 		$arrData = $this->model->selectGenero();
 		if (count($arrData) > 0) {
 			for ($i = 0; $i < count($arrData); $i++) {
-			//   if ($arrData[$i]['cod_genero'] == 1) {
-					$htmlOptions .= '<option value="' . $arrData[$i]['cod_genero'] . '">' . $arrData[$i]['nombre_genero'] . '</option>';
-			// }
+				//   if ($arrData[$i]['cod_genero'] == 1) {
+				$htmlOptions .= '<option value="' . $arrData[$i]['cod_genero'] . '">' . $arrData[$i]['nombre_genero'] . '</option>';
+				// }
 			}
 		}
 		echo $htmlOptions;
@@ -228,7 +228,7 @@ class Clientes extends Controllers
 
 
 
-	
+
 	public function delCliente()
 	{
 		if ($_POST) {
@@ -267,19 +267,4 @@ class Clientes extends Controllers
 
 		die();
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-	
-	
 }
