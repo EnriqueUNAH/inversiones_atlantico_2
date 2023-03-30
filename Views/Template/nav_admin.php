@@ -100,10 +100,15 @@
               <li><a class="treeview-item" href="<?= base_url(); ?>/clientes"><i class="icon fa fa-circle-o"></i>Clientes</a></li>
             <?php } ?>
 
+            <li><a class="treeview-item" href="<?= base_url(); ?>/resultado"><i class="icon fa fa-circle-o"></i>Resultado Produccion</a></li>
+
+
           </ul>
         </li>
 
         <!--################################INVENTARIO################################-->
+
+
 
 
 
