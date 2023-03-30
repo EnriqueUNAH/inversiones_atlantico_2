@@ -54,7 +54,7 @@
               <li><a class="treeview-item" href="<?= base_url(); ?>/compras"><i class="icon fa fa-circle-o"></i>Compras</a></li>
               <li><a class="treeview-item" href="<?= base_url(); ?>/clientes"><i class="icon fa fa-circle-o"></i>Clientes</a></li>
               
-
+              <li><a class="treeview-item" href="<?= base_url(); ?>/resultado"><i class="icon fa fa-circle-o"></i>Resultado Produccion</a></li>
             </ul>
           </li>
         <?php } ?>
