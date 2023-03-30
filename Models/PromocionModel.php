@@ -9,7 +9,7 @@ class PromocionModel extends Mysql
 	private $intprecio_venta;
 	private $intStatus;
 
-	
+
 
 	public function __construct()
 	{
@@ -35,7 +35,7 @@ class PromocionModel extends Mysql
 				$this->datefecha_inicio,
 				$this->datefecha_final,
 				$this->intprecio_venta
-				
+
 			);
 			$request_insert = $this->insert($query_insert, $arrData);
 			$return = $request_insert;
@@ -45,7 +45,7 @@ class PromocionModel extends Mysql
 		return $return;
 	}
 
-	
+
 
 	//Función para que inserte en bitácora cada vez que se agrega un nuevo usuario
 	public function insertPromocionBitacora(string $fecha, int $idUsuario, int $idObjeto, string $accion, string $descripcion)
@@ -77,13 +77,10 @@ class PromocionModel extends Mysql
 
 	public function selectPromocion()
 	{
-		$whereAdmin = "";
-		if ($_SESSION['idUser'] != 1) {
-			$whereAdmin = " and p.cod_promocion != 1 ";
-		}
+
 		$sql = "SELECT p.cod_promocion,p.nombre_promocion,p.fecha_inicio,p.fecha_final,p.precio_venta 
 					FROM tbl_promocion p
-					" . $whereAdmin;
+					";
 		$request = $this->select_all($sql);
 		return $request;
 	}
@@ -111,9 +108,9 @@ class PromocionModel extends Mysql
 		$this->datefecha_inicio = $fecha_inicio;
 		$this->datefecha_final = $fecha_final;
 		$this->intprecio_venta = $precio_venta;
-		
 
-		$sql = "SELECT * FROM tbl_promocion WHERE nombre_promocion = '{$this->strnombre_promocion}' AND cod_promocion != $this->cod_promocion" ;
+
+		$sql = "SELECT * FROM tbl_promocion WHERE nombre_promocion = '{$this->strnombre_promocion}' AND cod_promocion != $this->cod_promocion";
 		$request = $this->select_all($sql);
 
 		if (empty($request)) {
@@ -155,7 +152,4 @@ class PromocionModel extends Mysql
 		// }
 		return $request;
 	}
-
-
-
 }

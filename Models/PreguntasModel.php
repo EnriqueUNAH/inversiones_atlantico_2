@@ -5,7 +5,7 @@ class PreguntasModel extends Mysql
 	private $id_pregunta;
 	private $strpregunta;
 
-	
+
 
 	public function __construct()
 	{
@@ -25,7 +25,7 @@ class PreguntasModel extends Mysql
 								  VALUES(?)";
 			$arrData = array(
 				$this->strpregunta
-				
+
 			);
 			$request_insert = $this->insert($query_insert, $arrData);
 			$return = $request_insert;
@@ -35,7 +35,7 @@ class PreguntasModel extends Mysql
 		return $return;
 	}
 
-	
+
 
 	//Función para que inserte en bitácora cada vez que se agrega un nuevo usuario
 	public function insertPreguntasBitacora(string $fecha, int $idUsuario, int $idObjeto, string $accion, string $descripcion)
@@ -67,13 +67,10 @@ class PreguntasModel extends Mysql
 
 	public function selectPreguntas()
 	{
-		$whereAdmin = "";
-		if ($_SESSION['idUser'] != 1) {
-			$whereAdmin = " and p.id_pregunta != 1 ";
-		}
+
 		$sql = "SELECT p.id_pregunta,p.pregunta 
 					FROM tbl_ms_preguntas p
-					" . $whereAdmin;
+					";
 		$request = $this->select_all($sql);
 		return $request;
 	}
@@ -97,11 +94,11 @@ class PreguntasModel extends Mysql
 	{
 
 		$this->id_pregunta = $id_pregunta;
-		$this->strpregunta= $pregunta;
-		
-		
+		$this->strpregunta = $pregunta;
 
-		$sql = "SELECT * FROM tbl_ms_preguntas WHERE pregunta = '{$this->strpregunta}' AND id_pregunta != $this->id_pregunta" ;
+
+
+		$sql = "SELECT * FROM tbl_ms_preguntas WHERE pregunta = '{$this->strpregunta}' AND id_pregunta != $this->id_pregunta";
 		$request = $this->select_all($sql);
 
 		if (empty($request)) {
@@ -140,7 +137,4 @@ class PreguntasModel extends Mysql
 		// }
 		return $request;
 	}
-
-
-
 }
