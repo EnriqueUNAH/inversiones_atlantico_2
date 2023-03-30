@@ -17,12 +17,12 @@
 	display: none;
 }
 .headerRegister, .header-primary{
-	background: #009688;
-	color: #0a33bb;
+	background: #0a33bb;
+	color: #fff;
 }
 .headerUpdate{
 	background: #0a33bb;
-	color: #0a33bb;
+	color: #fff;
 }
 .textcenter{
 	text-align: center;
