@@ -32,7 +32,7 @@ document.addEventListener(
           titleAttr: "Exportar a Excel",
           className: "btn btn-success",
           exportOptions: {
-            columns: [0, 1, 2, 3, 4, 5],
+            columns: [0, 1, 2, 3, 4, 5, 6],
           },
         },
         {
@@ -41,7 +41,7 @@ document.addEventListener(
           titleAttr: "Exportar a PDF",
           className: "btn btn-danger",
           exportOptions: {
-            columns: [0, 1, 2, 3, 4, 5],
+            columns: [0, 1, 2, 3, 4, 5, 6],
           },
           customize: function (doc) {
             doc.styles.tableHeader.color = "#ffffff";
