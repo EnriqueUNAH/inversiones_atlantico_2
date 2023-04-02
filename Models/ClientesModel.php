@@ -94,10 +94,10 @@ class ClientesModel extends Mysql
 		if ($_SESSION['idUser'] != 1) {
 			$whereAdmin = " and p.cod_cliente != 1 ";
 		}
-		$sql = "SELECT p.cod_cliente,p.rtn,p.nombres,p.apellidos,p.telefono,p.correo_electronico,p.direccion
+		$sql = "SELECT p.cod_cliente,p.rtn,p.nombres,p.apellidos,p.telefono,p.correo_electronico,p.direccion,p.cod_genero, r.nombre_genero
 					FROM tbl_cliente p 
-					-- INNER JOIN tbl_genero r
-					-- ON p.cod_genero = r.cod_genero
+					INNER JOIN tbl_genero r
+					ON p.cod_genero = r.cod_genero
 					-- WHERE p.estado != 0
                      " . $whereAdmin;
 		$request = $this->select_all($sql);

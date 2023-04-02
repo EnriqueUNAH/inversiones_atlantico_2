@@ -21,6 +21,7 @@ document.addEventListener(
         { data: "telefono" },
         { data: "correo_electronico" },
         { data: "direccion" },
+        { data: "nombre_genero"},
         { data: "options" }
       ],
       dom: "lBfrtip",
