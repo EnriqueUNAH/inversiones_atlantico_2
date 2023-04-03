@@ -48,22 +48,25 @@ class Productos extends Controllers
 	public function setProducto()
 	{
 		if ($_POST) {
-			if (empty($_POST['txtNombre_Producto']) || empty($_POST['txtDescripcion']) || empty($_POST['listStatus'])) {
+			if (empty($_POST['txtnombre']) || empty($_POST['txtdescripcion']) || empty($_POST['intCantidadMin']) ||
+		    	empty($_POST['intCantidadMax']) || empty($_POST['listTipo']) || empty($_POST['intprecio']) ||
+			    empty($_POST['listStatus'])) {
 				$arrResponse = array("status" => false, "msg" => 'Datos incorrectos.');
 
 				/*El siguiente else if, sirve para que valide desde el servidor. Que si se ingresa una letra 
 				ya sea mayúscula o minúscula, que permita ingresar los datos.
 				Al final está el else que mostrará error en caso de que lo insertado sea un número o caracter especial.*/
-			} else if (preg_match('/^[a-zA-Z]+$/', $_POST['txtNombre_Producto']) || preg_match('/^[a-zA-Z]+$/', $_POST['txtDescripcion'])) {
+			} else {
 
 
-				$id_usuario = intval($_POST['cod_producto']);
-				$strusuario = strtoupper(strClean($_POST['txtusuario']));
-				$strnombre_usuario = strtoupper(strClean($_POST['txtnombre_usuario']));
-				$strEmail = strtolower(strClean($_POST['txtEmail']));
-				$intTipoId = intval(strClean($_POST['listid_rol']));
-				$intestado = intval(strClean($_POST['listStatus']));
-				$contrasena = (strClean($_POST['txtPassword']));
+				$cod_producto = intval($_POST['cod_producto']);
+				$strNombreProducto = strtoupper(strClean($_POST['txtnombre']));
+				$strDescripcion = strtoupper(strClean($_POST['txtdescripcion']));
+				$intCantidadMinima = intval(strClean($_POST['intCantidadMin']));
+				$intCantidadMaxima = intval(strClean($_POST['intCantidadMax']));
+				$intCodTipoProducto = intval(strClean($_POST['listTipo']));
+				$decPrecioVenta = (strClean($_POST['intprecio']));
+				$intStatus = (strClean($_POST['listStatus']));
 				$request_user = "";
 
 				//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora
@@ -73,28 +76,28 @@ class Productos extends Controllers
 				$intIdObjeto = 2; //ESTE VALOR VA A CAMBIAR MAS A DELANTE
 				$request_bitacora = "";
 
-				if ($id_usuario == 0) {
+				if ($cod_producto == 0) {
 					$option = 1; //LA OPCIÓN ES 1, ENTONCES ESTARÁ INSERTANDO
-					$strPassword =  empty($_POST['txtPassword']) ? hash("SHA256", passGenerator()) : hash("SHA256", $_POST['txtPassword']);
 
 					if ($_SESSION['permisosMod']['w']) {
-						$request_user = $this->model->insertUsuario(
-							$strusuario,
-							$strnombre_usuario,
-							$strEmail,
-							$strPassword,
-							$intTipoId,
-							$intestado
+						$request_user = $this->model->insertProducto(
+							$strNombreProducto,
+							$strDescripcion,
+							$intCantidadMinima,
+							$intCantidadMaxima,
+							$intCodTipoProducto,
+							$decPrecioVenta,
+							$intStatus
 						);
 
 
 						//
 						//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora 	en caso de que se esté insertando
 						$strAccion = "CREAR";
-						$strDescripcion = "CREACION DE USUARIO";
+						$strDescripcion = "CREACION DE PRODUCTO";
 
 						//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
-						$request_bitacora = $this->model->insertUsuarioBitacora(
+						$request_bitacora = $this->model->insertProductoBitacora(
 							$dateFecha,
 							$intIdUsuario,
 							$intIdObjeto,
@@ -106,25 +109,25 @@ class Productos extends Controllers
 
 				} else {
 					$option = 2; //SI OPTION ES 2, ENTONCES ESTARÁ ACTUALIZANDO
-					$strPassword =  empty($_POST['txtPassword']) ? "" : hash("SHA256", $_POST['txtPassword']);
 					if ($_SESSION['permisosMod']['u']) {
-						$request_user = $this->model->updateUsuario(
-							$id_usuario,
-							$strusuario,
-							$strnombre_usuario,
-							$strEmail,
-							$strPassword,
-							$intTipoId,
-							$intestado
+						$request_user = $this->model->updateProducto(
+							$cod_producto,
+							$strNombreProducto,
+				            $strDescripcion,
+				            $intCantidadMinima,
+				            $intCantidadMaxima,
+				            $intCodTipoProducto,
+                            $decPrecioVenta,
+                            $intStatus
 						);
 					}
 
 					//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora 	en caso de que se esté ACTUALIZANDO
 					$strAccion = "ACTUALIZAR";
-					$strDescripcion = "ACTUALIZACIÓN DE USUARIO";
+					$strDescripcion = "ACTUALIZACIÓN DE PRODUCTO";
 
 					//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
-					$request_bitacora = $this->model->insertUsuarioBitacora(
+					$request_bitacora = $this->model->insertProductoBitacora(
 						$dateFecha,
 						$intIdUsuario,
 						$intIdObjeto,
@@ -135,20 +138,7 @@ class Productos extends Controllers
 
 				if ($request_user > 0) {
 					if ($option == 1) {
-
-
-						$dataUsuario = array(
-							'nombreUsuario' => $strnombre_usuario,
-							'usuario' => $strusuario,
-							'email' => $strEmail,
-							'asunto' => 'Mostrar cuenta - ' . NOMBRE_REMITENTE,
-							'contrasena' => $contrasena
-						);
-
-
 						$arrResponse = array('status' => true, 'msg' => 'Datos guardados correctamente.');
-
-						//
 					} else {
 						$arrResponse = array('status' => true, 'msg' => 'Datos Actualizados correctamente.');
 					}
@@ -157,14 +147,15 @@ class Productos extends Controllers
 				} else {
 					$arrResponse = array("status" => false, "msg" => 'No es posible almacenar los datos.');
 				}
-			} else {
-				$arrResponse = array("status" => false, "msg" => 'No se pueden ingresar números ni caracteres especiales');
+		
 			}
 
 			echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
 		}
 		die();
 	}
+
+
 
 	public function getProductos()
 	{
@@ -186,17 +177,17 @@ class Productos extends Controllers
 				}
 
 				if ($_SESSION['permisosMod']['r']) {
-					$btnView = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntViewUsuario(' . $arrData[$i]['cod_producto'] . ')" title="Ver usuario"><i class="far fa-eye"></i></button>';
+					$btnView = '<button class="btn btn-info btn-sm btnViewProducto" onClick="fntViewProducto(' . $arrData[$i]['cod_producto'] . ')" title="Ver producto"><i class="far fa-eye"></i></button>';
 				}
 
 				if ($_SESSION['permisosMod']['u']) {
-					$btnEdit = '<button class="btn btn-primary  btn-sm btnEditUsuario" onClick="fntEditUsuario(this,' . $arrData[$i]['cod_producto'] . ')" title="Editar usuario"><i class="fas fa-pencil-alt"></i></button>';
+					$btnEdit = '<button class="btn btn-primary  btn-sm btnEditProducto" onClick="fntEditProducto(this,' . $arrData[$i]['cod_producto'] . ')" title="Editar producto"><i class="fas fa-pencil-alt"></i></button>';
 				} else {
 					$btnEdit = '<button class="btn btn-secondary btn-sm" disabled ><i class="fas fa-pencil-alt"></i></button>';
 				}
 
 				if ($_SESSION['permisosMod']['d']) {
-					$btnDelete = '<button class="btn btn-danger btn-sm btnDelUsuario" onClick="fntDelUsuario(' . $arrData[$i]['cod_producto'] . ')" title="Eliminar usuario"><i class="far fa-trash-alt"></i></button>';
+					$btnDelete = '<button class="btn btn-danger btn-sm btnDelProducto" onClick="fntDelProducto(' . $arrData[$i]['cod_producto'] . ')" title="Eliminar producto"><i class="far fa-trash-alt"></i></button>';
 				} else {
 					$btnDelete = '<button class="btn btn-secondary btn-sm" disabled ><i class="far fa-trash-alt"></i></button>';
 				}
@@ -207,12 +198,12 @@ class Productos extends Controllers
 		die();
 	}
 
-	public function getUsuario($id_usuario)
+	public function getProducto($cod_producto)
 	{
 		if ($_SESSION['permisosMod']['r']) {
-			$id_usuario = intval($id_usuario);
-			if ($id_usuario > 0) {
-				$arrData = $this->model->selectUsuario($id_usuario);
+			$cod_producto = intval($cod_producto);
+			if ($cod_producto > 0) {
+				$arrData = $this->model->selectProducto($cod_producto);
 				if (empty($arrData)) {
 					$arrResponse = array('status' => false, 'msg' => 'Datos no encontrados.');
 				} else {
@@ -223,6 +214,26 @@ class Productos extends Controllers
 		}
 		die();
 	}
+
+	public function getSelectTipoProducto()
+	{
+		$htmlOptions = "";
+		$arrData = $this->model->selectTipoProducto();
+		if (count($arrData) > 0) {
+			for ($i = 0; $i < count($arrData); $i++) {
+				//   if ($arrData[$i]['cod_genero'] == 1) {
+				$htmlOptions .= '<option value="' . $arrData[$i]['cod_tipo_producto'] . '">' . $arrData[$i]['nombre_tipo_producto'] . '</option>';
+				// }
+			}
+		}
+		echo $htmlOptions;
+		die();
+	}
+
+
+
+
+
 
 	public function delUsuario()
 	{

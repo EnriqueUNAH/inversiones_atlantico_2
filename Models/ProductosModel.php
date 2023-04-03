@@ -2,14 +2,14 @@
 
 class ProductosModel extends Mysql
 {
-	private $intIdProducto;
+	private $cod_producto;
 	private $strNombreProducto;
 	private $strDescripcion;
 	private $intCantidadMinima;
 	private $intCantidadMaxima;
 	private $intCodTipoProducto;
 	private $decPrecioVenta;
-	private $strEstado;
+	private $intStatus;
 	private $intExistencia;
 
 
@@ -18,32 +18,41 @@ class ProductosModel extends Mysql
 		parent::__construct();
 	}
 
-	public function insertProducto(string $usuario, string $nombre, string $email, string $password, int $tipoid, int $status)
+	public function insertProducto(string $nombre, string $descripcion, int $cantMin, int $CantMax, int $tipoProd, int $precio, int $estado)
 	{
-		$this->strusuario = $usuario;
-		$this->strNombre = $nombre;
-		$this->strEmail = $email;
-		$this->strPassword = $password;
-		$this->intTipoId = $tipoid;
-		$this->strCreadoPor = $_SESSION['elUsuario'];
-		$this->intStatus = $status;
+		$this->strNombreProducto = $nombre;
+		$this->strDescripcion = $descripcion;
+		$this->intCantidadMinima = $cantMin;
+		$this->intCantidadMaxima= $CantMax;
+		$this->intCodTipoProducto = $tipoProd;
+		$this->decPrecioVenta = $precio;
+		$this->intStatus = $estado;
+        $this->strCreadoPor = $_SESSION['elUsuario'];
+		$this->fechaCreacion = date('Y-m-d H:i:s');
+		$this->intExistencia = 0;
+		
+		
 		$return = 0;
 
-		$sql = "SELECT * FROM tbl_ms_usuarios WHERE 
-					correo_electronico = '{$this->strEmail}' or usuario = '{$this->strusuario}' ";
+		$sql = "SELECT * FROM tbl_producto WHERE 
+					descripcion = '{$this->strDescripcion}' or nombre_producto = '{$this->strNombreProducto}' ";
 		$request = $this->select_all($sql);
 
 		if (empty($request)) {
-			$query_insert  = "INSERT INTO tbl_ms_usuarios(usuario,nombre_usuario,correo_electronico,contrasena,id_rol,creado_por,estado) 
-								  VALUES(?,?,?,?,?,?,?)";
+			$query_insert  = "INSERT INTO tbl_producto(nombre_producto,descripcion,cantidad_minima,cantidad_maxima,cod_tipo_producto,
+			precio_venta,estado,creado_por,fecha_creacion,existencia) 
+								  VALUES(?,?,?,?,?,?,?,?,?,?)";
 			$arrData = array(
-				$this->strusuario,
-				$this->strNombre,
-				$this->strEmail,
-				$this->strPassword,
-				$this->intTipoId,
+				$this->strNombreProducto,
+				$this->strDescripcion,
+				$this->intCantidadMinima,
+				$this->intCantidadMaxima,
+				$this->intCodTipoProducto,
+				$this->decPrecioVenta,
+				$this->intStatus,
 				$this->strCreadoPor,
-				$this->intStatus
+				$this->fechaCreacion,
+				$this->intExistencia
 			);
 			$request_insert = $this->insert($query_insert, $arrData);
 			$return = $request_insert;
@@ -56,7 +65,7 @@ class ProductosModel extends Mysql
 
 
 	//Función para que inserte en bitácora cada vez que se agrega un nuevo usuario
-	public function insertUsuarioBitacora(string $fecha, int $idUsuario, int $idObjeto, string $accion, string $descripcion)
+	public function insertProductoBitacora(string $fecha, int $idUsuario, int $idObjeto, string $accion, string $descripcion)
 	{
 
 		$this->dateFecha = $fecha;
@@ -81,26 +90,12 @@ class ProductosModel extends Mysql
 		return $return;
 	}
 
-	// public static function evento_bitacora($id_objeto,$id_usuario,$accion,$descripcion)
-	// 	{
-	// 		   require ('../clases/Conexion.php');
-
-	// 		   		$sql = "INSERT INTO  tbl_ms_bitacora (Id_objeto, id_usuario,Fecha, Accion , Descripcion)
-	// 			 VALUES ('$id_objeto', '$id_usuario' , sysdate(), '$accion', '$descripcion')";
-
-	// 		$resultado = $mysqli->query($sql);
-	// 	}
-
-
 
 	public function selectProductos()
 	{
-		//$whereAdmin = "";
-		// if ($_SESSION['idUser'] != 1) {
-		// 	$whereAdmin = " and p.id_usuario != 1 ";
-		// }
+	
 		$sql = "SELECT p.cod_producto,p.nombre_producto,p.descripcion,p.cantidad_minima,p.cantidad_maxima,
-					   p.precio_venta,p.estado,p.foto,tp.nombre_tipo_producto
+					   p.precio_venta,p.estado,tp.nombre_tipo_producto
 		FROM tbl_producto p 
 		INNER JOIN tbl_tipo_producto tp
 		ON p.cod_tipo_producto = tp.cod_tipo_producto";
@@ -108,34 +103,32 @@ class ProductosModel extends Mysql
 		return $request;
 	}
 
-	public function selectParametros()
-	{
-		$whereAdmin = "";
-		if ($_SESSION['idUser'] != 1) {
-			$whereAdmin = " and p.id_usuario != 1 ";
+	public function selectTipoProducto()
+		{
+			// $whereAdmin = "";
+			// if($_SESSION['idUser'] != 1 ){
+			// 	$whereAdmin = " and cod_genero != 1 ";
+			// }
+			//EXTRAE ROLES
+			$sql = "SELECT * FROM tbl_tipo_producto ";
+			$request = $this->select_all($sql);
+			return $request;
 		}
-		$sql = "SELECT id_parametro,parametro,valor 
-					FROM tbl_ms_parametros
-					
-					 " . $whereAdmin;
-		$request = $this->select_all($sql);
-		return $request;
-	}
-
 
 
 
 
 	//Muestra los datos en el botón ver más
-	public function selectUsuario(int $id_usuario)
+	public function selectProducto(int $cod_producto)
 	{
-		$this->intIdUsuario = $id_usuario;
-		$sql = "SELECT p.id_usuario,p.usuario,p.nombre_usuario,p.preguntas_contestadas,p.correo_electronico,r.id_rol,r.nombrerol,
-		p.estado,p.creado_por,p.modificado_por,p.fecha_modificacion, DATE_FORMAT(p.fecha_creacion, '%d-%m-%Y') as fechaRegistro 
-					FROM tbl_ms_usuarios p
-					INNER JOIN tbl_ms_roles r
-					ON p.id_rol = r.id_rol
-					WHERE p.id_usuario = $this->intIdUsuario";
+		$this->cod_producto = $cod_producto;
+		$sql = "SELECT p.cod_producto,p.nombre_producto,p.descripcion,p.cantidad_minima,p.cantidad_maxima,p.cod_tipo_producto,
+		r.nombre_tipo_producto,p.precio_venta,p.estado,p.creado_por,DATE_FORMAT(p.fecha_creacion, '%d-%m-%Y') as fecha_creacion,
+		p.modificado_por,p.fecha_modificacion,p.existencia
+					FROM tbl_producto p
+					INNER JOIN tbl_tipo_producto r
+					ON p.cod_tipo_producto = r.cod_tipo_producto
+					WHERE p.cod_producto = $this->cod_producto";
 		$request = $this->select($sql);
 		return $request;
 	}
@@ -144,56 +137,47 @@ class ProductosModel extends Mysql
 
 
 
-	public function updateUsuario(int $idUsuario, string $usuario, string $nombre, string $email, string $password, int $tipoid, int $estado)
+	public function updateProducto(int $cod_producto, string $nombre, string $descripcion, int $cantMin, int $CantMax, int $tipoProd, int $precio, int $estado)
 	{
-
-		$this->intIdUsuario = $idUsuario;
-		$this->strusuario = $usuario;
-		$this->strNombre = $nombre;
-		$this->strEmail = $email;
-		$this->strPassword = $password;
-		$this->intTipoId = $tipoid;
+		$this->cod_producto = $cod_producto;
+		$this->strNombreProducto = $nombre;
+		$this->strDescripcion = $descripcion;
+		$this->intCantidadMinima = $cantMin;
+		$this->intCantidadMaxima= $CantMax;
+		$this->intCodTipoProducto = $tipoProd;
+		$this->decPrecioVenta = $precio;
+		$this->intStatus = $estado;
 		$this->strModificadoPor = $_SESSION['elUsuario'];
 		$this->fechaModificacion = date('Y-m-d H:i:s');
-		$this->intStatus = $estado;
 
-		$sql = "SELECT * FROM tbl_ms_usuarios WHERE (correo_electronico = '{$this->strEmail}' AND id_usuario != $this->intIdUsuario)
-										  OR (usuario = '{$this->strusuario}' AND id_usuario != $this->intIdUsuario) ";
+		$sql = "SELECT * FROM tbl_producto WHERE nombre_producto = '{$this->strNombreProducto}' AND cod_producto != $this->cod_producto" ;
 		$request = $this->select_all($sql);
 
 		if (empty($request)) {
-			if ($this->strPassword  != "") {
-				$sql = "UPDATE tbl_ms_usuarios SET usuario=?, nombre_usuario=?, correo_electronico=?, contrasena=?, id_rol=?, modificado_por=?, fecha_modificacion=?, estado=? 
-							WHERE id_usuario = $this->intIdUsuario ";
-				$arrData = array(
-					$this->strusuario,
-					$this->strNombre,
-					$this->strEmail,
-					$this->strPassword,
-					$this->intTipoId,
-					$this->strModificadoPor,
-					$this->fechaModificacion,
-					$this->intStatus
-				);
-			} else {
-				$sql = "UPDATE tbl_ms_usuarios SET usuario=?, nombre_usuario=?, correo_electronico=?, id_rol=?, modificado_por=?, fecha_modificacion=?, estado=? 
-							WHERE id_usuario = $this->intIdUsuario ";
-				$arrData = array(
-					$this->strusuario,
-					$this->strNombre,
-					$this->strEmail,
-					$this->intTipoId,
-					$this->strModificadoPor,
-					$this->fechaModificacion,
-					$this->intStatus
-				);
-			}
+
+			$sql = "UPDATE tbl_Producto SET nombre_producto=?, descripcion=?, cantidad_minima=? , cantidad_maxima=?, 
+			cod_tipo_producto=?, precio_venta=?, estado=?, modificado_por=?, fecha_modificacion=?
+							WHERE cod_producto = $this->cod_producto ";
+			$arrData = array(
+				$this->strNombreProducto,
+				$this->strDescripcion,
+				$this->intCantidadMinima,
+				$this->intCantidadMaxima,
+				$this->intCodTipoProducto,
+                $this->decPrecioVenta,
+                $this->intStatus,
+				$this->strModificadoPor,
+				$this->fechaModificacion
+
+			);
+
 			$request = $this->update($sql, $arrData);
 		} else {
 			$request = "exist";
 		}
 		return $request;
 	}
+
 	public function deleteUsuario(int $intid_usuario)
 	{
 		$this->intIdUsuario = $intid_usuario;

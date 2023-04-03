@@ -22,6 +22,7 @@ document.addEventListener(
         { data: "nombre_tipo_producto" },
         { data: "precio_venta" },
         { data: "estado" },
+        { data: "options" },
         // {
         //   data: "foto",
         //   render: function (data, type, row) {
@@ -72,31 +73,22 @@ document.addEventListener(
       formProducto.onsubmit = function (e) {
         e.preventDefault();
 
-        let strNombre_Producto = document.querySelector(
-          "#txtNombre_Producto"
-        ).value;
-        let strDescripcion = document
-          .querySelector("#txtdescripcion")
-          .value.toUpperCase();
-        let intCantidad_Minima = document.querySelector(
-          "#txtCantidad_Minima"
-        ).value;
-        let intCantidad_Maxima = document.querySelector(
-          "#txtCantidad_Maxima"
-        ).value;
-        let intTipo_Producto =
-          document.querySelector("#listTipo_Producto").value;
-        let decPrecio_Venta = document.querySelector("#txtPrecio_Venta").value;
+        let strNombreProducto = document.querySelector("#txtnombre").value.toUpperCase();
+        let strDescripcion = document.querySelector("#txtdescripcion").value.toUpperCase();
+        let intCantidadMinima = document.querySelector("#intCantidadMin").value;
+        let intCantidadMaxima = document.querySelector("#intCantidadMax").value;
+        let intCodTipoProducto = document.querySelector("#listTipo").value;
+        let decPrecioVenta = document.querySelector("#intprecio").value;
         let intStatus = document.querySelector("#listStatus").value;
-        let foto = document.querySelector("#foto").value;
+
 
         if (
-          strNombre_Producto == "" ||
+          strNombreProducto == "" ||
           strDescripcion == "" ||
-          intCantidad_Minima == "" ||
-          intCantidad_Maxima == "" ||
-          intTipo_Producto == "" ||
-          decPrecio_Venta == "" ||
+          intCantidadMinima == "" ||
+          intCantidadMaxima == "" ||
+          intCodTipoProducto == "" ||
+          decPrecioVenta == "" ||
           intStatus == ""
         ) {
           swal("Atención", "Todos los campos son obligatorios.", "error");
@@ -138,24 +130,13 @@ document.addEventListener(
                     ? '<span class="badge badge-danger">BLOQUEADO</span>'
                     : '<span class="badge badge-danger">INACTIVO</span>';
 
-                rowTable.cells[0].textContent = strNombre_Producto;
+                rowTable.cells[0].textContent = strNombreProducto;
                 rowTable.cells[1].textContent = strDescripcion;
-                rowTable.cells[2].textContent = intCantidad_Minima;
-                rowTable.cells[3].textContent = intCantidad_Maxima;
-
-                rowTable.cells[4].textContent =
-                  document.querySelector(
-                    "#listTipo_Producto"
-                  ).selectedOptions[0].text;
-
-                rowTable.cells[5].textContent = decPrecio_Venta;
-
-                rowTable.cells[6].textContent =
-                  document.querySelector("#listStatus").selectedOptions[0].text;
-
-                rowTable.cells[7].textContent = foto;
-
-                rowTable.cells[8].innerHTML = htmlStatus;
+                rowTable.cells[2].textContent = intCantidadMinima;
+                rowTable.cells[3].textContent = intCantidadMaxima;
+                rowTable.cells[4].textContent = document.querySelector("#listTipo").selectedOptions[0].text;
+                rowTable.cells[5].textContent = decPrecioVenta;
+                rowTable.cells[6].innerHTML = htmlStatus;
                 rowTable = "";
               }
 
@@ -176,19 +157,40 @@ document.addEventListener(
   false
 );
 
-// window.addEventListener(
-//   "load",
-//   function () {
-//     fntRolesUsuario();
-//   },
-//   false
-// );
+window.addEventListener(
+  "load",
+  function () {
+    fntTipoProducto();
+  },
+  false
+);
 
-function fntViewProducto(id_producto) {
+function fntTipoProducto() {
+  if (document.querySelector("#listTipo")) {
+    let ajaxUrl = base_url + "/Productos/getSelectTipoProducto";
+    let request = window.XMLHttpRequest
+      ? new XMLHttpRequest()
+      : new ActiveXObject("Microsoft.XMLHTTP");
+    request.open("GET", ajaxUrl, true);
+    request.send();
+    request.onreadystatechange = function () {
+      if (request.readyState == 4 && request.status == 200) {
+        document.querySelector("#listTipo").innerHTML = request.responseText;
+        $("#listTipo").selectpicker("render");
+      }
+    };
+  }
+}
+
+
+
+
+
+function fntViewProducto(cod_producto) {
   let request = window.XMLHttpRequest
     ? new XMLHttpRequest()
     : new ActiveXObject("Microsoft.XMLHTTP");
-  let ajaxUrl = base_url + "/Productos/getProducto/" + id_usuario;
+  let ajaxUrl = base_url + "/Productos/getProducto/" + cod_producto;
   request.open("GET", ajaxUrl, true);
   request.send();
   request.onreadystatechange = function () {
@@ -196,33 +198,27 @@ function fntViewProducto(id_producto) {
       let objData = JSON.parse(request.responseText);
 
       if (objData.status) {
-        let estadoProducto =
+        let estado =
           objData.data.estado == 1
             ? '<span class="badge badge-success">ACTIVO</span>'
             : objData.data.estado == 3
             ? '<span class="badge badge-info">NUEVO</span>'
             : '<span class="badge badge-danger">INACTIVO</span>';
 
-        document.querySelector("#celusuario").innerHTML = objData.data.usuario;
-        document.querySelector("#celNombre").innerHTML =
-          objData.data.nombre_usuario;
-        document.querySelector("#celpreguntas_contestadas").innerHTML =
-          objData.data.preguntas_contestadas;
-        document.querySelector("#celEmail").innerHTML =
-          objData.data.correo_electronico;
-        document.querySelector("#celTipoUsuario").innerHTML =
-          objData.data.nombrerol;
-        document.querySelector("#celEstado").innerHTML = estadoUsuario;
-        document.querySelector("#celCreadoPor").innerHTML =
-          objData.data.creado_por;
-        document.querySelector("#celFechaRegistro").innerHTML =
-          objData.data.fechaRegistro;
-        document.querySelector("#celModificadoPor").innerHTML =
-          objData.data.modificado_por;
-        document.querySelector("#celFechaModificacion").innerHTML =
-          objData.data.fecha_modificacion;
+        document.querySelector("#celNombre").innerHTML = objData.data.nombre_producto;
+        document.querySelector("#celDescripcion").innerHTML = objData.data.descripcion;
+        document.querySelector("#celCantMin").innerHTML = objData.data.cantidad_minima;
+        document.querySelector("#celCantMax").innerHTML = objData.data.cantidad_maxima;
+        document.querySelector("#celTipoProducto").innerHTML = objData.data.nombre_tipo_producto;
+        document.querySelector("#celPrecio").innerHTML = objData.data.precio_venta;
+        document.querySelector("#celEstado").innerHTML = estado;
+        document.querySelector("#celCreadoPor").innerHTML = objData.data.creado_por;
+        document.querySelector("#celFechaCreacion").innerHTML = objData.data.fecha_creacion;
+        document.querySelector("#celModificadoPor").innerHTML = objData.data.modificado_por;
+        document.querySelector("#celFechaModificacion").innerHTML = objData.data.fecha_modificacion;
+        
 
-        $("#modalViewUser").modal("show");
+        $("#modalViewProducto").modal("show");
       } else {
         swal("Error", objData.msg, "error");
       }
@@ -231,20 +227,16 @@ function fntViewProducto(id_producto) {
 }
 
 //Función cuando se le da click al botón editar Producto
-function fntEditUsuario(element, id_usuario) {
+function fntEditProducto(element, cod_producto) {
   rowTable = element.parentNode.parentNode.parentNode;
-  document.querySelector("#titleModal").innerHTML = "Actualizar Usuario";
-  document
-    .querySelector(".modal-header")
-    .classList.replace("headerRegister", "headerUpdate");
-  document
-    .querySelector("#btnActionForm")
-    .classList.replace("btn-primary", "btn-info");
+  document.querySelector("#titleModal").innerHTML = "Actualizar Producto";
+  document.querySelector(".modal-header").classList.replace("headerRegister", "headerUpdate");
+  document.querySelector("#btnActionForm").classList.replace("btn-primary", "btn-info");
   document.querySelector("#btnText").innerHTML = "Actualizar";
   let request = window.XMLHttpRequest
     ? new XMLHttpRequest()
     : new ActiveXObject("Microsoft.XMLHTTP");
-  let ajaxUrl = base_url + "/Usuarios/getUsuario/" + id_usuario;
+  let ajaxUrl = base_url + "/Productos/getProducto/" + cod_producto;
   request.open("GET", ajaxUrl, true);
   request.send();
   request.onreadystatechange = function () {
@@ -252,22 +244,14 @@ function fntEditUsuario(element, id_usuario) {
       let objData = JSON.parse(request.responseText);
 
       if (objData.status) {
-        document.querySelector("#id_usuario").value = objData.data.id_usuario;
-
-        document.querySelector("#txtusuario").value = objData.data.usuario;
-
-        //Si recibe un usuario, quiere decir que está editando,
-        //entonces coloca el input de Usuario como solo lectura
-        if (id_usuario) {
-          document.querySelector("#txtusuario").setAttribute("readonly", true);
-        }
-
-        document.querySelector("#txtnombre_usuario").value =
-          objData.data.nombre_usuario;
-        document.querySelector("#txtEmail").value =
-          objData.data.correo_electronico;
-        document.querySelector("#listid_rol").value = objData.data.id_rol;
-        $("#listid_rol").selectpicker("render");
+        document.querySelector("#cod_producto").value = objData.data.cod_producto;
+        document.querySelector("#txtnombre").value = objData.data.nombre_producto;
+        document.querySelector("#txtdescripcion").value = objData.data.descripcion;
+        document.querySelector("#intCantidadMin").value = objData.data.cantidad_minima;
+        document.querySelector("#intCantidadMax").value = objData.data.cantidad_maxima;
+        document.querySelector("#listTipo").value = objData.data.cod_tipo_producto;
+        $("#listTipo").selectpicker("render");
+        document.querySelector("#intprecio").value = objData.data.precio_venta;
 
         if (objData.data.estado == 1) {
           document.querySelector("#listStatus").value = 1;
@@ -281,7 +265,7 @@ function fntEditUsuario(element, id_usuario) {
       }
     }
 
-    $("#modalFormUsuario").modal("show");
+    $("#modalFormProducto").modal("show");
   };
 }
 
@@ -332,8 +316,8 @@ function fntDelUsuario(id_usuario) {
 //Abre el modal para agregar usuario
 function openModal() {
   rowTable = "";
-  document.querySelector("#id_usuario").value = "";
-  document.querySelector("#txtusuario").removeAttribute("readonly"); //Para quitar el readonly en caso de que antes se haya editado
+  document.querySelector("#cod_producto").value = "";
+  // document.querySelector("#txtusuario").removeAttribute("readonly"); //Para quitar el readonly en caso de que antes se haya editado
   //document.querySelector("#listStatus").setAttribute("readonly", true);
   // document.querySelector("#listStatus").setAttribute("disabled", true);
   // if (rowTable) {
@@ -350,12 +334,12 @@ function openModal() {
     .querySelector("#btnActionForm")
     .classList.replace("btn-info", "btn-primary");
   document.querySelector("#btnText").innerHTML = "Guardar";
-  document.querySelector("#titleModal").innerHTML = "Nuevo Usuario";
-  document.querySelector("#formUsuario").reset();
+  document.querySelector("#titleModal").innerHTML = "Nuevo Producto";
+  document.querySelector("#formProducto").reset();
   //$("#listStatus").prop("disabled", true);
   //$("#listStatus").val("3");
 
-  $("#modalFormUsuario").modal("show");
+  $("#modalFormProducto").modal("show");
 }
 
 function openModalPerfil() {
