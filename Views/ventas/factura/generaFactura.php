@@ -29,11 +29,11 @@ if (empty($_REQUEST['cl']) || empty($_REQUEST['f'])) {
 
 
 	$query = mysqli_query($conection, "SELECT f.cod_factura, DATE_FORMAT(f.fecha, '%d/%m/%Y') as fecha, DATE_FORMAT(f.fecha,'%H:%i:%s') as  hora, f.cod_cliente, f.estado,
-												 v.nombre as vendedor,
-												 cl.rtn, cl.nombre, cl.telefono,cl.direccion
+												 v.nombre_usuario as vendedor,
+												 cl.rtn, cl.nombres, cl.telefono,cl.direccion
 											FROM tbl_factura f
 											INNER JOIN tbl_ms_usuarios v
-											ON f.id_usuario = v.idusuario
+											ON f.id_usuario = v.id_usuario
 											INNER JOIN tbl_cliente cl
 											ON f.cod_cliente = cl.cod_cliente
 											WHERE f.cod_factura = $cod_factura AND f.cod_cliente = $cod_cliente  AND f.estado != 10 ");
@@ -56,7 +56,7 @@ if (empty($_REQUEST['cl']) || empty($_REQUEST['f'])) {
 
 
 		//$logo = '/img/logo.png';
-		$query_productos = mysqli_query($conection, "SELECT p.descripcion,dt.cantidad,dt.precio_venta,(dt.cantidad * dt.precio_venta) as precio_total
+		$query_productos = mysqli_query($conection, "SELECT p.nombre_producto,dt.cantidad,dt.precio_venta,(dt.cantidad * dt.precio_venta) as precio_total
 														FROM tbl_factura f
 														INNER JOIN tbl_detalle_factura dt
 														ON f.cod_factura = dt.cod_factura

@@ -110,7 +110,7 @@ if (!empty($_REQUEST['fecha_de']) && !empty($_REQUEST['fecha_a'])) {
 
 				$query = mysqli_query($conection, "SELECT f.cod_factura,f.fecha,f.totalfactura,f.cod_cliente,f.estado,
 													 u.nombre as vendedor,
-													 cl.nombre as cliente
+													 cl.nombres as cliente
 												FROM tbl_factura f
 												INNER JOIN tbl_ms_usuarios u
 												ON f.id_usuario = u.idusuario

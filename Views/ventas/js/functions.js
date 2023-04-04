@@ -72,13 +72,13 @@ $(document).ready(function () {
           var info = JSON.parse(response);
 
           //$('#producto_id').val(info.cod_producto);
-          //$('.nameProducto').html(info.descripcion);
+          //$('.nameProducto').html(info.nombre_producto);
 
           $(".bodyModal").html(
             '<form action="" method="post" name="form_add_product" id="form_add_product" onsubmit="event.preventDefault(); sendDataProduct();">' +
               '<h1><i class="fas fa-cubes" style="font-size: 45pt;"></i> <br> Agregar Producto</h1>' +
               '<h2 class="nameProducto">' +
-              info.descripcion +
+              info.nombre_producto +
               "</h2><br>" +
               '<input type="number" name="cantidad" id="txtCantidad" placeholder="Cantidad del producto" required><br>' +
               '<input type="text" name="precio" id="txtPrecio" placeholder="Precio del producto" required>' +
@@ -120,14 +120,14 @@ $(document).ready(function () {
           var info = JSON.parse(response);
 
           //$('#producto_id').val(info.cod_producto);
-          //$('.nameProducto').html(info.descripcion);
+          //$('.nameProducto').html(info.nombre_producto);
 
           $(".bodyModal").html(
             '<form action="" method="post" name="form_del_product" id="form_del_product" onsubmit="event.preventDefault(); delProduct();">' +
               '<h1><i class="fas fa-cubes" style="font-size: 45pt;"></i> <br> Eliminar Producto</h1>' +
               "<p>¿Está seguro de eliminar el siguiente registro?</p>" +
               '<h2 class="nameProducto">' +
-              info.descripcion +
+              info.nombre_producto +
               "</h2><br>" +
               '<input type="hidden" name="producto_id" id="producto_id" value="' +
               info.cod_producto +
@@ -189,7 +189,7 @@ $(document).ready(function () {
         } else {
           var data = $.parseJSON(response);
           $("#cod_cliente").val(data.cod_cliente);
-          $("#nom_cliente").val(data.nombre);
+          $("#nom_cliente").val(data.nombres);
           $("#tel_cliente").val(data.telefono);
           $("#dir_cliente").val(data.direccion);
           //Ocultar boton agregar
@@ -255,11 +255,11 @@ $(document).ready(function () {
           if (response != "error") {
             var info = JSON.parse(response);
             $("#txt_cod_producto").val(producto);
-            $("#txt_descripcion").html(info.descripcion);
+            $("#txt_nombre_producto").html(info.nombre_producto);
             $("#txt_existencia").html(info.existencia);
             $("#txt_cant_producto").val("1");
-            $("#txt_precio").html(info.precio);
-            $("#txt_precio_total").html(info.precio);
+            $("#txt_precio").html(info.precio_venta);
+            $("#txt_precio_total").html(info.precio_venta);
 
             //Activar Cantidad
             $("#txt_cant_producto").removeAttr("disabled");
@@ -268,7 +268,7 @@ $(document).ready(function () {
             $("#add_product_venta").slideDown();
           } else {
             $("#txt_cod_producto").val("");
-            $("#txt_descripcion").html("-");
+            $("#txt_nombre_producto").html("-");
             $("#txt_existencia").html("-");
             $("#txt_cant_producto").val("0");
             $("#txt_precio").html("0.00");
@@ -328,7 +328,7 @@ $(document).ready(function () {
             $("#detalle_totales").html(info.totales);
 
             $("#txt_cod_producto").val("");
-            $("#txt_descripcion").html("-");
+            $("#txt_nombre_producto").html("-");
             $("#txt_existencia").html("-");
             $("#txt_cant_producto").val("0");
             $("#txt_precio").html("0.00");
@@ -668,7 +668,7 @@ function del_product_detalle(cod_detalle_factura) {
         $("#detalle_totales").html(info.totales);
 
         $("#txt_cod_producto").val("");
-        $("#txt_descripcion").html("-");
+        $("#txt_nombre_producto").html("-");
         $("#txt_existencia").html("-");
         $("#txt_cant_producto").val("0");
         $("#txt_precio").html("0.00");

@@ -70,7 +70,7 @@ include "conexion.php";
 						<tr>
 							<td><?php echo $data["cod_cliente"]; ?></td>
 							<td><?php echo $rtn; ?></td>
-							<td><?php echo $data["nombre"]; ?></td>
+							<td><?php echo $data["nombres"]; ?></td>
 							<td><?php echo $data["telefono"]; ?></td>
 							<td><?php echo $data["direccion"]; ?></td>
 

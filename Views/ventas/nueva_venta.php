@@ -1,25 +1,14 @@
 <?php
-
 session_start();
 include "conexion.php";
 
 ?>
-
-
-
-<?php
-
-?>
-
 <!DOCTYPE html>
 <html lang="es">
 
 <head>
 	<meta charset="UTF-8">
-	<?php
-	include "includes/scripts.php";
-
-	?>
+	<?php include "includes/scripts.php"; ?>
 	<title>Nueva Venta</title>
 
 
@@ -30,7 +19,7 @@ include "conexion.php";
 
 	<section id="container">
 		<div class="title_page">
-			<h1>Nueva Venta</h1>
+			<h1><i class="fas fa-cube"></i> Nueva Venta</h1>
 		</div>
 		<div class="datos_cliente">
 			<div class="action_cliente">
@@ -92,9 +81,8 @@ include "conexion.php";
 								<option value="">Seleccione un producto</option>
 								<option value="001">CAMISA BLANCA</option>
 								<option value="002">UNIFORME BARCA</option>
-								<option value="003">TECLADO USB</option>
-								<option value="004">CAMA</option>
-								<option value="13">PINTURA</option>
+								<option value="003">HILO ROJO</option>
+								<option value="12">PINTURA</option>
 								<!-- ... -->
 							</select>
 						<td> <a href="#" id="add_product_venta" class="link_add"><i class="fas fa-plus"></i> Agregar</a></td>
@@ -116,7 +104,7 @@ include "conexion.php";
 
 					<tr>
 						<td hidden><input type="text" name="txt_cod_producto" id="txt_cod_producto"></td>
-						<td id="txt_descripcion">-</td>
+						<td id="txt_nombre_producto">-</td>
 						<td></td>
 						<td id="txt_existencia">-</td>
 						<td><input type="text" name="txt_cant_producto" id="txt_cant_producto" value="0" min="1" disabled></td>
@@ -175,9 +163,3 @@ include "conexion.php";
 </body>
 
 </html>
-
-<?php
-
-
-include "../Template/footer_admin.php";
-?>

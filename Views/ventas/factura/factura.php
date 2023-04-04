@@ -209,7 +209,7 @@ $total 		= 0;
 							</tr>
 							<tr>
 								<td><label>Nombre:</label>
-									<p><?php echo $factura['nombre']; ?></p>
+									<p><?php echo $factura['nombres']; ?></p>
 								</td>
 								<td><label>Dirección:</label>
 									<p><?php echo $factura['direccion']; ?></p>
@@ -239,7 +239,7 @@ $total 		= 0;
 				?>
 						<tr>
 							<td class="textcenter"><?php echo $row['cantidad']; ?></td>
-							<td><?php echo $row['descripcion']; ?></td>
+							<td><?php echo $row['nombre_producto']; ?></td>
 							<td class="textright"><?php echo $row['precio_venta']; ?></td>
 							<td class="textright"><?php echo $row['precio_total']; ?></td>
 						</tr>

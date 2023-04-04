@@ -24,7 +24,7 @@ include "conexion.php";
 		}
 		if (!empty($_REQUEST['busqueda'])) {
 			$busqueda = strtolower($_REQUEST['busqueda']);
-			$where = " ( p.cod_producto LIKE '%$busqueda%' OR p.descripcion LIKE '%$busqueda%') AND p.estado = 1 ";
+			$where = " ( p.cod_producto LIKE '%$busqueda%' OR p.nombre_producto LIKE '%$busqueda%') AND p.estado = 1 ";
 			$buscar = 'busqueda=' . $busqueda;
 		}
 
@@ -96,7 +96,7 @@ include "conexion.php";
 				$desde = ($pagina - 1) * $por_pagina;
 				$total_paginas = ceil($total_registro / $por_pagina);
 
-				$query = mysqli_query($conection, "SELECT p.cod_producto, p.descripcion, p.precio, p.existencia, pr.proveedor, p.foto
+				$query = mysqli_query($conection, "SELECT p.cod_producto, p.nombre_producto, p.precio, p.existencia, pr.proveedor, p.foto
 											FROM tbl_producto p
 											INNER JOIN proveedor pr
 											ON p.proveedor = pr.codproveedor
@@ -119,11 +119,11 @@ include "conexion.php";
 				?>
 						<tr class="row<?php echo $data["cod_producto"]; ?>">
 							<td><?php echo $data["cod_producto"]; ?></td>
-							<td><?php echo $data["descripcion"]; ?></td>
-							<td class="celPrecio"><?php echo $data["precio"]; ?></td>
+							<td><?php echo $data["nombre_producto"]; ?></td>
+							<td class="celPrecio"><?php echo $data["precio_venta"]; ?></td>
 							<td class="celExistencia"><?php echo $data["existencia"]; ?></td>
 							<td><?php echo $data["proveedor"]; ?></td>
-							<td class="img_producto"><img src="<?php echo $foto; ?>" alt="<?php echo $data["descripcion"]; ?>"></td>
+							<td class="img_producto"><img src="<?php echo $foto; ?>" alt="<?php echo $data["nombre_producto"]; ?>"></td>
 
 							<td>
 								<a class="link_add add_product" product="<?php echo $data["cod_producto"]; ?>" href="#"><i class="fas fa-plus"></i> Agregar</a>

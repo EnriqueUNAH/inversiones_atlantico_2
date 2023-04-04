@@ -10,7 +10,7 @@ if (!empty($_POST)) {
 	if ($_POST['action'] == 'infoProducto') {
 		$producto_id = $_POST['producto'];
 
-		$query = mysqli_query($conection, "SELECT cod_producto,descripcion,existencia,precio FROM tbl_producto
+		$query = mysqli_query($conection, "SELECT cod_producto,nombre_producto,existencia,precio_venta FROM tbl_producto
 												WHERE cod_producto = $producto_id AND estado = 1");
 		mysqli_close($conection);
 
@@ -24,41 +24,6 @@ if (!empty($_POST)) {
 		exit;
 	}
 
-	//Agregar productos a entrada
-	if ($_POST['action'] == 'addProduct') {
-
-		if (!empty($_POST['cantidad']) || !empty($_POST['precio']) || !empty($_POST['producto_id'])) {
-			$cantidad 	= $_POST['cantidad'];
-			$precio 	= $_POST['precio'];
-			$producto_id = $_POST['producto_id'];
-			$usuario_id = $_SESSION['idUser'];
-
-			$query_insert = mysqli_query($conection, "INSERT INTO entradas(cod_producto,
-																			  cantidad,precio,
-																			  usuario_id)
-																		VALUES($producto_id,
-																			   $cantidad,
-																			   $precio,
-																			   $usuario_id)");
-			if ($query_insert) {
-				//Ejecutar procedimiento almacenado
-				$query_upd = mysqli_query($conection, "CALL actualizar_precio_producto($cantidad,$precio,$producto_id)");
-				$result_pro = mysqli_num_rows($query_upd);
-				if ($result_pro > 0) {
-					$data = mysqli_fetch_assoc($query_upd);
-					$data['producto_id'] = $producto_id;
-					echo json_encode($data, JSON_UNESCAPED_UNICODE);
-					exit;
-				}
-			} else {
-				echo 'error';
-			}
-			mysqli_close($conection);
-		} else {
-			echo 'error';
-		}
-		exit;
-	}
 
 	//Eliminar producto
 	if ($_POST['action'] == 'delProduct') {
@@ -99,27 +64,7 @@ if (!empty($_POST)) {
 		exit;
 	}
 
-	//Registra Cliente - Ventas
-	if ($_POST['action'] == 'addCliente') {
-		$rtn       = $_POST['rtn_cliente'];
-		$nombre    = $_POST['nom_cliente'];
-		$telefono  = $_POST['tel_cliente'];
-		$direccion = $_POST['dir_cliente'];
-		$usuario_id = $_SESSION['idUser'];
 
-		$query_insert = mysqli_query($conection, "INSERT INTO cliente(
-														rtn,nombre,telefono,direccion,usuario_id)
-													VALUES('$rtn','$nombre','$telefono','$direccion','$usuario_id')");
-		if ($query_insert) {
-			$cod_cliente = mysqli_insert_id($conection);
-			$msg = $cod_cliente;
-		} else {
-			$msg = 'error';
-		}
-		mysqli_close($conection);
-		echo $msg;
-		exit;
-	}
 
 	//Agregar producto al detalle temporal
 	if ($_POST['action'] == 'addProductoDetalle') {
@@ -156,7 +101,7 @@ if (!empty($_POST)) {
 
 					$detalleTabla .= '<tr>
 											<td>' . $data['cod_producto'] . '</td>
-											<td colspan="2">' . $data['descripcion'] . '</td>
+											<td colspan="2">' . $data['nombre_producto'] . '</td>
 											<td class="textcenter">' . $data['cantidad'] . '</td>
 											<td class="textright">' . $data['precio_venta'] . '</td>
 											<td class="textright">' . $precioTotal . '</td>
@@ -208,7 +153,7 @@ if (!empty($_POST)) {
 														 tmp.cantidad,
 														 tmp.precio_venta,
 														 p.cod_producto,
-														 p.descripcion
+														 p.nombre_producto
 													FROM detalle_temp tmp
 													INNER JOIN tbl_producto p
 													ON tmp.cod_producto = p.cod_producto
@@ -238,7 +183,7 @@ if (!empty($_POST)) {
 
 					$detalleTabla .= '<tr>
 											<td>' . $data['cod_producto'] . '</td>
-											<td colspan="2">' . $data['descripcion'] . '</td>
+											<td colspan="2">' . $data['nombre_producto'] . '</td>
 											<td class="textcenter">' . $data['cantidad'] . '</td>
 											<td class="textright">' . $data['precio_venta'] . '</td>
 											<td class="textright">' . $precioTotal . '</td>
@@ -311,7 +256,7 @@ if (!empty($_POST)) {
 
 					$detalleTabla .= '<tr>
 											<td>' . $data['cod_producto'] . '</td>
-											<td colspan="2">' . $data['descripcion'] . '</td>
+											<td colspan="2">' . $data['nombre_producto'] . '</td>
 											<td class="textcenter">' . $data['cantidad'] . '</td>
 											<td class="textright">' . $data['precio_venta'] . '</td>
 											<td class="textright">' . $precioTotal . '</td>
@@ -370,7 +315,7 @@ if (!empty($_POST)) {
 	if ($_POST['action'] == 'procesarVenta') {
 
 		if (empty($_POST['cod_cliente'])) {
-			$cod_cliente = 1;
+			$cod_cliente = 5;
 		} else {
 			$cod_cliente = $_POST['cod_cliente'];
 		}
