@@ -12,7 +12,7 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
 :root {
-  --blue: #0099ff57;
+  --blue: #4297e7e8;
   --indigo: #6610f2;
   --purple: #6f42c1;
   --pink: #e83e8c;
@@ -15542,7 +15542,7 @@ be a descendant of the grid when it is being dragged.
   font-size: 26px;
   font-weight: 400;
   line-height: 50px;
-  background: #0d6efd;
+  background: #0a33bb;
 }
 
 @media (min-width: 768px) {
@@ -15799,7 +15799,7 @@ be a descendant of the grid when it is being dragged.
   align-items: center;
   padding: 10px;
   margin-bottom: 20px;
-  color: #0d6efd;
+  color: #0a33bb;
 }
 
 .app-sidebar__user-avatar {
@@ -15842,13 +15842,13 @@ be a descendant of the grid when it is being dragged.
   -webkit-transition: border-left-color 0.3s ease, background-color 0.3s ease;
   -o-transition: border-left-color 0.3s ease, background-color 0.3s ease;
   transition: border-left-color 0.3s ease, background-color 0.3s ease;
-  color: #0d6efd;
+  color: #0a33bb;
 }
 
 .app-menu__item.active,
 .app-menu__item:hover,
 .app-menu__item:focus {
-  background: #0084ff7e;
+  background: #218cf0e8;
   border-left-color: #009688;
   text-decoration: none;
   color: #fff;
@@ -15870,7 +15870,7 @@ be a descendant of the grid when it is being dragged.
 
 .treeview.is-expanded [data-toggle="treeview"] {
   border-left-color: #009688;
-  background: #0084ff7e;
+  background: #037ae9e8;
 }
 
 .treeview.is-expanded .treeview-menu {
@@ -15889,7 +15889,7 @@ be a descendant of the grid when it is being dragged.
   -webkit-transition: max-height 0.3s ease;
   -o-transition: max-height 0.3s ease;
   transition: max-height 0.3s ease;
-  background: #0099ff57;
+  background: #4297e7e8;
 }
 
 .treeview-item {
