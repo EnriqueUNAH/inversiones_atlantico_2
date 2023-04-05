@@ -23,6 +23,49 @@
 
 
 
+
+
+        <!--################################VENTAS################################-->
+
+
+
+        <li class="treeview">
+          <a class="app-menu__item" href="#" data-toggle="treeview">
+            <i class="app-menu__icon " aria-hidden="true"></i>
+
+
+            <span class="app-menu__label ">Ventas</span>
+            <i class="treeview-indicator fa fa-angle-right"></i>
+          </a>
+          <ul class="treeview-menu">
+
+
+
+            <li><a class="treeview-item" href="<?= base_url(); ?>/ventas"><i class="icon fa fa-circle-o"></i> Ventas</a></li>
+
+
+
+
+          </ul>
+        </li>
+
+        <!--################################VENTAS################################-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         <!--################################SEGURIDAD################################-->
         <?php if (
           !empty($_SESSION['permisos'][2]['r'])

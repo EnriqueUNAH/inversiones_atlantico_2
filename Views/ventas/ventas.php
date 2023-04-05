@@ -1,161 +1,50 @@
 <?php
-session_start();
-include "conexion.php";
+headerAdmin($data);
+getModal('modalUsuarios', $data);
 ?>
+<main class="app-content">
+  <div class="app-title">
+    <div>
+      <h1><i class="fas fa-user-tag"></i> <?= $data['page_title'] ?>
+        <?php if ($_SESSION['permisosMod']['w']) { ?>
+          <button class="btn btn-primary" type="button" onclick="window.location.href = 'Views/venta/nueva_venta.php';"><i class="fas fa-plus-circle"></i> Nueva Venta</button>
+ <!-- <button class="btn btn-primary" type="button" onclick="openModal();"><i class="fas fa-plus-circle"></i> Nuevo</button> -->
+        <?php } ?>
+      </h1>
+    </div>
+    <ul class="app-breadcrumb breadcrumb">
+      <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
+      <li class="breadcrumb-item"><a href="<?= base_url(); ?>/ventas"><?= $data['page_title'] ?></a></li>
+    </ul>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="tile">
+        <div class="tile-body">
+          <div class="table-responsive">
+            <table class="table table-hover table-bordered" id="tableVentas">
+              <thead>
+                <tr>
+                  <th>Numero Factura</th>
+                  <th>Fecha</th>
+                  <th>Vendedor</th>
+                  <th>Cliente</th>
+                  <th>Total</th>
+                  <th>Estado</th>
+                  <th>Subtotal</th>
+                  <th>ISV</th>
+                  <th>Porcentaje ISV</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
 
-
-<!DOCTYPE html>
-<html lang="es">
-
-<head>
-	<meta charset="UTF-8">
-	<?php include "includes/scripts.php"; ?>
-	<title>Lista de ventas</title>
-</head>
-
-<body>
-	<?php include "includes/header.php"; ?>
-	<section id="container">
-
-		<h1><i class="far fa-newspaper"></i> Lista de ventas</h1>
-		<a href="nueva_venta.php" class="btn_new btnNewVenta"><i class="fas fa-plus"></i> Nueva venta</a>
-
-		<form action="buscar_venta.php" method="get" class="form_search">
-			<input type="text" name="busqueda" id="busqueda" placeholder="No. Factura">
-			<button type="submit" class="btn_search"><i class="fas fa-search"></i></button>
-		</form>
-
-		<div>
-			<h5>Buscar por Fecha</h5>
-			<form action="buscar_venta.php" method="get" class="form_search_date">
-				<label>De: </label>
-				<input type="date" name="fecha_de" id="fecha_de" required>
-				<label> A </label>
-				<input type="date" name="fecha_a" id="fecha_a" required>
-				<button type="submit" class="btn_view"><i class="fas fa-search"></i></button>
-			</form>
-		</div>
-		<div class="containerTable">
-			<table>
-				<tr>
-					<th>No.</th>
-					<th>Fecha / Hora</th>
-					<th>Cliente</th>
-					<th>Vendedor</th>
-					<th>Estado</th>
-					<th class="textright">Total Factura</th>
-					<th class="textright">Acciones</th>
-				</tr>
-				<?php
-				//Paginador
-				$sql_registe = mysqli_query($conection, "SELECT COUNT(*) as total_registro FROM tbl_factura WHERE estado != 10 ");
-				$result_register = mysqli_fetch_array($sql_registe);
-				$total_registro = $result_register['total_registro'];
-
-				$por_pagina = 50;
-
-				if (empty($_GET['pagina'])) {
-					$pagina = 1;
-				} else {
-					$pagina = $_GET['pagina'];
-				}
-
-				$desde = ($pagina - 1) * $por_pagina;
-				$total_paginas = ceil($total_registro / $por_pagina);
-
-				$query = mysqli_query($conection, "SELECT f.cod_factura,f.fecha,f.totalfactura,f.cod_cliente,f.estado,
-													 u.nombre as vendedor,
-													 cl.nombres as cliente
-												FROM tbl_factura f
-												INNER JOIN tbl_ms_usuarios u
-												ON f.id_usuario = u.idusuario
-												INNER JOIN tbl_cliente cl
-												ON f.cod_cliente = cl.cod_cliente
-												WHERE f.estado != 10
-											  	ORDER BY f.fecha DESC LIMIT $desde,$por_pagina");
-
-				mysqli_close($conection);
-
-				$result = mysqli_num_rows($query);
-				if ($result > 0) {
-
-					while ($data = mysqli_fetch_array($query)) {
-
-						if ($data["estado"] == 1) {
-							$estado = '<span class="pagada">Pagada</span>';
-						} else {
-							$estado = '<span class="anulada">Anulada</span>';
-						}
-				?>
-						<tr id="row_<?php echo $data["cod_factura"]; ?>">
-							<td><?php echo $data["cod_factura"]; ?></td>
-							<td><?php echo $data["fecha"]; ?></td>
-							<td><?php echo $data["cliente"]; ?></td>
-							<td><?php echo $data["vendedor"]; ?></td>
-							<td class="estado"><?php echo $estado; ?></td>
-							<td class="textright totalfactura"><span>$.</span><?php echo $data["totalfactura"]; ?></td>
-
-							<td>
-								<div class="div_acciones">
-									<div>
-										<button class="btn_view view_factura" type="button" cl="<?php echo $data["cod_cliente"]; ?>" f="<?php echo $data['cod_factura']; ?>"><i class="fas fa-eye"></i></button>
-									</div>
-
-
-									<?php if ($_SESSION['rol'] == 1 || $_SESSION['rol'] == 2) {
-										if ($data["estado"] == 1) {
-									?>
-											<div class="div_factura">
-												<button class="btn_anular anular_factura" fac="<?php echo $data["cod_factura"]; ?>"><i class="fas fa-ban"></i></button>
-											</div>
-										<?php 		} else { ?>
-
-											<div class="div_factura">
-												<button type="button" class="btn_anular inactive"><i class="fas fa-ban"></i></button>
-											</div>
-									<?php 			}
-									}
-									?>
-
-								</div>
-
-							</td>
-						</tr>
-				<?php
-					}
-				}
-				?>
-			</table>
-		</div>
-		<div class="paginador">
-			<ul>
-				<?php
-				if ($pagina != 1) {
-				?>
-					<li><a href="?pagina=<?php echo 1; ?>"><i class="fas fa-step-backward"></i></a></li>
-					<li><a href="?pagina=<?php echo $pagina - 1; ?>"><i class="fas fa-backward"></i></a></li>
-				<?php
-				}
-				for ($i = 1; $i <= $total_paginas; $i++) {
-					# code...
-					if ($i == $pagina) {
-						echo '<li class="pageSelected">' . $i . '</li>';
-					} else {
-						echo '<li><a href="?pagina=' . $i . '">' . $i . '</a></li>';
-					}
-				}
-
-				if ($pagina != $total_paginas) {
-				?>
-					<li><a href="?pagina=<?php echo $pagina + 1; ?>"><i class="fas fa-forward"></i></a></li>
-					<li><a href="?pagina=<?php echo $total_paginas; ?> "><i class="fas fa-step-forward"></i></a></li>
-				<?php } ?>
-			</ul>
-		</div>
-
-
-	</section>
-	<?php include "includes/footer.php"; ?>
-</body>
-
-</html>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<?php footerAdmin($data); ?>
