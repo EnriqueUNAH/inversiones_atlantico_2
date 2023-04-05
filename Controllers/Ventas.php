@@ -59,11 +59,7 @@ class Ventas extends Controllers
 				if ($arrData[$i]['estado'] == 1) {
 					$arrData[$i]['estado'] = '<span class="badge badge-success">FACTURADO</span>';   //Aqui le asigna Activo si es 1
 				} else if ($arrData[$i]['estado'] == 2) {
-					$arrData[$i]['estado'] = '<span class="badge badge-danger">INACTIVO</span>';
-				} else if ($arrData[$i]['estado'] == 3) {
-					$arrData[$i]['estado'] = '<span class="badge badge-info">NUEVO</span>';
-				} else if ($arrData[$i]['estado'] == 4) {
-					$arrData[$i]['estado'] = '<span class="badge badge-danger">BLOQUEADO</span>';
+					$arrData[$i]['estado'] = '<span class="badge badge-danger">ANULADA</span>';
 				}
 
 				if ($_SESSION['permisosMod']['r']) {

@@ -65,8 +65,9 @@ document.addEventListener(
     //////
 
     ///////
-
-
+  },
+  false
+);
 
 window.addEventListener(
   "load",

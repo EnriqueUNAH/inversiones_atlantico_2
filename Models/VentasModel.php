@@ -3,18 +3,7 @@
 class VentasModel extends Mysql
 {
 	private $intIdUsuario;
-	private $strusuario;
-	private $strNombre;
-	private $strApellido;
-	private $intpreguntas_contestadas;
-	private $strEmail;
-	private $strPassword;
-	private $strToken;
-	private $intTipoId;
-	private $intStatus;
-	private $strNit;
-	private $strNomFiscal;
-	private $strDirFiscal;
+
 
 	public function __construct()
 	{
@@ -24,30 +13,30 @@ class VentasModel extends Mysql
 
 
 	//Función para que inserte en bitácora cada vez que se agrega un nuevo usuario
-	// public function insertVentaBitacora(string $fecha, int $idUsuario, int $idObjeto, string $accion, string $descripcion)
-	// {
+	public function insertVentaBitacora(string $fecha, int $idUsuario, int $idObjeto, string $accion, string $descripcion)
+	{
 
-	// 	$this->dateFecha = $fecha;
-	// 	$this->intIdUsuario = $idUsuario;
-	// 	$this->intIdObjeto = $idObjeto;
-	// 	$this->strAccion = $accion;
-	// 	$this->strDescripcion = $descripcion;
-	// 	$return = 0;
+		$this->dateFecha = $fecha;
+		$this->intIdUsuario = $idUsuario;
+		$this->intIdObjeto = $idObjeto;
+		$this->strAccion = $accion;
+		$this->strDescripcion = $descripcion;
+		$return = 0;
 
-	// 	$query_insert  = "INSERT INTO tbl_ms_bitacora(fecha,id_usuario,id_objeto,accion,descripcion) 
-	// 							  VALUES(?,?,?,?,?)";
-	// 	$arrData = array(
-	// 		$this->dateFecha,
-	// 		$this->intIdUsuario,
-	// 		$this->intIdObjeto,
-	// 		$this->strAccion,
-	// 		$this->strDescripcion,
-	// 	);
-	// 	$request_insert = $this->insert($query_insert, $arrData);
-	// 	$return = $request_insert;
+		$query_insert  = "INSERT INTO tbl_ms_bitacora(fecha,id_usuario,id_objeto,accion,descripcion) 
+								  VALUES(?,?,?,?,?)";
+		$arrData = array(
+			$this->dateFecha,
+			$this->intIdUsuario,
+			$this->intIdObjeto,
+			$this->strAccion,
+			$this->strDescripcion,
+		);
+		$request_insert = $this->insert($query_insert, $arrData);
+		$return = $request_insert;
 
-	// 	return $return;
-	// }
+		return $return;
+	}
 
 
 
