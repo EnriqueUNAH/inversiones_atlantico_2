@@ -167,16 +167,59 @@ $total 		= 0;
 				</td>
 				<td class="info_empresa">
 					<?php
+
+
+
+
+
+
+					//OBTENER ISV
+					$query_isv = mysqli_query($conection, "SELECT valor FROM tbl_ms_parametros where parametro = 'impuesto'");
+					$re_isv = mysqli_fetch_assoc($query_isv);
+
+					//OBTENER NOMBRE EMPRESA
+					$query_nombre = mysqli_query($conection, "SELECT valor FROM tbl_ms_parametros where parametro = 'nombre_empresa'");
+					$re_Nombre = mysqli_fetch_assoc($query_nombre);
+
+					//OBTENER RAZON SOCIAL
+					$query_razon = mysqli_query($conection, "SELECT valor FROM tbl_ms_parametros where parametro = 'razon_social'");
+					$re_RazonSocial = mysqli_fetch_assoc($query_razon);
+
+					//OBTENER DIRECCIÓN
+					$query_direccion = mysqli_query($conection, "SELECT valor FROM tbl_ms_parametros where parametro = 'direccion'");
+					$re_Direccion = mysqli_fetch_assoc($query_direccion);
+
+					//OBTENER RTN
+					$query_rtn = mysqli_query($conection, "SELECT valor FROM tbl_ms_parametros where parametro = 'rtn'");
+					$re_RTN = mysqli_fetch_assoc($query_rtn);
+
+					//OBTENER TELÉFONO
+					$query_telefono = mysqli_query($conection, "SELECT valor FROM tbl_ms_parametros where parametro = 'telefono_empresa'");
+					$re_Telefono = mysqli_fetch_assoc($query_telefono);
+
+					//OBTENER CORREO
+					$query_correo = mysqli_query($conection, "SELECT valor FROM tbl_ms_parametros where parametro = 'admin_correo'");
+					$re_Correo = mysqli_fetch_assoc($query_correo);
+
+
+					//OBTENER LOS VALORES EN VARIABLES
+					$r_Nombre = $re_Nombre['valor'];
+					$r_RazonSocial = $re_RazonSocial['valor'];
+					$r_Direccion = $re_Direccion['valor'];
+					$r_RTN = $re_RTN['valor'];
+					$r_Telefono = $re_Telefono['valor'];
+					$r_Correo = $re_Correo['valor'];
+
 					if ($result_config > 0) {
-						$isv = $configuracion['isv'];
+						$isv = $re_isv['valor'];
 					?>
 						<div>
-							<span class="h2"><?php echo strtoupper($configuracion['nombre']); ?></span>
-							<p><?php echo $configuracion['razon_social']; ?></p>
-							<p><?php echo $configuracion['direccion']; ?></p>
-							<p>RTN: <?php echo $configuracion['rtn']; ?></p>
-							<p>Teléfono: <?php echo $configuracion['telefono']; ?></p>
-							<p>Email: <?php echo $configuracion['email']; ?></p>
+							<span class="h2"><?php echo ($r_Nombre); ?></span>
+							<p><?php echo ($r_RazonSocial); ?></p>
+							<p><?php echo ($r_Direccion); ?></p>
+							<p>RTN: <?php echo ($r_RTN); ?></p>
+							<p>Teléfono: <?php echo ($r_Telefono); ?></p>
+							<p>Email: <?php echo ($r_Correo); ?></p>
 						</div>
 					<?php
 					}
