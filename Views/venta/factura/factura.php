@@ -1,8 +1,8 @@
 <?php
 $subtotal 	= 0;
-$iva 	 	= 0;
+$isv 	 	= 0;
 $impuesto 	= 0;
-$tl_sniva   = 0;
+$tl_snisv   = 0;
 $total 		= 0;
 //print_r($configuracion); 
 ?>
@@ -168,7 +168,7 @@ $total 		= 0;
 				<td class="info_empresa">
 					<?php
 					if ($result_config > 0) {
-						$iva = $configuracion['iva'];
+						$isv = $configuracion['isv'];
 					?>
 						<div>
 							<span class="h2"><?php echo strtoupper($configuracion['nombre']); ?></span>
@@ -249,18 +249,18 @@ $total 		= 0;
 					}
 				}
 
-				$impuesto 	= round($subtotal * ($iva / 100), 2);
-				$tl_sniva 	= round($subtotal - $impuesto, 2);
-				$total 		= round($tl_sniva + $impuesto, 2);
+				$impuesto 	= round($subtotal * ($isv / 100), 2);
+				$tl_snisv 	= round($subtotal - $impuesto, 2);
+				$total 		= round($tl_snisv + $impuesto, 2);
 				?>
 			</tbody>
 			<tfoot id="detalle_totales">
 				<tr>
 					<td colspan="3" class="textright"><span>SUBTOTAL L.</span></td>
-					<td class="textright"><span><?php echo $tl_sniva; ?></span></td>
+					<td class="textright"><span><?php echo $tl_snisv; ?></span></td>
 				</tr>
 				<tr>
-					<td colspan="3" class="textright"><span>ISV (<?php echo $iva; ?> %)</span></td>
+					<td colspan="3" class="textright"><span>ISV (<?php echo $isv; ?> %)</span></td>
 					<td class="textright"><span><?php echo $impuesto; ?></span></td>
 				</tr>
 				<tr>

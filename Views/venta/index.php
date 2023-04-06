@@ -24,7 +24,7 @@ session_start();
 	$telEmpresa = '';
 	$emailEmpresa = '';
 	$dirEmpresa = '';
-	$iva = '';
+	$isv = '';
 
 	$query_empresa = mysqli_query($conection, "SELECT * FROM configuracion");
 	$row_empesa = mysqli_num_rows($query_empresa);
@@ -36,7 +36,7 @@ session_start();
 			$telEmpresa = $arrInfoEmpresa['telefono'];
 			$emailEmpresa = $arrInfoEmpresa['email'];
 			$dirEmpresa = $arrInfoEmpresa['direccion'];
-			$iva = $arrInfoEmpresa['iva'];
+			$isv = $arrInfoEmpresa['isv'];
 		}
 	}
 
@@ -181,7 +181,7 @@ session_start();
 								<label>Dirección:</label> <input type="text" name="txtDirEmpresa" id="txtDirEmpresa" placeholder="Dirección de la empresa" value="<?= $dirEmpresa; ?>" required>
 							</div>
 							<div>
-								<label>IVA (%):</label> <input type="text" name="txtIva" id="txtIva" placeholder="Impueto al valor agregado (IVA)" value="<?= $iva; ?>" required>
+								<label>isv (%):</label> <input type="text" name="txtisv" id="txtisv" placeholder="Impueto al valor agregado (isv)" value="<?= $isv; ?>" required>
 							</div>
 
 							<div class="alertFormEmrpresa" style="display: none;"></div>

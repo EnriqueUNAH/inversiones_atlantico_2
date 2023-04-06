@@ -118,7 +118,7 @@
 					<td class="textright"><span>516.67</span></td>
 				</tr>
 				<tr>
-					<td colspan="3" class="textright"><span>IVA (12%)</span></td>
+					<td colspan="3" class="textright"><span>ISV (12%)</span></td>
 					<td class="textright"><span>516.67</span></td>
 				</tr>
 				<tr>

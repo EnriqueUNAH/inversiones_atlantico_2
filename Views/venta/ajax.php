@@ -76,22 +76,22 @@ if (!empty($_POST)) {
 			// $token 		 = md5($_SESSION['idUser']);
 			$token 		 = md5(321);
 
-			$query_iva = mysqli_query($conection, "SELECT iva FROM configuracion");
-			$result_iva = mysqli_num_rows($query_iva);
+			$query_isv = mysqli_query($conection, "SELECT isv FROM configuracion");
+			$result_isv = mysqli_num_rows($query_isv);
 
 			$query_detalle_temp 	= mysqli_query($conection, "CALL add_detalle_temp($cod_producto,$cantidad,'$token')");
 			$result = mysqli_num_rows($query_detalle_temp);
 
 			$detalleTabla = '';
 			$sub_total  = 0;
-			$iva 		= 0;
+			$isv 		= 0;
 			$total 		= 0;
 			$arrayData = array();
 
 			if ($result > 0) {
-				if ($result_iva > 0) {
-					$info_iva =  mysqli_fetch_assoc($query_iva);
-					$iva = $info_iva['iva'];
+				if ($result_isv > 0) {
+					$info_isv =  mysqli_fetch_assoc($query_isv);
+					$isv = $info_isv['isv'];
 				}
 
 				while ($data = mysqli_fetch_assoc($query_detalle_temp)) {
@@ -111,16 +111,16 @@ if (!empty($_POST)) {
 										</tr>';
 				}
 
-				$impuesto 	= round($sub_total * ($iva / 100), 2);
-				$tl_sniva 	= round($sub_total - $impuesto, 2);
-				$total 		= round($tl_sniva + $impuesto, 2);
+				$impuesto 	= round($sub_total * ($isv / 100), 2);
+				$tl_snisv 	= round($sub_total - $impuesto, 2);
+				$total 		= round($tl_snisv + $impuesto, 2);
 
 				$detalleTotales = '<tr>
 											<td colspan="5" class="textright">SUBTOTAL L.</td>
-											<td class="textright">' . $tl_sniva . '</td>
+											<td class="textright">' . $tl_snisv . '</td>
 										</tr>
 										<tr>
-											<td colspan="5" class="textright">ISV (' . $iva . '%)</td>
+											<td colspan="5" class="textright">ISV (' . $isv . '%)</td>
 											<td class="textright">' . $impuesto . '</td>
 										</tr>
 										<tr>
@@ -161,19 +161,19 @@ if (!empty($_POST)) {
 
 			$result = mysqli_num_rows($query);
 
-			$query_iva = mysqli_query($conection, "SELECT iva FROM configuracion");
-			$result_iva = mysqli_num_rows($query_iva);
+			$query_isv = mysqli_query($conection, "SELECT isv FROM configuracion");
+			$result_isv = mysqli_num_rows($query_isv);
 
 			$detalleTabla = '';
 			$sub_total  = 0;
-			$iva 		= 0;
+			$isv 		= 0;
 			$total 		= 0;
 			$arrayData = array();
 
 			if ($result > 0) {
-				if ($result_iva > 0) {
-					$info_iva =  mysqli_fetch_assoc($query_iva);
-					$iva = $info_iva['iva'];
+				if ($result_isv > 0) {
+					$info_isv =  mysqli_fetch_assoc($query_isv);
+					$isv = $info_isv['isv'];
 				}
 
 				while ($data = mysqli_fetch_assoc($query)) {
@@ -193,16 +193,16 @@ if (!empty($_POST)) {
 										</tr>';
 				}
 
-				$impuesto 	= round($sub_total * ($iva / 100), 2);
-				$tl_sniva 	= round($sub_total - $impuesto, 2);
-				$total 		= round($tl_sniva + $impuesto, 2);
+				$impuesto 	= round($sub_total * ($isv / 100), 2);
+				$tl_snisv 	= round($sub_total - $impuesto, 2);
+				$total 		= round($tl_snisv + $impuesto, 2);
 
 				$detalleTotales = '<tr>
 											<td colspan="5" class="textright">SUBTOTAL L.</td>
-											<td class="textright">' . $tl_sniva . '</td>
+											<td class="textright">' . $tl_snisv . '</td>
 										</tr>
 										<tr>
-											<td colspan="5" class="textright">ISV (' . $iva . '%)</td>
+											<td colspan="5" class="textright">ISV (' . $isv . '%)</td>
 											<td class="textright">' . $impuesto . '</td>
 										</tr>
 										<tr>
@@ -231,22 +231,22 @@ if (!empty($_POST)) {
 			// $token 		= md5($_SESSION['idUser']);
 			$token 		 = md5(321);
 
-			$query_iva = mysqli_query($conection, "SELECT iva FROM configuracion");
-			$result_iva = mysqli_num_rows($query_iva);
+			$query_isv = mysqli_query($conection, "SELECT isv FROM configuracion");
+			$result_isv = mysqli_num_rows($query_isv);
 
 			$query_detalle_temp 	= mysqli_query($conection, "CALL del_detalle_temp($id_detalle,'$token')");
 			$result = mysqli_num_rows($query_detalle_temp);
 
 			$detalleTabla = '';
 			$sub_total  = 0;
-			$iva 		= 0;
+			$isv 		= 0;
 			$total 		= 0;
 			$arrayData = array();
 
 			if ($result > 0) {
-				if ($result_iva > 0) {
-					$info_iva =  mysqli_fetch_assoc($query_iva);
-					$iva = $info_iva['iva'];
+				if ($result_isv > 0) {
+					$info_isv =  mysqli_fetch_assoc($query_isv);
+					$isv = $info_isv['isv'];
 				}
 
 				while ($data = mysqli_fetch_assoc($query_detalle_temp)) {
@@ -266,16 +266,16 @@ if (!empty($_POST)) {
 										</tr>';
 				}
 
-				$impuesto 	= round($sub_total * ($iva / 100), 2);
-				$tl_sniva 	= round($sub_total - $impuesto, 2);
-				$total 		= round($tl_sniva + $impuesto, 2);
+				$impuesto 	= round($sub_total * ($isv / 100), 2);
+				$tl_snisv 	= round($sub_total - $impuesto, 2);
+				$total 		= round($tl_snisv + $impuesto, 2);
 
 				$detalleTotales = '<tr>
 											<td colspan="5" class="textright">SUBTOTAL L.</td>
-											<td class="textright">' . $tl_sniva . '</td>
+											<td class="textright">' . $tl_snisv . '</td>
 										</tr>
 										<tr>
-											<td colspan="5" class="textright">IVA (' . $iva . '%)</td>
+											<td colspan="5" class="textright">isv (' . $isv . '%)</td>
 											<td class="textright">' . $impuesto . '</td>
 										</tr>
 										<tr>
@@ -425,43 +425,43 @@ if (!empty($_POST)) {
 	}
 
 	//Actualizar datos empresa
-	if ($_POST['action'] == 'updateDataEmpresa') {
+	// if ($_POST['action'] == 'updateDataEmpresa') {
 
-		if (empty($_POST['txtrtn']) || empty($_POST['txtNombre']) ||  empty($_POST['txtTelEmpresa']) || empty($_POST['txtEmailEmpresa']) || empty($_POST['txtDirEmpresa']) || empty($_POST['txtIva'])) {
-			$code = '1';
-			$msg = "Todos los campos son obligatorios";
-		} else {
+	// 	if (empty($_POST['txtrtn']) || empty($_POST['txtNombre']) ||  empty($_POST['txtTelEmpresa']) || empty($_POST['txtEmailEmpresa']) || empty($_POST['txtDirEmpresa']) || empty($_POST['txtisv'])) {
+	// 		$code = '1';
+	// 		$msg = "Todos los campos son obligatorios";
+	// 	} else {
 
-			$intrtn 	= intval($_POST['txtrtn']);
-			$strNombre 	= $_POST['txtNombre'];
-			$strRSocial = $_POST['txtRSocial'];
-			$intTel 	= intval($_POST['txtTelEmpresa']);
-			$strEmail 	= $_POST['txtEmailEmpresa'];
-			$strDir 	= $_POST['txtDirEmpresa'];
-			$strIva 	= $_POST['txtIva'];
+	// 		$intrtn 	= intval($_POST['txtrtn']);
+	// 		$strNombre 	= $_POST['txtNombre'];
+	// 		$strRSocial = $_POST['txtRSocial'];
+	// 		$intTel 	= intval($_POST['txtTelEmpresa']);
+	// 		$strEmail 	= $_POST['txtEmailEmpresa'];
+	// 		$strDir 	= $_POST['txtDirEmpresa'];
+	// 		$strisv 	= $_POST['txtisv'];
 
-			$queryUpd = mysqli_query($conection, "UPDATE configuracion SET rtn 	= $intrtn,
-																			nombre	= '$strNombre',
-																			razon_social='$strRSocial',
-																			telefono = $intTel,
-																			email 	= '$strEmail',
-																			direccion = '$strDir',
-																			iva 	= $strIva
-																		WHERE id = 1 ");
-			mysqli_close($conection);
-			if ($queryUpd) {
-				$code = '00';
-				$msg = "Datos actualizados correctamente.";
-			} else {
-				$code = '2';
-				$msg = "Error al actualizar los datos.";
-			}
-		}
+	// 		$queryUpd = mysqli_query($conection, "UPDATE configuracion SET rtn 	= $intrtn,
+	// 																		nombre	= '$strNombre',
+	// 																		razon_social='$strRSocial',
+	// 																		telefono = $intTel,
+	// 																		email 	= '$strEmail',
+	// 																		direccion = '$strDir',
+	// 																		isv 	= $strisv
+	// 																	WHERE id = 1 ");
+	// 		mysqli_close($conection);
+	// 		if ($queryUpd) {
+	// 			$code = '00';
+	// 			$msg = "Datos actualizados correctamente.";
+	// 		} else {
+	// 			$code = '2';
+	// 			$msg = "Error al actualizar los datos.";
+	// 		}
+	// 	}
 
-		$arrData = array('cod' => $code, 'msg' => $msg);
-		echo json_encode($arrData, JSON_UNESCAPED_UNICODE);
-		exit;
-	}
+	// 	$arrData = array('cod' => $code, 'msg' => $msg);
+	// 	echo json_encode($arrData, JSON_UNESCAPED_UNICODE);
+	// 	exit;
+	// }
 }
 
 exit;
