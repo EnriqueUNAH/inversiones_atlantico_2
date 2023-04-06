@@ -19,11 +19,11 @@ document.addEventListener(
         { data: "fecha" },
         { data: "usuario" },
         { data: "cod_cliente" },
-        { data: "totalfactura" },
-        { data: "estado" },
         { data: "subtotal" },
         { data: "isv" },
         { data: "porcentaje_isv" },
+        { data: "totalfactura" },
+        { data: "estado" },
       ],
       dom: "lBfrtip",
       buttons: [
@@ -33,7 +33,7 @@ document.addEventListener(
           titleAttr: "Exportar a Excel",
           className: "btn btn-success",
           exportOptions: {
-            columns: [0, 1, 2, 3, 4],
+            columns: [0, 1, 2, 3, 4, 5, 6, 7],
           },
         },
         {
@@ -42,7 +42,7 @@ document.addEventListener(
           titleAttr: "Exportar a PDF",
           className: "btn btn-danger",
           exportOptions: {
-            columns: [0, 1, 2, 3, 4],
+            columns: [0, 1, 2, 3, 4, 5, 6, 7],
           },
           customize: function (doc) {
             doc.styles.tableHeader.color = "#ffffff";
@@ -110,7 +110,7 @@ function fntViewVenta(id_Venta) {
           objData.data.estado == 1
             ? '<span class="badge badge-success">ACTIVO</span>'
             : objData.data.estado == 3
-            ? '<span class="badge badge-info">NUEVO</span>'
+            ? '<span class="badge badge-danger">ANULADA</span>'
             : '<span class="badge badge-danger">INACTIVO</span>';
 
         document.querySelector("#celVenta").innerHTML = objData.data.Venta;
