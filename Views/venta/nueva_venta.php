@@ -163,7 +163,7 @@ $result->free();
 		</div>
 	</section>
 
-	<?php include "includes/footer.php"; ?>
+
 
 	<script type="text/javascript">
 		$(document).ready(function() {
