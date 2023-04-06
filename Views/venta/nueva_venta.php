@@ -3,14 +3,36 @@ session_start();
 include "conexion.php";
 
 ?>
+<?php include "includes/scripts.php"; ?>
 <!DOCTYPE html>
 <html lang="es">
+<?php
+
+
+// Haz la consulta
+$sql = "SELECT cod_producto, nombre_producto FROM tbl_producto";
+$result = $conection->query($sql);
+
+// Crea un arreglo con los datos obtenidos de la base de datos
+$productos = array();
+while ($row = $result->fetch_assoc()) {
+	$productos[] = array(
+		'cod_producto' => $row['cod_producto'],
+		'nombre_producto' => $row['nombre_producto']
+	);
+}
+
+// Libera el resultado de la consulta
+$result->free();
+?>
 
 <head>
 	<meta charset="UTF-8">
-	<?php include "includes/scripts.php"; ?>
-	<title>Nueva Venta</title>
 
+	<title>Nueva Venta</title>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 
 </head>
 
@@ -76,19 +98,18 @@ include "conexion.php";
 					<tr>
 
 						<th>
-
+							<!---->
 							<select name="select_producto" id="select_producto" style="width: 200px;">
 								<option value="">Seleccione un producto</option>
-								<option value="001">CAMISA BLANCA</option>
-								<option value="002">UNIFORME BARCA</option>
-								<option value="003">HILO ROJO</option>
-								<option value="12">PINTURA</option>
-								<!-- ... -->
+								<?php foreach ($productos as $producto) : ?>
+									<option value="<?php echo $producto['cod_producto']; ?>"><?php echo $producto['nombre_producto']; ?></option>
+								<?php endforeach; ?>
 							</select>
+							<!---->
+
 						<td> <a href="#" id="add_product_venta" class="link_add"><i class="fas fa-plus"></i> Agregar</a></td>
 						</th>
 					</tr>
-
 
 					<tr>
 						<th hidden width="100px">Código</th>
@@ -131,14 +152,6 @@ include "conexion.php";
 					<!-- CONTENIDO AJAX -->
 				</tfoot>
 			</table>
-
-
-
-
-
-
-
-
 
 
 
