@@ -76,8 +76,10 @@ if (!empty($_POST)) {
 			// $token 		 = md5($_SESSION['idUser']);
 			$token 		 = md5(321);
 
-			$query_isv = mysqli_query($conection, "SELECT isv FROM configuracion");
+			$query_isv = mysqli_query($conection, "SELECT valor FROM tbl_ms_parametros where parametro = 'impuesto'");
 			$result_isv = mysqli_num_rows($query_isv);
+			$resultado = mysqli_fetch_assoc($query_isv);
+
 
 			$query_detalle_temp 	= mysqli_query($conection, "CALL add_detalle_temp($cod_producto,$cantidad,'$token')");
 			$result = mysqli_num_rows($query_detalle_temp);
@@ -89,10 +91,12 @@ if (!empty($_POST)) {
 			$arrayData = array();
 
 			if ($result > 0) {
-				if ($result_isv > 0) {
-					$info_isv =  mysqli_fetch_assoc($query_isv);
-					$isv = $info_isv['isv'];
-				}
+				// if ($result_isv > 0) {
+				// 	$info_isv =  mysqli_fetch_assoc($query_isv);
+				// 	$isv = $info_isv['isv'];
+				// }
+				$isv = $resultado['valor'];
+
 
 				while ($data = mysqli_fetch_assoc($query_detalle_temp)) {
 					$precioTotal = round($data['cantidad'] * $data['precio_venta'], 2);
@@ -161,8 +165,11 @@ if (!empty($_POST)) {
 
 			$result = mysqli_num_rows($query);
 
-			$query_isv = mysqli_query($conection, "SELECT isv FROM configuracion");
+			$query_isv = mysqli_query($conection, "SELECT valor FROM tbl_ms_parametros where parametro = 'impuesto'");
 			$result_isv = mysqli_num_rows($query_isv);
+			$resultado = mysqli_fetch_assoc($query_isv);
+
+
 
 			$detalleTabla = '';
 			$sub_total  = 0;
@@ -171,11 +178,11 @@ if (!empty($_POST)) {
 			$arrayData = array();
 
 			if ($result > 0) {
-				if ($result_isv > 0) {
-					$info_isv =  mysqli_fetch_assoc($query_isv);
-					$isv = $info_isv['isv'];
-				}
-
+				// if ($result_isv > 0) {
+				// 	$info_isv =  mysqli_fetch_assoc($query_isv);
+				// 	$isv = $info_isv['isv'];
+				// }
+				$isv = $resultado['valor'];
 				while ($data = mysqli_fetch_assoc($query)) {
 					$precioTotal = round($data['cantidad'] * $data['precio_venta'], 2);
 					$sub_total 	 = round($sub_total + $precioTotal, 2);
@@ -231,8 +238,11 @@ if (!empty($_POST)) {
 			// $token 		= md5($_SESSION['idUser']);
 			$token 		 = md5(321);
 
-			$query_isv = mysqli_query($conection, "SELECT isv FROM configuracion");
+			$query_isv = mysqli_query($conection, "SELECT valor FROM tbl_ms_parametros where parametro = 'impuesto'");
 			$result_isv = mysqli_num_rows($query_isv);
+			$resultado = mysqli_fetch_assoc($query_isv);
+
+
 
 			$query_detalle_temp 	= mysqli_query($conection, "CALL del_detalle_temp($id_detalle,'$token')");
 			$result = mysqli_num_rows($query_detalle_temp);
@@ -244,11 +254,11 @@ if (!empty($_POST)) {
 			$arrayData = array();
 
 			if ($result > 0) {
-				if ($result_isv > 0) {
-					$info_isv =  mysqli_fetch_assoc($query_isv);
-					$isv = $info_isv['isv'];
-				}
-
+				// if ($result_isv > 0) {
+				// 	$info_isv =  mysqli_fetch_assoc($query_isv);
+				// 	$isv = $info_isv['isv'];
+				// }
+				$isv = $resultado['valor'];
 				while ($data = mysqli_fetch_assoc($query_detalle_temp)) {
 					$precioTotal = round($data['cantidad'] * $data['precio_venta'], 2);
 					$sub_total 	 = round($sub_total + $precioTotal, 2);
@@ -423,45 +433,6 @@ if (!empty($_POST)) {
 		}
 		exit;
 	}
-
-	//Actualizar datos empresa
-	// if ($_POST['action'] == 'updateDataEmpresa') {
-
-	// 	if (empty($_POST['txtrtn']) || empty($_POST['txtNombre']) ||  empty($_POST['txtTelEmpresa']) || empty($_POST['txtEmailEmpresa']) || empty($_POST['txtDirEmpresa']) || empty($_POST['txtisv'])) {
-	// 		$code = '1';
-	// 		$msg = "Todos los campos son obligatorios";
-	// 	} else {
-
-	// 		$intrtn 	= intval($_POST['txtrtn']);
-	// 		$strNombre 	= $_POST['txtNombre'];
-	// 		$strRSocial = $_POST['txtRSocial'];
-	// 		$intTel 	= intval($_POST['txtTelEmpresa']);
-	// 		$strEmail 	= $_POST['txtEmailEmpresa'];
-	// 		$strDir 	= $_POST['txtDirEmpresa'];
-	// 		$strisv 	= $_POST['txtisv'];
-
-	// 		$queryUpd = mysqli_query($conection, "UPDATE configuracion SET rtn 	= $intrtn,
-	// 																		nombre	= '$strNombre',
-	// 																		razon_social='$strRSocial',
-	// 																		telefono = $intTel,
-	// 																		email 	= '$strEmail',
-	// 																		direccion = '$strDir',
-	// 																		isv 	= $strisv
-	// 																	WHERE id = 1 ");
-	// 		mysqli_close($conection);
-	// 		if ($queryUpd) {
-	// 			$code = '00';
-	// 			$msg = "Datos actualizados correctamente.";
-	// 		} else {
-	// 			$code = '2';
-	// 			$msg = "Error al actualizar los datos.";
-	// 		}
-	// 	}
-
-	// 	$arrData = array('cod' => $code, 'msg' => $msg);
-	// 	echo json_encode($arrData, JSON_UNESCAPED_UNICODE);
-	// 	exit;
-	// }
 }
 
 exit;

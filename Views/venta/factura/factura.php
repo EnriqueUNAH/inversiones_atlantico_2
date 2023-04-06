@@ -4,7 +4,7 @@ $isv 	 	= 0;
 $impuesto 	= 0;
 $tl_snisv   = 0;
 $total 		= 0;
-//print_r($configuracion); 
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
