@@ -21,7 +21,12 @@ document.addEventListener(
         { data: "cod_cliente" },
         { data: "subtotal" },
         { data: "isv" },
-        { data: "porcentaje_isv" },
+        {
+          data: "porcentaje_isv",
+          render: function (data, type, row) {
+            return data + "%";
+          },
+        },
         { data: "totalfactura" },
         { data: "estado" },
       ],

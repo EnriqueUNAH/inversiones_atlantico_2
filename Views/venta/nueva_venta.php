@@ -1,9 +1,10 @@
 <?php
 session_start();
 include "conexion.php";
-
 ?>
+
 <?php include "includes/scripts.php"; ?>
+
 <!DOCTYPE html>
 <html lang="es">
 <?php
@@ -81,7 +82,8 @@ $result->free();
 				<div class="wd50">
 					<label>Vendedor</label>
 					<!--En la siguiente linea debo colocar la variable de sesion de quien ingreso-->
-					<p><?php echo 'nombre'; ?></p>
+					<p><?php echo ($_SESSION['userData']['nombre_usuario']); ?></p>
+
 				</div>
 				<div class="wd50">
 					<label>Acciones</label>
@@ -158,15 +160,9 @@ $result->free();
 				</tfoot>
 			</table>
 
-
-
-
-
-
-
-
 		</div>
 	</section>
+
 
 	<!-- Sirve para buscar el nombre del producto dentro del select -->
 	<script>
