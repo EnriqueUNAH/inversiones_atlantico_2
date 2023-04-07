@@ -34,6 +34,9 @@ $result->free();
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 
+
+
+
 </head>
 
 <body>
@@ -99,13 +102,15 @@ $result->free();
 
 						<th>
 							<!---->
-							<select name="select_producto" id="select_producto" style="width: 200px;">
+							<select name="select_producto" id="select_producto" class="select-producto" style="width: 200px;">
 								<option value="">Seleccione un producto</option>
 								<?php foreach ($productos as $producto) : ?>
 									<option value="<?php echo $producto['cod_producto']; ?>"><?php echo $producto['nombre_producto']; ?></option>
 								<?php endforeach; ?>
 							</select>
 							<!---->
+
+
 
 						<td> <a href="#" id="add_product_venta" class="link_add"><i class="fas fa-plus"></i> Agregar</a></td>
 						</th>
@@ -163,6 +168,20 @@ $result->free();
 		</div>
 	</section>
 
+	<!-- Sirve para buscar el nombre del producto dentro del select -->
+	<script>
+		$(document).ready(function() {
+			$('.select-producto').select2({
+				placeholder: 'Seleccione un producto',
+				allowClear: true,
+				language: {
+					noResults: function() {
+						return 'No se encontraron resultados';
+					}
+				}
+			});
+		});
+	</script>
 
 
 	<script type="text/javascript">
