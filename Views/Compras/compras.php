@@ -27,7 +27,8 @@ getModal('modalCompras', $data);
                   <th>Codigo</th> 
                   <th>Total</th>
                   <th>fecha</th>
-                  <th>isv</th>
+                  <th>Usuario</th>
+                  <th>Estados</th>
                   <th>Acciones</th>
                 </tr>
               </thead>

@@ -197,32 +197,23 @@ class Compras extends Controllers
 				$btnEdit = '';
 				$btnDelete = '';
 
+                if ($arrData[$i]['estado'] == 1) {
+					$arrData[$i]['estado'] = '<span class="badge badge-success">COMPRADO</span>';   //Aqui le asigna Activo si es 1
+				} else if ($arrData[$i]['estado'] == 2) {
+					$arrData[$i]['estado'] = '<span class="badge badge-danger">ANULADA</span>';
+				}
+
+
 				if ($_SESSION['permisosMod']['r']) {
 					$btnView = '<button class="btn btn-info btn-sm btnViewCompra" onClick="fntViewCompra(' . $arrData[$i]['cod_compra'] . ')" title="Ver compra"><i class="far fa-eye"></i></button>';
 				}
-				// if($_SESSION['permisosMod']['u']){
-				// 	if(($_SESSION['idUser'] == 1 and $_SESSION['userData']['id_rol'] == 1) ||
-				// 		($_SESSION['userData']['id_rol'] == 1 and $arrData[$i]['id_rol'] != 1) ){
-				// 		$btnEdit = '<button class="btn btn-primary  btn-sm btnEditUsuario" onClick="fntEditUsuario(this,'.$arrData[$i]['id_usuario'].')" title="Editar usuario"><i class="fas fa-pencil-alt"></i></button>';
-				// 	}else{
-				// 		$btnEdit = '<button class="btn btn-secondary btn-sm" disabled ><i class="fas fa-pencil-alt"></i></button>';
-				// 	}
-				// }
+				
 				if ($_SESSION['permisosMod']['u']) {
 					$btnEdit = '<button class="btn btn-primary  btn-sm btnEditCompra" onClick="fntEditCompra(this,' . $arrData[$i]['cod_compra'] . ')" title="Editar compra"><i class="fas fa-pencil-alt"></i></button>';
 				} else {
 					$btnEdit = '<button class="btn btn-secondary btn-sm" disabled ><i class="fas fa-pencil-alt"></i></button>';
 				}
-				// if($_SESSION['permisosMod']['d']){
-				// 	if(($_SESSION['idUser'] == 1 and $_SESSION['userData']['id_rol'] == 1) ||
-				// 		($_SESSION['userData']['id_rol'] == 1 and $arrData[$i]['id_rol'] != 1) and
-				// 		($_SESSION['userData']['id_usuario'] != $arrData[$i]['id_usuario'] )
-				// 		 ){
-				// 		$btnDelete = '<button class="btn btn-danger btn-sm btnDelUsuario" onClick="fntDelUsuario('.$arrData[$i]['id_usuario'].')" title="Eliminar usuario"><i class="far fa-trash-alt"></i></button>';
-				// 	}else{
-				// 		$btnDelete = '<button class="btn btn-secondary btn-sm" disabled ><i class="far fa-trash-alt"></i></button>';
-				// 	}
-				// }
+
 				if ($_SESSION['permisosMod']['d']) {
 					$btnDelete = '<button class="btn btn-danger btn-sm btnDelCompra" onClick="fntDelCompra(' . $arrData[$i]['cod_compra'] . ')" title="Eliminar compra"><i class="far fa-trash-alt"></i></button>';
 				} else {

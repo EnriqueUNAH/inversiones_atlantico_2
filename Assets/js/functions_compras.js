@@ -18,8 +18,9 @@ document.addEventListener(
         { data: "cod_compra" },
         { data: "total_pagado" },
         { data: "fecha" },
-        { data: "isv" },
-        { data: "options" },
+        { data: "usuario" },
+        { data: "estado" },
+        { data: "options" }
       ],
       dom: "lBfrtip",
       buttons: [

@@ -93,16 +93,16 @@ class ComprasModel extends Mysql
 
 	public function selectCompras()
 	{
-		$whereAdmin = "";
-		if ($_SESSION['idUser'] != 1) {
-			$whereAdmin = " and p.cod_compra != 1 ";
-		}
-		$sql = "SELECT p.cod_compra,p.total_pagado,p.fecha,p.isv
+		// $whereAdmin = "";
+		// if ($_SESSION['idUser'] != 1) {
+		// 	$whereAdmin = " and p.cod_compra != 1 ";
+		// }
+		$sql = "SELECT p.cod_compra,p.total_pagado,p.fecha,p.id_usuario,r.usuario,p.estado
 					FROM tbl_compra p 
-					-- INNER JOIN tbl_ms_roles r
-					-- ON p.id_rol = r.id_rol
-					-- WHERE p.cod_compra != 0 
-                    " . $whereAdmin;
+					INNER JOIN tbl_ms_usuarios r
+					ON p.id_usuario = r.id_usuario
+					WHERE p.estado != 0 
+                    ";
 		$request = $this->select_all($sql);
 		return $request;
 	}
