@@ -60,7 +60,7 @@ class InventariosModel extends Mysql
 		// 	$whereAdmin = " and p.id_usuario != 1 ";
 		// }
 		$sql = "SELECT p.cod_producto,p.nombre_producto,p.descripcion,p.cantidad_minima,p.cantidad_maxima,
-					   p.precio_venta,p.estado,p.foto,p.existencia,tp.nombre_tipo_producto
+					   p.precio_venta,p.estado,p.existencia,tp.nombre_tipo_producto
 		FROM tbl_producto p 
 		INNER JOIN tbl_tipo_producto tp
 		ON p.cod_tipo_producto = tp.cod_tipo_producto";

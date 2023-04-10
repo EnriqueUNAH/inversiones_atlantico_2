@@ -18,17 +18,33 @@ document.addEventListener(
         { data: "numero_factura" },
         { data: "fecha" },
         { data: "usuario" },
-        { data: "cod_cliente" },
-        { data: "subtotal" },
-        { data: "isv" },
+        { data: "nombres" },
+        {
+          data: "subtotal",
+          render: function (data, type, row) {
+            return "L. " + data;
+          },
+        },
+        {
+          data: "isv",
+          render: function (data, type, row) {
+            return "L. " + data;
+          },
+        },
         {
           data: "porcentaje_isv",
           render: function (data, type, row) {
             return data + "%";
           },
         },
-        { data: "totalfactura" },
+        {
+          data: "totalfactura",
+          render: function (data, type, row) {
+            return "L. " + data;
+          },
+        },
         { data: "estado" },
+        { data: "options" },
       ],
       dom: "lBfrtip",
       buttons: [
@@ -99,11 +115,11 @@ function fntRolesVenta() {
   }
 }
 
-function fntViewVenta(id_Venta) {
+function fntViewVenta(cod_factura) {
   let request = window.XMLHttpRequest
     ? new XMLHttpRequest()
     : new ActiveXObject("Microsoft.XMLHTTP");
-  let ajaxUrl = base_url + "/Ventas/getVenta/" + id_Venta;
+  let ajaxUrl = base_url + "/Ventas/getVenta/" + cod_factura;
   request.open("GET", ajaxUrl, true);
   request.send();
   request.onreadystatechange = function () {
@@ -152,7 +168,7 @@ function fntViewVenta(id_Venta) {
 }
 
 //Función cuando se le da click al botón editar Venta
-function fntEditVenta(element, id_Venta) {
+function fntEditVenta(element, cod_factura) {
   rowTable = element.parentNode.parentNode.parentNode;
   document.querySelector("#titleModal").innerHTML = "Actualizar Venta";
   document
@@ -165,7 +181,7 @@ function fntEditVenta(element, id_Venta) {
   let request = window.XMLHttpRequest
     ? new XMLHttpRequest()
     : new ActiveXObject("Microsoft.XMLHTTP");
-  let ajaxUrl = base_url + "/Ventas/getVenta/" + id_Venta;
+  let ajaxUrl = base_url + "/Ventas/getVenta/" + cod_factura;
   request.open("GET", ajaxUrl, true);
   request.send();
   request.onreadystatechange = function () {
@@ -173,13 +189,13 @@ function fntEditVenta(element, id_Venta) {
       let objData = JSON.parse(request.responseText);
 
       if (objData.status) {
-        document.querySelector("#id_Venta").value = objData.data.id_Venta;
+        document.querySelector("#cod_factura").value = objData.data.id_Venta;
 
         document.querySelector("#txtVenta").value = objData.data.Venta;
 
         //Si recibe un Venta, quiere decir que está editando,
         //entonces coloca el input de Venta como solo lectura
-        if (id_Venta) {
+        if (cod_factura) {
           document.querySelector("#txtVenta").setAttribute("readonly", true);
         }
 
@@ -206,14 +222,14 @@ function fntEditVenta(element, id_Venta) {
   };
 }
 
-function fntDelVenta(id_Venta) {
+function fntDelVenta(cod_factura) {
   swal(
     {
-      title: "Eliminar Venta",
-      text: "¿Realmente quiere eliminar el Venta?",
+      title: "Anular Factura",
+      text: "¿Realmente quiere anular la factura?",
       type: "warning",
       showCancelButton: true,
-      confirmButtonText: "ELIMINAR",
+      confirmButtonText: "ANULAR",
       cancelButtonText: "CANCELAR",
       closeOnConfirm: false,
       closeOnCancel: true,
@@ -224,7 +240,7 @@ function fntDelVenta(id_Venta) {
           ? new XMLHttpRequest()
           : new ActiveXObject("Microsoft.XMLHTTP");
         let ajaxUrl = base_url + "/Ventas/delVenta";
-        let strData = "id_Venta=" + id_Venta;
+        let strData = "cod_factura=" + cod_factura;
         request.open("POST", ajaxUrl, true);
         request.setRequestHeader(
           "Content-type",
@@ -235,7 +251,7 @@ function fntDelVenta(id_Venta) {
           if (request.readyState == 4 && request.status == 200) {
             let objData = JSON.parse(request.responseText);
             if (objData.status) {
-              swal("Eliminar!", objData.msg, "success");
+              swal("Anular!", objData.msg, "success");
               tableVentas.api().ajax.reload();
             } else if (objData.statusReferencial) {
               swal("Atención!", objData.msg, "error");
