@@ -43,10 +43,12 @@ class VentasModel extends Mysql
 	public function selectVentas()
 	{
 
-		$sql = "SELECT f.cod_factura,f.numero_factura,f.fecha,u.usuario,f.cod_cliente,f.estado,f.totalfactura,f.subtotal,f.isv,f.porcentaje_isv
-					FROM tbl_factura f 
-					INNER JOIN tbl_ms_usuarios u
+		$sql = "SELECT f.cod_factura,f.numero_factura,f.fecha,u.usuario,f.estado,f.totalfactura,f.subtotal,f.isv,f.porcentaje_isv,cl.nombres
+					FROM tbl_ms_usuarios u
+					INNER JOIN tbl_factura f 
 					ON f.id_usuario = u.id_usuario
+					INNER JOIN tbl_cliente cl
+					ON cl.cod_cliente = f.cod_cliente
 					WHERE f.estado != 0 ";
 		$request = $this->select_all($sql);
 		return $request;
@@ -63,6 +65,16 @@ class VentasModel extends Mysql
 					ON p.id_rol = r.id_rol
 					WHERE p.id_usuario = $this->intIdUsuario";
 		$request = $this->select($sql);
+		return $request;
+	}
+
+
+
+	public function deleteVenta(int $id_factura)
+	{
+
+		$sql = "call anular_factura($id_factura)";
+		$request = $this->select_all($sql);
 		return $request;
 	}
 }
