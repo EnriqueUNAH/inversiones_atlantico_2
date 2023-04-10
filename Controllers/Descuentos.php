@@ -32,8 +32,8 @@ class Descuentos extends Controllers{
 			if (empty($_POST['txtNombre']) || empty($_POST['txtPorcentaje'])) {
 				$arrResponse = array("status" => false, "msg" => 'Datos incorrectos.');
 			} else {
-				$cod_descuento= ($_POST['txtIdCodigo']);
-				$strnombre = (($_POST['txtNombre']));
+				$cod_descuento= ($_POST['cod_descuento']);
+				$strnombre = strtoupper(strClean($_POST['txtNombre']));
 				$intPorcentaje = ($_POST['txtPorcentaje']);
 				$request_user = "";
 
@@ -42,7 +42,7 @@ class Descuentos extends Controllers{
 				$intIdObjeto = 2;                
 				$request_bitacora = "";
 
-				if (empty($_POST['txtIdCodigo'])) {
+				if (empty($_POST['cod_descuento'])) {
 					$option = 2;
 					if ($_SESSION['permisosMod']['w']) {
 						$request_user = $this->model->insertDescuento(
@@ -66,8 +66,8 @@ class Descuentos extends Controllers{
 					} //FIN DEL IF DE INSERTAR
 				}else{
 
-					$cod_descuento= ($_POST['txtIdCodigo']);
-					$strnombre = (($_POST['txtNombre']));
+					$cod_descuento= ($_POST['cod_descuento']);
+					$strnombre = strtoupper(strClean($_POST['txtNombre']));
 					$intPorcentaje = ($_POST['txtPorcentaje']);
 					if ($_SESSION['permisosMod']['u']) {
 						$request_user = $this->model->updateDescuento(
@@ -150,8 +150,8 @@ class Descuentos extends Controllers{
 	public function delDescuento(){
 		if($_POST){
 			// if($_SESSION['permisosMod']['d']){
-				$intIdproducto = intval($_POST['cod_descuento']);
-				$requestDelete = $this->model->deleteDescuento($intIdproducto);
+				$cod_descuento = intval($_POST['cod_descuento']);
+				$requestDelete = $this->model->deleteDescuento($cod_descuento);
 				if($requestDelete)
 				{
 					$arrResponse = array('nombre_descuento' => '','msg' => 'Se ha eliminado el descuento');

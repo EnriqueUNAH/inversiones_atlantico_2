@@ -2,7 +2,7 @@
 class DescuentosModel extends Mysql
 {
 	// private $intIdUsuario;
-	private $intCodigo;
+	private $cod_descuento;
 	private $strNombre;
 	// private $strApellido;
 	private $intPorcentaje;
@@ -56,17 +56,17 @@ class DescuentosModel extends Mysql
 	}
 
 	public function selectDescuento(int $cod_descuento){
-		$this->intIdCod_descuento = $cod_descuento;
+		$this->Cod_descuento = $cod_descuento;
 		$sql = "SELECT cod_descuento,nombre_descuento,porcentaje_descuento 
 				FROM tbl_descuento
-				WHERE cod_descuento = '$this->intIdCod_descuento'";
+				WHERE cod_descuento = '$this->Cod_descuento'";
 		$request = $this->select($sql);
 		return $request;
 	}
 
 	public function updateDescuento(int $cod, string $nombre, float $Porcentaje)
 	{
-		$this->intCodigo = $cod;
+		$this->cod_descuento = $cod;
 		$this->strNombre = $nombre;
 		$this->intPorcentaje = $Porcentaje;
 
@@ -76,7 +76,7 @@ class DescuentosModel extends Mysql
 		if (empty($request)) {
 
 			$sql = "UPDATE tbl_descuento SET nombre_descuento=?, porcentaje_descuento=?
-							WHERE cod_descuento = $this->intCodigo ";
+							WHERE cod_descuento = $this->cod_descuento ";
 			$arrData = array(
 				$this->strNombre,
 				$this->intPorcentaje
@@ -89,9 +89,9 @@ class DescuentosModel extends Mysql
 		return $request;
 	}
 
-	public function deleteDescuento(int $idproducto){
-		$this->intIdDescuento = $idproducto;
-		$sql = "DELETE FROM tbl_descuento where cod_descuento = $this->intIdDescuento";
+	public function deleteDescuento(int $cod_descuento){
+		$this->cod_descuento = $cod_descuento;
+		$sql = "DELETE FROM tbl_descuento where cod_descuento = $this->cod_descuento";
 		$arrData = array(0);
 		$request = $this->delete($sql,$arrData);
 		return $request;

@@ -24,14 +24,20 @@ document.addEventListener(
         {
           extend: "excelHtml5",
           text: "<i class='fas fa-file-excel'></i> Excel",
-          titleAttr: "Esportar a Excel",
+          titleAttr: "Exportar a Excel",
           className: "btn btn-success",
+          exportOptions: {
+            columns: [0, 1],
+          },
         },
         {
           extend: "pdfHtml5",
           text: "<i class='fas fa-file-pdf'></i> PDF",
-          titleAttr: "Esportar a PDF",
+          titleAttr: "Exportar a PDF",
           className: "btn btn-danger",
+          exportOptions: {
+            columns: [0, 1],
+          },
         },
       ],
       resonsieve: "true",
@@ -44,7 +50,7 @@ document.addEventListener(
       let formDescuento = document.querySelector("#formDescuento");
       formDescuento.onsubmit = function (e) {
         e.preventDefault();
-        let intIdCodigo = document.querySelector("#txtIdCodigo").value;
+        // let intIdCodigo = document.querySelector("#txtIdCodigo").value;
         let strNombre = document.querySelector("#txtNombre").value;
         let intPorcentaje = document.querySelector("#txtPorcentaje").value;
 
@@ -126,12 +132,8 @@ function fntViewInfo(cod_descuento) {
 function fntEditInfo(element, cod_descuento) {
   rowTable = element.parentNode.parentNode.parentNode;
   document.querySelector("#titleModal").innerHTML = "Actualizar Descuento";
-  document
-    .querySelector(".modal-header")
-    .classList.replace("headerRegister", "headerUpdate");
-  document
-    .querySelector("#btnActionForm")
-    .classList.replace("btn-primary", "btn-info");
+  document.querySelector(".modal-header").classList.replace("headerRegister", "headerUpdate");
+  document.querySelector("#btnActionForm").classList.replace("btn-primary", "btn-info");
   document.querySelector("#btnText").innerHTML = "Actualizar";
   let request = window.XMLHttpRequest
     ? new XMLHttpRequest()
@@ -144,12 +146,9 @@ function fntEditInfo(element, cod_descuento) {
       let objData = JSON.parse(request.responseText);
       if (objData.status) {
         // document.querySelector("#idUsuario").value = objData.data.idpersona;
-        document.querySelector("#txtIdCodigo").value =
-          objData.data.cod_descuento;
-        document.querySelector("#txtNombre").value =
-          objData.data.nombre_descuento;
-        document.querySelector("#txtPorcentaje").value =
-          objData.data.porcentaje_descuento;
+        document.querySelector("#cod_descuento").value = objData.data.cod_descuento;
+        document.querySelector("#txtNombre").value = objData.data.nombre_descuento;
+        document.querySelector("#txtPorcentaje").value = objData.data.porcentaje_descuento;
       }
     }
     $("#modalFormDescuentos").modal("show");
@@ -199,7 +198,7 @@ function fntDelInfo(cod_descuento) {
 
 function openModal() {
   rowTable = "";
-  // document.querySelector('#idUsuario').value ="";
+  document.querySelector('#cod_descuento').value ="";
   document
     .querySelector(".modal-header")
     .classList.replace("headerUpdate", "headerRegister");
