@@ -45,16 +45,16 @@ class Cai extends Controllers
 	public function setCai()
 	{
 		if ($_POST) {
-			if (empty($_POST['txtRangoI']) || empty($_POST['txtRangoF']) || empty($_POST['txtRangoA']) 
+			if (empty($_POST['txtRangoI']) || empty($_POST['txtRangoF']) 
                || empty($_POST['txtnum']) || empty($_POST['txtFecha'])  ) {
 				$arrResponse = array("status" => false, "msg" => 'Datos incorrectos.');
 			} else {
 				$cod_talonario = intval($_POST['cod_talonario']);
 				$intRangoI = intval($_POST['txtRangoI']);
 				$intRangoF = intval($_POST['txtRangoF']);
-                $intRangoA = intval($_POST['txtRangoA']);
+                // $intRangoA = intval($_POST['rango_actual']);
                 $intNum = strtoupper(strClean($_POST['txtnum']));
-                $dateFecha =  strClean($_POST['txtFecha']);;
+                $dateFechaVenc =  strClean($_POST['txtFecha']);;
 				$strUsuario = $_SESSION['idUser']; 
 				$request_user = "";
 
@@ -77,9 +77,9 @@ class Cai extends Controllers
 						$request_user = $this->model->insertCai(
                             $intRangoI,
 	                    	$intRangoF,
-                            $intRangoA,
+                            // $intRangoA,
 		                    $intNum,
-                            $dateFecha,
+                            $dateFechaVenc,
 							$strUsuario
 
 						);
@@ -105,9 +105,9 @@ class Cai extends Controllers
 							$cod_talonario,
                             $intRangoI,
 	                    	$intRangoF,
-                            $intRangoA,
+                            // $intRangoA,
 		                    $intNum,
-                            $dateFecha
+                            $dateFechaVenc
 						);
 					}
 
