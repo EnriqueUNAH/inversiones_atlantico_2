@@ -51,7 +51,7 @@ document.addEventListener(
       formDescuento.onsubmit = function (e) {
         e.preventDefault();
         // let intIdCodigo = document.querySelector("#txtIdCodigo").value;
-        let strNombre = document.querySelector("#txtNombre").value;
+        let strNombre = document.querySelector("#txtNombre").value.toUpperCase();
         let intPorcentaje = document.querySelector("#txtPorcentaje").value;
 
         if (strNombre == "" || intPorcentaje == "") {
