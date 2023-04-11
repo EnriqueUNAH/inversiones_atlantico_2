@@ -459,7 +459,7 @@ $(document).ready(function () {
     e.preventDefault();
     var cod_cliente = $(this).attr("cl");
     var cod_factura = $(this).attr("f");
-    generarPDF(cod_factura);
+    generarPDF2(cod_factura);
   });
 
   //Cambiar password

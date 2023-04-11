@@ -298,3 +298,34 @@ function openModal() {
 function openModalPerfil() {
   $("#modalFormPerfil").modal("show");
 }
+
+function ver_factura(codCliente, codFactura) {
+  var cod_cliente = codCliente;
+  var cod_factura = codFactura;
+
+  generarPDF(cod_cliente, cod_factura);
+}
+
+function generarPDF(cliente, factura) {
+  var ancho = 1000;
+  var alto = 800;
+  //Calcular posicion x,y para centrar la ventana
+  var x = parseInt(window.screen.width / 2 - ancho / 2);
+  var y = parseInt(window.screen.height / 2 - alto / 2);
+
+  $url =
+    "Views/venta/factura/generaFactura.php?cl=" + cliente + "&f=" + factura;
+  window.open(
+    $url,
+    "Factura",
+    "left=" +
+      x +
+      ",top=" +
+      y +
+      ",height=" +
+      alto +
+      ",width=" +
+      ancho +
+      ",scrollbar=si,location=no,resizable=si,menubar=no"
+  );
+}

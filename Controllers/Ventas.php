@@ -61,9 +61,11 @@ class Ventas extends Controllers
 
 
 				if ($_SESSION['permisosMod']['r']) {
-					$btnView = '<button class="btn_view view_factura" type="button" cl="' . $arrData[$i]['cod_cliente'] . '" f="' . $arrData[$i]['cod_factura'] . '"><i class="far fa-eye"></i></button>';
+					// $btnView = '<button class="btn btn-info view_factura" onclick="view_factura(' . $arrData[$i]['cod_cliente'] . ',' . $arrData[$i]['cod_factura'] . ')" title="Ver Factura"><i class="far fa-eye"></i></button>';
 
-					// 	$btnView = '<button class="btn btn-info btn-sm btnViewVenta" onClick="view_factura(' . $arrData[$i]['cod_cliente'] . ',' . $arrData[$i]['cod_factura'] . ')" title="Ver Factura"><i class="far fa-eye"></i></button>';
+					// $btnView = '<button class="btn_view ver_factura" type="button" cl="' . $arrData[$i]['cod_cliente'] . '" f="' . $arrData[$i]['cod_factura'] . '"><i class="far fa-eye"></i></button>';
+
+					$btnView = '<button class="btn btn-info btn-sm btnViewVenta" onClick="ver_factura(' . $arrData[$i]['cod_cliente'] . ',' . $arrData[$i]['cod_factura'] . ')" title="Ver Factura"><i class="far fa-eye"></i></button>';
 				}
 
 				if ($_SESSION['permisosMod']['u']) {
