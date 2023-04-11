@@ -18,40 +18,32 @@
             <div class="form-group col-md-6">
               <label for="txtRangoI">Rango Inicial </label>
               <input type="number" class="form-control" id="txtRangoI" name="txtRangoI" required="">
-             
-            </div>
-          </div>
+           </div>
 
-          <div class="form-row">
-            <div class="form-group col-md-6">
+           <div class="form-group col-md-6">
               <label for="txtRangoF">Rango Final</label>
               <input type="number" class="form-control" id="txtRangoF" name="txtRangoF" required="">
             </div>
-
-            <div class="form-group col-md-6">
-              <label for="txtRangoA">Rango Actual</label>
-              <input type="number" class="form-control" id="txtRangoA" name="txtRangoA" required="">
-              
-            </div>
+             
           </div>
+
 
           <div class="form-row">
 
-          <div class="form-group col-md-6">
+           <div class="form-group col-md-6">
               <label for="txtnum">Numero CAI</label>
               <input type="text" pattern="[a-zA-Z0-9_]+" class="form-control" id="txtnum" name="txtnum" style="text-transform:uppercase" required="" title="Ingrese solo letras y números sin espacios">
               
             </div>
 
-            <div class="form-group col-md-6">
+           <div class="form-group col-md-6">
               <label for="txtFecha">fecha vencimiento </label>
               <input type="datetime-local" class="form-control" id="txtFecha" name="txtFecha" required="" >
             </div>
 
           </div>
-          <div class="form-row">
 
-          </div>
+
           <div class="tile-footer">
             <button id="btnActionForm" class="btn btn-primary" type="submit"><i class="fa fa-fw fa-lg fa-check-circle"></i><span id="btnText">Guardar</span></button>&nbsp;&nbsp;&nbsp;
             <button class="btn btn-danger" type="button" data-dismiss="modal"><i class="fa fa-fw fa-lg fa-times-circle"></i>Cerrar</button>

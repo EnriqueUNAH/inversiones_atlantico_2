@@ -96,7 +96,7 @@ include "conexion.php";
 				$desde = ($pagina - 1) * $por_pagina;
 				$total_paginas = ceil($total_registro / $por_pagina);
 
-				$query = mysqli_query($conection, "SELECT p.cod_producto, p.nombre_producto, p.precio, p.existencia, pr.proveedor, p.foto
+				$query = mysqli_query($conection, "SELECT p.cod_producto, p.nombre_producto, p.precio, p.existencia, pr.proveedor
 											FROM tbl_producto p
 											INNER JOIN proveedor pr
 											ON p.proveedor = pr.codproveedor
