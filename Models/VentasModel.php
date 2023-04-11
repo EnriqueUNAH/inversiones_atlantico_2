@@ -43,7 +43,7 @@ class VentasModel extends Mysql
 	public function selectVentas()
 	{
 
-		$sql = "SELECT f.cod_factura,f.numero_factura,f.fecha,u.usuario,f.estado,f.totalfactura,f.subtotal,f.isv,f.porcentaje_isv,cl.nombres
+		$sql = "SELECT f.cod_factura,f.numero_factura,f.fecha,u.usuario,f.estado,f.totalfactura,f.subtotal,f.isv,f.porcentaje_isv,cl.nombres,cl.cod_cliente
 					FROM tbl_ms_usuarios u
 					INNER JOIN tbl_factura f 
 					ON f.id_usuario = u.id_usuario

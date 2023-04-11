@@ -1,3 +1,4 @@
+
 <?php
 
 class Ventas extends Controllers
@@ -23,6 +24,7 @@ class Ventas extends Controllers
 		$data['page_title'] = "VENTAS <small>Inversiones Atlántico</small>";
 		$data['page_name'] = "ventas";
 		$data['page_functions_js'] = "functions_ventas.js";
+		// $data['page_functions2_js'] = "../Views/venta/js/functions.js";
 		$this->views->getView($this, "ventas", $data);
 
 		//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora
@@ -59,7 +61,9 @@ class Ventas extends Controllers
 
 
 				if ($_SESSION['permisosMod']['r']) {
-					$btnView = '<button class="btn btn-info btn-sm btnViewVenta" onClick="fntViewVenta(' . $arrData[$i]['cod_factura'] . ')" title="Ver Factura"><i class="far fa-eye"></i></button>';
+					$btnView = '<button class="btn_view view_factura" type="button" cl="' . $arrData[$i]['cod_cliente'] . '" f="' . $arrData[$i]['cod_factura'] . '"><i class="far fa-eye"></i></button>';
+
+					// 	$btnView = '<button class="btn btn-info btn-sm btnViewVenta" onClick="view_factura(' . $arrData[$i]['cod_cliente'] . ',' . $arrData[$i]['cod_factura'] . ')" title="Ver Factura"><i class="far fa-eye"></i></button>';
 				}
 
 				if ($_SESSION['permisosMod']['u']) {
