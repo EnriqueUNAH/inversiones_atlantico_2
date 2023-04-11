@@ -228,7 +228,7 @@ $total 		= 0;
 				<td class="info_factura">
 					<div class="round">
 						<span class="h3">Factura</span>
-						<p>No. Factura: <strong><?php echo $factura['cod_factura']; ?></strong></p>
+						<p>No. Factura: <strong><?php echo $factura['cod_compra']; ?></strong></p>
 						<p>Fecha: <?php echo $factura['fecha']; ?></p>
 						<p>Hora: <?php echo $factura['hora']; ?></p>
 						<p>Vendedor: <?php echo $factura['vendedor']; ?></p>
@@ -236,33 +236,7 @@ $total 		= 0;
 				</td>
 			</tr>
 		</table>
-		<table id="factura_cliente">
-			<tr>
-				<td class="info_cliente">
-					<div class="round">
-						<span class="h3">Cliente</span>
-						<table class="datos_cliente">
-							<tr>
-								<td><label>rtn:</label>
-									<p><?php echo $factura['rtn']; ?></p>
-								</td>
-								<td><label>Teléfono:</label>
-									<p><?php echo $factura['telefono']; ?></p>
-								</td>
-							</tr>
-							<tr>
-								<td><label>Nombre:</label>
-									<p><?php echo $factura['nombres']; ?></p>
-								</td>
-								<td><label>Dirección:</label>
-									<p><?php echo $factura['direccion']; ?></p>
-								</td>
-							</tr>
-						</table>
-					</div>
-				</td>
-			</tr>
-		</table>
+
 		<table id="factura_detalle">
 			<thead>
 				<tr>

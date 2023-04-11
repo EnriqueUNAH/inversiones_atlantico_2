@@ -340,7 +340,7 @@ if (!empty($_POST)) {
 		$result = mysqli_num_rows($query);
 
 		if ($result > 0) {
-			$query_procesar = mysqli_query($conection, "CALL procesar_compra($usuario,$cod_cliente,'$token')");
+			$query_procesar = mysqli_query($conection, "CALL procesar_compra($usuario,'$token')");
 			$result_detalle = mysqli_num_rows($query_procesar);
 
 			if ($result_detalle > 0) {

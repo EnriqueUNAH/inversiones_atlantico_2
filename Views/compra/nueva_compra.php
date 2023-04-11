@@ -91,7 +91,7 @@ $result->free();
 					<label>Acciones</label>
 					<div id="acciones_venta">
 						<a href="#" class="btn_ok textcenter" id="btn_anular_venta"><i class="fas fa-ban"></i> Cancelar</a>
-						<a href="#" class="btn_new textcenter" id="btn_facturar_venta" style="display: none;"><i class="far fa-edit"></i> Facturar</a>
+						<a href="#" class="btn_new textcenter" id="btn_facturar_compra" style="display: none;"><i class="far fa-edit"></i> Comprar</a>
 					</div>
 				</div>
 			</div>
@@ -138,9 +138,9 @@ $result->free();
 						<td></td>
 						<td id="txt_existencia">-</td>
 						<td><input type="text" name="txt_cant_producto" id="txt_cant_producto" value="0" min="1" disabled></td>
-						
-						<td><input type="text" name="txt_precio" id="txt_precio"  min="1" disabled></td>
-						
+
+						<td><input type="text" name="txt_precio" id="txt_precio" min="1" disabled></td>
+
 
 						<td id="txt_precio_total" class="textright">0.00</td>
 						<td> <a href="#"><i></i> </a></td>

@@ -265,7 +265,6 @@ $(document).ready(function () {
             $("#txt_cant_producto").removeAttr("disabled");
             $("#txt_precio").removeAttr("disabled");
 
-
             //Mostrar botón agregar
             $("#add_product_venta").slideDown();
           } else {
@@ -376,7 +375,7 @@ $(document).ready(function () {
   });
 
   //Facturar Venta
-  $("#btn_facturar_venta").click(function (e) {
+  $("#btn_facturar_compra").click(function (e) {
     e.preventDefault();
 
     var rows = $("#detalle_venta tr").length;
@@ -388,13 +387,13 @@ $(document).ready(function () {
         url: "ajax.php",
         type: "POST",
         async: true,
-        data: { action: action, cod_cliente: cod_cliente },
+        data: { action: action },
 
         success: function (response) {
           if (response != "error") {
             var info = JSON.parse(response);
             //console.log(info);
-            generarPDF(info.cod_cliente, info.cod_factura);
+            generarPDF(info.cod_compra);
             location.reload();
           } else {
             console.log("no data");
@@ -460,7 +459,7 @@ $(document).ready(function () {
     e.preventDefault();
     var cod_cliente = $(this).attr("cl");
     var cod_factura = $(this).attr("f");
-    generarPDF(cod_cliente, cod_factura);
+    generarPDF(cod_factura);
   });
 
   //Cambiar password
@@ -630,14 +629,14 @@ function anularFactura() {
   });
 }
 
-function generarPDF(cliente, factura) {
+function generarPDF(factura) {
   var ancho = 1000;
   var alto = 800;
   //Calcular posicion x,y para centrar la ventana
   var x = parseInt(window.screen.width / 2 - ancho / 2);
   var y = parseInt(window.screen.height / 2 - alto / 2);
 
-  $url = "factura/generaFactura.php?cl=" + cliente + "&f=" + factura;
+  $url = "factura/generaFactura.php?f=" + factura;
   window.open(
     $url,
     "Factura",
@@ -694,9 +693,9 @@ function del_product_detalle(cod_detalle_factura) {
 //Mostrar/Ocultar boton procesar
 function viewProcesar() {
   if ($("#detalle_venta tr").length > 0) {
-    $("#btn_facturar_venta").show();
+    $("#btn_facturar_compra").show();
   } else {
-    $("#btn_facturar_venta").hide();
+    $("#btn_facturar_compra").hide();
   }
 }
 
