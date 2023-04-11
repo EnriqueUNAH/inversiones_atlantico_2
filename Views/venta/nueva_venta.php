@@ -1,9 +1,11 @@
 <?php
-session_start();
 include "conexion.php";
+session_start();
+
 ?>
 
 <?php include "includes/scripts.php"; ?>
+<?php include "../Template/header_admin2.php"; ?>
 
 <!DOCTYPE html>
 <html lang="es">
@@ -191,3 +193,4 @@ $result->free();
 </body>
 
 </html>
+<?php include "../Template/footer_admin2.php"; ?>
