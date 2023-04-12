@@ -20,24 +20,20 @@
 
         <form id="formCliente" name="formCliente" class="form-horizontal">
           <input type="hidden" id="cod_cliente" name="cod_cliente" value="">
-          <p class="text-primary">Todos los campos son obligatorios.</p>
+          <p class="text-primary">Los campos con asterisco (<span class="required">*</span>) son obligatorios.</p>
           <div class="form-row">
             <div class="form-group col-md-6">
               <label for="txtRtn">RTN</label>
               <input type="number" class="form-control" id="txtRtn" name="txtRtn" required="">
             </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group col-md-6">
-              <label for="txtNombres">Nombres</label>
+
+           <div class="form-group col-md-6">
+              <label for="txtNombres">Nombre Completo <span class="required">*</span></label>
               <input type="text" pattern="[a-zA-Z ]+" class="form-control valid validText" id="txtNombres" name="txtNombres" style="text-transform:uppercase" required="" title="No se puede ingresar números">
-            </div>
-            <div class="form-group col-md-6">
-              <label for="txtApellidos">Apellidos</label>
-              <input type="text" pattern="[a-zA-Z ]+" class="form-control valid validText" id="txtApellidos" name="txtApellidos" style="text-transform:uppercase" required="" title="No se puede ingresar números">
             </div>
 
           </div>
+          
 
           <div class="form-row">
 
@@ -62,7 +58,7 @@
 
 
              <div class="form-group col-md-6">
-              <label for="listGenero">Genero</label>
+              <label for="listGenero">Genero<span class="required">*</span></label>
               <select class="form-control" data-live-search="true" id="listGenero" name="listGenero" required>
               </select>
             </div>
@@ -104,13 +100,8 @@
             </tr>
 
             <tr>
-              <td>Nombres:</td>
+              <td>Nombre Completo:</td>
               <td id="celNombres"></td>
-            </tr>
-
-            <tr>
-              <td>Apellidos:</td>
-              <td id="celApellidos"></td>
             </tr>
 
             <tr>
