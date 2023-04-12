@@ -36,10 +36,10 @@ $total 		= 0;
 			font-family: 'BrixSansBlack';
 			font-size: 12pt;
 			display: block;
-			background: #0a4661;
-			color: #FFF;
+			background: #FFF;
+			color: #000000;
 			text-align: center;
-			padding: 3px;
+			padding: 6px;
 			margin-bottom: 5px;
 		}
 
@@ -121,10 +121,12 @@ $total 		= 0;
 		}
 
 		#factura_detalle thead th {
-			background: #058167;
-			color: #FFF;
+			background: #FFF;
+			color: #000000;
 			padding: 5px;
+			border: 1px solid #000000;
 		}
+
 
 		#detalle_productos tr:nth-child(even) {
 			background: #ededed;
@@ -219,7 +221,7 @@ $total 		= 0;
 							<p><?php echo ($r_Direccion); ?></p>
 							<p>RTN: <?php echo ($r_RTN); ?></p>
 							<p>Teléfono: <?php echo ($r_Telefono); ?></p>
-							<p>Email: <?php echo ($r_Correo); ?></p>
+							<p> <?php echo ($r_Correo); ?></p>
 						</div>
 					<?php
 					}
@@ -243,7 +245,7 @@ $total 		= 0;
 						<span class="h3">Cliente</span>
 						<table class="datos_cliente">
 							<tr>
-								<td><label>rtn:</label>
+								<td><label>RTN:</label>
 									<p><?php echo $factura['rtn']; ?></p>
 								</td>
 								<td><label>Teléfono:</label>
@@ -313,8 +315,19 @@ $total 		= 0;
 			</tfoot>
 		</table>
 		<div>
-			<p class="nota">Si usted tiene preguntas sobre esta factura, <br>pongase en contacto con nombre, teléfono y Email</p>
-			<h4 class="label_gracias">¡Gracias por su compra!</h4>
+
+
+
+
+
+
+
+
+
+
+
+			<!-- <p class="nota">Si usted tiene preguntas sobre esta factura, <br>pongase en contacto con nombre, teléfono y Email</p> -->
+			<h4 class="label_gracias">LA FACTURA ES BENEFICIO DE TODOS "EXÍJALA"</h4>
 		</div>
 	</div>
 </body>
