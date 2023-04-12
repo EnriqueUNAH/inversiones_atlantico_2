@@ -5,18 +5,18 @@ session_start();
 ?>
 
 <?php include "includes/scripts.php"; ?>
-<?php include "../Template/header_admin2.php"; ?>
+
 
 <!DOCTYPE html>
 <html lang="es">
 <?php
 
-
-// Haz la consulta
+###############################################################################
+// Consulta para obtener los productos
 $sql = "SELECT cod_producto, nombre_producto FROM tbl_producto";
 $result = $conection->query($sql);
 
-// Crea un arreglo con los datos obtenidos de la base de datos
+// Crea un arreglo con los datos obtenidos de la tabla productos
 $productos = array();
 while ($row = $result->fetch_assoc()) {
 	$productos[] = array(
@@ -27,6 +27,45 @@ while ($row = $result->fetch_assoc()) {
 
 // Libera el resultado de la consulta
 $result->free();
+###############################################################################
+
+###############################################################################
+// Consulta para obtener los descuentos
+$sql_d = "SELECT cod_descuento, nombre_descuento FROM tbl_descuento";
+$result_d = $conection->query($sql_d);
+
+// Crea un arreglo con los datos obtenidos de la tabla descuentos
+$descuentos = array();
+while ($row_d = $result_d->fetch_assoc()) {
+	$descuentos[] = array(
+		'cod_descuento' => $row_d['cod_descuento'],
+		'nombre_descuento' => $row_d['nombre_descuento']
+	);
+}
+
+// Libera el resultado de la consulta
+$result_d->free();
+###############################################################################
+
+###############################################################################
+// Consulta para obtener las promociones
+$sql_p = "SELECT cod_promocion, nombre_promocion FROM tbl_promocion";
+$result_p = $conection->query($sql_p);
+
+// Crea un arreglo con los datos obtenidos de la tabla promocion
+$promocions = array();
+while ($row_p = $result_p->fetch_assoc()) {
+	$promocions[] = array(
+		'cod_promocion' => $row_p['cod_promocion'],
+		'nombre_promocion' => $row_p['nombre_promocion']
+	);
+}
+
+// Libera el resultado de la consulta
+$result_p->free();
+###############################################################################
+
+
 ?>
 
 <head>
@@ -104,21 +143,51 @@ $result->free();
 
 					<tr>
 
+						<td> <a href="#" id="add_product_venta" class="link_add"><i class="fas fa-plus"></i> Agregar Producto</a></td>
 						<th>
 							<!---->
 							<select name="select_producto" id="select_producto" class="select-producto" style="width: 200px;">
-								<option value="">Seleccione un producto</option>
+								<option value="">Productos</option>
 								<?php foreach ($productos as $producto) : ?>
 									<option value="<?php echo $producto['cod_producto']; ?>"><?php echo $producto['nombre_producto']; ?></option>
 								<?php endforeach; ?>
 							</select>
 							<!---->
 
-
-
-						<td> <a href="#" id="add_product_venta" class="link_add"><i class="fas fa-plus"></i> Agregar</a></td>
 						</th>
+
+						<td> <a href="#" id="add_product_venta" class="link_add"><i class="fas fa-plus"></i> Agregar Descuento</a></td>
+						<th>
+							<!---->
+							<select name="select_descuento" id="select_descuento" class="select-descuento" style="width: 200px;">
+								<option value="">Descuentos</option>
+								<?php foreach ($descuentos as $descuento) : ?>
+									<option value="<?php echo $descuento['cod_descuento']; ?>"><?php echo $descuento['nombre_descuento']; ?></option>
+								<?php endforeach; ?>
+							</select>
+							<!---->
+
+						</th>
+
+						<td> <a href="#" id="add_product_venta" class="link_add"><i class="fas fa-plus"></i> Agregar Promoción</a></td>
+						<th>
+							<!---->
+							<select name="select_promocion" id="select_promocion" class="select-promocion" style="width: 200px;">
+								<option value="">Promociones</option>
+								<?php foreach ($promocions as $promocion) : ?>
+									<option value="<?php echo $promocion['cod_promocion']; ?>"><?php echo $promocion['nombre_promocion']; ?></option>
+								<?php endforeach; ?>
+							</select>
+							<!---->
+
+						</th>
+
+
 					</tr>
+
+
+
+
 
 					<tr>
 						<th hidden width="100px">Código</th>
@@ -127,7 +196,7 @@ $result->free();
 						<th>Existencia</th>
 						<th width="100px">Cantidad</th>
 						<th class="textright">Precio</th>
-						<th class="textright">Precio Total</th>
+						<th class="textright">Total</th>
 						<th class="textright"></th>
 					</tr>
 
@@ -147,7 +216,7 @@ $result->free();
 						<th colspan="2">Descripción</th>
 						<th>Cantidad</th>
 						<th class="textright">Precio</th>
-						<th class="textright">Precio Total</th>
+						<th class="textright">Total</th>
 						<th> Eliminar</th>
 					</tr>
 				</thead>
@@ -167,10 +236,24 @@ $result->free();
 
 
 	<!-- Sirve para buscar el nombre del producto dentro del select -->
+	<!-- <script>
+		$(document).ready(function() {
+			$('.select-producto').select2({
+				placeholder: 'Productos',
+				allowClear: true,
+				language: {
+					noResults: function() {
+						return 'No se encontraron resultados';
+					}
+				}
+			});
+		});
+	</script> -->
+	<!-- Sirve para buscar el nombre del producto dentro del select -->
+	<!-- SIN PLACE HOLDER -->
 	<script>
 		$(document).ready(function() {
 			$('.select-producto').select2({
-				placeholder: 'Seleccione un producto',
 				allowClear: true,
 				language: {
 					noResults: function() {
@@ -193,4 +276,3 @@ $result->free();
 </body>
 
 </html>
-<?php include "../Template/footer_admin2.php"; ?>
