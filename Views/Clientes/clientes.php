@@ -25,8 +25,7 @@ getModal('modalClientes', $data);
               <thead>
                 <tr>
                   <th>RTN</th>
-                  <th>Nombres</th>
-                  <th>Apellidos</th>
+                  <th>Nombre Completo</th>
                   <th>Telefono</th>
                   <th>Correo</th>
                   <th>Direccion</th>

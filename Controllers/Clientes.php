@@ -48,7 +48,7 @@ class Clientes extends Controllers
 	public function setCliente()
 	{
 		if ($_POST) {
-			if (empty($_POST['txtRtn']) || empty($_POST['txtNombres']) || empty($_POST['txtApellidos']) || empty($_POST['txtTelefono'])  || empty($_POST['txtEmail']) || empty($_POST['txtDireccion']) || empty($_POST['listGenero'])) {
+			if (empty($_POST['txtRtn']) || empty($_POST['txtNombres']) || empty($_POST['txtTelefono'])  || empty($_POST['txtEmail']) || empty($_POST['txtDireccion']) || empty($_POST['listGenero'])) {
 				$arrResponse = array("status" => false, "msg" => 'Datos incorrectos.');
 
 				/*El siguiente else if, sirve para que valide desde el servidor. Que si se ingresa una letra 
@@ -60,7 +60,6 @@ class Clientes extends Controllers
 				$cod_cliente = intval($_POST['cod_cliente']);
 				$strRtn = intval(strClean($_POST['txtRtn']));
 				$strNombres = strtoupper(strClean($_POST['txtNombres']));
-				$strApellidos = strtoupper(strClean($_POST['txtApellidos']));
 				$intTelefono = intval(strClean($_POST['txtTelefono']));
 				$strEmail = strtolower(strClean($_POST['txtEmail']));
 				$strDireccion = strtoupper(strClean($_POST['txtDireccion']));
@@ -85,7 +84,6 @@ class Clientes extends Controllers
 						$request_user = $this->model->insertCliente(
 							$strRtn,
 							$strNombres,
-							$strApellidos,
 							$intTelefono,
 							$strEmail,
 							$strDireccion,
@@ -116,7 +114,6 @@ class Clientes extends Controllers
 							$cod_cliente,
 							$strRtn,
 							$strNombres,
-							$strApellidos,
 							$intTelefono,
 							$strEmail,
 							$strDireccion,
