@@ -24,7 +24,7 @@
           <div class="form-row">
             <div class="form-group col-md-6">
               <label for="txtRtn">RTN</label>
-              <input type="number" class="form-control" id="txtRtn" name="txtRtn" required="">
+              <input type="number" class="form-control" id="txtRtn" name="txtRtn" >
             </div>
 
            <div class="form-group col-md-6">
@@ -39,12 +39,12 @@
 
           <div class="form-group col-md-6">
               <label for="txtTelefono">Teléfono</label>
-              <input type="number" class="form-control" id="txtTelefono" name="txtTelefono" required="">
+              <input type="number" class="form-control" id="txtTelefono" name="txtTelefono">
             </div>
 
             <div class="form-group col-md-6">
               <label for="txtEmail">Correo Electrónico</label>
-              <input type="email" class="form-control valid validEmail" id="txtEmail" name="txtEmail" required="">
+              <input type="email" class="form-control valid validEmail" id="txtEmail" name="txtEmail" >
             </div>
 
           </div>
@@ -53,7 +53,7 @@
 
             <div class="form-group col-md-6">
               <label for="txtDireccion">Dirección</label>
-              <input type="text" class="form-control" id="txtDireccion" name="txtDireccion" style="text-transform:uppercase" required="">
+              <input type="text" class="form-control" id="txtDireccion" name="txtDireccion" style="text-transform:uppercase" >
             </div>
 
 
