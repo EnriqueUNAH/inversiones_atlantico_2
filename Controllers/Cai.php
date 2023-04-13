@@ -45,17 +45,19 @@ class Cai extends Controllers
 	public function setCai()
 	{
 		if ($_POST) {
-			if (empty($_POST['txtRangoI']) || empty($_POST['txtRangoF']) 
-               || empty($_POST['txtnum']) || empty($_POST['txtFecha'])  ) {
+			if (
+				empty($_POST['txtRangoI']) || empty($_POST['txtRangoF'])
+				|| empty($_POST['txtnum']) || empty($_POST['txtFecha'])
+			) {
 				$arrResponse = array("status" => false, "msg" => 'Datos incorrectos.');
 			} else {
 				$cod_talonario = intval($_POST['cod_talonario']);
-				$intRangoI = intval($_POST['txtRangoI']);
-				$intRangoF = intval($_POST['txtRangoF']);
-                // $intRangoA = intval($_POST['rango_actual']);
-                $intNum = strtoupper(strClean($_POST['txtnum']));
-                $dateFechaVenc =  strClean($_POST['txtFecha']);;
-				$strUsuario = $_SESSION['idUser']; 
+				$intRangoI = strtoupper(strClean($_POST['txtRangoI']));
+				$intRangoF = strtoupper(strClean($_POST['txtRangoF']));
+				// $intRangoA = intval($_POST['rango_actual']);
+				$intNum = strtoupper(strClean($_POST['txtnum']));
+				$dateFechaVenc =  strClean($_POST['txtFecha']);;
+				$strUsuario = $_SESSION['idUser'];
 				$request_user = "";
 
 				if ($intRangoF < $intRangoI) {
@@ -63,30 +65,57 @@ class Cai extends Controllers
 				} else {
 
 
-				//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora
-				//SE PUEDEN USAR PARA INSERTAR O ACTUALIZAR PORQUE SERÍAN LOS MISMOS DATOS
-				$dateFecha = date('Y-m-d H:i:s');
-				$intIdUsuario = $_SESSION['idUser'];
-				$intIdObjeto = 2;                // ([["OJO"]]) HAY QUE CAMBIAR ESTE ID DESPUÉS CUANDO YA AGREGUEMOS TODOS LOS OBJETOS
-				$request_bitacora = "";
+					//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora
+					//SE PUEDEN USAR PARA INSERTAR O ACTUALIZAR PORQUE SERÍAN LOS MISMOS DATOS
+					$dateFecha = date('Y-m-d H:i:s');
+					$intIdUsuario = $_SESSION['idUser'];
+					$intIdObjeto = 2;                // ([["OJO"]]) HAY QUE CAMBIAR ESTE ID DESPUÉS CUANDO YA AGREGUEMOS TODOS LOS OBJETOS
+					$request_bitacora = "";
 
-				if ($cod_talonario == 0) {
-					$option = 1; //LA OPCIÓN ES 1, ENTONCES ESTARÁ INSERTANDO
+					if ($cod_talonario == 0) {
+						$option = 1; //LA OPCIÓN ES 1, ENTONCES ESTARÁ INSERTANDO
 
-					if ($_SESSION['permisosMod']['w']) {
-						$request_user = $this->model->insertCai(
-                            $intRangoI,
-	                    	$intRangoF,
-                            // $intRangoA,
-		                    $intNum,
-                            $dateFechaVenc,
-							$strUsuario
+						if ($_SESSION['permisosMod']['w']) {
+							$request_user = $this->model->insertCai(
+								$intRangoI,
+								$intRangoF,
+								// $intRangoA,
+								$intNum,
+								$dateFechaVenc,
+								$strUsuario
 
-						);
+							);
 
-						//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora 	en caso de que se esté insertando
-						$strAccion = "CREAR";
-						$strDescripcion = "CREACIÓN DE CAI";
+							//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora 	en caso de que se esté insertando
+							$strAccion = "CREAR";
+							$strDescripcion = "CREACIÓN DE CAI";
+
+							//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
+							$request_bitacora = $this->model->insertCaiBitacora(
+								$dateFecha,
+								$intIdUsuario,
+								$intIdObjeto,
+								$strAccion,
+								$strDescripcion
+							);
+						} //FIN DEL IF DE INSERTAR
+					} else {
+						$option = 2; //SI OPTION ES 2, ENTONCES ESTARÁ ACTUALIZANDO
+
+						if ($_SESSION['permisosMod']['u']) {
+							$request_user = $this->model->updateCai(
+								$cod_talonario,
+								$intRangoI,
+								$intRangoF,
+								// $intRangoA,
+								$intNum,
+								$dateFechaVenc
+							);
+						}
+
+						//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora 	en caso de que se esté ACTUALIZANDO
+						$strAccion = "ACTUALIZAR";
+						$strDescripcion = "ACTUALIZACIÓN DE CAI";
 
 						//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
 						$request_bitacora = $this->model->insertCaiBitacora(
@@ -96,49 +125,20 @@ class Cai extends Controllers
 							$strAccion,
 							$strDescripcion
 						);
-					} //FIN DEL IF DE INSERTAR
-				} else {
-					$option = 2; //SI OPTION ES 2, ENTONCES ESTARÁ ACTUALIZANDO
+					} //FIN DEL ELSE PARA ACTUALIZAR
 
-					if ($_SESSION['permisosMod']['u']) {
-						$request_user = $this->model->updateCai(
-							$cod_talonario,
-                            $intRangoI,
-	                    	$intRangoF,
-                            // $intRangoA,
-		                    $intNum,
-                            $dateFechaVenc
-						);
-					}
-
-					//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora 	en caso de que se esté ACTUALIZANDO
-					$strAccion = "ACTUALIZAR";
-					$strDescripcion = "ACTUALIZACIÓN DE CAI";
-
-					//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
-					$request_bitacora = $this->model->insertCaiBitacora(
-						$dateFecha,
-						$intIdUsuario,
-						$intIdObjeto,
-						$strAccion,
-						$strDescripcion
-					);
-				} //FIN DEL ELSE PARA ACTUALIZAR
-
-				if ($request_user > 0) {
-					if ($option == 1) {
-						$arrResponse = array('status' => true, 'msg' => 'Datos guardados correctamente.');
+					if ($request_user > 0) {
+						if ($option == 1) {
+							$arrResponse = array('status' => true, 'msg' => 'Datos guardados correctamente.');
+						} else {
+							$arrResponse = array('status' => true, 'msg' => 'Datos Actualizados correctamente.');
+						}
+					} else if ($request_user == 'exist') {
+						$arrResponse = array('status' => false, 'msg' => '¡Atención! el email o la identificación ya existe, ingrese otro.');
 					} else {
-						$arrResponse = array('status' => true, 'msg' => 'Datos Actualizados correctamente.');
+						$arrResponse = array("status" => false, "msg" => 'No es posible almacenar los datos.');
 					}
-				} else if ($request_user == 'exist') {
-					$arrResponse = array('status' => false, 'msg' => '¡Atención! el email o la identificación ya existe, ingrese otro.');
-				} else {
-					$arrResponse = array("status" => false, "msg" => 'No es posible almacenar los datos.');
 				}
-
-			}
-
 			}
 			echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
 		}
@@ -155,6 +155,12 @@ class Cai extends Controllers
 			for ($i = 0; $i < count($arrData); $i++) {
 				$btnEdit = '';
 				$btnDelete = '';
+
+				if ($arrData[$i]['estado'] == 1) {
+					$arrData[$i]['estado'] = '<span class="badge badge-success">ACTIVO</span>';   //Aqui le asigna Activo si es 1
+				} else if ($arrData[$i]['estado'] == 2) {
+					$arrData[$i]['estado'] = '<span class="badge badge-danger">INACTIVO</span>';
+				}
 
 
 				if ($_SESSION['permisosMod']['u']) {

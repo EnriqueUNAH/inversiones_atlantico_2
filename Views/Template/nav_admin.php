@@ -85,7 +85,7 @@
             </a>
             <ul class="treeview-menu">
 
-              <?php if (!empty($_SESSION['permisos'][2]['r'])) { ?>
+              <?php if (!empty($_SESSION['permisos'][MUSUARIO]['r'])) { ?>
                 <li><a class="treeview-item" href="<?= base_url(); ?>/usuarios"><i class="icon fa fa-circle-o"></i> Usuarios</a></li>
               <?php } ?>
 
@@ -143,8 +143,9 @@
               <li><a class="treeview-item" href="<?= base_url(); ?>/clientes"><i class="icon fa fa-circle-o"></i>Clientes</a></li>
             <?php } ?>
 
-            <li><a class="treeview-item" href="<?= base_url(); ?>/resultado"><i class="icon fa fa-circle-o"></i>Resultado Produccion</a></li>
-
+            <?php if (!empty($_SESSION['permisos'][MPRODUCCION]['r'])) { ?>
+              <li><a class="treeview-item" href="<?= base_url(); ?>/resultado"><i class="icon fa fa-circle-o"></i>Resultado Produccion</a></li>
+            <?php } ?>
 
           </ul>
         </li>

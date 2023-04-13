@@ -15,13 +15,15 @@ document.addEventListener(
         dataSrc: "",
       },
       columns: [
-        { data: "rango_inicial" }, 
-        { data: "rango_final" }, 
-        { data: "rango_actual" }, 
+        { data: "rango_inicial" },
+        { data: "rango_final" },
+        { data: "rango_actual" },
         { data: "numero_CAI" },
-        { data: "fecha_vencimiento" }, 
+        { data: "fecha_vencimiento" },
         { data: "usuario" },
-        { data: "options" }],
+        { data: "estado" },
+        { data: "options" },
+      ],
       dom: "lBfrtip",
       buttons: [
         {
@@ -71,7 +73,12 @@ document.addEventListener(
         let intNum = document.querySelector("#txtnum").value;
         let dateFechaVenc = document.querySelector("#txtFecha").value;
 
-        if (intRangoI == "" || intRangoF == "" ||  intNum == "" || dateFechaVenc == "") {
+        if (
+          intRangoI == "" ||
+          intRangoF == "" ||
+          intNum == "" ||
+          dateFechaVenc == ""
+        ) {
           swal("Atención", "Todos los campos son obligatorios.", "error");
           return false;
         }
@@ -107,7 +114,7 @@ document.addEventListener(
                 // rowTable.cells[2].textContent = intRangoA;
                 rowTable.cells[3].textContent = intNum;
                 rowTable.cells[4].textContent = dateFechaVenc;
-                
+                rowTable.cells[5].textContent = estado;
 
                 rowTable = "";
               }
@@ -128,8 +135,6 @@ document.addEventListener(
   },
   false
 );
-
-
 
 //Función cuando se le da click al botón editar Parámetro
 function fntEditCai(element, cod_talonario) {
@@ -153,15 +158,14 @@ function fntEditCai(element, cod_talonario) {
       let objData = JSON.parse(request.responseText);
 
       if (objData.status) {
-        document.querySelector("#cod_talonario").value = objData.data.cod_talonario;
+        document.querySelector("#cod_talonario").value =
+          objData.data.cod_talonario;
         document.querySelector("#txtRangoI").value = objData.data.rango_inicial;
         document.querySelector("#txtRangoF").value = objData.data.rango_final;
         // document.querySelector("#txtRangoA").value = objData.data.rango_actual;
         document.querySelector("#txtnum").value = objData.data.numero_CAI;
-        document.querySelector("#txtFecha").value = objData.data.fecha_vencimiento;
-
-
-
+        document.querySelector("#txtFecha").value =
+          objData.data.fecha_vencimiento;
       }
     }
 
@@ -210,15 +214,29 @@ function fntDelCai(cod_talonario) {
   );
 }
 
-//Abre el modal para agregar cai 
+//Abre el modal para agregar cai
 function openModal() {
   rowTable = "";
   document.querySelector("#cod_talonario").value = "";
-  document.querySelector(".modal-header").classList.replace("headerUpdate", "headerRegister");
-  document.querySelector("#btnActionForm").classList.replace("btn-info", "btn-primary");
+  document
+    .querySelector(".modal-header")
+    .classList.replace("headerUpdate", "headerRegister");
+  document
+    .querySelector("#btnActionForm")
+    .classList.replace("btn-info", "btn-primary");
   document.querySelector("#btnText").innerHTML = "Guardar";
   document.querySelector("#titleModal").innerHTML = "Nuevo CAI";
   document.querySelector("#formCai").reset();
 
   $("#modalFormCai").modal("show");
 }
+
+$(document).ready(function () {
+  $("#txtRangoI").inputmask("999-999-99-99999999");
+});
+$(document).ready(function () {
+  $("#txtRangoF").inputmask("999-999-99-99999999");
+});
+$(document).ready(function () {
+  $("#txtnum").inputmask("******-******-******-******-******-**");
+});

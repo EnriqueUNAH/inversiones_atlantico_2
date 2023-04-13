@@ -249,7 +249,14 @@ $total 		= 0;
 									<p><?php echo $factura['rtn']; ?></p>
 								</td>
 								<td><label>Teléfono:</label>
-									<p><?php echo $factura['telefono']; ?></p>
+									<p><?php
+										if ($factura['telefono'] == 0) {
+											echo "";
+										} else {
+											echo $factura['telefono'];
+										}
+
+										?></p>
 								</td>
 							</tr>
 							<tr>
@@ -301,9 +308,14 @@ $total 		= 0;
 			</tbody>
 			<tfoot id="detalle_totales">
 				<tr>
+					<td colspan="3" class="textright"><span>DESCUENTOS </span></td>
+					<td class="textright"><span><?php echo "- L." . 0; ?></span></td>
+				</tr>
+				<tr>
 					<td colspan="3" class="textright"><span>SUBTOTAL L.</span></td>
 					<td class="textright"><span><?php echo $tl_snisv; ?></span></td>
 				</tr>
+
 				<tr>
 					<td colspan="3" class="textright"><span>ISV (<?php echo $isv; ?> %)</span></td>
 					<td class="textright"><span><?php echo $impuesto; ?></span></td>

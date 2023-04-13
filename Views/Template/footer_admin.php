@@ -34,7 +34,8 @@
     <script type="text/javascript" src="<?= media(); ?>/js/functions_admin.js"></script>
     <script src="<?= media(); ?>/js/<?= $data['page_functions_js']; ?>"></script>
 
-
+    <!-- Para usar máscaras de entrada -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.6/jquery.inputmask.min.js"></script>
 
     </body>
 

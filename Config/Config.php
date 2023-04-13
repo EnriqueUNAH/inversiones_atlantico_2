@@ -73,25 +73,28 @@ const COSTOENVIO = 5;
 // const MDPAGINAS = 9;
 
 //Módulos
-const MINICIO = 1;
-const MUSUARIO = 2;
-const MPRODUCTO = 4;
-const MPROMOCION = 10;
-const MDESCUENTO = 11;
-const MPREGUNTA = 12;
-const MINVENTARIO = 13;
 
-const MROL = 14;
-const MBITACORA = 15;
-const MPARAMETRO = 16;
-const MBACKUP = 17;
-const MOBJETO = 18;
+const MBACKUP = 1;
+const MBITACORA = 2;
+const MCAI = 4;
+const MCLIENTE = 10;
+const MCOMPRA = 11;
+const MDESCUENTO = 12;
+const MINICIO = 13;
+const MINVENTARIO = 14;
+const MKARDEX = 15;
+const MOBJETO = 16;
+const MPARAMETRO = 17;
+const MPREGUNTA = 18;
+const MPRODUCCION = 20;
+const MPRODUCTO = 21;
+const MPROMOCION = 22;
+const MROL = 23;
+const MUSUARIO = 24;
+const MVENTA = 25;
 
-const MCOMPRA = 20;
-const MVENTA = 21;
-const MCLIENTE = 22;
-const MKARDEX = 23;
-const MCAI = 24;
+
+
 
 
 //Roles

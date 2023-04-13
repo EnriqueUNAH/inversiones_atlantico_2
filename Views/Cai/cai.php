@@ -30,6 +30,7 @@ getModal('modalCai', $data);
                   <th>Numero CAI</th>
                   <th>Fecha vencimiento</th>
                   <th>Usuario</th>
+                  <th>Estado</th>
                   <th>Acciones</th>
                 </tr>
               </thead>

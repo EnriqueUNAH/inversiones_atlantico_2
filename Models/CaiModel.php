@@ -5,11 +5,11 @@ class CaiModel extends Mysql
 	private $cod_talonario;
 	private $intRangoI;
 	private $intRangoF;
-    private $intRangoA;
+	private $intRangoA;
 	private $intNum;
-    private $dateFechaVenc;
+	private $dateFechaVenc;
 	private $strUsuario;
-    
+
 
 
 	public function __construct()
@@ -17,17 +17,19 @@ class CaiModel extends Mysql
 		parent::__construct();
 	}
 
-	public function insertCai(int $rango_inicial, int $rango_final, string $numero_CAI, string $fecha_vencimiento, int $id_usuario) //En este caso recibe los 2 parámetros que ingresa el usuario
+	public function insertCai(string $rango_inicial, string $rango_final, string $numero_CAI, string $fecha_vencimiento, int $id_usuario) //En este caso recibe los 2 parámetros que ingresa el usuario
 	{																	//Estos parámetros vienen desde el controlador			
 
 		//Se crean estas variables para que reciban los valores que vienen el los parámetros
-      
+
 		$this->intRangoI = $rango_inicial;
 		$this->intRangoF = $rango_final;
 		$this->intRangoA = $rango_inicial;
 		$this->intNum = $numero_CAI;
-        $this->dateFechaVenc = $fecha_vencimiento;
-	    $this->strUsuario = $id_usuario;
+		$this->dateFechaVenc = $fecha_vencimiento;
+		$this->strUsuario = $id_usuario;
+
+		$this->intEstado = 1;
 
 		$return = 0;
 
@@ -35,15 +37,16 @@ class CaiModel extends Mysql
 		$request = $this->select_all($sql);													//Ese where debe estar de acorde a cada tabla
 
 		if (empty($request)) {
-			$query_insert  = "INSERT INTO tbl_configuracion_cai(rango_inicial,rango_final,rango_actual,numero_CAI,fecha_vencimiento,id_usuario) 
-								  VALUES(?,?,?,?,?,?)"; //La cantidad de ? debe ser la cantidad de datos que se insertan 
+			$query_insert  = "INSERT INTO tbl_configuracion_cai(rango_inicial,rango_final,rango_actual,numero_CAI,fecha_vencimiento,id_usuario,estado) 
+								  VALUES(?,?,?,?,?,?,?)"; //La cantidad de ? debe ser la cantidad de datos que se insertan 
 			$arrData = array(							//En este caso: parámetro, valor , creado_por y fecha_creacion
 				$this->intRangoI,
-	        	$this->intRangoF,
-		        $this->intRangoA,
-		        $this->intNum,
-                $this->dateFechaVenc,
-		        $this->strUsuario
+				$this->intRangoF,
+				$this->intRangoA,
+				$this->intNum,
+				$this->dateFechaVenc,
+				$this->strUsuario,
+				1
 			);
 			$request_insert = $this->insert($query_insert, $arrData);
 			$return = $request_insert;
@@ -85,7 +88,7 @@ class CaiModel extends Mysql
 	{
 
 		$sql = "SELECT p.cod_talonario,p.rango_inicial,p.rango_final,p.rango_actual,p.numero_CAI,p.fecha_vencimiento,
-                       p.id_usuario, r.usuario
+                       p.id_usuario,p.estado, r.usuario
 					FROM tbl_ms_usuarios r 
                     INNER JOIN tbl_configuracion_cai p
 					ON p.id_usuario = r.id_usuario";
@@ -106,14 +109,14 @@ class CaiModel extends Mysql
 	}
 
 
-	public function updateCai(int $cod_talonario, int $rango_inicial, int $rango_final, string $numero_CAI, string $fecha_vencimiento)
+	public function updateCai(int $cod_talonario, string $rango_inicial, string $rango_final, string $numero_CAI, string $fecha_vencimiento)
 	{
-        $this->cod_talonario = $cod_talonario;
+		$this->cod_talonario = $cod_talonario;
 		$this->intRangoI = $rango_inicial;
 		$this->intRangoF = $rango_final;
 		// $this->intRangoA = $rango_actual;
 		$this->intNum = $numero_CAI;
-        $this->dateFechaVenc = $fecha_vencimiento;
+		$this->dateFechaVenc = $fecha_vencimiento;
 
 
 
@@ -126,10 +129,10 @@ class CaiModel extends Mysql
 							WHERE cod_talonario = $this->cod_talonario ";
 			$arrData = array(
 				$this->intRangoI,
-	        	$this->intRangoF,
-		        // $this->intRangoA,
-		        $this->intNum,
-                $this->dateFechaVenc
+				$this->intRangoF,
+				// $this->intRangoA,
+				$this->intNum,
+				$this->dateFechaVenc
 			);
 
 			$request = $this->update($sql, $arrData);

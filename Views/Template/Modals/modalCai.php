@@ -17,28 +17,29 @@
           <div class="form-row">
             <div class="form-group col-md-6">
               <label for="txtRangoI">Rango Inicial </label>
-              <input type="number" class="form-control" id="txtRangoI" name="txtRangoI" required="">
-           </div>
-
-           <div class="form-group col-md-6">
-              <label for="txtRangoF">Rango Final</label>
-              <input type="number" class="form-control" id="txtRangoF" name="txtRangoF" required="">
+              <input type="text" class="form-control" id="txtRangoI" name="txtRangoI" required="" maxlength="19">
             </div>
-             
+
+
+            <div class="form-group col-md-6">
+              <label for="txtRangoF">Rango Final</label>
+              <input type="text" class="form-control" id="txtRangoF" name="txtRangoF" required="" maxlength="19">
+            </div>
+
           </div>
 
 
           <div class="form-row">
 
-           <div class="form-group col-md-6">
+            <div class="form-group col-md-8">
               <label for="txtnum">Numero CAI</label>
-              <input type="text" pattern="[a-zA-Z0-9_]+" class="form-control" id="txtnum" name="txtnum" style="text-transform:uppercase" required="" title="Ingrese solo letras y números sin espacios">
-              
+              <input type="text" class="form-control" id="txtnum" name="txtnum" style="text-transform:uppercase" required="">
+
             </div>
 
-           <div class="form-group col-md-6">
+            <div class="form-group col-md-3">
               <label for="txtFecha">fecha vencimiento </label>
-              <input type="datetime-local" class="form-control" id="txtFecha" name="txtFecha" required="" >
+              <input type="date" class="form-control" id="txtFecha" name="txtFecha" required="">
             </div>
 
           </div>
