@@ -17,7 +17,6 @@ document.addEventListener(
       columns: [
         { data: "rtn" },
         { data: "nombres" },
-        { data: "apellidos" },
         { data: "telefono" },
         { data: "correo_electronico" },
         { data: "direccion" },
@@ -69,16 +68,14 @@ document.addEventListener(
 
         let strRtn = document.querySelector("#txtRtn").value;
         let strNombres = document.querySelector("#txtNombres").value.toUpperCase();
-        let strApellidos = document.querySelector("#txtApellidos").value.toUpperCase();
         let intTelefono = document.querySelector("#txtTelefono").value;
         let strEmail = document.querySelector("#txtEmail").value;
         let strDireccion  = document.querySelector("#txtDireccion").value.toUpperCase();
         let cod_genero = document.querySelector("#listGenero").value;
         
 
-        if ( strRtn == "" || strNombres == "" || strApellidos == "" || intTelefono == "" || strEmail == "" || 
-        strDireccion == "" || cod_genero == "") {
-          swal("Atención", "Todos los campos son obligatorios.", "error");
+        if ( strNombres == ""  || cod_genero == "") {
+          swal("Atención", "Los campos con son obligatorios.", "error");
           return false;
         }
 
@@ -111,11 +108,10 @@ document.addEventListener(
 
                 rowTable.cells[0].textContent = strRtn;
                 rowTable.cells[1].textContent = strNombres;
-                rowTable.cells[2].textContent = strApellidos;
-                rowTable.cells[3].textContent = intTelefono;
-                rowTable.cells[4].textContent = strEmail;
-                rowTable.cells[5].innerHTML = strDireccion;
-                rowTable.cells[6].textContent = document.querySelector("#listGenero").selectedOptions[0].text;
+                rowTable.cells[2].textContent = intTelefono;
+                rowTable.cells[3].textContent = strEmail;
+                rowTable.cells[4].innerHTML = strDireccion;
+                rowTable.cells[5].textContent = document.querySelector("#listGenero").selectedOptions[0].text;
                 rowTable = "";
               }
 
@@ -182,7 +178,6 @@ function fntViewCliente(cod_cliente) {
 
         document.querySelector("#celRtn").innerHTML = objData.data.rtn;
         document.querySelector("#celNombres").innerHTML = objData.data.nombres;
-        document.querySelector("#celApellidos").innerHTML = objData.data.apellidos;
         document.querySelector("#celTelefono").innerHTML = objData.data.telefono;
         document.querySelector("#celEmail").innerHTML = objData.data.correo_electronico;
         document.querySelector("#celDireccion").innerHTML = objData.data.direccion;
@@ -221,7 +216,6 @@ function fntEditCliente(element, cod_cliente) {
         document.querySelector("#cod_cliente").value = objData.data.cod_cliente;
         document.querySelector("#txtRtn").value = objData.data.rtn;
         document.querySelector("#txtNombres").value = objData.data.nombres;
-        document.querySelector("#txtApellidos").value = objData.data.apellidos;
         document.querySelector("#txtTelefono").value = objData.data.telefono;
         document.querySelector("#txtEmail").value = objData.data.correo_electronico;
         document.querySelector("#txtDireccion").value = objData.data.direccion;

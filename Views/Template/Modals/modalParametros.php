@@ -24,7 +24,7 @@
 
             <div class="form-group col-md-7">
               <label for="txtparametro">Valor</label>
-              <input type="text" pattern="[a-zA-Z0-9_]+" class="form-control" id="txtvalor" name="txtvalor" style="text-transform:uppercase" required="" title="Ingrese solo letras y números sin espacios">
+              <input type="text" pattern="[A-Za-z0-9 ]+" class="form-control " id="txtvalor" name="txtvalor"  required="" title="Ingrese letras y números ">
             </div>
 
           </div>

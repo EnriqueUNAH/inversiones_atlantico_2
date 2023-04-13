@@ -174,6 +174,14 @@ function fntEditParametro(element, id_parametro) {
 
         document.querySelector("#txtparametro").value = objData.data.parametro;
         document.querySelector("#txtvalor").value = objData.data.valor;
+
+        //Si recibe un usuario, quiere decir que está editando,
+        //entonces coloca el input de Usuario como solo lectura
+        if (id_parametro) {
+          document.querySelector("#txtparametro").setAttribute("readonly", true);
+        }
+
+
       }
     }
 
@@ -226,6 +234,7 @@ function fntDelParametro(id_parametro) {
 function openModal() {
   rowTable = "";
   document.querySelector("#id_parametro").value = "";
+  document.querySelector("#txtparametro").removeAttribute("readonly"); //Para quitar el readonly en caso de que antes se haya editado
   document
     .querySelector(".modal-header")
     .classList.replace("headerUpdate", "headerRegister");

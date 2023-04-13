@@ -5,7 +5,6 @@ class ClientesModel extends Mysql
 	private $cod_cliente;
 	private $strRtn;
 	private $strNombres;
-	private $strApellidos;
 	private $intTelefono;
 	private $strEmail;
 	private $strDireccion;
@@ -17,11 +16,10 @@ class ClientesModel extends Mysql
 		parent::__construct();
 	}
 
-	public function insertCliente(int $rtn, string $nombres, string $apellidos, int $telefono, string $correo_electronico, string $direccion, int $cod_genero)
+	public function insertCliente(int $rtn, string $nombres, int $telefono, string $correo_electronico, string $direccion, int $cod_genero)
 	{
 		$this->strRtn = $rtn;
 		$this->strNombres = $nombres;
-		$this->strApellidos = $apellidos;
 		$this->intTelefono = $telefono;
 		$this->strEmail = $correo_electronico;
 		$this->strDireccion = $direccion;
@@ -36,12 +34,11 @@ class ClientesModel extends Mysql
 		$request = $this->select_all($sql);
 
 		if (empty($request)) {
-			$query_insert  = "INSERT INTO tbl_cliente(rtn,nombres,apellidos,telefono,correo_electronico,direccion,cod_genero,creado_por,fecha_creacion) 
-								  VALUES(?,?,?,?,?,?,?,?,?)";
+			$query_insert  = "INSERT INTO tbl_cliente(rtn,nombres,telefono,correo_electronico,direccion,cod_genero,creado_por,fecha_creacion) 
+								  VALUES(?,?,?,?,?,?,?,?)";
 			$arrData = array(
 				$this->strRtn,
 				$this->strNombres,
-				$this->strApellidos,
 				$this->intTelefono,
 				$this->strEmail,
 				$this->strDireccion,
@@ -94,7 +91,7 @@ class ClientesModel extends Mysql
 		// if ($_SESSION['idUser'] != 1) {
 		// 	$whereAdmin = " and p.cod_cliente != 1 ";
 		// }
-		$sql = "SELECT p.cod_cliente,p.rtn,p.nombres,p.apellidos,p.telefono,p.correo_electronico,p.direccion,p.cod_genero, r.nombre_genero
+		$sql = "SELECT p.cod_cliente,p.rtn,p.nombres,p.telefono,p.correo_electronico,p.direccion,p.cod_genero, r.nombre_genero
 					FROM tbl_cliente p 
 					INNER JOIN tbl_genero r
 					ON p.cod_genero = r.cod_genero
@@ -122,7 +119,7 @@ class ClientesModel extends Mysql
 	public function selectCliente(int $cod_cliente)
 	{
 		$this->cod_cliente= $cod_cliente;
-		$sql = "SELECT p.cod_cliente,p.rtn,p.nombres,p.apellidos,p.telefono,p.correo_electronico,p.direccion,
+		$sql = "SELECT p.cod_cliente,p.rtn,p.nombres,p.telefono,p.correo_electronico,p.direccion,
 		p.cod_genero,r.nombre_genero,p.creado_por, DATE_FORMAT(p.fecha_creacion, '%Y-%m-%d %H:%i:%s') as fecha_creacion ,p.modificado_por,p.fecha_modificacion
 					FROM tbl_genero r
 					INNER JOIN tbl_cliente p
@@ -132,13 +129,12 @@ class ClientesModel extends Mysql
 		return $request;
 	}
 
-	public function updateCliente(int $cod_cliente,int $rtn, string $nombres, string $apellidos, int $telefono, string $correo_electronico, string $direccion, int $cod_genero)
+	public function updateCliente(int $cod_cliente,int $rtn, string $nombres, int $telefono, string $correo_electronico, string $direccion, int $cod_genero)
 	{
 
 		$this->cod_cliente = $cod_cliente;
 		$this->strRtn = $rtn;
 		$this->strNombres = $nombres;
-		$this->strApellidos = $apellidos;
 		$this->intTelefono = $telefono;
 		$this->strEmail = $correo_electronico;
 		$this->strDireccion = $direccion;
@@ -152,12 +148,11 @@ class ClientesModel extends Mysql
 
 		if (empty($request)) {
 
-			$sql = "UPDATE tbl_cliente SET rtn=?, nombres=?, apellidos=? , telefono=?, correo_electronico=?, direccion=?, Cod_genero=?, modificado_por=?, fecha_modificacion=?
+			$sql = "UPDATE tbl_cliente SET rtn=?, nombres=?, telefono=?, correo_electronico=?, direccion=?, Cod_genero=?, modificado_por=?, fecha_modificacion=?
 							WHERE cod_cliente = $this->cod_cliente ";
 			$arrData = array(
 				$this->strRtn ,
 				$this->strNombres,
-				$this->strApellidos,
 				$this->intTelefono,
 				$this->strEmail,
                 $this->strDireccion,
