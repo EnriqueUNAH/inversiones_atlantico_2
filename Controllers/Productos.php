@@ -48,9 +48,11 @@ class Productos extends Controllers
 	public function setProducto()
 	{
 		if ($_POST) {
-			if (empty($_POST['txtnombre']) || empty($_POST['txtdescripcion']) || empty($_POST['intCantidadMin']) ||
-		    	empty($_POST['intCantidadMax']) || empty($_POST['listTipo']) || empty($_POST['intprecio']) ||
-			    empty($_POST['listStatus'])) {
+			if (
+				empty($_POST['txtnombre']) || empty($_POST['txtdescripcion']) || empty($_POST['intCantidadMin']) ||
+				empty($_POST['intCantidadMax']) || empty($_POST['listTipo']) || empty($_POST['intprecio']) ||
+				empty($_POST['listStatus'])
+			) {
 				$arrResponse = array("status" => false, "msg" => 'Datos incorrectos.');
 
 				/*El siguiente else if, sirve para que valide desde el servidor. Que si se ingresa una letra 
@@ -113,12 +115,12 @@ class Productos extends Controllers
 						$request_user = $this->model->updateProducto(
 							$cod_producto,
 							$strNombreProducto,
-				            $strDescripcion,
-				            $intCantidadMinima,
-				            $intCantidadMaxima,
-				            $intCodTipoProducto,
-                            $decPrecioVenta,
-                            $intStatus
+							$strDescripcion,
+							$intCantidadMinima,
+							$intCantidadMaxima,
+							$intCodTipoProducto,
+							$decPrecioVenta,
+							$intStatus
 						);
 					}
 
@@ -147,7 +149,6 @@ class Productos extends Controllers
 				} else {
 					$arrResponse = array("status" => false, "msg" => 'No es posible almacenar los datos.');
 				}
-		
 			}
 
 			echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
@@ -171,7 +172,7 @@ class Productos extends Controllers
 				} else if ($arrData[$i]['estado'] == 2) {
 					$arrData[$i]['estado'] = '<span class="badge badge-danger">INACTIVO</span>';
 				} else if ($arrData[$i]['estado'] == 3) {
-					$arrData[$i]['estado'] = '<span class="badge badge-info">NUEVO</span>';
+					$arrData[$i]['estado'] = '<span class="badge badge-success">ACTIVO</span>';
 				} else if ($arrData[$i]['estado'] == 4) {
 					$arrData[$i]['estado'] = '<span class="badge badge-danger">BLOQUEADO</span>';
 				}

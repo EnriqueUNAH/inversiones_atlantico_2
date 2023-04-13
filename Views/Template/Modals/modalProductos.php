@@ -24,30 +24,30 @@
           <div class="form-row">
             <div class="form-group col-md-6">
               <label for="txtnombre">Nombre Producto</label>
-              <input type="text" pattern="[a-zA-Z]+" class="form-control" id="txtnombre" name="txtnombre" style="text-transform:uppercase" required="" title="Ingrese solo letras sin espacios">
+              <input type="text" class="form-control" id="txtnombre" name="txtnombre" style="text-transform:uppercase" required="">
             </div>
 
-           <div class="form-group col-md-6">
+            <div class="form-group col-md-6">
               <label for="txtdescripcion">Descripción</label>
-              <input type="text" pattern="[a-zA-Z ]+" class="form-control valid validText" id="txtdescripcion" name="txtdescripcion" style="text-transform:uppercase" required="" title="No se puede ingresar números">
+              <input type="text" class="form-control valid validText" id="txtdescripcion" name="txtdescripcion" style="text-transform:uppercase">
             </div>
 
           </div>
-         
+
 
           <div class="form-row">
             <div class="form-group col-md-6">
               <label for="intCantidadMin">Cantidad Mínima</label>
-              <input  type="number" class="form-control" id="intCantidadMin" name="intCantidadMin" required="">
+              <input type="number" class="form-control" id="intCantidadMin" name="intCantidadMin" required="">
             </div>
             <div class="form-group col-md-6">
               <label for="intCantidadMax">Cantidad Máxima</label>
               <input type="number" class="form-control" id="intCantidadMax" name="intCantidadMax" required="">
             </div>
 
-          
+
           </div>
-          
+
           <div class="form-row">
 
             <div class="form-group col-md-6">
@@ -66,14 +66,14 @@
 
           <div class="form-row">
 
-          <div class="form-group col-md-6">
+            <div class="form-group col-md-6">
               <label for="listStatus">Estado</label>
               <select class="form-control selectpicker" id="listStatus" name="listStatus" required>
-                <option value="3">NUEVO</option>
+
                 <option value="1">ACTIVO</option>
                 <option value="2">INACTIVO</option>
               </select>
-            </div> 
+            </div>
           </div>
 
           <div class="tile-footer">
