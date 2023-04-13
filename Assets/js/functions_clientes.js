@@ -195,7 +195,7 @@ function fntViewCliente(cod_cliente) {
   };
 }
 
-//Función cuando se le da click al botón editar cliente
+//Función cuando se le da click al botón editar cliente probar
 function fntEditCliente(element, cod_cliente) {
   rowTable = element.parentNode.parentNode.parentNode;
   document.querySelector("#titleModal").innerHTML = "Actualizar Cliente";
