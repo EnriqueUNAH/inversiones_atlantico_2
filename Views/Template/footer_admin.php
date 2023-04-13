@@ -37,6 +37,11 @@
     <!-- Para usar máscaras de entrada -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.6/jquery.inputmask.min.js"></script>
 
+
+
+    <!-- Incluimos la biblioteca jsPDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+
     </body>
 
     </html>

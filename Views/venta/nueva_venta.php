@@ -85,7 +85,16 @@ $result_p->free();
 
 
 	<section id="container">
+
 		<div class="title_page">
+			<a href="../../ventas" class="btn_atras ">
+				<h2><i class="fas fa-arrow-left"></i>
+					ATRÁS</h2>
+			</a>
+
+		</div>
+		<div class="title_page">
+
 			<h1><i class=""></i> Nueva Venta</h1>
 		</div>
 		<div class="datos_cliente">

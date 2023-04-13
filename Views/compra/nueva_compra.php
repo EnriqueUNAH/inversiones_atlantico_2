@@ -44,6 +44,14 @@ $result->free();
 
 
 	<section id="container">
+
+		<div class="title_page">
+			<a href="../../compras" class="btn_atras ">
+				<h2><i class="fas fa-arrow-left"></i>
+					ATRÁS</h2>
+			</a>
+
+		</div>
 		<div class="title_page">
 			<h1><i class="fas fa-cube"></i> Nueva Compra</h1>
 		</div>
