@@ -86,12 +86,12 @@ $result_p->free();
 
 	<section id="container">
 		<div class="title_page">
-			<h1><i class="fas fa-cube"></i> Nueva Venta</h1>
+			<h1><i class=""></i> Nueva Venta</h1>
 		</div>
 		<div class="datos_cliente">
 			<div class="action_cliente">
 				<h4>Datos del Cliente</h4>
-				<a href="#" class="btn_new btn_new_cliente"><i class="fas fa-plus"></i> Nuevo cliente</a>
+				<!-- <a href="#" class="btn_new btn_new_cliente"><i class="fas fa-plus"></i> Nuevo cliente</a> -->
 			</div>
 			<form name="form_new_cliente_venta" id="form_new_cliente_venta" class="datos">
 				<input type="hidden" name="action" value="addCliente">

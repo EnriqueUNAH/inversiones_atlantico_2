@@ -251,7 +251,7 @@ select {
 }
 .btn_new {
   display: inline-block;
-  background: #239baa;
+  background: #008f39;
   color: #fff;
   padding: 5px 25px;
   border-radius: 4px;
@@ -299,7 +299,7 @@ table td {
 .btn_cancel,
 .btn_ok {
   width: 124px;
-  background: #e66262;
+  background: #ff0000c9;
   color: #fff;
   display: inline-block;
   padding: 5px;
