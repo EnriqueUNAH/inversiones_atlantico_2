@@ -68,7 +68,7 @@
 
         <!--################################SEGURIDAD################################-->
         <?php if (
-          !empty($_SESSION['permisos'][2]['r'])
+          !empty($_SESSION['permisos'][MUSUARIO]['r'])
           || !empty($_SESSION['permisos'][MROL]['r'])
           || !empty($_SESSION['permisos'][MBITACORA]['r'])
           || !empty($_SESSION['permisos'][MPARAMETRO]['r'])
@@ -144,7 +144,7 @@
             <?php } ?>
 
             <?php if (!empty($_SESSION['permisos'][MPRODUCCION]['r'])) { ?>
-              <li><a class="treeview-item" href="<?= base_url(); ?>/resultado"><i class="icon fa fa-circle-o"></i>Resultado Produccion</a></li>
+              <li><a class="treeview-item" href="<?= base_url(); ?>/produccion"><i class="icon fa fa-circle-o"></i>Producciòn</a></li>
             <?php } ?>
 
           </ul>
