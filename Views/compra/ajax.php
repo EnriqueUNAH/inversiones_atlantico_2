@@ -311,7 +311,7 @@ if (!empty($_POST)) {
 		// $token 		 = md5($_SESSION['idUser']);
 		$token 		 = md5(321);
 
-		$query_del = mysqli_query($conection, "DELETE FROM detalle_temp WHERE token_user = '$token' ");
+		$query_del = mysqli_query($conection, "DELETE FROM detalle_temp_c WHERE token_user = '$token' ");
 		mysqli_close($conection);
 		if ($query_del) {
 			echo 'ok';
