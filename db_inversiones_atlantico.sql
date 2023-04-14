@@ -90,7 +90,7 @@ CREATE TABLE `detalle_temp_c` (
   `precio_venta` decimal(10,2) NOT NULL,
   PRIMARY KEY (`cod_detalle_factura`),
   KEY `detalle_temp_ibfk_2_idx` (`cod_producto`)
-) ENGINE=InnoDB AUTO_INCREMENT=84 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=89 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -578,7 +578,7 @@ CREATE TABLE `tbl_ms_bitacora` (
   KEY `bitacora_usuario_idx` (`id_usuario`),
   CONSTRAINT `bitacora_objeto` FOREIGN KEY (`id_objeto`) REFERENCES `tbl_ms_objetos` (`id_objeto`),
   CONSTRAINT `bitacora_usuario` FOREIGN KEY (`id_usuario`) REFERENCES `tbl_ms_usuarios` (`id_usuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=147 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=148 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -587,7 +587,7 @@ CREATE TABLE `tbl_ms_bitacora` (
 
 LOCK TABLES `tbl_ms_bitacora` WRITE;
 /*!40000 ALTER TABLE `tbl_ms_bitacora` DISABLE KEYS */;
-INSERT INTO `tbl_ms_bitacora` VALUES (1,'2023-04-12 21:34:54',1,2,'INGRESO','INGRESO AL MODULO DE ROLES'),(2,'2023-04-12 21:48:25',1,2,'INGRESO','INGRESO AL MODULO DE ROLES'),(3,'2023-04-12 21:48:46',1,2,'INGRESO','INGRESO AL MODULO DE ROLES'),(4,'2023-04-12 21:49:04',1,2,'INGRESO','INGRESO AL MODULO VENTAS'),(5,'2023-04-12 21:49:46',1,2,'INGRESO','INGRESO AL MODULO DE ROLES'),(6,'2023-04-12 21:50:08',1,2,'INGRESO','INGRESO AL MÓDULO CONFIGURACIÓN CAI'),(7,'2023-04-12 21:53:23',1,2,'INGRESO','INGRESO AL MODULO VENTAS'),(8,'2023-04-12 21:54:18',1,2,'INGRESO','INGRESO AL MODULO VENTAS'),(9,'2023-04-12 21:55:43',1,2,'INGRESO','INGRESO AL MODULO VENTAS'),(10,'2023-04-12 22:05:29',1,2,'INGRESO','INGRESO AL MODULO DE ROLES'),(11,'2023-04-12 22:14:01',1,2,'INGRESO','INGRESO AL MODULO DE ROLES'),(12,'2023-04-12 22:15:29',1,2,'INGRESO','INGRESO AL MODULO DE ROLES'),(13,'2023-04-12 22:16:28',1,2,'INGRESO','INGRESO AL MODULO DE ROLES'),(14,'2023-04-12 22:20:12',1,2,'INGRESO','INGRESO AL MODULO DE ROLES'),(15,'2023-04-12 22:21:47',1,2,'INGRESO','INGRESO AL MODULO DE ROLES'),(16,'2023-04-12 22:21:59',1,2,'INGRESO','INGRESO AL MODULO VENTAS'),(17,'2023-04-12 22:22:30',1,2,'INGRESO','INGRESO AL MÓDULO CONFIGURACIÓN CAI'),(18,'2023-04-12 22:29:48',1,2,'INGRESO','INGRESO AL MODULO VENTAS'),(19,'2023-04-12 22:37:54',1,2,'INGRESO','INGRESO AL MODULO VENTAS'),(20,'2023-04-12 22:38:09',1,2,'INGRESO','INGRESO AL MODULO VENTAS'),(21,'2023-04-12 22:40:04',1,2,'INGRESO','INGRESO AL MODULO VENTAS'),(22,'2023-04-12 22:50:03',1,2,'INGRESO','INGRESO AL MODULO VENTAS'),(23,'2023-04-12 23:18:53',1,2,'INGRESO','INGRESO AL MODULO VENTAS'),(24,'2023-04-13 00:01:22',1,2,'INGRESO','INGRESO AL MODULO CLIENTES'),(25,'2023-04-13 00:02:01',1,2,'CREAR','CREACION DE CLIENTE'),(26,'2023-04-13 00:29:04',1,2,'INGRESO','INGRESO AL MODULO CLIENTES'),(27,'2023-04-13 00:29:26',1,2,'INGRESO','INGRESO AL MODULO CLIENTES'),(28,'2023-04-13 00:29:44',1,2,'ACTUALIZAR','ACTUALIZACIÓN DE CLIENTE'),(29,'2023-04-13 00:29:47',1,2,'INGRESO','INGRESO AL MODULO CLIENTES'),(30,'2023-04-13 00:30:48',1,2,'INGRESO','INGRESO AL MODULO CLIENTES'),(31,'2023-04-13 00:33:04',1,2,'CREAR','CREACION DE CLIENTE'),(32,'2023-04-13 00:33:10',1,2,'INGRESO','INGRESO AL MODULO CLIENTES'),(33,'2023-04-13 00:33:30',1,2,'CREAR','CREACION DE CLIENTE'),(34,'2023-04-13 00:34:57',1,2,'CREAR','CREACION DE CLIENTE'),(35,'2023-04-13 00:35:48',1,2,'ACTUALIZAR','ACTUALIZACIÓN DE CLIENTE'),(36,'2023-04-13 00:36:01',1,2,'ACTUALIZAR','ACTUALIZACIÓN DE CLIENTE'),(37,'2023-04-13 00:36:35',1,2,'ACTUALIZAR','ACTUALIZACIÓN DE CLIENTE'),(38,'2023-04-13 00:36:56',1,2,'INGRESO','INGRESO AL MODULO DE ROLES'),(39,'2023-04-13 00:37:01',1,2,'INGRESO','INGRESO AL MODULO USUARIOS'),(40,'2023-04-13 00:37:15',1,2,'INGRESO','INGRESO AL MODULO USUARIOS'),(41,'2023-04-13 00:38:06',1,2,'INGRESO','INGRESO AL MODULO CLIENTES'),(42,'2023-04-13 00:42:30',1,2,'INGRESO','INGRESO AL MODULO CLIENTES'),(43,'2023-04-13 00:42:41',1,2,'CREAR','CREACION DE CLIENTE'),(44,'2023-04-13 00:43:00',1,2,'CREAR','CREACION DE CLIENTE'),(45,'2023-04-13 00:43:19',1,2,'CREAR','CREACION DE CLIENTE'),(46,'2023-04-13 00:43:27',1,2,'CREAR','CREACION DE CLIENTE'),(47,'2023-04-13 00:47:00',1,2,'CERRAR SESIÓN','USUARIO CERRÓ SESIÓN'),(48,'2023-04-13 00:47:08',1,2,'INGRESO','INGRESO AL SISTEMA'),(49,'2023-04-13 00:47:14',1,2,'INGRESO','INGRESO AL MODULO CLIENTES'),(50,'2023-04-13 00:47:20',1,2,'CREAR','CREACION DE CLIENTE'),(51,'2023-04-13 00:47:42',1,2,'CREAR','CREACION DE CLIENTE'),(52,'2023-04-13 00:50:15',1,2,'INGRESO','INGRESO AL MODULO CLIENTES'),(53,'2023-04-13 00:50:28',1,2,'CREAR','CREACION DE CLIENTE'),(54,'2023-04-13 00:54:04',1,2,'CERRAR SESIÓN','USUARIO CERRÓ SESIÓN'),(55,'2023-04-13 00:55:09',1,2,'INGRESO','INGRESO AL SISTEMA'),(56,'2023-04-13 00:55:16',1,2,'INGRESO','INGRESO AL MODULO CLIENTES'),(57,'2023-04-13 00:55:25',1,2,'CREAR','CREACION DE CLIENTE'),(58,'2023-04-13 00:55:31',1,2,'CERRAR SESIÓN','USUARIO CERRÓ SESIÓN'),(59,'2023-04-13 00:56:18',1,2,'INGRESO','INGRESO AL SISTEMA'),(60,'2023-04-13 00:56:23',1,2,'INGRESO','INGRESO AL MODULO CLIENTES'),(61,'2023-04-13 00:56:33',1,2,'CREAR','CREACION DE CLIENTE'),(62,'2023-04-13 00:56:41',1,2,'INGRESO','INGRESO AL MODULO CLIENTES'),(63,'2023-04-13 00:56:54',1,2,'ACTUALIZAR','ACTUALIZACIÓN DE CLIENTE'),(64,'2023-04-13 00:57:04',1,2,'ACTUALIZAR','ACTUALIZACIÓN DE CLIENTE'),(65,'2023-04-13 00:57:11',1,2,'CREAR','CREACION DE CLIENTE'),(66,'2023-04-13 00:57:28',1,2,'ACTUALIZAR','ACTUALIZACIÓN DE CLIENTE'),(67,'2023-04-13 00:57:37',1,2,'ACTUALIZAR','ACTUALIZACIÓN DE CLIENTE'),(68,'2023-04-13 00:57:43',1,2,'CREAR','CREACION DE CLIENTE'),(69,'2023-04-13 00:58:17',1,2,'CREAR','CREACION DE CLIENTE'),(70,'2023-04-13 00:58:21',1,2,'INGRESO','INGRESO AL MODULO CLIENTES'),(71,'2023-04-13 00:58:55',1,2,'INGRESO','INGRESO AL MODULO VENTAS'),(72,'2023-04-13 01:10:14',1,2,'INGRESO','INGRESO AL MODULO USUARIOS'),(73,'2023-04-13 02:37:52',1,2,'INGRESO','INGRESO AL MODULO CLIENTES'),(74,'2023-04-13 02:37:57',1,2,'CREAR','CREACION DE CLIENTE'),(75,'2023-04-13 02:43:11',1,2,'INGRESO','INGRESO AL MODULO DE ROLES'),(76,'2023-04-13 03:30:04',1,2,'INGRESO','INGRESO AL MODULO VENTAS'),(77,'2023-04-13 03:30:08',1,2,'INGRESO','INGRESO AL MODULO VENTAS'),(78,'2023-04-13 03:33:16',1,2,'INGRESO','INGRESO AL MODULO VENTAS'),(79,'2023-04-13 03:34:04',1,2,'INGRESO','INGRESO AL MÓDULO CONFIGURACIÓN CAI'),(80,'2023-04-13 09:11:48',1,2,'INGRESO','INGRESO AL SISTEMA'),(81,'2023-04-13 10:21:05',1,2,'CREAR','CREACION DE PRODUCTO'),(82,'2023-04-13 10:24:41',1,2,'ACTUALIZAR','ACTUALIZACIÓN DE PRODUCTO'),(83,'2023-04-13 10:27:48',1,2,'CREAR','CREACION DE PRODUCTO'),(84,'2023-04-13 10:29:04',1,2,'CREAR','CREACION DE PRODUCTO'),(85,'2023-04-13 10:29:37',1,2,'CREAR','CREACION DE PRODUCTO'),(86,'2023-04-13 10:30:07',1,2,'ACTUALIZAR','ACTUALIZACIÓN DE PRODUCTO'),(87,'2023-04-13 10:30:40',1,2,'CREAR','CREACION DE PRODUCTO'),(88,'2023-04-13 10:30:55',1,2,'ACTUALIZAR','ACTUALIZACIÓN DE PRODUCTO'),(89,'2023-04-13 10:31:06',1,2,'INGRESO','INGRESO AL MODULO VENTAS'),(90,'2023-04-13 10:31:20',1,2,'INGRESO','INGRESO AL MODULO VENTAS'),(91,'2023-04-13 10:31:58',1,2,'INGRESO','INGRESO AL MODULO VENTAS'),(92,'2023-04-13 11:35:28',1,2,'INGRESO','INGRESO AL SISTEMA'),(93,'2023-04-13 11:35:39',1,2,'INGRESO','INGRESO AL MODULO COMPRAS'),(94,'2023-04-13 11:35:56',1,2,'INGRESO','INGRESO AL MODULO COMPRAS'),(95,'2023-04-13 11:37:59',1,2,'INGRESO','INGRESO AL MODULO COMPRAS'),(96,'2023-04-13 11:38:30',1,2,'INGRESO','INGRESO AL MODULO DE ROLES'),(97,'2023-04-13 11:40:16',1,2,'INGRESO','INGRESO AL MODULO USUARIOS'),(98,'2023-04-13 14:47:00',1,2,'INGRESO','INGRESO AL SISTEMA'),(99,'2023-04-13 14:48:10',1,2,'INGRESO','INGRESO AL SISTEMA'),(100,'2023-04-13 14:48:17',1,2,'INGRESO','INGRESO AL MODULO DE ROLES'),(101,'2023-04-13 14:48:54',1,2,'INGRESO','INGRESO AL SISTEMA'),(102,'2023-04-13 14:49:26',1,2,'INGRESO','INGRESO AL SISTEMA'),(103,'2023-04-13 14:51:47',1,2,'INGRESO','INGRESO AL SISTEMA'),(104,'2023-04-13 14:51:59',1,2,'INGRESO','INGRESO AL MODULO DE ROLES'),(105,'2023-04-13 14:53:18',1,2,'INGRESO','INGRESO AL MODULO COMPRAS'),(106,'2023-04-13 15:03:39',1,2,'INGRESO','INGRESO AL MODULO DE ROLES'),(107,'2023-04-13 15:03:42',1,2,'INGRESO','INGRESO AL MODULO VENTAS'),(108,'2023-04-13 15:04:19',1,2,'INGRESO','INGRESO AL MODULO VENTAS'),(109,'2023-04-13 15:06:24',1,2,'INGRESO','INGRESO AL MODULO VENTAS'),(110,'2023-04-13 15:06:28',1,2,'CERRAR SESIÓN','USUARIO CERRÓ SESIÓN'),(111,'2023-04-13 15:08:42',1,2,'INGRESO','INGRESO AL SISTEMA'),(112,'2023-04-13 15:16:06',1,2,'CREAR','CREACION DE PRODUCTO'),(113,'2023-04-13 15:19:30',1,2,'INGRESO','INGRESO AL MODULO VENTAS'),(114,'2023-04-13 15:19:36',1,2,'INGRESO','INGRESO AL MODULO COMPRAS'),(115,'2023-04-13 15:23:25',1,2,'INGRESO','INGRESO AL MODULO COMPRAS'),(116,'2023-04-13 15:30:36',1,2,'INGRESO','INGRESO AL MODULO VENTAS'),(117,'2023-04-13 15:38:07',1,2,'INGRESO','INGRESO AL MODULO VENTAS'),(118,'2023-04-13 15:38:22',1,2,'INGRESO','INGRESO AL MÓDULO CONFIGURACIÓN CAI'),(119,'2023-04-13 21:20:21',1,2,'INGRESO','INGRESO AL SISTEMA'),(120,'2023-04-13 21:20:37',1,2,'INGRESO','INGRESO AL MODULO COMPRAS'),(121,'2023-04-13 21:21:27',1,2,'INGRESO','INGRESO AL MODULO COMPRAS'),(122,'2023-04-13 21:22:02',1,2,'INGRESO','INGRESO AL MODULO DE ROLES'),(123,'2023-04-13 21:22:09',1,2,'INGRESO','INGRESO AL MODULO OBJETOS'),(124,'2023-04-13 21:22:52',1,2,'INGRESO','INGRESO AL MODULO VENTAS'),(125,'2023-04-13 21:23:48',1,2,'INGRESO','INGRESO AL MODULO VENTAS'),(126,'2023-04-13 21:24:06',1,2,'INGRESO','INGRESO AL MODULO DE ROLES'),(127,'2023-04-13 21:26:17',1,2,'INGRESO','INGRESO AL MODULO USUARIOS'),(128,'2023-04-13 21:27:00',1,2,'INGRESO','INGRESO AL MODULO DE ROLES'),(129,'2023-04-13 21:27:22',1,2,'INGRESO','INGRESO AL MODULO DE ROLES'),(130,'2023-04-13 21:27:29',1,2,'INGRESO','INGRESO AL MODULO VENTAS'),(131,'2023-04-13 21:27:30',1,2,'INGRESO','INGRESO AL MODULO USUARIOS'),(132,'2023-04-13 21:30:53',1,2,'INGRESO','INGRESO AL MODULO DE ROLES'),(133,'2023-04-13 21:31:15',1,2,'INGRESO','INGRESO AL MODULO VENTAS'),(134,'2023-04-13 21:34:11',1,2,'INGRESO','INGRESO AL MODULO VENTAS'),(135,'2023-04-13 21:47:38',1,2,'INGRESO','INGRESO AL MODULO VENTAS'),(136,'2023-04-13 21:52:11',1,2,'INGRESO','INGRESO AL MODULO VENTAS'),(137,'2023-04-13 21:52:33',1,2,'INGRESO','INGRESO AL MÓDULO PROMOCION'),(138,'2023-04-13 21:52:36',1,2,'INGRESO','INGRESO AL MODULO USUARIOS'),(139,'2023-04-13 21:56:32',1,2,'INGRESO','INGRESO AL MODULO COMPRAS'),(140,'2023-04-13 22:01:54',1,2,'INGRESO','INGRESO AL MODULO COMPRAS'),(141,'2023-04-13 22:03:27',1,2,'INGRESO','INGRESO AL MODULO COMPRAS'),(142,'2023-04-13 22:03:46',1,2,'INGRESO','INGRESO AL MODULO COMPRAS'),(143,'2023-04-13 22:12:43',1,2,'INGRESO','INGRESO AL MODULO COMPRAS'),(144,'2023-04-13 22:23:59',1,2,'INGRESO','INGRESO AL SISTEMA'),(145,'2023-04-13 22:24:35',1,2,'INGRESO','INGRESO AL MODULO COMPRAS'),(146,'2023-04-13 22:27:53',1,2,'INGRESO','INGRESO AL MODULO COMPRAS');
+INSERT INTO `tbl_ms_bitacora` VALUES (1,'2023-04-12 21:34:54',1,2,'INGRESO','INGRESO AL MODULO DE ROLES'),(2,'2023-04-12 21:48:25',1,2,'INGRESO','INGRESO AL MODULO DE ROLES'),(3,'2023-04-12 21:48:46',1,2,'INGRESO','INGRESO AL MODULO DE ROLES'),(4,'2023-04-12 21:49:04',1,2,'INGRESO','INGRESO AL MODULO VENTAS'),(5,'2023-04-12 21:49:46',1,2,'INGRESO','INGRESO AL MODULO DE ROLES'),(6,'2023-04-12 21:50:08',1,2,'INGRESO','INGRESO AL MÓDULO CONFIGURACIÓN CAI'),(7,'2023-04-12 21:53:23',1,2,'INGRESO','INGRESO AL MODULO VENTAS'),(8,'2023-04-12 21:54:18',1,2,'INGRESO','INGRESO AL MODULO VENTAS'),(9,'2023-04-12 21:55:43',1,2,'INGRESO','INGRESO AL MODULO VENTAS'),(10,'2023-04-12 22:05:29',1,2,'INGRESO','INGRESO AL MODULO DE ROLES'),(11,'2023-04-12 22:14:01',1,2,'INGRESO','INGRESO AL MODULO DE ROLES'),(12,'2023-04-12 22:15:29',1,2,'INGRESO','INGRESO AL MODULO DE ROLES'),(13,'2023-04-12 22:16:28',1,2,'INGRESO','INGRESO AL MODULO DE ROLES'),(14,'2023-04-12 22:20:12',1,2,'INGRESO','INGRESO AL MODULO DE ROLES'),(15,'2023-04-12 22:21:47',1,2,'INGRESO','INGRESO AL MODULO DE ROLES'),(16,'2023-04-12 22:21:59',1,2,'INGRESO','INGRESO AL MODULO VENTAS'),(17,'2023-04-12 22:22:30',1,2,'INGRESO','INGRESO AL MÓDULO CONFIGURACIÓN CAI'),(18,'2023-04-12 22:29:48',1,2,'INGRESO','INGRESO AL MODULO VENTAS'),(19,'2023-04-12 22:37:54',1,2,'INGRESO','INGRESO AL MODULO VENTAS'),(20,'2023-04-12 22:38:09',1,2,'INGRESO','INGRESO AL MODULO VENTAS'),(21,'2023-04-12 22:40:04',1,2,'INGRESO','INGRESO AL MODULO VENTAS'),(22,'2023-04-12 22:50:03',1,2,'INGRESO','INGRESO AL MODULO VENTAS'),(23,'2023-04-12 23:18:53',1,2,'INGRESO','INGRESO AL MODULO VENTAS'),(24,'2023-04-13 00:01:22',1,2,'INGRESO','INGRESO AL MODULO CLIENTES'),(25,'2023-04-13 00:02:01',1,2,'CREAR','CREACION DE CLIENTE'),(26,'2023-04-13 00:29:04',1,2,'INGRESO','INGRESO AL MODULO CLIENTES'),(27,'2023-04-13 00:29:26',1,2,'INGRESO','INGRESO AL MODULO CLIENTES'),(28,'2023-04-13 00:29:44',1,2,'ACTUALIZAR','ACTUALIZACIÓN DE CLIENTE'),(29,'2023-04-13 00:29:47',1,2,'INGRESO','INGRESO AL MODULO CLIENTES'),(30,'2023-04-13 00:30:48',1,2,'INGRESO','INGRESO AL MODULO CLIENTES'),(31,'2023-04-13 00:33:04',1,2,'CREAR','CREACION DE CLIENTE'),(32,'2023-04-13 00:33:10',1,2,'INGRESO','INGRESO AL MODULO CLIENTES'),(33,'2023-04-13 00:33:30',1,2,'CREAR','CREACION DE CLIENTE'),(34,'2023-04-13 00:34:57',1,2,'CREAR','CREACION DE CLIENTE'),(35,'2023-04-13 00:35:48',1,2,'ACTUALIZAR','ACTUALIZACIÓN DE CLIENTE'),(36,'2023-04-13 00:36:01',1,2,'ACTUALIZAR','ACTUALIZACIÓN DE CLIENTE'),(37,'2023-04-13 00:36:35',1,2,'ACTUALIZAR','ACTUALIZACIÓN DE CLIENTE'),(38,'2023-04-13 00:36:56',1,2,'INGRESO','INGRESO AL MODULO DE ROLES'),(39,'2023-04-13 00:37:01',1,2,'INGRESO','INGRESO AL MODULO USUARIOS'),(40,'2023-04-13 00:37:15',1,2,'INGRESO','INGRESO AL MODULO USUARIOS'),(41,'2023-04-13 00:38:06',1,2,'INGRESO','INGRESO AL MODULO CLIENTES'),(42,'2023-04-13 00:42:30',1,2,'INGRESO','INGRESO AL MODULO CLIENTES'),(43,'2023-04-13 00:42:41',1,2,'CREAR','CREACION DE CLIENTE'),(44,'2023-04-13 00:43:00',1,2,'CREAR','CREACION DE CLIENTE'),(45,'2023-04-13 00:43:19',1,2,'CREAR','CREACION DE CLIENTE'),(46,'2023-04-13 00:43:27',1,2,'CREAR','CREACION DE CLIENTE'),(47,'2023-04-13 00:47:00',1,2,'CERRAR SESIÓN','USUARIO CERRÓ SESIÓN'),(48,'2023-04-13 00:47:08',1,2,'INGRESO','INGRESO AL SISTEMA'),(49,'2023-04-13 00:47:14',1,2,'INGRESO','INGRESO AL MODULO CLIENTES'),(50,'2023-04-13 00:47:20',1,2,'CREAR','CREACION DE CLIENTE'),(51,'2023-04-13 00:47:42',1,2,'CREAR','CREACION DE CLIENTE'),(52,'2023-04-13 00:50:15',1,2,'INGRESO','INGRESO AL MODULO CLIENTES'),(53,'2023-04-13 00:50:28',1,2,'CREAR','CREACION DE CLIENTE'),(54,'2023-04-13 00:54:04',1,2,'CERRAR SESIÓN','USUARIO CERRÓ SESIÓN'),(55,'2023-04-13 00:55:09',1,2,'INGRESO','INGRESO AL SISTEMA'),(56,'2023-04-13 00:55:16',1,2,'INGRESO','INGRESO AL MODULO CLIENTES'),(57,'2023-04-13 00:55:25',1,2,'CREAR','CREACION DE CLIENTE'),(58,'2023-04-13 00:55:31',1,2,'CERRAR SESIÓN','USUARIO CERRÓ SESIÓN'),(59,'2023-04-13 00:56:18',1,2,'INGRESO','INGRESO AL SISTEMA'),(60,'2023-04-13 00:56:23',1,2,'INGRESO','INGRESO AL MODULO CLIENTES'),(61,'2023-04-13 00:56:33',1,2,'CREAR','CREACION DE CLIENTE'),(62,'2023-04-13 00:56:41',1,2,'INGRESO','INGRESO AL MODULO CLIENTES'),(63,'2023-04-13 00:56:54',1,2,'ACTUALIZAR','ACTUALIZACIÓN DE CLIENTE'),(64,'2023-04-13 00:57:04',1,2,'ACTUALIZAR','ACTUALIZACIÓN DE CLIENTE'),(65,'2023-04-13 00:57:11',1,2,'CREAR','CREACION DE CLIENTE'),(66,'2023-04-13 00:57:28',1,2,'ACTUALIZAR','ACTUALIZACIÓN DE CLIENTE'),(67,'2023-04-13 00:57:37',1,2,'ACTUALIZAR','ACTUALIZACIÓN DE CLIENTE'),(68,'2023-04-13 00:57:43',1,2,'CREAR','CREACION DE CLIENTE'),(69,'2023-04-13 00:58:17',1,2,'CREAR','CREACION DE CLIENTE'),(70,'2023-04-13 00:58:21',1,2,'INGRESO','INGRESO AL MODULO CLIENTES'),(71,'2023-04-13 00:58:55',1,2,'INGRESO','INGRESO AL MODULO VENTAS'),(72,'2023-04-13 01:10:14',1,2,'INGRESO','INGRESO AL MODULO USUARIOS'),(73,'2023-04-13 02:37:52',1,2,'INGRESO','INGRESO AL MODULO CLIENTES'),(74,'2023-04-13 02:37:57',1,2,'CREAR','CREACION DE CLIENTE'),(75,'2023-04-13 02:43:11',1,2,'INGRESO','INGRESO AL MODULO DE ROLES'),(76,'2023-04-13 03:30:04',1,2,'INGRESO','INGRESO AL MODULO VENTAS'),(77,'2023-04-13 03:30:08',1,2,'INGRESO','INGRESO AL MODULO VENTAS'),(78,'2023-04-13 03:33:16',1,2,'INGRESO','INGRESO AL MODULO VENTAS'),(79,'2023-04-13 03:34:04',1,2,'INGRESO','INGRESO AL MÓDULO CONFIGURACIÓN CAI'),(80,'2023-04-13 09:11:48',1,2,'INGRESO','INGRESO AL SISTEMA'),(81,'2023-04-13 10:21:05',1,2,'CREAR','CREACION DE PRODUCTO'),(82,'2023-04-13 10:24:41',1,2,'ACTUALIZAR','ACTUALIZACIÓN DE PRODUCTO'),(83,'2023-04-13 10:27:48',1,2,'CREAR','CREACION DE PRODUCTO'),(84,'2023-04-13 10:29:04',1,2,'CREAR','CREACION DE PRODUCTO'),(85,'2023-04-13 10:29:37',1,2,'CREAR','CREACION DE PRODUCTO'),(86,'2023-04-13 10:30:07',1,2,'ACTUALIZAR','ACTUALIZACIÓN DE PRODUCTO'),(87,'2023-04-13 10:30:40',1,2,'CREAR','CREACION DE PRODUCTO'),(88,'2023-04-13 10:30:55',1,2,'ACTUALIZAR','ACTUALIZACIÓN DE PRODUCTO'),(89,'2023-04-13 10:31:06',1,2,'INGRESO','INGRESO AL MODULO VENTAS'),(90,'2023-04-13 10:31:20',1,2,'INGRESO','INGRESO AL MODULO VENTAS'),(91,'2023-04-13 10:31:58',1,2,'INGRESO','INGRESO AL MODULO VENTAS'),(92,'2023-04-13 11:35:28',1,2,'INGRESO','INGRESO AL SISTEMA'),(93,'2023-04-13 11:35:39',1,2,'INGRESO','INGRESO AL MODULO COMPRAS'),(94,'2023-04-13 11:35:56',1,2,'INGRESO','INGRESO AL MODULO COMPRAS'),(95,'2023-04-13 11:37:59',1,2,'INGRESO','INGRESO AL MODULO COMPRAS'),(96,'2023-04-13 11:38:30',1,2,'INGRESO','INGRESO AL MODULO DE ROLES'),(97,'2023-04-13 11:40:16',1,2,'INGRESO','INGRESO AL MODULO USUARIOS'),(98,'2023-04-13 14:47:00',1,2,'INGRESO','INGRESO AL SISTEMA'),(99,'2023-04-13 14:48:10',1,2,'INGRESO','INGRESO AL SISTEMA'),(100,'2023-04-13 14:48:17',1,2,'INGRESO','INGRESO AL MODULO DE ROLES'),(101,'2023-04-13 14:48:54',1,2,'INGRESO','INGRESO AL SISTEMA'),(102,'2023-04-13 14:49:26',1,2,'INGRESO','INGRESO AL SISTEMA'),(103,'2023-04-13 14:51:47',1,2,'INGRESO','INGRESO AL SISTEMA'),(104,'2023-04-13 14:51:59',1,2,'INGRESO','INGRESO AL MODULO DE ROLES'),(105,'2023-04-13 14:53:18',1,2,'INGRESO','INGRESO AL MODULO COMPRAS'),(106,'2023-04-13 15:03:39',1,2,'INGRESO','INGRESO AL MODULO DE ROLES'),(107,'2023-04-13 15:03:42',1,2,'INGRESO','INGRESO AL MODULO VENTAS'),(108,'2023-04-13 15:04:19',1,2,'INGRESO','INGRESO AL MODULO VENTAS'),(109,'2023-04-13 15:06:24',1,2,'INGRESO','INGRESO AL MODULO VENTAS'),(110,'2023-04-13 15:06:28',1,2,'CERRAR SESIÓN','USUARIO CERRÓ SESIÓN'),(111,'2023-04-13 15:08:42',1,2,'INGRESO','INGRESO AL SISTEMA'),(112,'2023-04-13 15:16:06',1,2,'CREAR','CREACION DE PRODUCTO'),(113,'2023-04-13 15:19:30',1,2,'INGRESO','INGRESO AL MODULO VENTAS'),(114,'2023-04-13 15:19:36',1,2,'INGRESO','INGRESO AL MODULO COMPRAS'),(115,'2023-04-13 15:23:25',1,2,'INGRESO','INGRESO AL MODULO COMPRAS'),(116,'2023-04-13 15:30:36',1,2,'INGRESO','INGRESO AL MODULO VENTAS'),(117,'2023-04-13 15:38:07',1,2,'INGRESO','INGRESO AL MODULO VENTAS'),(118,'2023-04-13 15:38:22',1,2,'INGRESO','INGRESO AL MÓDULO CONFIGURACIÓN CAI'),(119,'2023-04-13 21:20:21',1,2,'INGRESO','INGRESO AL SISTEMA'),(120,'2023-04-13 21:20:37',1,2,'INGRESO','INGRESO AL MODULO COMPRAS'),(121,'2023-04-13 21:21:27',1,2,'INGRESO','INGRESO AL MODULO COMPRAS'),(122,'2023-04-13 21:22:02',1,2,'INGRESO','INGRESO AL MODULO DE ROLES'),(123,'2023-04-13 21:22:09',1,2,'INGRESO','INGRESO AL MODULO OBJETOS'),(124,'2023-04-13 21:22:52',1,2,'INGRESO','INGRESO AL MODULO VENTAS'),(125,'2023-04-13 21:23:48',1,2,'INGRESO','INGRESO AL MODULO VENTAS'),(126,'2023-04-13 21:24:06',1,2,'INGRESO','INGRESO AL MODULO DE ROLES'),(127,'2023-04-13 21:26:17',1,2,'INGRESO','INGRESO AL MODULO USUARIOS'),(128,'2023-04-13 21:27:00',1,2,'INGRESO','INGRESO AL MODULO DE ROLES'),(129,'2023-04-13 21:27:22',1,2,'INGRESO','INGRESO AL MODULO DE ROLES'),(130,'2023-04-13 21:27:29',1,2,'INGRESO','INGRESO AL MODULO VENTAS'),(131,'2023-04-13 21:27:30',1,2,'INGRESO','INGRESO AL MODULO USUARIOS'),(132,'2023-04-13 21:30:53',1,2,'INGRESO','INGRESO AL MODULO DE ROLES'),(133,'2023-04-13 21:31:15',1,2,'INGRESO','INGRESO AL MODULO VENTAS'),(134,'2023-04-13 21:34:11',1,2,'INGRESO','INGRESO AL MODULO VENTAS'),(135,'2023-04-13 21:47:38',1,2,'INGRESO','INGRESO AL MODULO VENTAS'),(136,'2023-04-13 21:52:11',1,2,'INGRESO','INGRESO AL MODULO VENTAS'),(137,'2023-04-13 21:52:33',1,2,'INGRESO','INGRESO AL MÓDULO PROMOCION'),(138,'2023-04-13 21:52:36',1,2,'INGRESO','INGRESO AL MODULO USUARIOS'),(139,'2023-04-13 21:56:32',1,2,'INGRESO','INGRESO AL MODULO COMPRAS'),(140,'2023-04-13 22:01:54',1,2,'INGRESO','INGRESO AL MODULO COMPRAS'),(141,'2023-04-13 22:03:27',1,2,'INGRESO','INGRESO AL MODULO COMPRAS'),(142,'2023-04-13 22:03:46',1,2,'INGRESO','INGRESO AL MODULO COMPRAS'),(143,'2023-04-13 22:12:43',1,2,'INGRESO','INGRESO AL MODULO COMPRAS'),(144,'2023-04-13 22:23:59',1,2,'INGRESO','INGRESO AL SISTEMA'),(145,'2023-04-13 22:24:35',1,2,'INGRESO','INGRESO AL MODULO COMPRAS'),(146,'2023-04-13 22:27:53',1,2,'INGRESO','INGRESO AL MODULO COMPRAS'),(147,'2023-04-13 22:32:14',1,2,'INGRESO','INGRESO AL MODULO COMPRAS');
 /*!40000 ALTER TABLE `tbl_ms_bitacora` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1039,6 +1039,391 @@ LOCK TABLES `tbl_tipo_producto` WRITE;
 INSERT INTO `tbl_tipo_producto` VALUES (3,'INSUMO'),(4,'PRODUCTO TERMINADO');
 /*!40000 ALTER TABLE `tbl_tipo_producto` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Dumping events for database 'db_inversiones_atlantico'
+--
+
+--
+-- Dumping routines for database 'db_inversiones_atlantico'
+--
+/*!50003 DROP PROCEDURE IF EXISTS `add_detalle_temp` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `add_detalle_temp`(`codigo` INT, `cantidad` INT, `token_user` VARCHAR(50))
+BEGIN
+
+        DECLARE precio_actual decimal(10,2);
+        SELECT precio_venta INTO precio_actual FROM tbl_producto WHERE cod_producto = codigo;
+
+        INSERT INTO detalle_temp(token_user,cod_producto,cantidad,precio_venta) VALUES(token_user,codigo,cantidad,precio_actual);
+
+        SELECT tmp.cod_detalle_factura, tmp.cod_producto,p.nombre_producto,tmp.cantidad,tmp.precio_venta FROM detalle_temp tmp
+        INNER JOIN tbl_producto p
+        ON tmp.cod_producto = p.cod_producto
+        WHERE tmp.token_user = token_user;
+
+    END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `add_detalle_temp_c` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `add_detalle_temp_c`(`codigo` INT, `cantidad` INT, `token_user` VARCHAR(50))
+BEGIN
+	 DECLARE precio_actual decimal(10,2);
+        
+        SELECT precio_venta INTO precio_actual FROM tbl_producto WHERE cod_producto = codigo;
+
+        INSERT INTO detalle_temp_c(token_user,cod_producto,cantidad,precio_venta) VALUES(token_user,codigo,cantidad,precio_actual);
+
+        SELECT tmp.cod_detalle_factura, tmp.cod_producto,p.nombre_producto,tmp.cantidad,tmp.precio_venta FROM detalle_temp_c tmp
+        INNER JOIN tbl_producto p
+        ON tmp.cod_producto = p.cod_producto
+        WHERE tmp.token_user = token_user;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `anular_compra` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `anular_compra`(IN `no_compra` INT)
+BEGIN
+		DECLARE existe_compra int;
+        DECLARE registros int;
+        DECLARE a int;
+        
+        DECLARE codproducto int;
+        DECLARE cant_producto int;
+        DECLARE existencia_actual int;
+        DECLARE nueva_existencia int;
+        
+        SET existe_compra = (SELECT COUNT(*) FROM tbl_compra WHERE cod_compra = no_compra and estado = 1);
+        
+        IF existe_compra > 0 THEN
+        	CREATE TEMPORARY TABLE tbl_tmp_c (
+                id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                cod_prod BIGINT,
+                cant_prod int);
+                
+                SET a = 1;
+                
+                SET registros = (SELECT COUNT(*) FROM tbl_detalle_compra WHERE cod_compra = no_compra);
+                
+                IF registros > 0 THEN
+                	INSERT INTO tbl_tmp_c(cod_prod,cant_prod) SELECT cod_producto,cantidad FROM tbl_detalle_compra WHERE cod_compra = no_compra;
+                    
+                    WHILE a <= registros DO
+                    	SELECT cod_prod,cant_prod INTO codproducto,cant_producto FROM tbl_tmp_c WHERE id = a;
+                        SELECT existencia INTO existencia_actual FROM tbl_producto WHERE cod_producto = codproducto;
+                        SET nueva_existencia = existencia_actual - cant_producto;
+                        UPDATE tbl_producto SET existencia = nueva_existencia WHERE cod_producto = codproducto;
+                        
+                        SET a=a+1;
+                    END WHILE;
+                    
+                    UPDATE tbl_compra SET estado = 2 WHERE cod_compra = no_compra;
+                    DROP TABLE tbl_tmp_c;
+                    SELECT * from tbl_compra WHERE cod_compra = no_compra;
+                   
+                END IF;
+
+        ELSE
+        	SELECT 0 factura;
+        END IF;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `anular_factura` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `anular_factura`(IN `no_factura` INT)
+BEGIN
+    	DECLARE existe_factura int;
+        DECLARE registros int;
+        DECLARE a int;
+        
+        DECLARE codproducto int;
+        DECLARE cant_producto int;
+        DECLARE existencia_actual int;
+        DECLARE nueva_existencia int;
+        
+        SET existe_factura = (SELECT COUNT(*) FROM tbl_factura WHERE cod_factura = no_factura and estado = 1);
+        
+        IF existe_factura > 0 THEN
+        	CREATE TEMPORARY TABLE tbl_tmp (
+                id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                cod_prod BIGINT,
+                cant_prod int);
+                
+                SET a = 1;
+                
+                SET registros = (SELECT COUNT(*) FROM tbl_detalle_factura WHERE cod_factura = no_factura);
+                
+                IF registros > 0 THEN
+                	INSERT INTO tbl_tmp(cod_prod,cant_prod) SELECT cod_producto,cantidad FROM tbl_detalle_factura WHERE cod_factura = no_factura;
+                    
+                    WHILE a <= registros DO
+                    	SELECT cod_prod,cant_prod INTO codproducto,cant_producto FROM tbl_tmp WHERE id = a;
+                        SELECT existencia INTO existencia_actual FROM tbl_producto WHERE cod_producto = codproducto;
+                        SET nueva_existencia = existencia_actual + cant_producto;
+                        UPDATE tbl_producto SET existencia = nueva_existencia WHERE cod_producto = codproducto;
+                        
+                        SET a=a+1;
+                    END WHILE;
+                    
+                    UPDATE tbl_factura SET estado = 2 WHERE cod_factura = no_factura;
+                    DROP TABLE tbl_tmp;
+                    SELECT * from tbl_factura WHERE cod_factura = no_factura;
+                   
+                END IF;
+
+        ELSE
+        	SELECT 0 factura;
+        END IF;
+        
+    END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `del_detalle_temp` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `del_detalle_temp`(`id_detalle` INT, `token` VARCHAR(50))
+BEGIN
+        DELETE FROM detalle_temp WHERE cod_detalle_factura = id_detalle;
+
+        SELECT tmp.cod_detalle_factura, tmp.cod_producto,p.nombre_producto,tmp.cantidad,tmp.precio_venta FROM detalle_temp tmp
+        INNER JOIN tbl_producto p
+        ON tmp.cod_producto = p.cod_producto
+        WHERE tmp.token_user = token;
+    END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `del_detalle_temp_c` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `del_detalle_temp_c`(`id_detalle` INT, `token` VARCHAR(50))
+BEGIN
+	DELETE FROM detalle_temp_c WHERE cod_detalle_factura = id_detalle;
+
+	SELECT tmp.cod_detalle_factura, tmp.cod_producto,p.nombre_producto,tmp.cantidad,tmp.precio_venta FROM detalle_temp_c tmp
+	INNER JOIN tbl_producto p
+	ON tmp.cod_producto = p.cod_producto
+	WHERE tmp.token_user = token;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `procesar_compra` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `procesar_compra`(`cod_usuario` INT, `token` VARCHAR(50))
+BEGIN
+		DECLARE compra INT;
+        
+        DECLARE registros INT;
+        DECLARE total DECIMAL(10,2);
+
+        DECLARE nueva_existencia int;
+        DECLARE existencia_actual int;
+
+        DECLARE tmp_cod_producto int;
+        DECLARE tmp_cant_producto int;
+        DECLARE a INT;
+        SET a = 1;
+        
+        CREATE TEMPORARY TABLE tbl_tmp_tokenuser_c (
+                id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                cod_prod BIGINT,
+                cant_prod int);
+                
+        SET registros = (SELECT COUNT(*) FROM detalle_temp_c WHERE token_user = token);
+        
+        IF registros > 0 THEN
+        	INSERT INTO tbl_tmp_tokenuser_c(cod_prod,cant_prod) SELECT cod_producto,cantidad FROM detalle_temp_c WHERE token_user = token;
+           
+            INSERT INTO tbl_compra(id_usuario) VALUES(cod_usuario);
+            SET compra = LAST_INSERT_ID();
+            
+            INSERT INTO tbl_detalle_compra(cod_compra,cod_producto,cantidad,precio_venta) SELECT (compra) as cod_compra, cod_producto,cantidad,precio_venta FROM detalle_temp_c WHERE token_user = token;
+            
+            WHILE a <= registros DO
+            	SELECT cod_prod,cant_prod INTO tmp_cod_producto,tmp_cant_producto FROM tbl_tmp_tokenuser_c WHERE id = a;
+                SELECT existencia INTO existencia_actual FROM tbl_producto WHERE cod_producto = tmp_cod_producto;
+                
+                SET nueva_existencia = existencia_actual + tmp_cant_producto;
+                UPDATE tbl_producto SET existencia = nueva_existencia WHERE cod_producto = tmp_cod_producto;
+                
+                SET a=a+1;
+            	
+            END WHILE;
+                                  
+                      
+                     
+            
+            
+            
+            
+            
+		   SET total = (SELECT SUM(cantidad * precio_venta) FROM detalle_temp_c WHERE token_user = token);
+           
+            UPDATE tbl_compra SET total_pagado = total
+            WHERE cod_compra = compra;--
+          
+            DELETE FROM detalle_temp_c WHERE token_user = token;
+            TRUNCATE TABLE tbl_tmp_tokenuser_c;
+            SELECT * FROM tbl_compra WHERE cod_compra = compra;
+        ELSE
+        	SELECT 0;
+        END IF;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `procesar_venta` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `procesar_venta`(`cod_usuario` INT, `cod_cliente` INT, `token` VARCHAR(50))
+BEGIN
+		DECLARE factura INT;
+
+        DECLARE registros INT;
+        DECLARE total DECIMAL(10,2);
+		DECLARE sub_total DECIMAL(10,2);--
+        DECLARE impuesto DECIMAL(10,2);
+		DECLARE porcentaje_impuesto DECIMAL(10,2);
+
+        DECLARE nueva_existencia int;
+        DECLARE existencia_actual int;
+
+        DECLARE tmp_cod_producto int;
+        DECLARE tmp_cant_producto int;
+        DECLARE a INT;
+        SET a = 1;
+        
+        CREATE TEMPORARY TABLE tbl_tmp_tokenuser (
+                id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                cod_prod BIGINT,
+                cant_prod int);
+                
+        SET registros = (SELECT COUNT(*) FROM detalle_temp WHERE token_user = token);
+        
+        IF registros > 0 THEN
+        	INSERT INTO tbl_tmp_tokenuser(cod_prod,cant_prod) SELECT cod_producto,cantidad FROM detalle_temp WHERE token_user = token;
+            
+            INSERT INTO tbl_factura(id_usuario,cod_cliente) VALUES(cod_usuario,cod_cliente);
+            SET factura = LAST_INSERT_ID();
+            
+            INSERT INTO tbl_detalle_factura(cod_factura,cod_producto,cantidad,precio_venta) SELECT (factura) as cod_factura, cod_producto,cantidad,precio_venta FROM detalle_temp WHERE token_user = token;
+            
+            WHILE a <= registros DO
+            	SELECT cod_prod,cant_prod INTO tmp_cod_producto,tmp_cant_producto FROM tbl_tmp_tokenuser WHERE id = a;
+                SELECT existencia INTO existencia_actual FROM tbl_producto WHERE cod_producto = tmp_cod_producto;
+                
+                SET nueva_existencia = existencia_actual - tmp_cant_producto;
+                UPDATE tbl_producto SET existencia = nueva_existencia WHERE cod_producto = tmp_cod_producto;
+                
+                SET a=a+1;
+            	
+            END WHILE;
+            
+		   SET total = (SELECT SUM(cantidad * precio_venta) FROM detalle_temp WHERE token_user = token);
+		   SET porcentaje_impuesto = (SELECT valor FROM tbl_ms_parametros where parametro = "impuesto");--
+           SET sub_total = total-((total*porcentaje_impuesto)/100);--
+           SET impuesto = total-sub_total;--
+            UPDATE tbl_factura SET totalfactura = total, 
+									subtotal = sub_total, 
+									isv = impuesto, 
+									porcentaje_isv = porcentaje_impuesto
+            WHERE cod_factura = factura;
+          
+            DELETE FROM detalle_temp WHERE token_user = token;
+            TRUNCATE TABLE tbl_tmp_tokenuser;
+            SELECT * FROM tbl_factura WHERE cod_factura = factura;
+        ELSE
+        	SELECT 0;
+        END IF;
+    END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -1049,4 +1434,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-04-13 22:30:38
+-- Dump completed on 2023-04-13 22:39:08
