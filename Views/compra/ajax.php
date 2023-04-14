@@ -383,7 +383,7 @@ if (!empty($_POST)) {
 		if (!empty($_POST['cod_factura'])) {
 			$cod_factura = $_POST['cod_factura'];
 
-			$query_anular 	= mysqli_query($conection, "CALL anular_factura($cod_factura)");
+			$query_anular 	= mysqli_query($conection, "CALL anular_compra($cod_factura)");
 			mysqli_close($conection);
 			$result = mysqli_num_rows($query_anular);
 			if ($result > 0) {

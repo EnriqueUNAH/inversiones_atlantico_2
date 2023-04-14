@@ -213,22 +213,15 @@ $total 		= 0;
 					if ($result_config > 0) {
 						$isv = $re_isv['valor'];
 					?>
-						<div>
-							<span class="h2"><?php echo ($r_Nombre); ?></span>
-							<p><?php echo ($r_RazonSocial); ?></p>
-							<p><?php echo ($r_Direccion); ?></p>
-							<p>RTN: <?php echo ($r_RTN); ?></p>
-							<p>Teléfono: <?php echo ($r_Telefono); ?></p>
-							<p>Email: <?php echo ($r_Correo); ?></p>
-						</div>
+					<span class="h2"><?php echo ($r_Nombre); ?></span>
+							
 					<?php
 					}
 					?>
 				</td>
 				<td class="info_factura">
 					<div class="round">
-						<span class="h3">Factura</span>
-						<p>No. Factura: <strong><?php echo $factura['cod_compra']; ?></strong></p>
+						<span class="h3">Compra</span>
 						<p>Fecha: <?php echo $factura['fecha']; ?></p>
 						<p>Hora: <?php echo $factura['hora']; ?></p>
 						<p>Vendedor: <?php echo $factura['vendedor']; ?></p>
@@ -272,14 +265,7 @@ $total 		= 0;
 				?>
 			</tbody>
 			<tfoot id="detalle_totales">
-				<tr>
-					<td colspan="3" class="textright"><span>SUBTOTAL L.</span></td>
-					<td class="textright"><span><?php echo $tl_snisv; ?></span></td>
-				</tr>
-				<tr>
-					<td colspan="3" class="textright"><span>ISV (<?php echo $isv; ?> %)</span></td>
-					<td class="textright"><span><?php echo $impuesto; ?></span></td>
-				</tr>
+				
 				<tr>
 					<td colspan="3" class="textright"><span>TOTAL L.</span></td>
 					<td class="textright"><span><?php echo $total; ?></span></td>
@@ -287,8 +273,7 @@ $total 		= 0;
 			</tfoot>
 		</table>
 		<div>
-			<p class="nota">Si usted tiene preguntas sobre esta factura, <br>pongase en contacto con nombre, teléfono y Email</p>
-			<h4 class="label_gracias">¡Gracias por su compra!</h4>
+			
 		</div>
 	</div>
 </body>

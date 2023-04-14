@@ -298,8 +298,7 @@ $(document).ready(function () {
     //Oculta el boton agregar si la cantidad es menor que 1
     if (
       $(this).val() < 1 ||
-      isNaN($(this).val()) ||
-      $(this).val() > existencia
+      isNaN($(this).val())
     ) {
       $("#add_product_venta").slideUp();
     } else {
