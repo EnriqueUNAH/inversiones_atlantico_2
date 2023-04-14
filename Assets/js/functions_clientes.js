@@ -26,15 +26,6 @@ document.addEventListener(
       dom: "lBfrtip",
       buttons: [
         {
-          extend: "excelHtml5",
-          text: "<i class='fas fa-file-excel'></i> Excel",
-          titleAttr: "Exportar a Excel",
-          className: "btn btn-success",
-          exportOptions: {
-            columns: [0, 1, 2, 3, 4, 5, 6],
-          },
-        },
-        {
           extend: "pdfHtml5",
           text: "<i class='fas fa-file-pdf'></i> PDF",
           titleAttr: "Exportar a PDF",
@@ -75,7 +66,7 @@ document.addEventListener(
         
 
         if ( strNombres == ""  || cod_genero == "") {
-          swal("Atención", "Los campos con son obligatorios.", "error");
+          swal("Atención", "Los campos con * son obligatorios.", "error");
           return false;
         }
 

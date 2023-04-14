@@ -21,15 +21,6 @@ document.addEventListener(
       dom: "lBfrtip",
       buttons: [
         {
-          extend: "excelHtml5",
-          text: "<i class='fas fa-file-excel'></i> Excel",
-          titleAttr: "Exportar a Excel",
-          className: "btn btn-success",
-          exportOptions: {
-            columns: [0],
-          },
-        },
-        {
           extend: "pdfHtml5",
           text: "<i class='fas fa-file-pdf'></i> PDF",
           titleAttr: "Exportar a PDF",

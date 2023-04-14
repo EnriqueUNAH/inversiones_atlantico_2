@@ -24,21 +24,23 @@ document.addEventListener(
       dom: "lBfrtip",
       buttons: [
         {
-          extend: "excelHtml5",
-          text: "<i class='fas fa-file-excel'></i> Excel",
-          titleAttr: "Exportar a Excel",
-          className: "btn btn-success",
-          exportOptions: {
-            columns: [0, 1, 2, 3, 4],
-          },
-        },
-        {
           extend: "pdfHtml5",
           text: "<i class='fas fa-file-pdf'></i> PDF",
           titleAttr: "Exportar a PDF",
           className: "btn btn-danger",
           exportOptions: {
             columns: [0, 1, 2, 3, 4],
+          },
+          customize: function (doc) {
+            doc.styles.tableHeader.color = "#ffffff";
+            doc.styles.tableHeader.fillColor = "#007bff";
+            doc.styles.tableBodyEven.fillColor = "#f2f2f2";
+            doc.styles.tableBodyOdd.fillColor = "#ffffff";
+            doc.content[1].table.widths = Array(
+              doc.content[1].table.body[0].length + 1
+            )
+              .join("*")
+              .split("");
           },
         },
       ],
