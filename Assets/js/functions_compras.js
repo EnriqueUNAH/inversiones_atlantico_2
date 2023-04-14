@@ -138,8 +138,6 @@ function openModalPerfil() {
 
 function ver_compra(codCompra) {
   var cod_compra = codCompra;
-  // var cod_factura = codFactura;
-
   generarPDF(cod_compra);
 }
 
@@ -151,7 +149,7 @@ function generarPDF(compra) {
   var y = parseInt(window.screen.height / 2 - alto / 2);
 
   $url =
-    "Views/compra/factura/generaFactura.php?cl=" + compra;
+    "Views/compra/factura/generaFactura.php?f=" +compra;
   window.open(
     $url,
     "Compra",
