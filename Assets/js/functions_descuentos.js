@@ -30,6 +30,24 @@ document.addEventListener(
             columns: [0, 1],
           },
           customize: function (doc) {
+            doc.styles.tableHeader.alignment = "left"; //Alineación de los nombres de columnas.
+            doc.defaultStyle.alignment = "left"; //Alineación de los datos de la tabla.
+            //Para separar las columnas.
+            doc.content[1].layout = {
+              hLineWidth: function (i, node) {
+                return 1; // ancho de la línea en píxeles
+              },
+              vLineWidth: function (i, node) {
+                return 1;
+              },
+              hLineColor: function (i, node) {
+                return "#aaa"; // color de la línea
+              },
+              vLineColor: function (i, node) {
+                return "#aaa";
+              },
+            };
+
             doc.styles.tableHeader.color = "#ffffff";
             doc.styles.tableHeader.fillColor = "#007bff";
             doc.styles.tableBodyEven.fillColor = "#f2f2f2";
@@ -39,6 +57,37 @@ document.addEventListener(
             )
               .join("*")
               .split("");
+
+            // Agregar pie de página con la fecha
+            var now = new Date();
+            var date = now.toLocaleDateString();
+            var time = now.toLocaleTimeString();
+            var dateTime = date + " " + time;
+            var pageCount = 0;
+            if (doc && doc.internal) {
+              pageCount = doc.internal.getNumberOfPages();
+            }
+            doc.pageCount = pageCount;
+            doc.footer = function (currentPage, pageCount) {
+              return {
+                text:
+                  "Fecha: " +
+                  dateTime +
+                  " - Página " +
+                  currentPage +
+                  " de " +
+                  pageCount,
+                alignment: "center",
+              };
+            };
+            // Crear el PDF con pdfMake
+            var pdfDoc = pdfMake.createPdf(doc);
+
+            // Mostrar el PDF en una nueva pestaña del navegador
+            pdfDoc.getBlob(function (blob) {
+              var objectUrl = URL.createObjectURL(blob);
+              window.open(objectUrl);
+            });
           },
         },
       ],
@@ -53,7 +102,9 @@ document.addEventListener(
       formDescuento.onsubmit = function (e) {
         e.preventDefault();
         // let intIdCodigo = document.querySelector("#txtIdCodigo").value;
-        let strNombre = document.querySelector("#txtNombre").value.toUpperCase();
+        let strNombre = document
+          .querySelector("#txtNombre")
+          .value.toUpperCase();
         let intPorcentaje = document.querySelector("#txtPorcentaje").value;
 
         if (strNombre == "" || intPorcentaje == "") {
@@ -134,8 +185,12 @@ function fntViewInfo(cod_descuento) {
 function fntEditInfo(element, cod_descuento) {
   rowTable = element.parentNode.parentNode.parentNode;
   document.querySelector("#titleModal").innerHTML = "Actualizar Descuento";
-  document.querySelector(".modal-header").classList.replace("headerRegister", "headerUpdate");
-  document.querySelector("#btnActionForm").classList.replace("btn-primary", "btn-info");
+  document
+    .querySelector(".modal-header")
+    .classList.replace("headerRegister", "headerUpdate");
+  document
+    .querySelector("#btnActionForm")
+    .classList.replace("btn-primary", "btn-info");
   document.querySelector("#btnText").innerHTML = "Actualizar";
   let request = window.XMLHttpRequest
     ? new XMLHttpRequest()
@@ -148,9 +203,12 @@ function fntEditInfo(element, cod_descuento) {
       let objData = JSON.parse(request.responseText);
       if (objData.status) {
         // document.querySelector("#idUsuario").value = objData.data.idpersona;
-        document.querySelector("#cod_descuento").value = objData.data.cod_descuento;
-        document.querySelector("#txtNombre").value = objData.data.nombre_descuento;
-        document.querySelector("#txtPorcentaje").value = objData.data.porcentaje_descuento;
+        document.querySelector("#cod_descuento").value =
+          objData.data.cod_descuento;
+        document.querySelector("#txtNombre").value =
+          objData.data.nombre_descuento;
+        document.querySelector("#txtPorcentaje").value =
+          objData.data.porcentaje_descuento;
       }
     }
     $("#modalFormDescuentos").modal("show");
@@ -200,7 +258,7 @@ function fntDelInfo(cod_descuento) {
 
 function openModal() {
   rowTable = "";
-  document.querySelector('#cod_descuento').value ="";
+  document.querySelector("#cod_descuento").value = "";
   document
     .querySelector(".modal-header")
     .classList.replace("headerUpdate", "headerRegister");

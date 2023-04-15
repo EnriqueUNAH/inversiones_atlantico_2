@@ -15,12 +15,12 @@ document.addEventListener(
         dataSrc: "",
       },
       columns: [
-      { data: "nombre_promocion" },
-      { data: "fecha_inicio" },
-      { data: "fecha_final" },
-      { data: "precio_venta" },
-      { data: "options" },
-    ],
+        { data: "nombre_promocion" },
+        { data: "fecha_inicio" },
+        { data: "fecha_final" },
+        { data: "precio_venta" },
+        { data: "options" },
+      ],
       dom: "lBfrtip",
       buttons: [
         {
@@ -32,6 +32,24 @@ document.addEventListener(
             columns: [0, 1, 2, 3],
           },
           customize: function (doc) {
+            doc.styles.tableHeader.alignment = "left"; //Alineación de los nombres de columnas.
+            doc.defaultStyle.alignment = "left"; //Alineación de los datos de la tabla.
+            //Para separar las columnas.
+            doc.content[1].layout = {
+              hLineWidth: function (i, node) {
+                return 1; // ancho de la línea en píxeles
+              },
+              vLineWidth: function (i, node) {
+                return 1;
+              },
+              hLineColor: function (i, node) {
+                return "#aaa"; // color de la línea
+              },
+              vLineColor: function (i, node) {
+                return "#aaa";
+              },
+            };
+
             doc.styles.tableHeader.color = "#ffffff";
             doc.styles.tableHeader.fillColor = "#007bff";
             doc.styles.tableBodyEven.fillColor = "#f2f2f2";
@@ -41,6 +59,37 @@ document.addEventListener(
             )
               .join("*")
               .split("");
+
+            // Agregar pie de página con la fecha
+            var now = new Date();
+            var date = now.toLocaleDateString();
+            var time = now.toLocaleTimeString();
+            var dateTime = date + " " + time;
+            var pageCount = 0;
+            if (doc && doc.internal) {
+              pageCount = doc.internal.getNumberOfPages();
+            }
+            doc.pageCount = pageCount;
+            doc.footer = function (currentPage, pageCount) {
+              return {
+                text:
+                  "Fecha: " +
+                  dateTime +
+                  " - Página " +
+                  currentPage +
+                  " de " +
+                  pageCount,
+                alignment: "center",
+              };
+            };
+            // Crear el PDF con pdfMake
+            var pdfDoc = pdfMake.createPdf(doc);
+
+            // Mostrar el PDF en una nueva pestaña del navegador
+            pdfDoc.getBlob(function (blob) {
+              var objectUrl = URL.createObjectURL(blob);
+              window.open(objectUrl);
+            });
           },
         },
       ],
@@ -52,15 +101,22 @@ document.addEventListener(
 
     if (document.querySelector("#formPromocion")) {
       letformPromocion = document.querySelector("#formPromocion");
-     formPromocion.onsubmit = function (e) {
+      formPromocion.onsubmit = function (e) {
         e.preventDefault();
 
-        let strnombre_promocion = document.querySelector("#txtnombre_promocion").value.toUpperCase();
+        let strnombre_promocion = document
+          .querySelector("#txtnombre_promocion")
+          .value.toUpperCase();
         let datefecha_inicio = document.querySelector("#txtfecha_inicio").value;
         let datefecha_final = document.querySelector("#txtfecha_final").value;
         let intprecio_venta = document.querySelector("#txtprecio_venta").value;
 
-        if (strnombre_promocion == "" || datefecha_inicio == "" || datefecha_final == "" || intprecio_venta == "") {
+        if (
+          strnombre_promocion == "" ||
+          datefecha_inicio == "" ||
+          datefecha_final == "" ||
+          intprecio_venta == ""
+        ) {
           swal("Atención", "Todos los campos son obligatorios.", "error");
           return false;
         }
@@ -91,17 +147,17 @@ document.addEventListener(
               if (rowTable == "") {
                 tablePromocion.api().ajax.reload();
               } else {
-             rowTable.cells[0].textContent = strnombre_promocion;
-             rowTable.cells[1].textContent = datefecha_inicio;
-             rowTable.cells[2].textContent = datefecha_final;
-             rowTable.cells[3].textContent = intprecio_venta;
+                rowTable.cells[0].textContent = strnombre_promocion;
+                rowTable.cells[1].textContent = datefecha_inicio;
+                rowTable.cells[2].textContent = datefecha_final;
+                rowTable.cells[3].textContent = intprecio_venta;
 
                 rowTable = "";
               }
 
               $("#modalFormPromocion").modal("hide");
 
-             formPromocion.reset();
+              formPromocion.reset();
               swal("Promocion", objData.msg, "success");
             } else {
               swal("Error", objData.msg, "error");
@@ -115,7 +171,6 @@ document.addEventListener(
   },
   false
 );
-
 
 //Función cuando se le da click al botón editar Parámetro
 function fntEditPromocion(element, cod_promocion) {
@@ -142,13 +197,14 @@ function fntEditPromocion(element, cod_promocion) {
         document.querySelector("#cod_promocion").value =
           objData.data.cod_promocion;
 
-        document.querySelector("#txtnombre_promocion").value = objData.data.nombre_promocion;
-        document.querySelector("#txtfecha_inicio").value = objData.data.fecha_inicio;
-        document.querySelector("#txtfecha_final").value = objData.data.fecha_final;
-        document.querySelector("#txtprecio_venta").value = objData.data.precio_venta;
-
-
-
+        document.querySelector("#txtnombre_promocion").value =
+          objData.data.nombre_promocion;
+        document.querySelector("#txtfecha_inicio").value =
+          objData.data.fecha_inicio;
+        document.querySelector("#txtfecha_final").value =
+          objData.data.fecha_final;
+        document.querySelector("#txtprecio_venta").value =
+          objData.data.precio_venta;
       }
     }
 
@@ -184,7 +240,7 @@ function fntDelPromocion(cod_promocion) {
         request.onreadystatechange = function () {
           if (request.readyState == 4 && request.status == 200) {
             let objData = JSON.parse(request.responseText);
-            if (objData.status) { 
+            if (objData.status) {
               swal("Eliminar!", objData.msg, "success");
               tablePromocion.api().ajax.reload();
             } else {
