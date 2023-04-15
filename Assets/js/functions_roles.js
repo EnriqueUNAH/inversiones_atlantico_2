@@ -146,7 +146,7 @@ function fntDelRol(id_rol) {
       text: "¿Realmente quiere eliminar el Rol?",
       type: "warning",
       showCancelButton: true,
-      confirmButtonText: "ACEPTAR",
+      confirmButtonText: "ELIMINAR",
       cancelButtonText: "CANCELAR",
       closeOnConfirm: false,
       closeOnCancel: true,
