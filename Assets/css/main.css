@@ -2844,8 +2844,8 @@ fieldset:disabled a.btn {
 
 .btn-secondary {
   color: #fff;
-  background-color: #6c757d;
-  border-color: #6c757d;
+  background-color: #dc3545;
+  border-color: #dc3545;
 }
 
 .btn-secondary:hover {
@@ -12442,7 +12442,7 @@ body.stop-scrolling {
 }
 
 .sweet-alert button {
-  background-color: #7367f0 !important;
+  background-color: #dc3545 !important;
   color: white;
   border: none;
   -webkit-box-shadow: none;

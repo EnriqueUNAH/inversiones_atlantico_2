@@ -19,11 +19,14 @@ session_start();
 			<div class="card">
 
 				<div class="card-body">
-					<center>
-						<h3> Punto de Backup</h3>
+					
+                    
+                   <center>
+					 
+						<h3><br><br> Punto De Respaldo</h3>
 					</center>
 
-					<p class="card-text">Hacer click en el boton respaldo para hacer una copia de seguridad de la base de datos</p>
+					<p class="card-text"><h5>Hacer click en el botón respaldo para hacer una copia de seguridad de la base de datos</h5></p>
 
 
 					<center> <a href="./Backup.php" class="btn btn-primary" onclick="return ConfirmarRespaldo()">
@@ -41,11 +44,11 @@ session_start();
 
 				<div class="card-body">
 					<center>
-						<h3> Punto de Restauracion</h3>
+						<h3> Punto De Restauración</h3>
 					</center>
 
 					<form action="./Restore.php" method="POST">
-						<div class="col-5"><br><label>Selecciona un punto de restauración</label><br></di>
+						<div class="col-5"><br><label><h5>Selecciona un punto de restauración</h5></label><br></di>
 
 							<select name="restorePoint" class="form-select form-select-lg mb-3">
 								<option value="" disabled="" selected="">Selecciona un punto de restauración</option>
