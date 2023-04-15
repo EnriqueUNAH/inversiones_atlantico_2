@@ -373,6 +373,35 @@ $(document).ready(function () {
     }
   });
 
+  // //Facturar Venta
+  // $("#btn_facturar_venta").click(function (e) {
+  //   e.preventDefault();
+
+  //   var rows = $("#detalle_venta tr").length;
+  //   if (rows > 0) {
+  //     var action = "procesarVenta";
+  //     var cod_cliente = $("#cod_cliente").val();
+
+  //     $.ajax({
+  //       url: "ajax.php",
+  //       type: "POST",
+  //       async: true,
+  //       data: { action: action, cod_cliente: cod_cliente },
+
+  //       success: function (response) {
+  //         if (response != "error") {
+  //           var info = JSON.parse(response);
+  //           //console.log(info);
+  //           generarPDF(info.cod_cliente, info.cod_factura);
+  //           location.reload();
+  //         } else {
+  //           console.log("no data");
+  //         }
+  //       },
+  //       error: function (error) {},
+  //     });
+  //   }
+  // });
   //Facturar Venta
   $("#btn_facturar_venta").click(function (e) {
     e.preventDefault();
@@ -392,8 +421,27 @@ $(document).ready(function () {
           if (response != "error") {
             var info = JSON.parse(response);
             //console.log(info);
-            generarPDF(info.cod_cliente, info.cod_factura);
-            location.reload();
+            Swal.fire({
+              title: "Venta Exitosa",
+              icon: "success",
+              confirmButtonText: "OK",
+            }).then(() => {
+              Swal.fire({
+                title: "¿Desea mostrar la factura?",
+                icon: "info",
+                showCancelButton: true,
+                confirmButtonText: "OK",
+                cancelButtonText: "Cancelar",
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  generarPDF(info.cod_cliente, info.cod_factura);
+                  location.reload();
+                  window.location.href = "../../ventas";
+                } else if (result.dismiss === Swal.DismissReason.cancel) {
+                  window.location.href = "../../ventas";
+                }
+              });
+            });
           } else {
             console.log("no data");
           }

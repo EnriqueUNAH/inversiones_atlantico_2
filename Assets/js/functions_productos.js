@@ -50,6 +50,37 @@ document.addEventListener(
             )
               .join("*")
               .split("");
+
+            // Agregar pie de página con la fecha
+            var now = new Date();
+            var date = now.toLocaleDateString();
+            var time = now.toLocaleTimeString();
+            var dateTime = date + " " + time;
+            var pageCount = 0;
+            if (doc && doc.internal) {
+              pageCount = doc.internal.getNumberOfPages();
+            }
+            doc.pageCount = pageCount;
+            doc.footer = function (currentPage, pageCount) {
+              return {
+                text:
+                  "Fecha: " +
+                  dateTime +
+                  " - Página " +
+                  currentPage +
+                  " de " +
+                  pageCount,
+                alignment: "center",
+              };
+            };
+            // Crear el PDF con pdfMake
+            var pdfDoc = pdfMake.createPdf(doc);
+
+            // Mostrar el PDF en una nueva pestaña del navegador
+            pdfDoc.getBlob(function (blob) {
+              var objectUrl = URL.createObjectURL(blob);
+              window.open(objectUrl);
+            });
           },
         },
       ],
@@ -64,14 +95,17 @@ document.addEventListener(
       formProducto.onsubmit = function (e) {
         e.preventDefault();
 
-        let strNombreProducto = document.querySelector("#txtnombre").value.toUpperCase();
-        let strDescripcion = document.querySelector("#txtdescripcion").value.toUpperCase();
+        let strNombreProducto = document
+          .querySelector("#txtnombre")
+          .value.toUpperCase();
+        let strDescripcion = document
+          .querySelector("#txtdescripcion")
+          .value.toUpperCase();
         let intCantidadMinima = document.querySelector("#intCantidadMin").value;
         let intCantidadMaxima = document.querySelector("#intCantidadMax").value;
         let intCodTipoProducto = document.querySelector("#listTipo").value;
         let decPrecioVenta = document.querySelector("#intprecio").value;
         let intStatus = document.querySelector("#listStatus").value;
-
 
         if (
           strNombreProducto == "" ||
@@ -125,7 +159,8 @@ document.addEventListener(
                 rowTable.cells[1].textContent = strDescripcion;
                 rowTable.cells[2].textContent = intCantidadMinima;
                 rowTable.cells[3].textContent = intCantidadMaxima;
-                rowTable.cells[4].textContent = document.querySelector("#listTipo").selectedOptions[0].text;
+                rowTable.cells[4].textContent =
+                  document.querySelector("#listTipo").selectedOptions[0].text;
                 rowTable.cells[5].textContent = decPrecioVenta;
                 rowTable.cells[6].innerHTML = htmlStatus;
                 rowTable = "";
@@ -173,10 +208,6 @@ function fntTipoProducto() {
   }
 }
 
-
-
-
-
 function fntViewProducto(cod_producto) {
   let request = window.XMLHttpRequest
     ? new XMLHttpRequest()
@@ -196,18 +227,27 @@ function fntViewProducto(cod_producto) {
             ? '<span class="badge badge-info">NUEVO</span>'
             : '<span class="badge badge-danger">INACTIVO</span>';
 
-        document.querySelector("#celNombre").innerHTML = objData.data.nombre_producto;
-        document.querySelector("#celDescripcion").innerHTML = objData.data.descripcion;
-        document.querySelector("#celCantMin").innerHTML = objData.data.cantidad_minima;
-        document.querySelector("#celCantMax").innerHTML = objData.data.cantidad_maxima;
-        document.querySelector("#celTipoProducto").innerHTML = objData.data.nombre_tipo_producto;
-        document.querySelector("#celPrecio").innerHTML = objData.data.precio_venta;
+        document.querySelector("#celNombre").innerHTML =
+          objData.data.nombre_producto;
+        document.querySelector("#celDescripcion").innerHTML =
+          objData.data.descripcion;
+        document.querySelector("#celCantMin").innerHTML =
+          objData.data.cantidad_minima;
+        document.querySelector("#celCantMax").innerHTML =
+          objData.data.cantidad_maxima;
+        document.querySelector("#celTipoProducto").innerHTML =
+          objData.data.nombre_tipo_producto;
+        document.querySelector("#celPrecio").innerHTML =
+          objData.data.precio_venta;
         document.querySelector("#celEstado").innerHTML = estado;
-        document.querySelector("#celCreadoPor").innerHTML = objData.data.creado_por;
-        document.querySelector("#celFechaCreacion").innerHTML = objData.data.fecha_creacion;
-        document.querySelector("#celModificadoPor").innerHTML = objData.data.modificado_por;
-        document.querySelector("#celFechaModificacion").innerHTML = objData.data.fecha_modificacion;
-        
+        document.querySelector("#celCreadoPor").innerHTML =
+          objData.data.creado_por;
+        document.querySelector("#celFechaCreacion").innerHTML =
+          objData.data.fecha_creacion;
+        document.querySelector("#celModificadoPor").innerHTML =
+          objData.data.modificado_por;
+        document.querySelector("#celFechaModificacion").innerHTML =
+          objData.data.fecha_modificacion;
 
         $("#modalViewProducto").modal("show");
       } else {
@@ -221,8 +261,12 @@ function fntViewProducto(cod_producto) {
 function fntEditProducto(element, cod_producto) {
   rowTable = element.parentNode.parentNode.parentNode;
   document.querySelector("#titleModal").innerHTML = "Actualizar Producto";
-  document.querySelector(".modal-header").classList.replace("headerRegister", "headerUpdate");
-  document.querySelector("#btnActionForm").classList.replace("btn-primary", "btn-info");
+  document
+    .querySelector(".modal-header")
+    .classList.replace("headerRegister", "headerUpdate");
+  document
+    .querySelector("#btnActionForm")
+    .classList.replace("btn-primary", "btn-info");
   document.querySelector("#btnText").innerHTML = "Actualizar";
   let request = window.XMLHttpRequest
     ? new XMLHttpRequest()
@@ -235,12 +279,18 @@ function fntEditProducto(element, cod_producto) {
       let objData = JSON.parse(request.responseText);
 
       if (objData.status) {
-        document.querySelector("#cod_producto").value = objData.data.cod_producto;
-        document.querySelector("#txtnombre").value = objData.data.nombre_producto;
-        document.querySelector("#txtdescripcion").value = objData.data.descripcion;
-        document.querySelector("#intCantidadMin").value = objData.data.cantidad_minima;
-        document.querySelector("#intCantidadMax").value = objData.data.cantidad_maxima;
-        document.querySelector("#listTipo").value = objData.data.cod_tipo_producto;
+        document.querySelector("#cod_producto").value =
+          objData.data.cod_producto;
+        document.querySelector("#txtnombre").value =
+          objData.data.nombre_producto;
+        document.querySelector("#txtdescripcion").value =
+          objData.data.descripcion;
+        document.querySelector("#intCantidadMin").value =
+          objData.data.cantidad_minima;
+        document.querySelector("#intCantidadMax").value =
+          objData.data.cantidad_maxima;
+        document.querySelector("#listTipo").value =
+          objData.data.cod_tipo_producto;
         $("#listTipo").selectpicker("render");
         document.querySelector("#intprecio").value = objData.data.precio_venta;
 

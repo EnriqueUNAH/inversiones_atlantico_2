@@ -41,6 +41,37 @@ document.addEventListener(
             )
               .join("*")
               .split("");
+
+            // Agregar pie de página con la fecha
+            var now = new Date();
+            var date = now.toLocaleDateString();
+            var time = now.toLocaleTimeString();
+            var dateTime = date + " " + time;
+            var pageCount = 0;
+            if (doc && doc.internal) {
+              pageCount = doc.internal.getNumberOfPages();
+            }
+            doc.pageCount = pageCount;
+            doc.footer = function (currentPage, pageCount) {
+              return {
+                text:
+                  "Fecha: " +
+                  dateTime +
+                  " - Página " +
+                  currentPage +
+                  " de " +
+                  pageCount,
+                alignment: "center",
+              };
+            };
+            // Crear el PDF con pdfMake
+            var pdfDoc = pdfMake.createPdf(doc);
+
+            // Mostrar el PDF en una nueva pestaña del navegador
+            pdfDoc.getBlob(function (blob) {
+              var objectUrl = URL.createObjectURL(blob);
+              window.open(objectUrl);
+            });
           },
         },
       ],
