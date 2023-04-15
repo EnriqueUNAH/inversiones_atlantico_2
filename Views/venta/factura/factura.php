@@ -241,10 +241,12 @@ $total 		= 0;
 					<table class="datos_cliente">
 						<div class="round">
 							<span class="h3">Factura</span>
-							<p>No. Factura: <strong><?php echo $factura['cod_factura']; ?></strong></p>
+							<p>No. Factura: <strong><?php echo $factura['numero_factura']; ?></strong></p><br><br>
 							<p>Fecha: <?php echo $factura['fecha']; ?></p>
 							<p>Hora: <?php echo $factura['hora']; ?></p>
 							<p>Vendedor: <?php echo $factura['vendedor']; ?></p>
+
+
 						</div>
 					</table>
 				</td>

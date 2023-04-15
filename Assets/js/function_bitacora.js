@@ -32,6 +32,24 @@ document.addEventListener(
             columns: [0, 1, 2, 3, 4],
           },
           customize: function (doc) {
+            doc.styles.tableHeader.alignment = "left"; //Alineación de los nombres de columnas.
+            doc.defaultStyle.alignment = "left"; //Alineación de los datos de la tabla.
+            //Para separar las columnas.
+            doc.content[1].layout = {
+              hLineWidth: function (i, node) {
+                return 1; // ancho de la línea en píxeles
+              },
+              vLineWidth: function (i, node) {
+                return 1;
+              },
+              hLineColor: function (i, node) {
+                return "#aaa"; // color de la línea
+              },
+              vLineColor: function (i, node) {
+                return "#aaa";
+              },
+            };
+
             doc.styles.tableHeader.color = "#ffffff";
             doc.styles.tableHeader.fillColor = "#007bff";
             doc.styles.tableBodyEven.fillColor = "#f2f2f2";
