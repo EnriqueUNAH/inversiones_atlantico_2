@@ -258,7 +258,7 @@ $(document).ready(function () {
             $("#txt_nombre_producto").html(info.nombre_producto);
             $("#txt_existencia").html(info.existencia);
             $("#txt_cant_producto").val("1");
-            $("#txt_precio").html(info.precio_venta);
+            $("#txt_precio").val("1")
             $("#txt_precio_total").html(info.precio_venta);
 
             //Activar Cantidad
@@ -277,6 +277,8 @@ $(document).ready(function () {
 
             //Bloquear Cantidad
             $("#txt_cant_producto").attr("disabled", "disabled");
+            $("#txt_precio").attr("disabled", "disabled");
+
 
             //Ocultar boton agregar
             $("#add_product_venta").slideUp();
@@ -313,7 +315,7 @@ $(document).ready(function () {
     if ($("#txt_cant_producto").val() > 0) {
       var cod_producto = $("#txt_cod_producto").val();
       var cantidad = $("#txt_cant_producto").val();
-      var precio_venta = $("#txt_precio").val();
+      var precio_venta= $("#txt_precio").val();
       var action = "addProductoDetalle";
 
       $.ajax({
@@ -337,6 +339,8 @@ $(document).ready(function () {
 
             //Bloquear Cantidad
             $("#txt_cant_producto").attr("disabled", "disabled");
+            $("#txt_precio").attr("disabled", "disabled");
+
 
             //Ocultar boton agregar
             $("#add_product_venta").slideUp();
