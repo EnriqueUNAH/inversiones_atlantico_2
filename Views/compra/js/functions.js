@@ -313,13 +313,14 @@ $(document).ready(function () {
     if ($("#txt_cant_producto").val() > 0) {
       var cod_producto = $("#txt_cod_producto").val();
       var cantidad = $("#txt_cant_producto").val();
+      var precio_venta = $("#txt_precio").val();
       var action = "addProductoDetalle";
 
       $.ajax({
         url: "ajax.php",
         type: "POST",
         async: true,
-        data: { action: action, producto: cod_producto, cantidad: cantidad },
+        data: { action: action, producto: cod_producto, cantidad: cantidad, precio_venta: precio_venta },
 
         success: function (response) {
           if (response != "error") {
@@ -392,8 +393,27 @@ $(document).ready(function () {
           if (response != "error") {
             var info = JSON.parse(response);
             //console.log(info);
-            generarPDF(info.cod_compra);
-            location.reload();
+            Swal.fire({
+              title: "Compra Exitosa",
+              icon: "success",
+              confirmButtonText: "OK",
+            }).then(() => {
+              Swal.fire({
+                title: "¿Desea mostrar la Compra?",
+                icon: "info",
+                showCancelButton: true,
+                confirmButtonText: "OK",
+                cancelButtonText: "Cancelar",
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  generarPDF(info.cod_compra);
+                  location.reload();
+                  window.location.href = "../../Compras";
+                } else if (result.dismiss === Swal.DismissReason.cancel) {
+                  window.location.href = "../../Compras";
+                }
+              });
+            });
           } else {
             console.log("no data");
           }

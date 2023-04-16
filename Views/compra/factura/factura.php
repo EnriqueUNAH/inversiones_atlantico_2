@@ -36,10 +36,10 @@ $total 		= 0;
 			font-family: 'BrixSansBlack';
 			font-size: 12pt;
 			display: block;
-			background: #0a4661;
-			color: #FFF;
+			background: #FFF;
+			color: #000000;
 			text-align: center;
-			padding: 3px;
+			padding: 6px;
 			margin-bottom: 5px;
 		}
 
@@ -121,10 +121,12 @@ $total 		= 0;
 		}
 
 		#factura_detalle thead th {
-			background: #058167;
-			color: #FFF;
+			background: #FFF;
+			color: #000000;
 			padding: 5px;
+			border: 1px solid #000000;
 		}
+
 
 		#detalle_productos tr:nth-child(even) {
 			background: #ededed;
@@ -152,6 +154,9 @@ $total 		= 0;
 			top: 50%;
 			transform: translateX(-50%) translateY(-50%);
 		}
+
+
+
 	</style>
 </head>
 
@@ -219,14 +224,22 @@ $total 		= 0;
 					}
 					?>
 				</td>
-				<td class="info_factura">
+				
+			</tr>
+		</table>
+
+
+		<table id="factura_cliente">
+			<tr>
+			<td class="info_factura">
 					<div class="round">
 						<span class="h3">Compra</span>
+						<p>Vendedor: <?php echo $factura['vendedor']; ?></p>
 						<p>Fecha: <?php echo $factura['fecha']; ?></p>
 						<p>Hora: <?php echo $factura['hora']; ?></p>
-						<p>Vendedor: <?php echo $factura['vendedor']; ?></p>
 					</div>
 				</td>
+
 			</tr>
 		</table>
 
