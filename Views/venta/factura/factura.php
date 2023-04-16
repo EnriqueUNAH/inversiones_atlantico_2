@@ -318,8 +318,12 @@ $total 		= 0;
 					}
 				}
 
-				$impuesto 	= round($subtotal * ($isv / 100), 2);
-				$tl_snisv 	= round($subtotal - $impuesto, 2);
+				$tl_snisv 	= round($subtotal  / (1 + ($isv / 100)), 2);
+				$impuesto 	= round($tl_snisv * ($isv / 100), 2);
+
+
+				// $impuesto 	= round($subtotal * ($isv / 100), 2);
+				// $tl_snisv 	= round($subtotal - $impuesto, 2);
 				$total 		= round($tl_snisv + $impuesto, 2);
 				?>
 			</tbody>

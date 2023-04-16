@@ -22,6 +22,7 @@ AND NOT EXISTS (
     WHERE detalle_temp.cod_producto = tbl_producto.cod_producto
 );
 "; //Cuando sea un PRODUCTO TERMINADO Y NO EXISTA EN DETALLE_TEMP
+//OJO, puede que se cambie el 4 si se cambia algo en la Base de Datos.
 $result = $conection->query($sql);
 
 // Crea un arreglo con los datos obtenidos de la tabla productos

@@ -205,22 +205,29 @@ if (!empty($_POST)) {
 											</td>
 										</tr>';
 				}
+				$porcen_descuento = 20;
+				$descuento = round($sub_total  * (($porcen_descuento / 100)), 2);
 
-				$impuesto 	= round($sub_total * ($isv / 100), 2);
-				$tl_snisv 	= round($sub_total - $impuesto, 2);
+				$tl_snisv 	= round($sub_total  / (1 + ($isv / 100)), 2);
+				$impuesto 	= round($tl_snisv * ($isv / 100), 2);
 				$total 		= round($tl_snisv + $impuesto, 2);
 
-				$detalleTotales = '<tr>
-											<td colspan="5" class="textright">SUBTOTAL L.</td>
-											<td class="textright">' . $tl_snisv . '</td>
+				$detalleTotales = '
+				<tr>
+											<td colspan="5" class="textright">DESCUENTO </td>
+											<td class="textright">' . "- L. " . $descuento . '</td>
+										</tr>
+				<tr>
+											<td colspan="5" class="textright">SUBTOTAL </td>
+											<td class="textright">' . " L. " . $tl_snisv . '</td>
 										</tr>
 										<tr>
 											<td colspan="5" class="textright">ISV (' . $isv . '%)</td>
-											<td class="textright">' . $impuesto . '</td>
+											<td class="textright">' . " L. " . $impuesto . '</td>
 										</tr>
 										<tr>
-											<td colspan="5" class="textright">TOTAL L.</td>
-											<td class="textright">' . $total . '</td>
+											<td colspan="5" class="textright">TOTAL </td>
+											<td class="textright">' . " L. " . $total . '</td>
 										</tr>';
 
 				$arrayData['detalle'] = $detalleTabla;
