@@ -26,7 +26,6 @@
                     <table class="table table-hover table-bordered" id="tableRoles">
                       <thead>
                         <tr>
-                          <th>ID</th>
                           <th>Nombre</th>
                           <th>Descripción</th>
                           <th>Estado</th>

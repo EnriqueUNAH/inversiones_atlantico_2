@@ -19,6 +19,8 @@ document.addEventListener(
       buttons: [
         {
           extend: "pdfHtml5",
+          download: "open",
+          title:"INVERSIONES DEL ATLÁNTICO",
           text: "<i class='fas fa-file-pdf'></i> PDF",
           titleAttr: "Exportar a PDF",
           className: "btn btn-danger",
@@ -54,6 +56,19 @@ document.addEventListener(
               .join("*")
               .split("");
 
+              doc.content.splice(1,0, {
+                columns: [
+                  {
+                  text: "REPORTE DE PREGUNTAS",
+                  fontsize: 20,
+                  bold: true,
+                  alignment: "center",
+                  margin: [0,0,0,15],
+                  width: "*"
+                  }
+                ]
+              })
+
             // Agregar pie de página con la fecha
             var now = new Date();
             var date = now.toLocaleDateString();
@@ -80,10 +95,10 @@ document.addEventListener(
             var pdfDoc = pdfMake.createPdf(doc);
 
             // Mostrar el PDF en una nueva pestaña del navegador
-            pdfDoc.getBlob(function (blob) {
-              var objectUrl = URL.createObjectURL(blob);
-              window.open(objectUrl);
-            });
+            // pdfDoc.getBlob(function (blob) {
+            //   var objectUrl = URL.createObjectURL(blob);
+            //   window.open(objectUrl);
+            // });
           },
         },
       ],

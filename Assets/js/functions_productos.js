@@ -34,8 +34,11 @@ document.addEventListener(
       buttons: [
         {
           extend: "pdfHtml5",
+          download: "open",
+          title:"INVERSIONES DEL ATLÁNTICO",
           text: "<i class='fas fa-file-pdf'></i> PDF",
           titleAttr: "Exportar a PDF",
+          
           className: "btn btn-danger",
           exportOptions: {
             columns: [0, 1, 2, 3, 4, 5],
@@ -57,6 +60,11 @@ document.addEventListener(
               vLineColor: function (i, node) {
                 return "#aaa";
               },
+
+
+
+
+
             };
 
             doc.styles.tableHeader.color = "#ffffff";
@@ -68,6 +76,19 @@ document.addEventListener(
             )
               .join("*")
               .split("");
+              doc.content.splice(1,0, {
+                columns: [
+                  {
+                  text: "REPORTE DE PRODUCTO",
+                  fontsize: 20,
+                  bold: true,
+                  alignment: "center",
+                  margin: [0,0,0,15],
+                  width: "*"
+                  }
+                ]
+              })
+             
 
             // Agregar pie de página con la fecha
             var now = new Date();
@@ -94,11 +115,11 @@ document.addEventListener(
             // Crear el PDF con pdfMake
             var pdfDoc = pdfMake.createPdf(doc);
 
-            // Mostrar el PDF en una nueva pestaña del navegador
-            pdfDoc.getBlob(function (blob) {
-              var objectUrl = URL.createObjectURL(blob);
-              window.open(objectUrl);
-            });
+            // // Mostrar el PDF en una nueva pestaña del navegador
+            // pdfDoc.getBlob(function (blob) {
+            //   var objectUrl = URL.createObjectURL(blob);
+            //   window.open(objectUrl);
+            // });
           },
         },
       ],
