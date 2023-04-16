@@ -271,12 +271,15 @@ function openModal() {
   $("#modalFormCai").modal("show");
 }
 
-$(document).ready(function () {
-  $("#txtRangoI").inputmask("999-999-99-99999999");
-});
-$(document).ready(function () {
-  $("#txtRangoF").inputmask("999-999-99-99999999");
-});
+// Lo siguiente era para que hubiera máscaras de entrada en los rangos.
+// Pero ya no se necesitan. Solo se necesitan en CAI.
+
+// $(document).ready(function () {
+//   $("#txtRangoI").inputmask("999-999-99-99999999");
+// });
+// $(document).ready(function () {
+//   $("#txtRangoF").inputmask("999-999-99-99999999");
+// });
 $(document).ready(function () {
   $("#txtnum").inputmask("******-******-******-******-******-**");
 });

@@ -13,7 +13,15 @@ session_start();
 
 ###############################################################################
 // Consulta para obtener los productos
-$sql = "SELECT cod_producto, nombre_producto FROM tbl_producto";
+$sql = "SELECT cod_producto, nombre_producto 
+FROM tbl_producto 
+WHERE cod_tipo_producto = 4 
+AND NOT EXISTS (
+    SELECT 1 
+    FROM detalle_temp 
+    WHERE detalle_temp.cod_producto = tbl_producto.cod_producto
+);
+"; //Cuando sea un PRODUCTO TERMINADO Y NO EXISTA EN DETALLE_TEMP
 $result = $conection->query($sql);
 
 // Crea un arreglo con los datos obtenidos de la tabla productos
@@ -29,23 +37,7 @@ while ($row = $result->fetch_assoc()) {
 $result->free();
 ###############################################################################
 
-###############################################################################
-// Consulta para obtener los descuentos
-$sql_d = "SELECT cod_descuento, nombre_descuento FROM tbl_descuento";
-$result_d = $conection->query($sql_d);
 
-// Crea un arreglo con los datos obtenidos de la tabla descuentos
-$descuentos = array();
-while ($row_d = $result_d->fetch_assoc()) {
-	$descuentos[] = array(
-		'cod_descuento' => $row_d['cod_descuento'],
-		'nombre_descuento' => $row_d['nombre_descuento']
-	);
-}
-
-// Libera el resultado de la consulta
-$result_d->free();
-###############################################################################
 
 ###############################################################################
 // Consulta para obtener las promociones
@@ -168,18 +160,7 @@ $result_p->free();
 
 						</th>
 
-						<td> <a href="#" id="add_product_venta" class="link_add"><i class="fas fa-plus"></i> Agregar Descuento</a></td>
-						<th>
-							<!---->
-							<select name="select_descuento" id="select_descuento" class="select-descuento" style="width: 200px;">
-								<option value="">Descuentos</option>
-								<?php foreach ($descuentos as $descuento) : ?>
-									<option value="<?php echo $descuento['cod_descuento']; ?>"><?php echo $descuento['nombre_descuento']; ?></option>
-								<?php endforeach; ?>
-							</select>
-							<!---->
 
-						</th>
 
 						<td> <a href="#" id="add_product_venta" class="link_add"><i class="fas fa-plus"></i> Agregar Promoción</a></td>
 						<th>
