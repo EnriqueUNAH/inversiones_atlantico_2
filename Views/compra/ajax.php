@@ -68,11 +68,12 @@ if (!empty($_POST)) {
 
 	//Agregar producto al detalle temporal
 	if ($_POST['action'] == 'addProductoDetalle') {
-		if (empty($_POST['producto']) || empty($_POST['cantidad'])) {
+		if (empty($_POST['producto']) || empty($_POST['cantidad']) || empty($_POST['precio_venta'])) {
 			echo 'error';
 		} else {
 			$cod_producto = $_POST['producto'];
 			$cantidad 	 = $_POST['cantidad'];
+			$precio_venta 	 = $_POST['precio_venta'];
 			// $token 		 = md5($_SESSION['idUser']);
 			$token 		 = md5(321);
 
@@ -81,7 +82,7 @@ if (!empty($_POST)) {
 			$resultado = mysqli_fetch_assoc($query_isv);
 
 
-			$query_detalle_temp 	= mysqli_query($conection, "CALL add_detalle_temp_c($cod_producto,$cantidad,'$token')");
+			$query_detalle_temp 	= mysqli_query($conection, "CALL add_detalle_temp_c($cod_producto,$cantidad,'$token','$precio_venta')");
 			$result = mysqli_num_rows($query_detalle_temp);
 
 			$detalleTabla = '';

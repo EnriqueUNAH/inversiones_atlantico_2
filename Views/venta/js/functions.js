@@ -339,6 +339,13 @@ $(document).ready(function () {
 
             //Ocultar boton agregar
             $("#add_product_venta").slideUp();
+
+            /* Lo coloqué para que me recargara la página 
+               y así un producto solo lo pueda elegir una vez
+              Así ya queda validado para que no se pase de la exitencia
+              cuando elige mas de una vez el producto.
+            */
+            window.location.reload(true);
           } else {
             console.log("no data");
           }
@@ -727,7 +734,15 @@ function del_product_detalle(cod_detalle_factura) {
 
         //Ocultar boton agregar
         $("#add_product_venta").slideUp();
+
+        /* Lo coloqué para que me recargara la página 
+               y así un producto solo lo pueda elegir una vez
+              Así ya queda validado para que no se pase de la exitencia
+              cuando elige mas de una vez el producto.
+            */
+        window.location.reload(true);
       } else {
+        window.location.reload(true); //Aquí también
         $("#detalle_venta").html("");
         $("#detalle_totales").html("");
       }
