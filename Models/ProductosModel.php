@@ -202,3 +202,32 @@ class ProductosModel extends Mysql
 		
 	}
 }
+
+
+
+
+public function deleteProductos(int $cod_producto)
+{
+	$this->cod_producto = $cod_producto;
+
+	$sql = "SELECT * FROM tbl_detalle_factura WHERE cod_producto = $this->cod_producto";
+	$sql2 = "SELECT * FROM tbl_detalle_compra WHERE cod_producto = $this->cod_producto";
+	// AQUI LE DEJO LA LINEA DE DETALLE COMPRA XD 
+
+	// YA :)
+	
+	$request1 = $this->select_all($sql);
+	$request2 = $this->select_all($sql2);
+	if (empty($request1) && empty($request2)) {
+		$sql = "DELETE FROM tbl_producto WHERE cod_producto = $this->cod_producto";
+		$request = $this->delete($sql);
+		if ($request) {
+			$request = 'ok';
+		} else {
+			$request = 'error';
+		}
+	} else {
+		$request = 'exist';
+	}
+	return $request;
+}
