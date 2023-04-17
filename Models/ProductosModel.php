@@ -23,15 +23,15 @@ class ProductosModel extends Mysql
 		$this->strNombreProducto = $nombre;
 		$this->strDescripcion = $descripcion;
 		$this->intCantidadMinima = $cantMin;
-		$this->intCantidadMaxima= $CantMax;
+		$this->intCantidadMaxima = $CantMax;
 		$this->intCodTipoProducto = $tipoProd;
 		$this->decPrecioVenta = $precio;
 		$this->intStatus = $estado;
-        $this->strCreadoPor = $_SESSION['elUsuario'];
+		$this->strCreadoPor = $_SESSION['elUsuario'];
 		$this->fechaCreacion = date('Y-m-d H:i:s');
 		$this->intExistencia = 0;
-		
-		
+
+
 		$return = 0;
 
 		$sql = "SELECT * FROM tbl_producto WHERE 
@@ -93,7 +93,7 @@ class ProductosModel extends Mysql
 
 	public function selectProductos()
 	{
-	
+
 		$sql = "SELECT p.cod_producto,p.nombre_producto,p.descripcion,p.cantidad_minima,p.cantidad_maxima,
 					   p.precio_venta,p.estado,tp.nombre_tipo_producto
 		FROM tbl_producto p 
@@ -104,16 +104,16 @@ class ProductosModel extends Mysql
 	}
 
 	public function selectTipoProducto()
-		{
-			// $whereAdmin = "";
-			// if($_SESSION['idUser'] != 1 ){
-			// 	$whereAdmin = " and cod_genero != 1 ";
-			// }
-			//EXTRAE ROLES
-			$sql = "SELECT * FROM tbl_tipo_producto ";
-			$request = $this->select_all($sql);
-			return $request;
-		}
+	{
+		// $whereAdmin = "";
+		// if($_SESSION['idUser'] != 1 ){
+		// 	$whereAdmin = " and cod_genero != 1 ";
+		// }
+		//EXTRAE ROLES
+		$sql = "SELECT * FROM tbl_tipo_producto ";
+		$request = $this->select_all($sql);
+		return $request;
+	}
 
 
 
@@ -143,14 +143,14 @@ class ProductosModel extends Mysql
 		$this->strNombreProducto = $nombre;
 		$this->strDescripcion = $descripcion;
 		$this->intCantidadMinima = $cantMin;
-		$this->intCantidadMaxima= $CantMax;
+		$this->intCantidadMaxima = $CantMax;
 		$this->intCodTipoProducto = $tipoProd;
 		$this->decPrecioVenta = $precio;
 		$this->intStatus = $estado;
 		$this->strModificadoPor = $_SESSION['elUsuario'];
 		$this->fechaModificacion = date('Y-m-d H:i:s');
 
-		$sql = "SELECT * FROM tbl_producto WHERE nombre_producto = '{$this->strNombreProducto}' AND cod_producto != $this->cod_producto" ;
+		$sql = "SELECT * FROM tbl_producto WHERE nombre_producto = '{$this->strNombreProducto}' AND cod_producto != $this->cod_producto";
 		$request = $this->select_all($sql);
 
 		if (empty($request)) {
@@ -164,8 +164,8 @@ class ProductosModel extends Mysql
 				$this->intCantidadMinima,
 				$this->intCantidadMaxima,
 				$this->intCodTipoProducto,
-                $this->decPrecioVenta,
-                $this->intStatus,
+				$this->decPrecioVenta,
+				$this->intStatus,
 				$this->strModificadoPor,
 				$this->fechaModificacion
 
@@ -178,16 +178,21 @@ class ProductosModel extends Mysql
 		return $request;
 	}
 
+
+
 	public function deleteProductos(int $cod_producto)
 	{
 		$this->cod_producto = $cod_producto;
-      
-		$sql = "SELECT * FROM tbl_detalle_factura WHERE cod_producto = $this->cod_producto";
-		// AQUI LE DEJO LA LINEA DE DETALLE COMPRA XD 
-		// $sql = "SELECT * FROM tbl_detalle_compra WHERE cod_producto = $this->cod_producto"; 
-		$request = $this->select_all($sql);
-		if (empty($request)) {
 
+		$sql = "SELECT * FROM tbl_detalle_factura WHERE cod_producto = $this->cod_producto";
+		$sql2 = "SELECT * FROM tbl_detalle_compra WHERE cod_producto = $this->cod_producto";
+		// AQUI LE DEJO LA LINEA DE DETALLE COMPRA XD 
+
+		// YA :)
+
+		$request1 = $this->select_all($sql);
+		$request2 = $this->select_all($sql2);
+		if (empty($request1) && empty($request2)) {
 			$sql = "DELETE FROM tbl_producto WHERE cod_producto = $this->cod_producto";
 			$request = $this->delete($sql);
 			if ($request) {
@@ -199,35 +204,5 @@ class ProductosModel extends Mysql
 			$request = 'exist';
 		}
 		return $request;
-		
 	}
-}
-
-
-
-
-public function deleteProductos(int $cod_producto)
-{
-	$this->cod_producto = $cod_producto;
-
-	$sql = "SELECT * FROM tbl_detalle_factura WHERE cod_producto = $this->cod_producto";
-	$sql2 = "SELECT * FROM tbl_detalle_compra WHERE cod_producto = $this->cod_producto";
-	// AQUI LE DEJO LA LINEA DE DETALLE COMPRA XD 
-
-	// YA :)
-	
-	$request1 = $this->select_all($sql);
-	$request2 = $this->select_all($sql2);
-	if (empty($request1) && empty($request2)) {
-		$sql = "DELETE FROM tbl_producto WHERE cod_producto = $this->cod_producto";
-		$request = $this->delete($sql);
-		if ($request) {
-			$request = 'ok';
-		} else {
-			$request = 'error';
-		}
-	} else {
-		$request = 'exist';
-	}
-	return $request;
 }
