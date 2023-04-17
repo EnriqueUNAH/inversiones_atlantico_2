@@ -18,6 +18,7 @@ document.addEventListener(
         { data: "nombre_producto" },
         { data: "nombre_tipo_producto" },
         { data: "existencia" },
+        { data: "options" }
       ],
       dom: "lBfrtip",
       buttons: [

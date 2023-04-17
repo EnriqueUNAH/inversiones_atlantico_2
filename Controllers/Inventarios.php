@@ -52,10 +52,7 @@ class Inventarios extends Controllers
 			$arrData = $this->model->selectInventarios();
 			for ($i = 0; $i < count($arrData); $i++) {
 				$btnView = '';
-				$btnEdit = '';
-				$btnDelete = '';
-
-
+			
 				if ($arrData[$i]['existencia'] < $arrData[$i]['cantidad_minima']) {
 					$badgeClass = 'badge badge-danger';
 					$badgeContent = sprintf('<span class="%s" style="padding: 6px 10px; border-radius: 4px; font-size: 18px">%d</span>', $badgeClass, $arrData[$i]['existencia']);
@@ -68,21 +65,10 @@ class Inventarios extends Controllers
 
 
 				if ($_SESSION['permisosMod']['r']) {
-					$btnView = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntViewUsuario(' . $arrData[$i]['cod_producto'] . ')" title="Ver usuario"><i class="far fa-eye"></i></button>';
+					$btnView = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntViewInventario(' . $arrData[$i]['cod_producto'] . ')" title="Ver movimientos"><i class="far fa-eye"></i></button>';
 				}
 
-				if ($_SESSION['permisosMod']['u']) {
-					$btnEdit = '<button class="btn btn-primary  btn-sm btnEditUsuario" onClick="fntEditUsuario(this,' . $arrData[$i]['cod_producto'] . ')" title="Editar usuario"><i class="fas fa-pencil-alt"></i></button>';
-				} else {
-					$btnEdit = '<button class="btn btn-secondary btn-sm" disabled ><i class="fas fa-pencil-alt"></i></button>';
-				}
-
-				if ($_SESSION['permisosMod']['d']) {
-					$btnDelete = '<button class="btn btn-danger btn-sm btnDelUsuario" onClick="fntDelUsuario(' . $arrData[$i]['cod_producto'] . ')" title="Eliminar usuario"><i class="far fa-trash-alt"></i></button>';
-				} else {
-					$btnDelete = '<button class="btn btn-secondary btn-sm" disabled ><i class="far fa-trash-alt"></i></button>';
-				}
-				$arrData[$i]['options'] = '<div class="text-center">' . $btnView . ' ' . $btnEdit . ' ' . $btnDelete . '</div>';
+				$arrData[$i]['options'] = '<div class="text-center">' . $btnView . '</div>';
 			}
 			echo json_encode($arrData, JSON_UNESCAPED_UNICODE);
 		}

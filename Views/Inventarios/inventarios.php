@@ -25,7 +25,7 @@ headerAdmin($data);
                   <th>Producto</th>
                   <th>Tipo</th>
                   <th>Existencia</th>
-
+                  <th>Acciones</th>
                 </tr>
               </thead>
               <tbody>

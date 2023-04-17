@@ -201,11 +201,11 @@ class Promocion extends Controllers
 				$intIdObjeto = 2;
 				$request_bitacora = "";
 
-				if ($requestDelete) {
-					$arrResponse = array('status' => true, 'msg' => 'Se ha eliminado la promocion');
+				if ($requestDelete == 'ok') {
+					$arrResponse = array('status' => true, 'msg' => 'Se ha eliminado la pregunta');
 
 					$strAccion = "ELIMINAR";
-					$strDescripcion = "ELIMINACION DE PROMOCION";
+					$strDescripcion = "ELIMINACIÓN DE PREGUNTA";
 
 					//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
 					$request_bitacora = $this->model->insertPromocionBitacora(
@@ -215,11 +215,14 @@ class Promocion extends Controllers
 						$strAccion,
 						$strDescripcion
 					);
+				} else if ($requestDelete == 'exist') {
+					$arrResponse = array('statusReferencial' => true, 'msg' => 'No es posible eliminar por Integridad Referencial');
 				} else {
-					$arrResponse = array('status' => false, 'msg' => 'Error al eliminar la promocion.');
+					$arrResponse = array('status' => false, 'msg' => 'Error al eliminar la pregunta.');
 				}
 
 				echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
+
 			}
 		}
 
