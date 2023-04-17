@@ -233,6 +233,9 @@ function fntDelPreguntas(id_pregunta) {
             if (objData.status) {
               swal("Eliminar!", objData.msg, "success");
               tablePreguntas.api().ajax.reload();
+            } else if (objData.statusReferencial) {
+              swal("Atención!", objData.msg, "error");
+              tablePreguntas.api().ajax.reload();
             } else {
               swal("Atención!", objData.msg, "error");
             }

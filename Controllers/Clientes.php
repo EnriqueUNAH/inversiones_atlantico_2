@@ -48,7 +48,8 @@ class Clientes extends Controllers
 	public function setCliente()
 	{
 		if ($_POST) {
-			if (empty($_POST['txtNombres']) || empty($_POST['listGenero'])) {
+			if (empty($_POST['txtRtn']) || empty($_POST['txtNombres']) || empty($_POST['txtTelefono'])
+			 || empty($_POST['txtEmail']) || empty($_POST['txtDireccion']) || empty($_POST['listGenero'])) {
 				$arrResponse = array("status" => false, "msg" => 'Datos incorrectos.');
 
 				/*El siguiente else if, sirve para que valide desde el servidor. Que si se ingresa una letra 
@@ -240,11 +241,11 @@ class Clientes extends Controllers
 				$intIdObjeto = 2;
 				$request_bitacora = "";
 
-				if ($requestDelete) {
+				if ($requestDelete == 'ok') {
 					$arrResponse = array('status' => true, 'msg' => 'Se ha eliminado el cliente');
 
 					$strAccion = "ELIMINAR";
-					$strDescripcion = "ELIMINACION DE CLIENTE";
+					$strDescripcion = "ELIMINACIÓN DE CLIENTE";
 
 					//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
 					$request_bitacora = $this->model->insertClientesBitacora(
@@ -254,11 +255,14 @@ class Clientes extends Controllers
 						$strAccion,
 						$strDescripcion
 					);
+				} else if ($requestDelete == 'exist') {
+					$arrResponse = array('statusReferencial' => true, 'msg' => 'No es posible eliminar por Integridad Referencial');
 				} else {
-					$arrResponse = array('status' => false, 'msg' => 'Error al eliminar cliente.');
+					$arrResponse = array('status' => false, 'msg' => 'Error al eliminar el cliente.');
 				}
 
 				echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
+
 			}
 		}
 

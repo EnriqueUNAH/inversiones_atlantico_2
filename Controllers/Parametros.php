@@ -145,12 +145,12 @@ class Parametros extends Controllers
 					$btnEdit = '<button class="btn btn-secondary btn-sm" disabled ><i class="fas fa-pencil-alt"></i></button>';
 				}
 
-				if ($_SESSION['permisosMod']['d']) {
-					$btnDelete = '<button class="btn btn-danger btn-sm btnDelParametro" onClick="fntDelParametro(' . $arrData[$i]['id_parametro'] . ')" title="Eliminar parametro"><i class="far fa-trash-alt"></i></button>';
-				} else {
-					$btnDelete = '<button class="btn btn-secondary btn-sm" disabled ><i class="far fa-trash-alt"></i></button>';
-				}
-				$arrData[$i]['options'] = '<div class="text-center">' . $btnView . ' ' . $btnEdit . ' ' . $btnDelete . '</div>';
+				// if ($_SESSION['permisosMod']['d']) {
+				// 	$btnDelete = '<button class="btn btn-danger btn-sm btnDelParametro" onClick="fntDelParametro(' . $arrData[$i]['id_parametro'] . ')" title="Eliminar parametro"><i class="far fa-trash-alt"></i></button>';
+				// } else {
+				// 	$btnDelete = '<button class="btn btn-secondary btn-sm" disabled ><i class="far fa-trash-alt"></i></button>';
+				// }
+				$arrData[$i]['options'] = '<div class="text-center">' . $btnView . ' ' . $btnEdit . '</div>';
 			}
 			echo json_encode($arrData, JSON_UNESCAPED_UNICODE);
 		}
@@ -192,7 +192,7 @@ class Parametros extends Controllers
 					$arrResponse = array('status' => true, 'msg' => 'Se ha eliminado el parametro');
 
 					$strAccion = "ELIMINAR";
-					$strDescripcion = "ELIMINACION DE USUARIO";
+					$strDescripcion = "ELIMINACION DE PARAMETRO";
 
 					//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
 					$request_bitacora = $this->model->insertParametroBitacora(
