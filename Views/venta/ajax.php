@@ -119,10 +119,7 @@ if (!empty($_POST)) {
 				$total 		= round($tl_snisv + $impuesto, 2);
 
 				$detalleTotales = '
-									<tr>
-										<td colspan="5" class="textright">DESCUENTOS </td>
-										<td class="textright">' . "- " . 0 . '</td>
-									</tr>
+									
 				
 										<tr>
 											<td colspan="5" class="textright">SUBTOTAL L.</td>
@@ -175,7 +172,9 @@ if (!empty($_POST)) {
 			$result_isv = mysqli_num_rows($query_isv);
 			$resultado = mysqli_fetch_assoc($query_isv);
 
-
+			$query_descuento = mysqli_query($conection, "SELECT porcentaje_descuento FROM tbl_descuento");
+			$result_descuento = mysqli_num_rows($query_descuento);
+			$resultado_descuento = mysqli_fetch_assoc($query_descuento);
 
 			$detalleTabla = '';
 			$sub_total  = 0;
@@ -188,6 +187,7 @@ if (!empty($_POST)) {
 				// 	$info_isv =  mysqli_fetch_assoc($query_isv);
 				// 	$isv = $info_isv['isv'];
 				// }
+				$porcentaje_descuento = $resultado_descuento['porcentaje_descuento'];
 				$isv = $resultado['valor'];
 				while ($data = mysqli_fetch_assoc($query)) {
 					$precioTotal = round($data['cantidad'] * $data['precio_venta'], 2);
@@ -205,8 +205,8 @@ if (!empty($_POST)) {
 											</td>
 										</tr>';
 				}
-				$porcen_descuento = 20;
-				$descuento = round($sub_total  * (($porcen_descuento / 100)), 2);
+				// $porcen_descuento = 20;
+				$descuento = round($sub_total  * (($porcentaje_descuento / 100)), 2);
 
 				$tl_snisv 	= round($sub_total  / (1 + ($isv / 100)), 2);
 				$impuesto 	= round($tl_snisv * ($isv / 100), 2);

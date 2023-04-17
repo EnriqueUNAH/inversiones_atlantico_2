@@ -356,6 +356,42 @@ $(document).ready(function () {
     }
   });
 
+  //////////////////////////////////////////////////////////
+
+  ////////////////////////////////////////////////////
+
+  //Agregar descuento al detalle
+  // $("#addDescuentoDetalle").click(function (e) {
+  //   e.preventDefault();
+
+  //   var porcentaje_descuento = $("#txt_porcentaje_descuento").val(); // Modificación aquí
+  //   var action = "addDescuentoDetalle";
+
+  //   $.ajax({
+  //     url: "ajax.php",
+  //     type: "POST",
+  //     async: true,
+  //     data: { action: action, porcentaje_descuento: porcentaje_descuento }, // Utilizando la variable actualizada
+
+  //     success: function (response) {
+  //       if (response != "error") {
+  //         try {
+  //           var info = JSON.parse(response);
+  //           // your code here
+  //         } catch (e) {
+  //           console.log("Error parsing JSON: " + e);
+  //         }
+
+  //         window.location.reload(true);
+  //       } else {
+  //         console.log("no data");
+  //       }
+  //       // viewProcesar();
+  //     },
+  //     error: function (error) {},
+  //   });
+  // });
+
   //Anular Venta
   $("#btn_anular_venta").click(function (e) {
     e.preventDefault();
