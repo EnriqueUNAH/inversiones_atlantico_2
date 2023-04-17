@@ -139,8 +139,12 @@ class PromocionModel extends Mysql
 		$this->cod_promocion = $cod_promocion;
 
 		$sql = "SELECT * FROM tbl_promocion_producto WHERE cod_promocion = $this->cod_promocion";
-		$request = $this->select_all($sql);
-		if (empty($request)) {
+		$sql2 = "SELECT * FROM tbl_factura_promocion WHERE cod_promocion = $this->cod_promocion";
+
+		$request1 = $this->select_all($sql);
+		$request2 = $this->select_all($sql2);
+
+		if (empty($request1) && empty($request2)) {
 
 			$sql = "DELETE FROM tbl_promocion WHERE cod_promocion = $this->cod_promocion";
 			$request = $this->delete($sql);

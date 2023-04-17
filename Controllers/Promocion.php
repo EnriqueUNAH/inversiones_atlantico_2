@@ -202,10 +202,10 @@ class Promocion extends Controllers
 				$request_bitacora = "";
 
 				if ($requestDelete == 'ok') {
-					$arrResponse = array('status' => true, 'msg' => 'Se ha eliminado la pregunta');
+					$arrResponse = array('status' => true, 'msg' => 'Se ha eliminado la promoción');
 
 					$strAccion = "ELIMINAR";
-					$strDescripcion = "ELIMINACIÓN DE PREGUNTA";
+					$strDescripcion = "ELIMINACIÓN DE PROMOCIÓN";
 
 					//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
 					$request_bitacora = $this->model->insertPromocionBitacora(
