@@ -449,7 +449,7 @@ $(document).ready(function () {
   $("#btn_facturar_venta").click(function (e) {
     e.preventDefault();
 
-    var rows = $("#detalle_venta tr").length;
+    var rows = $("#detalle_venta ").length;
     if (rows > 0) {
       var action = "procesarVenta";
       var cod_cliente = $("#cod_cliente").val();
