@@ -18,8 +18,8 @@ FROM tbl_producto
 WHERE cod_tipo_producto = 3 
 AND NOT EXISTS (
     SELECT 1 
-    FROM detalle_temp 
-    WHERE detalle_temp.cod_producto = tbl_producto.cod_producto
+    FROM detalle_temp_pr 
+    WHERE detalle_temp_pr.cod_producto = tbl_producto.cod_producto
 );
 "; //Cuando sea un PRODUCTO TERMINADO Y NO EXISTA EN DETALLE_TEMP
 //OJO, puede que se cambie el 4 si se cambia algo en la Base de Datos.

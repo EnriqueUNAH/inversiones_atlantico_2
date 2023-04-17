@@ -115,7 +115,7 @@ if (!empty($_POST)) {
 			$resultado = mysqli_fetch_assoc($query_isv);
 
 
-			$query_detalle_temp 	= mysqli_query($conection, "CALL add_detalle_temp($cod_producto,$cantidad,'$token')");
+			$query_detalle_temp 	= mysqli_query($conection, "CALL add_detalle_temp_pr($cod_producto,$cantidad,'$token')");
 			$result = mysqli_num_rows($query_detalle_temp);
 
 			$detalleTabla = '';
@@ -133,7 +133,7 @@ if (!empty($_POST)) {
 
 
 				while ($data = mysqli_fetch_assoc($query_detalle_temp)) {
-					$precioTotal = round($data['cantidad'] * $data['precio_venta'], 2);
+					$precioTotal = round($data['cantidad'], 2);
 					$sub_total 	 = round($sub_total + $precioTotal, 2);
 					$total 	 	 = round($total + $precioTotal, 2);
 
@@ -141,10 +141,10 @@ if (!empty($_POST)) {
 											<td>' . $data['cod_producto'] . '</td>
 											<td colspan="2">' . $data['nombre_producto'] . '</td>
 											<td class="textcenter">' . $data['cantidad'] . '</td>
-											<td class="textright">' . $data['precio_venta'] . '</td>
+									
 											<td class="textright">' . $precioTotal . '</td>
 											<td class="">
-												<a class="link_delete" href="#" onclick="event.preventDefault(); del_product_detalle(' . $data['cod_detalle_factura'] . ');"><i class="far fa-trash-alt"></i></a>
+												<a class="link_delete" href="#" onclick="event.preventDefault(); del_product_detalle_pr(' . $data['cod_detalle_produccion'] . ');"><i class="far fa-trash-alt"></i></a>
 											</td>
 										</tr>';
 				}
@@ -153,18 +153,9 @@ if (!empty($_POST)) {
 				$tl_snisv 	= round($sub_total - $impuesto, 2);
 				$total 		= round($tl_snisv + $impuesto, 2);
 
-				$detalleTotales = '
-									
+				$detalleTotales = '						
 				
-										<tr>
-											<td colspan="5" class="textright">SUBTOTAL L.</td>
-											<td class="textright">' . $tl_snisv . '</td>
-										</tr>
-									
-										<tr>
-											<td colspan="5" class="textright">ISV (' . $isv . '%)</td>
-											<td class="textright">' . $impuesto . '</td>
-										</tr>
+															
 										<tr>
 											<td colspan="5" class="textright">TOTAL L.</td>
 											<td class="textright">' . $total . '</td>
@@ -190,13 +181,12 @@ if (!empty($_POST)) {
 
 			$token = md5($_SESSION['idUser']);
 
-			$query = mysqli_query($conection, "SELECT tmp.cod_detalle_factura,
+			$query = mysqli_query($conection, "SELECT tmp.cod_detalle_produccion,
 														 tmp.token_user,
-														 tmp.cantidad,
-														 tmp.precio_venta,
+														 tmp.cantidad,													
 														 p.cod_producto,
 														 p.nombre_producto
-													FROM detalle_temp tmp
+													FROM detalle_temp_pr tmp
 													INNER JOIN tbl_producto p
 													ON tmp.cod_producto = p.cod_producto
 													WHERE token_user = '$token' ");
@@ -225,9 +215,9 @@ if (!empty($_POST)) {
 				$porcentaje_descuento = $resultado_descuento['porcentaje_descuento'];
 				$isv = $resultado['valor'];
 				while ($data = mysqli_fetch_assoc($query)) {
-					$precioTotal = round($data['cantidad'] * $data['precio_venta'], 2);
-					$sub_total 	 = round($sub_total + $precioTotal, 2);
-					$total 	 	 = round($total + $precioTotal, 2);
+					// $precioTotal = round($data['cantidad'] * $data['precio_venta'], 2);
+					// $sub_total 	 = round($sub_total + $precioTotal, 2);
+					// $total 	 	 = round($total + $precioTotal, 2);
 
 					$detalleTabla .= '<tr>
 											<td>' . $data['cod_producto'] . '</td>
@@ -235,7 +225,7 @@ if (!empty($_POST)) {
 											<td class="textcenter">' . $data['cantidad'] . '</td>
 										
 											<td class="">
-												<a class="link_delete" href="#" onclick="event.preventDefault(); del_product_detalle(' . $data['cod_detalle_factura'] . ');"><i class="far fa-trash-alt"></i></a>
+												<a class="link_delete" href="#" onclick="event.preventDefault(); del_product_detalle_pr(' . $data['cod_detalle_produccion'] . ');"><i class="far fa-trash-alt"></i></a>
 											</td>
 										</tr>';
 				}
@@ -281,7 +271,7 @@ if (!empty($_POST)) {
 
 
 
-			$query_detalle_temp 	= mysqli_query($conection, "CALL del_detalle_temp($id_detalle,'$token')");
+			$query_detalle_temp 	= mysqli_query($conection, "CALL del_detalle_temp_pr($id_detalle,'$token')");
 			$result = mysqli_num_rows($query_detalle_temp);
 
 			$detalleTabla = '';
@@ -297,18 +287,16 @@ if (!empty($_POST)) {
 				// }
 				$isv = $resultado['valor'];
 				while ($data = mysqli_fetch_assoc($query_detalle_temp)) {
-					$precioTotal = round($data['cantidad'] * $data['precio_venta'], 2);
-					$sub_total 	 = round($sub_total + $precioTotal, 2);
-					$total 	 	 = round($total + $precioTotal, 2);
+
+
 
 					$detalleTabla .= '<tr>
 											<td>' . $data['cod_producto'] . '</td>
 											<td colspan="2">' . $data['nombre_producto'] . '</td>
 											<td class="textcenter">' . $data['cantidad'] . '</td>
-											<td class="textright">' . $data['precio_venta'] . '</td>
-											<td class="textright">' . $precioTotal . '</td>
+										
 											<td class="">
-												<a class="link_delete" href="#" onclick="event.preventDefault(); del_product_detalle(' . $data['cod_detalle_factura'] . ');"><i class="far fa-trash-alt"></i></a>
+												<a class="link_delete" href="#" onclick="event.preventDefault(); del_product_detalle_pr(' . $data['cod_detalle_produccion'] . ');"><i class="far fa-trash-alt"></i></a>
 											</td>
 										</tr>';
 				}
@@ -317,14 +305,7 @@ if (!empty($_POST)) {
 				$tl_snisv 	= round($sub_total - $impuesto, 2);
 				$total 		= round($tl_snisv + $impuesto, 2);
 
-				$detalleTotales = '<tr>
-											<td colspan="5" class="textright">SUBTOTAL L.</td>
-											<td class="textright">' . $tl_snisv . '</td>
-										</tr>
-										<tr>
-											<td colspan="5" class="textright">isv (' . $isv . '%)</td>
-											<td class="textright">' . $impuesto . '</td>
-										</tr>
+				$detalleTotales = '
 										<tr>
 											<td colspan="5" class="textright">TOTAL L.</td>
 											<td class="textright">' . $total . '</td>
@@ -348,7 +329,7 @@ if (!empty($_POST)) {
 		$token 		 = md5($_SESSION['idUser']);
 
 
-		$query_del = mysqli_query($conection, "DELETE FROM detalle_temp WHERE token_user = '$token' ");
+		$query_del = mysqli_query($conection, "DELETE FROM detalle_temp_pr WHERE token_user = '$token' ");
 		mysqli_close($conection);
 		if ($query_del) {
 			echo 'ok';
@@ -373,11 +354,11 @@ if (!empty($_POST)) {
 
 		$usuario 	= ($_SESSION['idUser']);
 
-		$query = mysqli_query($conection, "SELECT * FROM detalle_temp WHERE token_user = '$token' ");
+		$query = mysqli_query($conection, "SELECT * FROM detalle_temp_pr WHERE token_user = '$token' ");
 		$result = mysqli_num_rows($query);
 
 		if ($result > 0) {
-			$query_procesar = mysqli_query($conection, "call procesar_venta($usuario,$cod_cliente,'$token')");
+			$query_procesar = mysqli_query($conection, "call procesar_produccion($usuario,$cod_cliente,'$token')");
 			$result_detalle = mysqli_num_rows($query_procesar);
 
 			if ($result_detalle > 0) {
@@ -393,12 +374,12 @@ if (!empty($_POST)) {
 		exit;
 	}
 
-	// Info Factura
-	if ($_POST['action'] == 'infoFactura') {
-		if (!empty($_POST['cod_factura'])) {
+	// Info produccion
+	if ($_POST['action'] == 'infoproduccion') {
+		if (!empty($_POST['cod_produccion'])) {
 
-			$cod_factura = $_POST['cod_factura'];
-			$query = mysqli_query($conection, "SELECT * FROM tbl_factura WHERE cod_factura = '$cod_factura' AND estado = 1");
+			$cod_produccion = $_POST['cod_produccion'];
+			$query = mysqli_query($conection, "SELECT * FROM tbl_produccion WHERE cod_produccion = '$cod_produccion' AND estado = 1");
 			mysqli_close($conection);
 
 			$result = mysqli_num_rows($query);
@@ -414,13 +395,13 @@ if (!empty($_POST)) {
 	}
 
 
-	// Anular Factura
-	if ($_POST['action'] == 'anularFactura') {
+	// Anular produccion
+	if ($_POST['action'] == 'anularproduccion') {
 
-		if (!empty($_POST['cod_factura'])) {
-			$cod_factura = $_POST['cod_factura'];
+		if (!empty($_POST['cod_produccion'])) {
+			$cod_produccion = $_POST['cod_produccion'];
 
-			$query_anular 	= mysqli_query($conection, "CALL anular_factura($cod_factura)");
+			$query_anular 	= mysqli_query($conection, "CALL anular_produccion($cod_produccion)");
 			mysqli_close($conection);
 			$result = mysqli_num_rows($query_anular);
 			if ($result > 0) {

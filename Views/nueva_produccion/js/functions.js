@@ -742,9 +742,9 @@ function generarPDF(cliente, factura) {
   );
 }
 
-function del_product_detalle(cod_detalle_factura) {
+function del_product_detalle_pr(cod_detalle_produccion) {
   var action = "delProductoDetalle";
-  var id_detalle = cod_detalle_factura;
+  var id_detalle = cod_detalle_produccion;
 
   $.ajax({
     url: "ajax.php",
