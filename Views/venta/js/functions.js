@@ -912,3 +912,34 @@ document.addEventListener("DOMContentLoaded", () => {
     cod_producto.value = selectedCode;
   });
 });
+
+$(document).ready(function () {
+  // Asignar evento de clic al botón "Agregar"
+  $("#add_descuento").click(function (e) {
+    e.preventDefault();
+
+    var valor_descuento = $("#valor_descuento").val();
+
+    // Validar el valor del descuento
+    if (isNaN(valor_descuento) || valor_descuento < 0) {
+      alert("El valor de descuento debe ser un número mayor o igual a cero.");
+      return;
+    }
+
+    // Enviar solicitud POST al archivo PHP
+    $.ajax({
+      url: "ajax.php",
+      type: "POST",
+      data: { valor_descuento: valor_descuento },
+      success: function (response) {
+        // Manejar la respuesta del servidor
+        console.log(response);
+        location.reload(); // Recargar la página
+      },
+      error: function () {
+        // Manejar errores
+        console.log("Error al actualizar descuento");
+      },
+    });
+  });
+});

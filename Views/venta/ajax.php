@@ -6,6 +6,41 @@ session_start();
 
 if (!empty($_POST)) {
 
+
+
+
+
+
+
+	if (isset($_POST["valor_descuento"])) {
+		$valor_descuento = $_POST["valor_descuento"];
+
+		// Actualizar la tabla tbl_descuento
+		$sql = "UPDATE tbl_descuento SET porcentaje_descuento='$valor_descuento' WHERE nombre_descuento='descuento'";
+
+		if ($conection->query($sql) === TRUE) {
+			echo "Descuento actualizado correctamente";
+		} else {
+			echo "Error al actualizar descuento: " . $conection->error;
+		}
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	//Extraer datos del producto
 	if ($_POST['action'] == 'infoProducto') {
 		$producto_id = $_POST['producto'];
@@ -214,7 +249,8 @@ if (!empty($_POST)) {
 
 				$detalleTotales = '
 				<tr>
-											<td colspan="5" class="textright">DESCUENTO </td>
+				<td colspan="5" class="textright">DESCUENTO (' . ($porcentaje_descuento == (int)$porcentaje_descuento ? number_format($porcentaje_descuento, 0) : number_format($porcentaje_descuento, 2)) . '%) </td>
+
 											<td class="textright">' . "- L. " . $descuento . '</td>
 										</tr>
 				<tr>

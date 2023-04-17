@@ -180,7 +180,20 @@ $result_p->free();
 					</tr>
 
 
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td>
+							<a href="#" id="add_descuento" class="link_add"><i></i>% Agregar Descuento</a>
+						</td>
 
+						<td>
+							<input type="text" placeholder="%" id="valor_descuento" name="valor_descuento">
+						</td>
+					</tr>
 
 
 					<tr>
