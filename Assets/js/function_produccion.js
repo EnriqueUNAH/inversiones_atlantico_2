@@ -15,10 +15,10 @@ document.addEventListener(
         dataSrc: "",
       },
       columns: [
-        { data: "producto" },
+        { data: "nombre_producto" },
         { data: "cantidad" },
         { data: "fecha" },
-        { data: "usuario" },
+        { data: "nombre_usuario" },
         { data: "estado" },
       ],
       dom: "lBfrtip",
@@ -26,7 +26,7 @@ document.addEventListener(
         {
           extend: "pdfHtml5",
           download: "open",
-          title:"INVERSIONES DEL ATLÁNTICO",
+          title: "INVERSIONES DEL ATLÁNTICO",
           text: "<i class='fas fa-file-pdf'></i> PDF",
           titleAttr: "Exportar a PDF",
           className: "btn btn-danger",
@@ -52,7 +52,6 @@ document.addEventListener(
               },
             };
 
-
             doc.styles.tableHeader.color = "#ffffff";
             doc.styles.tableHeader.fillColor = "#007bff";
             doc.styles.tableBodyEven.fillColor = "#f2f2f2";
@@ -63,20 +62,18 @@ document.addEventListener(
               .join("*")
               .split("");
 
-
-              doc.content.splice(1,0, {
-                columns: [
-                  {
+            doc.content.splice(1, 0, {
+              columns: [
+                {
                   text: "REPORTE DE PRODUCCIÓN",
                   fontsize: 20,
                   bold: true,
                   alignment: "center",
-                  margin: [0,0,0,15],
-                  width: "*"
-                  }
-                ]
-              })
-
+                  margin: [0, 0, 0, 15],
+                  width: "*",
+                },
+              ],
+            });
 
             // Agregar pie de página con la fecha
             var now = new Date();
@@ -102,16 +99,7 @@ document.addEventListener(
             };
             // Crear el PDF con pdfMake
             var pdfDoc = pdfMake.createPdf(doc);
-
-
-
-
-
-
-
-
           },
-
         },
       ],
       resonsieve: "true",
