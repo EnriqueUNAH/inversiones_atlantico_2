@@ -356,6 +356,42 @@ $(document).ready(function () {
     }
   });
 
+  //////////////////////////////////////////////////////////
+
+  ////////////////////////////////////////////////////
+
+  //Agregar descuento al detalle
+  // $("#addDescuentoDetalle").click(function (e) {
+  //   e.preventDefault();
+
+  //   var porcentaje_descuento = $("#txt_porcentaje_descuento").val(); // Modificación aquí
+  //   var action = "addDescuentoDetalle";
+
+  //   $.ajax({
+  //     url: "ajax.php",
+  //     type: "POST",
+  //     async: true,
+  //     data: { action: action, porcentaje_descuento: porcentaje_descuento }, // Utilizando la variable actualizada
+
+  //     success: function (response) {
+  //       if (response != "error") {
+  //         try {
+  //           var info = JSON.parse(response);
+  //           // your code here
+  //         } catch (e) {
+  //           console.log("Error parsing JSON: " + e);
+  //         }
+
+  //         window.location.reload(true);
+  //       } else {
+  //         console.log("no data");
+  //       }
+  //       // viewProcesar();
+  //     },
+  //     error: function (error) {},
+  //   });
+  // });
+
   //Anular Venta
   $("#btn_anular_venta").click(function (e) {
     e.preventDefault();
@@ -874,5 +910,36 @@ document.addEventListener("DOMContentLoaded", () => {
     const selectedCode = selectedOption.value;
 
     cod_producto.value = selectedCode;
+  });
+});
+
+$(document).ready(function () {
+  // Asignar evento de clic al botón "Agregar"
+  $("#add_descuento").click(function (e) {
+    e.preventDefault();
+
+    var valor_descuento = $("#valor_descuento").val();
+
+    // Validar el valor del descuento
+    if (isNaN(valor_descuento) || valor_descuento < 0) {
+      alert("El valor de descuento debe ser un número mayor o igual a cero.");
+      return;
+    }
+
+    // Enviar solicitud POST al archivo PHP
+    $.ajax({
+      url: "ajax.php",
+      type: "POST",
+      data: { valor_descuento: valor_descuento },
+      success: function (response) {
+        // Manejar la respuesta del servidor
+        console.log(response);
+        location.reload(); // Recargar la página
+      },
+      error: function () {
+        // Manejar errores
+        console.log("Error al actualizar descuento");
+      },
+    });
   });
 });

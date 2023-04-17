@@ -82,15 +82,12 @@ $result_p->free();
 
 	<section id="container">
 
+
 		<div class="title_page">
 			<a href="../../ventas" class="btn_atras ">
 				<h2><i class="fas fa-arrow-left"></i>
 					ATRÁS</h2>
 			</a>
-
-		</div>
-		<div class="title_page">
-
 			<h1><i class=""></i> Nueva Venta</h1>
 		</div>
 		<div class="datos_cliente">
@@ -180,7 +177,20 @@ $result_p->free();
 					</tr>
 
 
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td>
+							<a href="#" id="add_descuento" class="link_add"><i></i>% Agregar Descuento</a>
+						</td>
 
+						<td>
+							<input type="text" placeholder="%" id="valor_descuento" name="valor_descuento">
+						</td>
+					</tr>
 
 
 					<tr>
