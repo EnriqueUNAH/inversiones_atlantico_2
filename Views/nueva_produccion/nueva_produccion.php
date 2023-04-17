@@ -12,10 +12,10 @@ session_start();
 <?php
 
 ###############################################################################
-// Consulta para obtener los insumos
+// Consulta para obtener los productos
 $sql = "SELECT cod_producto, nombre_producto 
 FROM tbl_producto 
-WHERE cod_tipo_producto = 3 
+WHERE cod_tipo_producto = 4 
 AND NOT EXISTS (
     SELECT 1 
     FROM detalle_temp_pr 
@@ -39,21 +39,30 @@ $result->free();
 ###############################################################################
 
 ###############################################################################
-// Consulta para obtener los descuentos
-$sql_d = "SELECT cod_descuento, nombre_descuento FROM tbl_descuento";
-$result_d = $conection->query($sql_d);
+// Consulta para obtener los insumos
+$sql = "SELECT cod_producto, nombre_producto 
+FROM tbl_producto 
+WHERE cod_tipo_producto = 3 
+AND NOT EXISTS (
+    SELECT 1 
+    FROM detalle_temp_pr 
+    WHERE detalle_temp_pr.cod_producto = tbl_producto.cod_producto
+);
+"; //Cuando sea un PRODUCTO TERMINADO Y NO EXISTA EN DETALLE_TEMP
+//OJO, puede que se cambie el 4 si se cambia algo en la Base de Datos.
+$result = $conection->query($sql);
 
-// Crea un arreglo con los datos obtenidos de la tabla descuentos
-$descuentos = array();
-while ($row_d = $result_d->fetch_assoc()) {
-	$descuentos[] = array(
-		'cod_descuento' => $row_d['cod_descuento'],
-		'nombre_descuento' => $row_d['nombre_descuento']
+// Crea un arreglo con los datos obtenidos de la tabla productos
+$insumos = array();
+while ($row = $result->fetch_assoc()) {
+	$insumos[] = array(
+		'cod_producto' => $row['cod_producto'],
+		'nombre_producto' => $row['nombre_producto']
 	);
 }
 
 // Libera el resultado de la consulta
-$result_d->free();
+$result->free();
 ###############################################################################
 
 ###############################################################################
@@ -135,7 +144,7 @@ $result_p->free();
 
 				<tr>
 
-					<td> <a href="#" id="add_product_ventaa" class="link_add"><i class="fas fa-plus"></i> Agregar Producto</a></td>
+					<!-- <td> <a href="#" id="add_product_ventaa" class="link_add"><i class="fas fa-plus"></i> Agregar Producto</a></td> -->
 
 					<th>
 						<h4>Seleccione el Producto a Producir</h4><BR>
@@ -146,11 +155,16 @@ $result_p->free();
 								<option value="<?php echo $producto['cod_producto']; ?>"><?php echo $producto['nombre_producto']; ?></option>
 							<?php endforeach; ?>
 						</select>
+
 						<!---->
 
 					</th>
 
 
+					<th>
+						<h4>Cantidad</h4><BR>
+						<input type="num" name="txt_cantidad_producto" id="txt_cantidad_producto" value="1" min="1">
+					</th>
 
 
 				</tr>
@@ -188,27 +202,27 @@ $result_p->free();
 							<!---->
 							<select name="select_producto" id="select_producto" class="select-producto" style="width: 200px;">
 								<option value="">Insumos</option>
-								<?php foreach ($productos as $producto) : ?>
-									<option value="<?php echo $producto['cod_producto']; ?>"><?php echo $producto['nombre_producto']; ?></option>
+								<?php foreach ($insumos as $insumo) : ?>
+									<option value="<?php echo $insumo['cod_producto']; ?>"><?php echo $insumo['nombre_producto']; ?></option>
 								<?php endforeach; ?>
 							</select>
 							<!---->
 
 						</th>
-
-						<td> <a href="#" id="add_product_venta" class="link_add"><i class="fas fa-plus"></i> Agregar Descuento</a></td>
-
+						<th></th>
+						<th></th>
+						<th></th>
+						<th></th>
 
 					</tr>
 
 
 					<tr>
-
 						<th>Descripción</th>
+						<th></th>
 						<th></th>
 						<th>Existencia</th>
 						<th width="100px">Cantidad</th>
-
 						<th class="textright"></th>
 					</tr>
 
@@ -216,6 +230,7 @@ $result_p->free();
 					<tr>
 						<td hidden><input type="text" name="txt_cod_producto" id="txt_cod_producto"></td>
 						<td id="txt_nombre_producto">-</td>
+						<td></td>
 						<td></td>
 						<td id="txt_existencia">-</td>
 						<td><input type="text" name="txt_cant_producto" id="txt_cant_producto" value="0" min="1" disabled></td>
@@ -225,8 +240,8 @@ $result_p->free();
 					<tr>
 						<th>Código</th>
 						<th colspan="2">Descripción</th>
+						<!-- <th></th> -->
 						<th>Cantidad</th>
-
 						<th> Eliminar</th>
 					</tr>
 				</thead>

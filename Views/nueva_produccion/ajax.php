@@ -342,11 +342,11 @@ if (!empty($_POST)) {
 	// Procesar Venta
 	if ($_POST['action'] == 'procesarVenta') {
 
-		if (empty($_POST['cod_cliente'])) {
-			$cod_cliente = 5;
-		} else {
-			$cod_cliente = $_POST['cod_cliente'];
-		}
+		// if (empty($_POST['cod_cliente'])) {
+		// 	$cod_cliente = 5;
+		// } else {
+		// 	$cod_cliente = $_POST['cod_cliente'];
+		// }
 		##############################################################################
 		$token 		= md5($_SESSION['idUser']);
 		// $usuario 	= $_SESSION['idUser'];
@@ -358,7 +358,7 @@ if (!empty($_POST)) {
 		$result = mysqli_num_rows($query);
 
 		if ($result > 0) {
-			$query_procesar = mysqli_query($conection, "call procesar_produccion($usuario,$cod_cliente,'$token')");
+			$query_procesar = mysqli_query($conection, "call procesar_produccion($usuario,'$token')");
 			$result_detalle = mysqli_num_rows($query_procesar);
 
 			if ($result_detalle > 0) {
