@@ -174,19 +174,21 @@ class ClientesModel extends Mysql
 	public function deleteCliente(int $cod_cliente)
 	{
 		$this->cod_cliente = $cod_cliente;
-		// $sql = "SELECT * FROM tbl_ms_parametros WHERE id_parametro = $this->intid_parametro";
-		// $request = $this->select_all($sql);
-		// if (empty($request)) {
-		$sql = "DELETE FROM tbl_cliente WHERE cod_cliente = $this->cod_cliente";
-		$request = $this->delete($sql);
-		if ($request) {
-			$request = 'ok';
+
+		$sql = "SELECT * FROM tbl_factura WHERE cod_cliente = $this->cod_cliente";
+		$request = $this->select_all($sql);
+		if (empty($request)) {
+
+			$sql = "DELETE FROM tbl_cliente WHERE cod_cliente = $this->cod_cliente ";
+			$request = $this->delete($sql);
+			if ($request) {
+				$request = 'ok';
+			} else {
+				$request = 'error';
+			}
 		} else {
-			$request = 'error';
+			$request = 'exist';
 		}
-		// } else {
-		// 	$request = 'exist';
-		// }
 		return $request;
 	}
 

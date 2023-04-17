@@ -234,14 +234,12 @@ class Productos extends Controllers
 
 
 
-
-
-	public function delUsuario()
+	public function delProductos()
 	{
 		if ($_POST) {
 			if ($_SESSION['permisosMod']['d']) {
-				$intid_usuario = intval($_POST['id_usuario']);
-				$requestDelete = $this->model->deleteUsuario($intid_usuario);
+				$cod_producto = intval($_POST['cod_producto']);
+				$requestDelete = $this->model->deleteProductos($cod_producto);
 
 				//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora
 				//SE PUEDEN USAR PARA INSERTAR O ACTUALIZAR PORQUE SERÍAN LOS MISMOS DATOS
@@ -251,13 +249,13 @@ class Productos extends Controllers
 				$request_bitacora = "";
 
 				if ($requestDelete == 'ok') {
-					$arrResponse = array('status' => true, 'msg' => 'Se ha eliminado el usuario');
+					$arrResponse = array('status' => true, 'msg' => 'Se ha eliminado el producto');
 
 					$strAccion = "ELIMINAR";
-					$strDescripcion = "ELIMINACION DE USUARIO";
+					$strDescripcion = "ELIMINACIÓN DE PRODUCTO";
 
 					//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
-					$request_bitacora = $this->model->insertUsuarioBitacora(
+					$request_bitacora = $this->model->insertProductoBitacora(
 						$dateFecha,
 						$intIdUsuario,
 						$intIdObjeto,
@@ -265,13 +263,13 @@ class Productos extends Controllers
 						$strDescripcion
 					);
 				} else if ($requestDelete == 'exist') {
-					$requestUsuarioInactivo = $this->model->updateUsuarioInactivo($intid_usuario);
 					$arrResponse = array('statusReferencial' => true, 'msg' => 'No es posible eliminar por Integridad Referencial');
 				} else {
-					$arrResponse = array('status' => false, 'msg' => 'Error al eliminar el usuario.');
+					$arrResponse = array('status' => false, 'msg' => 'Error al eliminar el producto.');
 				}
 
 				echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
+
 			}
 		}
 

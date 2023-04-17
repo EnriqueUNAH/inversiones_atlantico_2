@@ -349,11 +349,11 @@ function fntEditProducto(element, cod_producto) {
   };
 }
 
-function fntDelUsuario(id_usuario) {
+function fntDelProducto(cod_producto) {
   swal(
     {
-      title: "Eliminar Usuario",
-      text: "¿Realmente quiere eliminar el Usuario?",
+      title: "Eliminar Producto",
+      text: "¿Realmente quiere eliminar el Producto?",
       type: "warning",
       showCancelButton: true,
       confirmButtonText: "ELIMINAR",
@@ -366,8 +366,8 @@ function fntDelUsuario(id_usuario) {
         let request = window.XMLHttpRequest
           ? new XMLHttpRequest()
           : new ActiveXObject("Microsoft.XMLHTTP");
-        let ajaxUrl = base_url + "/Usuarios/delUsuario";
-        let strData = "id_usuario=" + id_usuario;
+        let ajaxUrl = base_url + "/Productos/delProductos";
+        let strData = "cod_producto=" + cod_producto;
         request.open("POST", ajaxUrl, true);
         request.setRequestHeader(
           "Content-type",
@@ -379,10 +379,10 @@ function fntDelUsuario(id_usuario) {
             let objData = JSON.parse(request.responseText);
             if (objData.status) {
               swal("Eliminar!", objData.msg, "success");
-              tableUsuarios.api().ajax.reload();
+              tableProductos.api().ajax.reload();
             } else if (objData.statusReferencial) {
               swal("Atención!", objData.msg, "error");
-              tableUsuarios.api().ajax.reload();
+              tableProductos.api().ajax.reload();
             } else {
               swal("Atención!", objData.msg, "error");
             }

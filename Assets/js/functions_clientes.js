@@ -132,7 +132,7 @@ document.addEventListener(
           .value.toUpperCase();
         let cod_genero = document.querySelector("#listGenero").value;
 
-        if (strNombres == "" || cod_genero == "") {
+        if (strRtn == "" ||strNombres == "" || intTelefono == "" ||strEmail == "" ||strDireccion == "" || cod_genero == "") {
           swal("Atención", "Los campos con * son obligatorios.", "error");
           return false;
         }
@@ -328,6 +328,9 @@ function fntDelCliente(cod_cliente) {
             let objData = JSON.parse(request.responseText);
             if (objData.status) {
               swal("Eliminar!", objData.msg, "success");
+              tableClientes.api().ajax.reload();
+            } else if (objData.statusReferencial) {
+              swal("Atención!", objData.msg, "error");
               tableClientes.api().ajax.reload();
             } else {
               swal("Atención!", objData.msg, "error");

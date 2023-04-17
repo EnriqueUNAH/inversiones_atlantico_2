@@ -178,15 +178,17 @@ class ProductosModel extends Mysql
 		return $request;
 	}
 
-	public function deleteUsuario(int $intid_usuario)
+	public function deleteProductos(int $cod_producto)
 	{
-		$this->intIdUsuario = $intid_usuario;
-
-		$sql = "SELECT * FROM tbl_ms_bitacora WHERE id_usuario = $this->intIdUsuario";
+		$this->cod_producto = $cod_producto;
+      
+		$sql = "SELECT * FROM tbl_detalle_factura WHERE cod_producto = $this->cod_producto";
+		// AQUI LE DEJO LA LINEA DE DETALLE COMPRA XD 
+		// $sql = "SELECT * FROM tbl_detalle_compra WHERE cod_producto = $this->cod_producto"; 
 		$request = $this->select_all($sql);
 		if (empty($request)) {
 
-			$sql = "DELETE FROM tbl_ms_usuarios WHERE id_usuario = $this->intIdUsuario ";
+			$sql = "DELETE FROM tbl_producto WHERE cod_producto = $this->cod_producto";
 			$request = $this->delete($sql);
 			if ($request) {
 				$request = 'ok';
@@ -197,5 +199,6 @@ class ProductosModel extends Mysql
 			$request = 'exist';
 		}
 		return $request;
+		
 	}
 }

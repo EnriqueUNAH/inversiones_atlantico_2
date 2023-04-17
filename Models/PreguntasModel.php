@@ -122,19 +122,21 @@ class PreguntasModel extends Mysql
 	public function deletePreguntas(int $id_pregunta)
 	{
 		$this->id_pregunta = $id_pregunta;
-		// $sql = "SELECT * FROM tbl_ms_preguntas WHERE id_pregunta = $this->intid_pregunta";
-		// $request = $this->select_all($sql);
-		// if (empty($request)) {
-		$sql = "DELETE FROM tbl_ms_preguntas WHERE id_pregunta = $this->id_pregunta";
-		$request = $this->delete($sql);
-		if ($request) {
-			$request = 'ok';
+
+		$sql = "SELECT * FROM tbl_ms_preguntas_usuario WHERE id_pregunta = $this->id_pregunta";
+		$request = $this->select_all($sql);
+		if (empty($request)) {
+
+			$sql = "DELETE FROM tbl_ms_preguntas WHERE id_pregunta = $this->id_pregunta ";
+			$request = $this->delete($sql);
+			if ($request) {
+				$request = 'ok';
+			} else {
+				$request = 'error';
+			}
 		} else {
-			$request = 'error';
+			$request = 'exist';
 		}
-		// } else {
-		// 	$request = 'exist';
-		// }
 		return $request;
 	}
 }
