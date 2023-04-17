@@ -137,19 +137,21 @@ class PromocionModel extends Mysql
 	public function deletePromocion(int $cod_promocion)
 	{
 		$this->cod_promocion = $cod_promocion;
-		// $sql = "SELECT * FROM tbl_ms_parametros WHERE id_parametro = $this->intid_parametro";
-		// $request = $this->select_all($sql);
-		// if (empty($request)) {
-		$sql = "DELETE FROM tbl_promocion WHERE cod_promocion = $this->cod_promocion";
-		$request = $this->delete($sql);
-		if ($request) {
-			$request = 'ok';
+
+		$sql = "SELECT * FROM tbl_promocion_producto WHERE cod_promocion = $this->cod_promocion";
+		$request = $this->select_all($sql);
+		if (empty($request)) {
+
+			$sql = "DELETE FROM tbl_promocion WHERE cod_promocion = $this->cod_promocion";
+			$request = $this->delete($sql);
+			if ($request) {
+				$request = 'ok';
+			} else {
+				$request = 'error';
+			}
 		} else {
-			$request = 'error';
+			$request = 'exist';
 		}
-		// } else {
-		// 	$request = 'exist';
-		// }
 		return $request;
 	}
 }
