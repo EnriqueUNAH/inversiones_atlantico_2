@@ -100,6 +100,31 @@ if (!empty($_POST)) {
 	}
 
 
+	
+		//Registra Cliente - Ventas
+		if($_POST['action'] == 'addCliente')
+		{
+			$rtn       = $_POST['rtn_cliente'];
+			$nombre    = $_POST['nom_cliente'];
+			$telefono  = $_POST['tel_cliente'];
+			$direccion = $_POST['dir_cliente'];
+			$usuario_id = $_SESSION['idUser'];
+
+			$query_insert = mysqli_query($conection,"INSERT INTO tbl_cliente(
+														rtn,nombres,telefono,direccion,id_usuario)
+													VALUES('$rtn','$nombre','$telefono','$direccion','$usuario_id')");
+			if($query_insert){
+				$codCliente = mysqli_insert_id($conection);
+				$msg = $codCliente;
+			}else{
+				$msg='error';
+			}
+			mysqli_close($conection);
+			echo $msg;
+			exit;
+		}
+
+
 
 	//Agregar producto al detalle temporal
 	if ($_POST['action'] == 'addProductoDetalle') {
