@@ -29,7 +29,6 @@ getModal('modalClientes', $data);
                   <th>Telefono</th>
                   <th>Correo</th>
                   <th>Direccion</th>
-                  <th>Genero</th>
                   <th>Acciones</th>
                 </tr>
               </thead>

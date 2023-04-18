@@ -20,8 +20,7 @@ document.addEventListener(
         { data: "telefono" },
         { data: "correo_electronico" },
         { data: "direccion" },
-        { data: "nombre_genero" },
-        { data: "options" },
+        { data: "options" }
       ],
       dom: "lBfrtip",
       buttons: [
@@ -130,9 +129,8 @@ document.addEventListener(
         let strDireccion = document
           .querySelector("#txtDireccion")
           .value.toUpperCase();
-        let cod_genero = document.querySelector("#listGenero").value;
 
-        if (strRtn == "" ||strNombres == "" || intTelefono == "" ||strEmail == "" ||strDireccion == "" || cod_genero == "") {
+        if (strRtn == "" ||strNombres == "" || intTelefono == "" ||strEmail == "" ||strDireccion == "" ) {
           swal("Atención", "Los campos con * son obligatorios.", "error");
           return false;
         }
@@ -168,8 +166,6 @@ document.addEventListener(
                 rowTable.cells[2].textContent = intTelefono;
                 rowTable.cells[3].textContent = strEmail;
                 rowTable.cells[4].innerHTML = strDireccion;
-                rowTable.cells[5].textContent =
-                  document.querySelector("#listGenero").selectedOptions[0].text;
                 rowTable = "";
               }
 
@@ -190,30 +186,30 @@ document.addEventListener(
   false
 );
 
-window.addEventListener(
-  "load",
-  function () {
-    fntGeneroCliente();
-  },
-  false
-);
+// window.addEventListener(
+//   "load",
+//   function () {
+//     fntGeneroCliente();
+//   },
+//   false
+// );
 
-function fntGeneroCliente() {
-  if (document.querySelector("#listGenero")) {
-    let ajaxUrl = base_url + "/Clientes/getSelectGenero";
-    let request = window.XMLHttpRequest
-      ? new XMLHttpRequest()
-      : new ActiveXObject("Microsoft.XMLHTTP");
-    request.open("GET", ajaxUrl, true);
-    request.send();
-    request.onreadystatechange = function () {
-      if (request.readyState == 4 && request.status == 200) {
-        document.querySelector("#listGenero").innerHTML = request.responseText;
-        $("#listGenero").selectpicker("render");
-      }
-    };
-  }
-}
+// function fntGeneroCliente() {
+//   if (document.querySelector("#listGenero")) {
+//     let ajaxUrl = base_url + "/Clientes/getSelectGenero";
+//     let request = window.XMLHttpRequest
+//       ? new XMLHttpRequest()
+//       : new ActiveXObject("Microsoft.XMLHTTP");
+//     request.open("GET", ajaxUrl, true);
+//     request.send();
+//     request.onreadystatechange = function () {
+//       if (request.readyState == 4 && request.status == 200) {
+//         document.querySelector("#listGenero").innerHTML = request.responseText;
+//         $("#listGenero").selectpicker("render");
+//       }
+//     };
+//   }
+// }
 
 function fntViewCliente(cod_cliente) {
   let request = window.XMLHttpRequest
@@ -242,8 +238,8 @@ function fntViewCliente(cod_cliente) {
           objData.data.correo_electronico;
         document.querySelector("#celDireccion").innerHTML =
           objData.data.direccion;
-        document.querySelector("#celGenero").innerHTML =
-          objData.data.nombre_genero;
+        // document.querySelector("#celGenero").innerHTML =
+        //   objData.data.nombre_genero;
         document.querySelector("#celCreadoPor").innerHTML =
           objData.data.creado_por;
         document.querySelector("#celFechaCreacion").innerHTML =
@@ -290,8 +286,8 @@ function fntEditCliente(element, cod_cliente) {
         document.querySelector("#txtEmail").value =
           objData.data.correo_electronico;
         document.querySelector("#txtDireccion").value = objData.data.direccion;
-        document.querySelector("#listGenero").value = objData.data.cod_genero;
-        $("#listGenero").selectpicker("render");
+        // document.querySelector("#listGenero").value = objData.data.cod_genero;
+        // $("#listGenero").selectpicker("render");
       }
     }
     $("#modalFormCliente").modal("show");
