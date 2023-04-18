@@ -27,22 +27,22 @@ class Productos extends Controllers
 
 		//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora
 		//SE PUEDEN USAR PARA INSERTAR O ACTUALIZAR PORQUE SERÍAN LOS MISMOS DATOS
-		// $dateFecha = date('Y-m-d H:i:s');
-		// $intIdUsuario = $_SESSION['idUser'];
-		// $intIdObjeto = 2;
-		// $request_bitacora = "";
+		$dateFecha = date('Y-m-d H:i:s');
+		$intIdUsuario = $_SESSION['idUser'];
+		$intIdObjeto = (MPRODUCTO);
+		$request_bitacora = "";
 
-		// $strAccion = "INGRESO";
-		// $strDescripcion = "INGRESO AL MODULO USUARIOS";
+		$strAccion = "INGRESO";
+		$strDescripcion = "INGRESO AL MÓDULO PRODUCTOS";
 
 		//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
-		// $request_bitacora = $this->model->insertUsuarioBitacora(
-		// 	$dateFecha,
-		// 	$intIdUsuario,
-		// 	$intIdObjeto,
-		// 	$strAccion,
-		// 	$strDescripcion
-		// );
+		 $request_bitacora = $this->model->insertProductoBitacora(
+	    	$dateFecha,
+		 	$intIdUsuario,
+		 	$intIdObjeto,
+		 	$strAccion,
+		 	$strDescripcion
+		 );
 	}
 
 	public function setProducto()
@@ -75,7 +75,7 @@ class Productos extends Controllers
 				//SE PUEDEN USAR PARA INSERTAR O ACTUALIZAR PORQUE SERÍAN LOS MISMOS DATOS
 				$dateFecha = date('Y-m-d H:i:s');
 				$intIdUsuario = $_SESSION['idUser'];
-				$intIdObjeto = 2; //ESTE VALOR VA A CAMBIAR MAS A DELANTE
+				$intIdObjeto = (MPRODUCTO); //ESTE VALOR VA A CAMBIAR MAS A DELANTE
 				$request_bitacora = "";
 
 				if ($cod_producto == 0) {
@@ -245,7 +245,7 @@ class Productos extends Controllers
 				//SE PUEDEN USAR PARA INSERTAR O ACTUALIZAR PORQUE SERÍAN LOS MISMOS DATOS
 				$dateFecha = date('Y-m-d H:i:s');
 				$intIdUsuario = $_SESSION['idUser'];
-				$intIdObjeto = 2;
+				$intIdObjeto = (MPRODUCTO);
 				$request_bitacora = "";
 
 				if ($requestDelete == 'ok') {

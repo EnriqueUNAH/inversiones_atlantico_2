@@ -121,7 +121,7 @@ document.addEventListener(
         e.preventDefault();
 
         let strobjeto = document.querySelector("#txtobjeto").value;
-        let strdescripcion = document.querySelector("#txtdescripcion").value;
+        let strdescripcion = document.querySelector("#txtdescripcion").value.toUpperCase();
 
         if (strobjeto == "" || strdescripcion == "") {
           swal("Atención", "Todos los campos son obligatorios.", "error");
