@@ -20,6 +20,7 @@ document.addEventListener(
         { data: "fecha" },
         { data: "nombre_usuario" },
         { data: "estado" },
+        { data: "options" },
       ],
       dom: "lBfrtip",
       buttons: [
@@ -110,3 +111,47 @@ document.addEventListener(
   },
   false
 );
+
+function fntDelProduccion(cod_produccion) {
+  swal(
+    {
+      title: "Anular Produccion",
+      text: "¿Realmente quiere anular la produccion?",
+      type: "warning",
+      showCancelButton: true,
+      confirmButtonText: "ANULAR",
+      cancelButtonText: "CANCELAR",
+      closeOnConfirm: false,
+      closeOnCancel: true,
+    },
+    function (isConfirm) {
+      if (isConfirm) {
+        let request = window.XMLHttpRequest
+          ? new XMLHttpRequest()
+          : new ActiveXObject("Microsoft.XMLHTTP");
+        let ajaxUrl = base_url + "/Produccion/delProduccion";
+        let strData = "cod_produccion=" + cod_produccion;
+        request.open("POST", ajaxUrl, true);
+        request.setRequestHeader(
+          "Content-type",
+          "application/x-www-form-urlencoded"
+        );
+        request.send(strData);
+        request.onreadystatechange = function () {
+          if (request.readyState == 4 && request.status == 200) {
+            let objData = JSON.parse(request.responseText);
+            if (objData.status) {
+              swal("Anular!", objData.msg, "success");
+              tableVentas.api().ajax.reload();
+            } else if (objData.statusReferencial) {
+              swal("Atención!", objData.msg, "error");
+              tableVentas.api().ajax.reload();
+            } else {
+              swal("Atención!", objData.msg, "error");
+            }
+          }
+        };
+      }
+    }
+  );
+}
