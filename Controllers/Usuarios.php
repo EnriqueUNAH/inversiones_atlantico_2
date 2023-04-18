@@ -29,11 +29,11 @@ class Usuarios extends Controllers
 		//SE PUEDEN USAR PARA INSERTAR O ACTUALIZAR PORQUE SERÍAN LOS MISMOS DATOS
 		$dateFecha = date('Y-m-d H:i:s');
 		$intIdUsuario = $_SESSION['idUser'];
-		$intIdObjeto = 2;
+		$intIdObjeto = (MUSUARIO);
 		$request_bitacora = "";
 
 		$strAccion = "INGRESO";
-		$strDescripcion = "INGRESO AL MODULO USUARIOS";
+		$strDescripcion = "INGRESO AL MÓDULO USUARIOS";
 
 		//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
 		$request_bitacora = $this->model->insertUsuarioBitacora(
@@ -104,7 +104,7 @@ class Usuarios extends Controllers
 				//SE PUEDEN USAR PARA INSERTAR O ACTUALIZAR PORQUE SERÍAN LOS MISMOS DATOS
 				$dateFecha = date('Y-m-d H:i:s');
 				$intIdUsuario = $_SESSION['idUser'];
-				$intIdObjeto = 2; //ESTE VALOR VA A CAMBIAR MAS A DELANTE
+				$intIdObjeto = (MUSUARIO); //ESTE VALOR VA A CAMBIAR MAS A DELANTE
 				$request_bitacora = "";
 
 
@@ -175,8 +175,9 @@ class Usuarios extends Controllers
 						$strDescripcion
 					);
 				} //FIN DEL ELSE PARA ACTUALIZAR
-
-				if ($request_user > 0) {
+				if ($request_user === 'exist') {
+					$arrResponse = array('status' => false, 'msg' => '¡Atención! el email o la identificación ya existe, ingrese otro.');
+				} else if ($request_user > 0) {
 					if ($option == 1) {
 
 
@@ -193,7 +194,7 @@ class Usuarios extends Controllers
 						// try {
 						//MANDA CORREO
 						################################################################################
-						sendMailLocal($dataUsuario, 'email_usuario'); //ENVIAR CORREO
+						// sendMailLocal($dataUsuario, 'email_usuario'); //ENVIAR CORREO
 						$arrResponse = array('status' => true, 'msg' => 'Datos guardados correctamente.');
 						// } catch (Exception $e) {
 						// 	$arrResponse = array('status' => false, 'msg' => 'No se puedo enviar el correo .Datos se guardaron correctamente.');
@@ -213,8 +214,6 @@ class Usuarios extends Controllers
 					} else {
 						$arrResponse = array('status' => true, 'msg' => 'Datos Actualizados correctamente.');
 					}
-				} else if ($request_user == 'exist') {
-					$arrResponse = array('status' => false, 'msg' => '¡Atención! el email o la identificación ya existe, ingrese otro.');
 				} else {
 					$arrResponse = array("status" => false, "msg" => 'No es posible almacenar los datos.');
 				}
@@ -312,14 +311,14 @@ class Usuarios extends Controllers
 				//SE PUEDEN USAR PARA INSERTAR O ACTUALIZAR PORQUE SERÍAN LOS MISMOS DATOS
 				$dateFecha = date('Y-m-d H:i:s');
 				$intIdUsuario = $_SESSION['idUser'];
-				$intIdObjeto = 2;
+				$intIdObjeto = (MUSUARIO);
 				$request_bitacora = "";
 
 				if ($requestDelete == 'ok') {
 					$arrResponse = array('status' => true, 'msg' => 'Se ha eliminado el usuario');
 
 					$strAccion = "ELIMINAR";
-					$strDescripcion = "ELIMINACION DE USUARIO";
+					$strDescripcion = "ELIMINACIÓN DE USUARIO";
 
 					//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
 					$request_bitacora = $this->model->insertUsuarioBitacora(

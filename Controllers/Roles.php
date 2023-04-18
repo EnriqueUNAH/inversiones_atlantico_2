@@ -30,11 +30,11 @@ class Roles extends Controllers
 		//SE PUEDEN USAR PARA INSERTAR O ACTUALIZAR PORQUE SERÍAN LOS MISMOS DATOS
 		$dateFecha = date('Y-m-d H:i:s');
 		$intIdUsuario = $_SESSION['idUser'];
-		$intIdObjeto = 2;
+		$intIdObjeto = (MROL);
 		$request_bitacora = "";
 
 		$strAccion = "INGRESO";
-		$strDescripcion = "INGRESO AL MODULO DE ROLES";
+		$strDescripcion = "INGRESO AL MÓDULO DE ROLES";
 
 		//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
 		$request_bitacora = $this->model->insertRolBitacora(

@@ -20,6 +20,7 @@ document.addEventListener(
         { data: "fecha" },
         { data: "nombre_usuario" },
         { data: "estado" },
+        { data: "options" },
       ],
       dom: "lBfrtip",
       buttons: [
@@ -110,3 +111,77 @@ document.addEventListener(
   },
   false
 );
+
+function fntDelProduccion(cod_produccion) {
+  swal(
+    {
+      title: "Anular Produccion",
+      text: "¿Realmente quiere anular la produccion?",
+      type: "warning",
+      showCancelButton: true,
+      confirmButtonText: "ANULAR",
+      cancelButtonText: "CANCELAR",
+      closeOnConfirm: false,
+      closeOnCancel: true,
+    },
+    function (isConfirm) {
+      if (isConfirm) {
+        let request = window.XMLHttpRequest
+          ? new XMLHttpRequest()
+          : new ActiveXObject("Microsoft.XMLHTTP");
+        let ajaxUrl = base_url + "/Produccion/delProduccion";
+        let strData = "cod_produccion=" + cod_produccion;
+        request.open("POST", ajaxUrl, true);
+        request.setRequestHeader(
+          "Content-type",
+          "application/x-www-form-urlencoded"
+        );
+        request.send(strData);
+        request.onreadystatechange = function () {
+          if (request.readyState == 4 && request.status == 200) {
+            let objData = JSON.parse(request.responseText);
+            if (objData.status) {
+              swal("Anular!", objData.msg, "success");
+              tableProduccion.api().ajax.reload();
+            } else if (objData.statusReferencial) {
+              swal("Atención!", objData.msg, "error");
+              tableProduccion.api().ajax.reload();
+            } else {
+              swal("Atención!", objData.msg, "error");
+            }
+          }
+        };
+      }
+    }
+  );
+}
+
+function ver_produccion(codProduccion) {
+  var cod_produccion = codProduccion;
+  // var cod_factura = codFactura;
+
+  generarPDF(cod_produccion);
+}
+
+function generarPDF(produccion) {
+  var ancho = 1000;
+  var alto = 800;
+  //Calcular posicion x,y para centrar la ventana
+  var x = parseInt(window.screen.width / 2 - ancho / 2);
+  var y = parseInt(window.screen.height / 2 - alto / 2);
+
+  $url = "Views/nueva_produccion/factura/generaFactura.php?f=" + produccion;
+  window.open(
+    $url,
+    "Factura",
+    "left=" +
+      x +
+      ",top=" +
+      y +
+      ",height=" +
+      alto +
+      ",width=" +
+      ancho +
+      ",scrollbar=si,location=no,resizable=si,menubar=no"
+  );
+}

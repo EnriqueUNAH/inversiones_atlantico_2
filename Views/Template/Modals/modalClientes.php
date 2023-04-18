@@ -54,17 +54,15 @@
             <div class="form-group col-md-6">
               <label for="txtDireccion">Dirección</label>
               <input type="text" class="form-control" id="txtDireccion" name="txtDireccion" style="text-transform:uppercase" >
-            </div>
+             </div>
 
 
-             <div class="form-group col-md-6">
+             <!-- <div class="form-group col-md-6">
               <label for="listGenero">Genero<span class="required">*</span></label>
               <select class="form-control" data-live-search="true" id="listGenero" name="listGenero" required>
-              </select>
-            </div>
-
-
-     </div>
+              </select> -->
+              <!-- </div> -->
+           </div>
     
           <div class="form-row">
 
@@ -117,11 +115,6 @@
             <tr>
               <td>Direccion:</td>
               <td id="celDireccion"></td>
-            </tr>
-
-            <tr>
-              <td>Genero:</td>
-              <td id="celGenero"></td>
             </tr>
             <tr>
               <td>Creado por:</td>

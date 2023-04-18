@@ -29,11 +29,11 @@ class Clientes extends Controllers
 		//SE PUEDEN USAR PARA INSERTAR O ACTUALIZAR PORQUE SERÍAN LOS MISMOS DATOS
 		$dateFecha = date('Y-m-d H:i:s');
 		$intIdUsuario = $_SESSION['idUser'];
-		$intIdObjeto = 2;
+		$intIdObjeto = (MCLIENTE);
 		$request_bitacora = "";
 
 		$strAccion = "INGRESO";
-		$strDescripcion = "INGRESO AL MODULO CLIENTES";
+		$strDescripcion = "INGRESO AL MÓDULO CLIENTES";
 
 		//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
 		$request_bitacora = $this->model->insertClientesBitacora(
@@ -49,7 +49,7 @@ class Clientes extends Controllers
 	{
 		if ($_POST) {
 			if (empty($_POST['txtRtn']) || empty($_POST['txtNombres']) || empty($_POST['txtTelefono'])
-			 || empty($_POST['txtEmail']) || empty($_POST['txtDireccion']) || empty($_POST['listGenero'])) {
+			 || empty($_POST['txtEmail']) || empty($_POST['txtDireccion'])) {
 				$arrResponse = array("status" => false, "msg" => 'Datos incorrectos.');
 
 				/*El siguiente else if, sirve para que valide desde el servidor. Que si se ingresa una letra 
@@ -64,14 +64,14 @@ class Clientes extends Controllers
 				$intTelefono = intval(strClean($_POST['txtTelefono']));
 				$strEmail = strtolower(strClean($_POST['txtEmail']));
 				$strDireccion = strtoupper(strClean($_POST['txtDireccion']));
-				$cod_genero = (strClean($_POST['listGenero']));
+				// $cod_genero = (strClean($_POST['listGenero']));
 				$request_user = "";
 
 				//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora
 				//SE PUEDEN USAR PARA INSERTAR O ACTUALIZAR PORQUE SERÍAN LOS MISMOS DATOS
 				$dateFecha = date('Y-m-d H:i:s');
 				$intIdUsuario = $_SESSION['idUser'];
-				$intIdObjeto = 2; //ESTE VALOR VA A CAMBIAR MAS A DELANTE
+				$intIdObjeto = (MCLIENTE); //ESTE VALOR VA A CAMBIAR MAS A DELANTE
 				$request_bitacora = "";
 
 				if ($cod_cliente == 0) {
@@ -87,15 +87,15 @@ class Clientes extends Controllers
 							$strNombres,
 							$intTelefono,
 							$strEmail,
-							$strDireccion,
-							$cod_genero
+							$strDireccion
+							// $cod_genero
 
 						);
 
 						//
 						//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora 	en caso de que se esté insertando
 						$strAccion = "CREAR";
-						$strDescripcion = "CREACION DE CLIENTE";
+						$strDescripcion = "CREACIÓN DE CLIENTE";
 
 						//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
 						$request_bitacora = $this->model->insertClientesBitacora(
@@ -117,8 +117,8 @@ class Clientes extends Controllers
 							$strNombres,
 							$intTelefono,
 							$strEmail,
-							$strDireccion,
-							$cod_genero
+							$strDireccion
+							// $cod_genero
 						);
 					}
 
@@ -207,21 +207,20 @@ class Clientes extends Controllers
 	}
 
 
-	public function getSelectGenero()
-	{
-		$htmlOptions = "";
-		$arrData = $this->model->selectGenero();
-		if (count($arrData) > 0) {
-			for ($i = 0; $i < count($arrData); $i++) {
-				//   if ($arrData[$i]['cod_genero'] == 1) {
-				$htmlOptions .= '<option value="' . $arrData[$i]['cod_genero'] . '">' . $arrData[$i]['nombre_genero'] . '</option>';
-				// }
-			}
-		}
-		echo $htmlOptions;
-		die();
-	}
-
+	// public function getSelectGenero()
+	// {
+	// 	$htmlOptions = "";
+	// 	$arrData = $this->model->selectGenero();
+	// 	if (count($arrData) > 0) {
+	// 		for ($i = 0; $i < count($arrData); $i++) {
+	// 			//   if ($arrData[$i]['cod_genero'] == 1) {
+	// 			$htmlOptions .= '<option value="' . $arrData[$i]['cod_genero'] . '">' . $arrData[$i]['nombre_genero'] . '</option>';
+	// 			// }
+	// 		}
+	// 	}
+	// 	echo $htmlOptions;
+	// 	die();
+	// }
 
 
 
@@ -238,7 +237,7 @@ class Clientes extends Controllers
 				//SE PUEDEN USAR PARA INSERTAR O ACTUALIZAR PORQUE SERÍAN LOS MISMOS DATOS
 				$dateFecha = date('Y-m-d H:i:s');
 				$intIdUsuario = $_SESSION['idUser'];
-				$intIdObjeto = 2;
+				$intIdObjeto = (MCLIENTE);
 				$request_bitacora = "";
 
 				if ($requestDelete == 'ok') {

@@ -456,49 +456,58 @@ $(document).ready(function () {
       var cod_producto = $("#select_product").val();
       var cantidad_producto = $("#cantidad_producto").val();
 
-      $.ajax({
-        url: "ajax.php",
-        type: "POST",
-        async: true,
-        data: {
-          action: action,
+      if (cod_producto == "") {
+        // Agregar alerta de SweetAlert
+        Swal.fire({
+          icon: "info",
+          title: "Por favor seleccione un producto",
+          confirmButtonText: "OK",
+        });
+      } else {
+        $.ajax({
+          url: "ajax.php",
+          type: "POST",
+          async: true,
+          data: {
+            action: action,
 
-          cantidad_producto: cantidad_producto,
-          cod_producto: cod_producto,
-        },
+            cantidad_producto: cantidad_producto,
+            cod_producto: cod_producto,
+          },
 
-        success: function (response) {
-          console.log(response);
-          if (response != "error") {
-            var info = JSON.parse(response);
-            console.log(info);
-            Swal.fire({
-              title: "Venta Exitosa",
-              icon: "success",
-              confirmButtonText: "OK",
-            }).then(() => {
+          success: function (response) {
+            console.log(response);
+            if (response != "error") {
+              var info = JSON.parse(response);
+              console.log(info);
               Swal.fire({
-                title: "¿Desea mostrar detalles de producción?",
-                icon: "info",
-                showCancelButton: true,
+                title: "Venta Exitosa",
+                icon: "success",
                 confirmButtonText: "OK",
-                cancelButtonText: "Cancelar",
-              }).then((result) => {
-                if (result.isConfirmed) {
-                  generarPDF(info.cod_cliente, info.cod_factura);
-                  location.reload();
-                  window.location.href = "../../produccion";
-                } else if (result.dismiss === Swal.DismissReason.cancel) {
-                  window.location.href = "../../produccion";
-                }
+              }).then(() => {
+                Swal.fire({
+                  title: "¿Desea mostrar detalles de producción?",
+                  icon: "info",
+                  showCancelButton: true,
+                  confirmButtonText: "OK",
+                  cancelButtonText: "Cancelar",
+                }).then((result) => {
+                  if (result.isConfirmed) {
+                    generarPDF(info.cod_cliente, info.cod_factura);
+                    location.reload();
+                    window.location.href = "../../produccion";
+                  } else if (result.dismiss === Swal.DismissReason.cancel) {
+                    window.location.href = "../../produccion";
+                  }
+                });
               });
-            });
-          } else {
-            console.log("no data");
-          }
-        },
-        error: function (error) {},
-      });
+            } else {
+              console.log("no data");
+            }
+          },
+          error: function (error) {},
+        });
+      }
     }
   });
 

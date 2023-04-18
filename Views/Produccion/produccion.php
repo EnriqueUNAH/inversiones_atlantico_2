@@ -42,8 +42,7 @@ headerAdmin($data);
                   <th>Fecha</th>
                   <th>Usuario</th>
                   <th>Estado</th>
-
-
+                  <th>Acciones</th>
                 </tr>
               </thead>
               <tbody>

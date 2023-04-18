@@ -29,7 +29,7 @@ class Preguntas extends Controllers
 		//SE PUEDEN USAR PARA INSERTAR O ACTUALIZAR PORQUE SERÍAN LOS MISMOS DATOS
 		$dateFecha = date('Y-m-d H:i:s');
 		$intIdUsuario = $_SESSION['idUser'];
-		$intIdObjeto = 2;
+		$intIdObjeto = (MPREGUNTA);
 		$request_bitacora = "";
 
 		$strAccion = "INGRESO";
@@ -61,7 +61,7 @@ class Preguntas extends Controllers
 				//SE PUEDEN USAR PARA INSERTAR O ACTUALIZAR PORQUE SERÍAN LOS MISMOS DATOS
 				$dateFecha = date('Y-m-d H:i:s');
 				$intIdUsuario = $_SESSION['idUser'];
-				$intIdObjeto = 2;                // ([["OJO"]]) HAY QUE CAMBIAR ESTE ID DESPUÉS CUANDO YA AGREGUEMOS TODOS LOS OBJETOS
+				$intIdObjeto = (MPREGUNTA);               // ([["OJO"]]) HAY QUE CAMBIAR ESTE ID DESPUÉS CUANDO YA AGREGUEMOS TODOS LOS OBJETOS
 				$request_bitacora = "";
 
 				if ($id_pregunta == 0) {
@@ -109,15 +109,14 @@ class Preguntas extends Controllers
 						$strDescripcion
 					);
 				} //FIN DEL ELSE PARA ACTUALIZAR
-
-				if ($request_user > 0) {
+				if ($request_user === 'exist') {
+					$arrResponse = array('status' => false, 'msg' => '¡Atención! la pregunta ya existe, ingrese otra.');
+				} else if ($request_user > 0) {
 					if ($option == 1) {
 						$arrResponse = array('status' => true, 'msg' => 'Datos guardados correctamente.');
 					} else {
 						$arrResponse = array('status' => true, 'msg' => 'Datos Actualizados correctamente.');
 					}
-				} else if ($request_user == 'exist') {
-					$arrResponse = array('status' => false, 'msg' => '¡Atención! el email o la identificación ya existe, ingrese otro.');
 				} else {
 					$arrResponse = array("status" => false, "msg" => 'No es posible almacenar los datos.');
 				}
@@ -185,7 +184,7 @@ class Preguntas extends Controllers
 				//SE PUEDEN USAR PARA INSERTAR O ACTUALIZAR PORQUE SERÍAN LOS MISMOS DATOS
 				$dateFecha = date('Y-m-d H:i:s');
 				$intIdUsuario = $_SESSION['idUser'];
-				$intIdObjeto = 2;
+				$intIdObjeto = (MPREGUNTA);
 				$request_bitacora = "";
 
 				if ($requestDelete == 'ok') {
@@ -209,7 +208,6 @@ class Preguntas extends Controllers
 				}
 
 				echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
-
 			}
 		}
 

@@ -25,14 +25,21 @@ class ProduccionModel extends Mysql
 	//Función para que inserte en bitácora cada vez que se agrega un nuevo usuario
 
 
-	public function selectProduccion()
+	public function selectProduccions()
 	{
 
 
-		$sql = "SELECT pr.cod_producto,pr.fecha,pr.estado,pr.cantidad,p.nombre_producto,u.nombre_usuario
+		$sql = "SELECT pr.cod_produccion,pr.cod_producto,pr.fecha,pr.estado,pr.cantidad,p.nombre_producto,u.nombre_usuario
 			FROM tbl_ms_usuarios u
 			INNER JOIN tbl_produccion pr ON pr.id_usuario = u.id_usuario
 			INNER JOIN tbl_producto p ON pr.cod_producto = p.cod_producto";
+		$request = $this->select_all($sql);
+		return $request;
+	}
+	public function deleteProduccion(int $id_produccion)
+	{
+
+		$sql = "call anular_produccion($id_produccion)";
 		$request = $this->select_all($sql);
 		return $request;
 	}
