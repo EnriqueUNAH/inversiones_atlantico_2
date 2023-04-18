@@ -110,7 +110,7 @@ class Preguntas extends Controllers
 					);
 				} //FIN DEL ELSE PARA ACTUALIZAR
 				if ($request_user === 'exist') {
-					$arrResponse = array('status' => false, 'msg' => '¡Atención! el email o la identificación ya existe, ingrese otro.');
+					$arrResponse = array('status' => false, 'msg' => '¡Atención! la pregunta ya existe, ingrese otra.');
 				} else if ($request_user > 0) {
 					if ($option == 1) {
 						$arrResponse = array('status' => true, 'msg' => 'Datos guardados correctamente.');
