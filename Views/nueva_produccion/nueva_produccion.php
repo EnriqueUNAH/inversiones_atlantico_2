@@ -94,8 +94,11 @@ $result_p->free();
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 
+	<!-- Para las alertas -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.css">
+	<!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script> -->
 
-
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js"></script>
 
 </head>
 
@@ -149,7 +152,7 @@ $result_p->free();
 					<th>
 						<h4>Seleccione el Producto a Producir</h4><BR>
 						<!---->
-						<select name="select_producto" id="select_productffo" class="select-productfo" style="width: 200px;">
+						<select name="select_product" id="select_product" class="select-producto" style="width: 200px;">
 							<option value="">Productos</option>
 							<?php foreach ($productos as $producto) : ?>
 								<option value="<?php echo $producto['cod_producto']; ?>"><?php echo $producto['nombre_producto']; ?></option>
@@ -163,7 +166,7 @@ $result_p->free();
 
 					<th>
 						<h4>Cantidad</h4><BR>
-						<input type="num" name="txt_cantidad_producto" id="txt_cantidad_producto" value="1" min="1">
+						<input type="num" name="cantidad_producto" id="cantidad_producto" value="1" min="1">
 					</th>
 
 

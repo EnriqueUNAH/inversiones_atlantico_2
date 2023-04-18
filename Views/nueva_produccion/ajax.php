@@ -298,6 +298,7 @@ if (!empty($_POST)) {
 											<td class="">
 												<a class="link_delete" href="#" onclick="event.preventDefault(); del_product_detalle_pr(' . $data['cod_detalle_produccion'] . ');"><i class="far fa-trash-alt"></i></a>
 											</td>
+											
 										</tr>';
 				}
 
@@ -348,6 +349,9 @@ if (!empty($_POST)) {
 		// 	$cod_cliente = $_POST['cod_cliente'];
 		// }
 		##############################################################################
+		$codproducto = $_POST['cod_producto'];
+		$cantidadproducto = $_POST['cantidad_producto'];
+
 		$token 		= md5($_SESSION['idUser']);
 		// $usuario 	= $_SESSION['idUser'];
 
@@ -358,7 +362,7 @@ if (!empty($_POST)) {
 		$result = mysqli_num_rows($query);
 
 		if ($result > 0) {
-			$query_procesar = mysqli_query($conection, "call procesar_produccion($usuario,'$token')");
+			$query_procesar = mysqli_query($conection, "call procesar_produccion($usuario,'$token',$codproducto,$cantidadproducto)");
 			$result_detalle = mysqli_num_rows($query_procesar);
 
 			if ($result_detalle > 0) {

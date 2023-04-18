@@ -452,25 +452,33 @@ $(document).ready(function () {
     var rows = $("#detalle_venta ").length;
     if (rows > 0) {
       var action = "procesarVenta";
-      var cod_cliente = $("#cod_cliente").val();
+
+      var cod_producto = $("#select_product").val();
+      var cantidad_producto = $("#cantidad_producto").val();
 
       $.ajax({
         url: "ajax.php",
         type: "POST",
         async: true,
-        data: { action: action, cod_cliente: cod_cliente },
+        data: {
+          action: action,
+
+          cantidad_producto: cantidad_producto,
+          cod_producto: cod_producto,
+        },
 
         success: function (response) {
+          console.log(response);
           if (response != "error") {
             var info = JSON.parse(response);
-            //console.log(info);
+            console.log(info);
             Swal.fire({
               title: "Venta Exitosa",
               icon: "success",
               confirmButtonText: "OK",
             }).then(() => {
               Swal.fire({
-                title: "¿Desea mostrar la factura?",
+                title: "¿Desea mostrar detalles de producción?",
                 icon: "info",
                 showCancelButton: true,
                 confirmButtonText: "OK",
@@ -479,9 +487,9 @@ $(document).ready(function () {
                 if (result.isConfirmed) {
                   generarPDF(info.cod_cliente, info.cod_factura);
                   location.reload();
-                  window.location.href = "../../ventas";
+                  window.location.href = "../../produccion";
                 } else if (result.dismiss === Swal.DismissReason.cancel) {
-                  window.location.href = "../../ventas";
+                  window.location.href = "../../produccion";
                 }
               });
             });
