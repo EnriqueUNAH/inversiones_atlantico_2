@@ -258,7 +258,7 @@ $(document).ready(function () {
             $("#txt_nombre_producto").html(info.nombre_producto);
             $("#txt_existencia").html(info.existencia);
             $("#txt_cant_producto").val("1");
-            $("#txt_precio").val("1")
+            $("#txt_precio").val("1");
             $("#txt_precio_total").html(info.precio_venta);
 
             //Activar Cantidad
@@ -279,7 +279,6 @@ $(document).ready(function () {
             $("#txt_cant_producto").attr("disabled", "disabled");
             $("#txt_precio").attr("disabled", "disabled");
 
-
             //Ocultar boton agregar
             $("#add_product_venta").slideUp();
           }
@@ -298,10 +297,7 @@ $(document).ready(function () {
     $("#txt_precio_total").html(precio_total);
 
     //Oculta el boton agregar si la cantidad es menor que 1
-    if (
-      $(this).val() < 1 ||
-      isNaN($(this).val())
-    ) {
+    if ($(this).val() < 1 || isNaN($(this).val())) {
       $("#add_product_venta").slideUp();
     } else {
       $("#add_product_venta").slideDown();
@@ -315,14 +311,19 @@ $(document).ready(function () {
     if ($("#txt_cant_producto").val() > 0) {
       var cod_producto = $("#txt_cod_producto").val();
       var cantidad = $("#txt_cant_producto").val();
-      var precio_venta= $("#txt_precio").val();
+      var precio_venta = $("#txt_precio").val();
       var action = "addProductoDetalle";
 
       $.ajax({
         url: "ajax.php",
         type: "POST",
         async: true,
-        data: { action: action, producto: cod_producto, cantidad: cantidad, precio_venta: precio_venta },
+        data: {
+          action: action,
+          producto: cod_producto,
+          cantidad: cantidad,
+          precio_venta: precio_venta,
+        },
 
         success: function (response) {
           if (response != "error") {
@@ -341,9 +342,9 @@ $(document).ready(function () {
             $("#txt_cant_producto").attr("disabled", "disabled");
             $("#txt_precio").attr("disabled", "disabled");
 
-
             //Ocultar boton agregar
             $("#add_product_venta").slideUp();
+            window.location.reload(true);
           } else {
             console.log("no data");
           }

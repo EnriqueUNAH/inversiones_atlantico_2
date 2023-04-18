@@ -74,8 +74,8 @@ if (!empty($_POST)) {
 			$cod_producto = $_POST['producto'];
 			$cantidad 	 = $_POST['cantidad'];
 			$precio_venta 	 = $_POST['precio_venta'];
-			// $token 		 = md5($_SESSION['idUser']);
-			$token 		 = md5(321);
+			$token 		 = md5($_SESSION['idUser']);
+			// $token 		 = md5(321);
 
 			$query_isv = mysqli_query($conection, "SELECT valor FROM tbl_ms_parametros where parametro = 'impuesto'");
 			$result_isv = mysqli_num_rows($query_isv);
@@ -236,8 +236,8 @@ if (!empty($_POST)) {
 		} else {
 
 			$id_detalle = $_POST['id_detalle'];
-			// $token 		= md5($_SESSION['idUser']);
-			$token 		 = md5(321);
+			$token 		= md5($_SESSION['idUser']);
+			// $token 		 = md5(321);
 
 			$query_isv = mysqli_query($conection, "SELECT valor FROM tbl_ms_parametros where parametro = 'impuesto'");
 			$result_isv = mysqli_num_rows($query_isv);
@@ -309,8 +309,8 @@ if (!empty($_POST)) {
 	// Anular Venta
 	if ($_POST['action'] == 'anularVenta') {
 
-		// $token 		 = md5($_SESSION['idUser']);
-		$token 		 = md5(321);
+		$token 		 = md5($_SESSION['idUser']);
+		// $token 		 = md5(321);
 
 		$query_del = mysqli_query($conection, "DELETE FROM detalle_temp_c WHERE token_user = '$token' ");
 		mysqli_close($conection);
@@ -331,11 +331,10 @@ if (!empty($_POST)) {
 			$cod_cliente = $_POST['cod_cliente'];
 		}
 		##############################################################################
-		// $token 		= md5($_SESSION['idUser']);
-		// $usuario 	= $_SESSION['idUser'];
+		$token 		= md5($_SESSION['idUser']);
+		$usuario 	= $_SESSION['idUser'];
 
-		$token 		= md5(321);
-		$usuario 	= 1;
+
 
 		$query = mysqli_query($conection, "SELECT * FROM detalle_temp_c WHERE token_user = '$token' ");
 		$result = mysqli_num_rows($query);

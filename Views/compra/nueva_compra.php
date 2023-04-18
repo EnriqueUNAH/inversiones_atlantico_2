@@ -5,16 +5,27 @@ include "conexion.php";
 
 <?php include "includes/scripts.php"; ?>
 
-<!DOCTYPE html>
-<html lang="es">
+
+
+
+
+
 <?php
-
-
-// Haz la consulta
-$sql = "SELECT cod_producto, nombre_producto FROM tbl_producto";
+###############################################################################
+// Consulta para obtener los productos
+$sql = "SELECT cod_producto, nombre_producto 
+FROM tbl_producto 
+WHERE cod_tipo_producto = 3
+AND NOT EXISTS (
+    SELECT 1 
+    FROM detalle_temp 
+    WHERE detalle_temp.cod_producto = tbl_producto.cod_producto
+);
+"; //Cuando sea un PRODUCTO TERMINADO Y NO EXISTA EN DETALLE_TEMP
+//OJO, puede que se cambie el 4 si se cambia algo en la Base de Datos.
 $result = $conection->query($sql);
 
-// Crea un arreglo con los datos obtenidos de la base de datos
+// Crea un arreglo con los datos obtenidos de la tabla productos
 $productos = array();
 while ($row = $result->fetch_assoc()) {
 	$productos[] = array(
@@ -25,7 +36,22 @@ while ($row = $result->fetch_assoc()) {
 
 // Libera el resultado de la consulta
 $result->free();
+###############################################################################
+
 ?>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <head>
 	<meta charset="UTF-8">
