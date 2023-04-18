@@ -119,8 +119,8 @@ document.addEventListener("DOMContentLoaded", function () {
     e.preventDefault();
 
     var intid_rol = document.querySelector("#id_rol").value;
-    var strNombre = document.querySelector("#txtNombre").value;
-    var strDescripcion = document.querySelector("#txtDescripcion").value;
+    var strNombre = document.querySelector("#txtNombre").value.toUpperCase();
+    var strDescripcion = document.querySelector("#txtDescripcion").value.toUpperCase();
     var intestado = document.querySelector("#listStatus").value;
     if (strNombre == "" || strDescripcion == "" || intestado == "") {
       swal("Atención", "Todos los campos son obligatorios.", "error");
