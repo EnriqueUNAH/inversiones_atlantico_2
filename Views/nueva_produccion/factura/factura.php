@@ -211,12 +211,14 @@ $total 		= 0;
 					$r_RTN = $re_RTN['valor'];
 					$r_Telefono = $re_Telefono['valor'];
 					$r_Correo = $re_Correo['valor'];
+					date_default_timezone_set('America/Tegucigalpa');
+					$fechaActual = date("d/m/Y H:i:s");
 
 					if ($result_config > 0) {
 						$isv = $re_isv['valor'];
 					?>
-						<span class="h2"><?php echo ($r_Nombre); ?></span>
-
+						<span class="h2"><?php echo ($r_Nombre); ?></span><br>
+						<h3>Fecha del Reporte: <?php echo $fechaActual; ?></h3>
 					<?php
 					}
 					?>
