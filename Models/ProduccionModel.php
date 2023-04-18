@@ -36,11 +36,55 @@ class ProduccionModel extends Mysql
 		$request = $this->select_all($sql);
 		return $request;
 	}
+
+
+
 	public function deleteProduccion(int $id_produccion)
 	{
 
 		$sql = "call anular_produccion($id_produccion)";
 		$request = $this->select_all($sql);
 		return $request;
+	}
+
+
+
+
+	public function finProduccion(int $idProduccion, int $cantidad, int $idProducto)
+	{
+		$this->intCod_Produccion = $idProduccion;
+		$this->intCantidad = $cantidad;
+		$this->intCod_Producto = $idProducto;
+		$return = 0;
+
+		// Actualizar estado en la tabla tbl_produccion
+		$query_produccion = "UPDATE tbl_produccion SET estado = 3 WHERE cod_produccion = ?";
+		$arrData_produccion = array($this->intCod_Produccion);
+		$request_produccion = $this->update($query_produccion, $arrData_produccion);
+
+		// Actualizar existencia en la tabla tbl_producto
+		$query_producto = "UPDATE tbl_producto SET existencia = existencia + ? WHERE cod_producto = $this->intCod_Producto";
+		$arrData_producto = array($this->intCantidad);
+		$request_producto = $this->update($query_producto, $arrData_producto);
+
+		// Insertar en la tabla tbl_ms_bitacora
+		// $query_insert  = "INSERT INTO tbl_ms_bitacora(fecha,id_usuario,id_objeto,accion,descripcion) 
+		// 				  VALUES(?,?,?,?,?)";
+		// $arrData = array(
+		// 	$this->dateFecha,
+		// 	$this->intIdUsuario,
+		// 	$this->intIdObjeto,
+		// 	$this->strAccion,
+		// 	$this->strDescripcion,
+		// );
+		// $request_insert = $this->insert($query_insert, $arrData);
+
+		// Si ambas consultas de actualización tuvieron éxito y la inserción también, entonces retornar 1
+		// if ($request_produccion && $request_producto && $request_insert) {   EJEMPLO PARA CUANDO SE AGREGUE BITACORA
+		if ($request_produccion && $request_producto) {
+			$return = 1;
+		}
+
+		return $return;
 	}
 }

@@ -156,6 +156,57 @@ function fntDelProduccion(cod_produccion) {
   );
 }
 
+function fntFinProduccion(cod_produccion, cantidad, cod_producto) {
+  swal(
+    {
+      title: "Finalizar Produccion",
+      text: "¿Realmente quiere finalizar la producción?",
+      type: "warning",
+      showCancelButton: true,
+      confirmButtonText: "FINALIZAR",
+      cancelButtonText: "CANCELAR",
+      closeOnConfirm: false,
+      closeOnCancel: true,
+    },
+    function (isConfirm) {
+      if (isConfirm) {
+        let request = window.XMLHttpRequest
+          ? new XMLHttpRequest()
+          : new ActiveXObject("Microsoft.XMLHTTP");
+        let ajaxUrl = base_url + "/Produccion/finProduccion";
+        let strData =
+          "cod_produccion=" +
+          cod_produccion +
+          "&cantidad=" +
+          cantidad +
+          "&cod_producto=" +
+          cod_producto;
+
+        request.open("POST", ajaxUrl, true);
+        request.setRequestHeader(
+          "Content-type",
+          "application/x-www-form-urlencoded"
+        );
+        request.send(strData);
+        request.onreadystatechange = function () {
+          if (request.readyState == 4 && request.status == 200) {
+            let objData = JSON.parse(request.responseText);
+            if (objData.status) {
+              swal("Finalizar!", objData.msg, "success");
+              tableProduccion.api().ajax.reload();
+            } else if (objData.statusReferencial) {
+              swal("Atención!", objData.msg, "error");
+              tableProduccion.api().ajax.reload();
+            } else {
+              swal("Atención!", objData.msg, "error");
+            }
+          }
+        };
+      }
+    }
+  );
+}
+
 function ver_produccion(codProduccion) {
   var cod_produccion = codProduccion;
   // var cod_factura = codFactura;
