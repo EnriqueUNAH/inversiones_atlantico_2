@@ -11,7 +11,7 @@ $total 		= 0;
 
 <head>
 	<meta charset="UTF-8">
-	<title>Factura</title>
+	<title>Detalles de Producción</title>
 	<style>
 		* {
 			margin: 0;
@@ -48,14 +48,14 @@ $total 		= 0;
 			margin: 15px auto 10px auto;
 		}
 
-		#factura_head,
-		#factura_cliente,
-		#factura_detalle {
+		#produccion_head,
+		#produccion_cliente,
+		#produccion_detalle {
 			width: 100%;
 			margin-bottom: 10px;
 		}
 
-		.logo_factura {
+		.logo_produccion {
 			width: 25%;
 		}
 
@@ -64,7 +64,7 @@ $total 		= 0;
 			text-align: center;
 		}
 
-		.info_factura {
+		.info_produccion {
 			width: 25%;
 		}
 
@@ -116,11 +116,11 @@ $total 		= 0;
 			padding: 0 15px;
 		}
 
-		#factura_detalle {
+		#produccion_detalle {
 			border-collapse: collapse;
 		}
 
-		#factura_detalle thead th {
+		#produccion_detalle thead th {
 			background: #FFF;
 			color: #000000;
 			padding: 5px;
@@ -160,9 +160,9 @@ $total 		= 0;
 <body>
 	<?php echo $anulada; ?>
 	<div id="page_pdf">
-		<table id="factura_head">
+		<table id="produccion_head">
 			<tr>
-				<td class="logo_factura">
+				<td class="logo_produccion">
 					<div>
 						<img src="data:image/png;base64,<?php echo $logoBase64; ?>">
 					</div>
@@ -215,87 +215,38 @@ $total 		= 0;
 					if ($result_config > 0) {
 						$isv = $re_isv['valor'];
 					?>
-						<div>
-							<span class="h2"><?php echo ($r_Nombre); ?></span>
-							<p><?php echo ($r_RazonSocial); ?></p>
-							<p><?php echo ($r_Direccion); ?></p>
-							<p>RTN: <?php echo ($r_RTN); ?></p>
-							<p>Teléfono: <?php echo ($r_Telefono); ?></p>
-							<p> <?php echo ($r_Correo); ?></p>
-						</div>
+						<span class="h2"><?php echo ($r_Nombre); ?></span>
+
 					<?php
 					}
 					?>
 				</td>
 
 			</tr>
-
 		</table>
 
 
-
-		<table id="factura_cliente">
+		<table id="produccion_cliente">
 			<tr>
-
-				<td class="info_factura">
-					<table class="datos_cliente">
-						<div class="round">
-							<span class="h3">Factura</span>
-							<p>No. Factura: <strong><?php echo $factura['numero_factura']; ?></strong></p><br><br>
-							<p>Fecha: <?php echo $factura['fecha']; ?></p>
-							<p>Hora: <?php echo $factura['hora']; ?></p>
-							<p>Vendedor: <?php echo $factura['vendedor']; ?></p>
-
-
-						</div>
-					</table>
-				</td>
-
-			</tr>
-		</table>
-
-
-		<table id="factura_cliente">
-			<tr>
-				<td class="info_cliente">
+				<td class="info_produccion">
 					<div class="round">
-						<span class="h3">Cliente</span>
-						<table class="datos_cliente">
-							<tr>
-								<td><label>RTN:</label>
-									<p><?php echo $factura['rtn']; ?></p>
-								</td>
-								<td><label>Teléfono:</label>
-									<p><?php
-										if ($factura['telefono'] == 0) {
-											echo "";
-										} else {
-											echo $factura['telefono'];
-										}
-
-										?></p>
-								</td>
-							</tr>
-							<tr>
-								<td><label>Nombre:</label>
-									<p><?php echo $factura['nombres']; ?></p>
-								</td>
-								<td><label>Dirección:</label>
-									<p><?php echo $factura['direccion']; ?></p>
-								</td>
-							</tr>
-						</table>
+						<span class="h3">Producción</span>
+						<p>Vendedor: <?php echo $produccion['vendedor']; ?></p>
+						<p>Fecha: <?php echo $produccion['fecha']; ?></p>
+						<p>Hora: <?php echo $produccion['hora']; ?></p>
 					</div>
 				</td>
+
 			</tr>
 		</table>
-		<table id="factura_detalle">
+
+		<table id="produccion_detalle">
 			<thead>
 				<tr>
-					<th width="50px">Cant.</th>
-					<th class="textleft">Descripción</th>
-					<th class="textright" width="150px">Precio Unitario.</th>
-					<th class="textright" width="150px"> Precio Total</th>
+					<th class="textleft">Insumos</th>
+					<th width="50px">Cantidad</th>
+
+
 				</tr>
 			</thead>
 			<tbody id="detalle_productos">
@@ -307,60 +258,28 @@ $total 		= 0;
 					while ($row = mysqli_fetch_assoc($query_productos)) {
 				?>
 						<tr>
-							<td class="textcenter"><?php echo $row['cantidad']; ?></td>
 							<td><?php echo $row['nombre_producto']; ?></td>
-							<td class="textright"><?php echo $row['precio_venta']; ?></td>
-							<td class="textright"><?php echo $row['precio_total']; ?></td>
+							<td class="textcenter"><?php echo $row['cantidad']; ?></td>
+
+
 						</tr>
 				<?php
-						$precio_total = $row['precio_total'];
-						$subtotal = round($subtotal + $precio_total, 2);
+
 					}
 				}
 
-				$tl_snisv 	= round($subtotal  / (1 + ($isv / 100)), 2);
-				$impuesto 	= round($tl_snisv * ($isv / 100), 2);
 
-
-				// $impuesto 	= round($subtotal * ($isv / 100), 2);
-				// $tl_snisv 	= round($subtotal - $impuesto, 2);
-				$total 		= round($tl_snisv + $impuesto, 2);
 				?>
 			</tbody>
 			<tfoot id="detalle_totales">
-				<tr>
-					<td colspan="3" class="textright"><span>DESCUENTOS </span></td>
-					<td class="textright"><span><?php echo "- L." . 0; ?></span></td>
-				</tr>
-				<tr>
-					<td colspan="3" class="textright"><span>SUBTOTAL L.</span></td>
-					<td class="textright"><span><?php echo $tl_snisv; ?></span></td>
-				</tr>
 
 				<tr>
-					<td colspan="3" class="textright"><span>ISV (<?php echo $isv; ?> %)</span></td>
-					<td class="textright"><span><?php echo $impuesto; ?></span></td>
-				</tr>
-				<tr>
-					<td colspan="3" class="textright"><span>TOTAL L.</span></td>
-					<td class="textright"><span><?php echo $total; ?></span></td>
+
 				</tr>
 			</tfoot>
 		</table>
 		<div>
 
-
-
-
-
-
-
-
-
-
-
-			<!-- <p class="nota">Si usted tiene preguntas sobre esta factura, <br>pongase en contacto con nombre, teléfono y Email</p> -->
-			<h4 class="label_gracias">LA FACTURA ES BENEFICIO DE TODOS "EXÍJALA"</h4>
 		</div>
 	</div>
 </body>

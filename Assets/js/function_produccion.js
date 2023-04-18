@@ -142,10 +142,10 @@ function fntDelProduccion(cod_produccion) {
             let objData = JSON.parse(request.responseText);
             if (objData.status) {
               swal("Anular!", objData.msg, "success");
-              tableVentas.api().ajax.reload();
+              tableProduccion.api().ajax.reload();
             } else if (objData.statusReferencial) {
               swal("Atención!", objData.msg, "error");
-              tableVentas.api().ajax.reload();
+              tableProduccion.api().ajax.reload();
             } else {
               swal("Atención!", objData.msg, "error");
             }
@@ -153,5 +153,35 @@ function fntDelProduccion(cod_produccion) {
         };
       }
     }
+  );
+}
+
+function ver_produccion(codProduccion) {
+  var cod_produccion = codProduccion;
+  // var cod_factura = codFactura;
+
+  generarPDF(cod_produccion);
+}
+
+function generarPDF(produccion) {
+  var ancho = 1000;
+  var alto = 800;
+  //Calcular posicion x,y para centrar la ventana
+  var x = parseInt(window.screen.width / 2 - ancho / 2);
+  var y = parseInt(window.screen.height / 2 - alto / 2);
+
+  $url = "Views/nueva_produccion/factura/generaFactura.php?f=" + produccion;
+  window.open(
+    $url,
+    "Factura",
+    "left=" +
+      x +
+      ",top=" +
+      y +
+      ",height=" +
+      alto +
+      ",width=" +
+      ancho +
+      ",scrollbar=si,location=no,resizable=si,menubar=no"
   );
 }
