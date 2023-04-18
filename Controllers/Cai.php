@@ -26,7 +26,7 @@ class Cai extends Controllers
 		//SE PUEDEN USAR PARA INSERTAR O ACTUALIZAR PORQUE SERÍAN LOS MISMOS DATOS
 		$dateFecha = date('Y-m-d H:i:s');
 		$intIdUsuario = $_SESSION['idUser'];
-		$intIdObjeto = 2;
+		$intIdObjeto = (MCAI);
 		$request_bitacora = "";
 
 		$strAccion = "INGRESO";
@@ -69,7 +69,7 @@ class Cai extends Controllers
 					//SE PUEDEN USAR PARA INSERTAR O ACTUALIZAR PORQUE SERÍAN LOS MISMOS DATOS
 					$dateFecha = date('Y-m-d H:i:s');
 					$intIdUsuario = $_SESSION['idUser'];
-					$intIdObjeto = 2;                // ([["OJO"]]) HAY QUE CAMBIAR ESTE ID DESPUÉS CUANDO YA AGREGUEMOS TODOS LOS OBJETOS
+					$intIdObjeto = (MCAI);               // ([["OJO"]]) HAY QUE CAMBIAR ESTE ID DESPUÉS CUANDO YA AGREGUEMOS TODOS LOS OBJETOS
 					$request_bitacora = "";
 
 					if ($cod_talonario == 0) {
@@ -209,14 +209,14 @@ class Cai extends Controllers
 				//SE PUEDEN USAR PARA INSERTAR O ACTUALIZAR PORQUE SERÍAN LOS MISMOS DATOS
 				$dateFecha = date('Y-m-d H:i:s');
 				$intIdUsuario = $_SESSION['idUser'];
-				$intIdObjeto = 2;
+				$intIdObjeto = (MCAI);
 				$request_bitacora = "";
 
 				if ($requestDelete) {
 					$arrResponse = array('status' => true, 'msg' => 'Se ha eliminado el CAI');
 
 					$strAccion = "ELIMINAR";
-					$strDescripcion = "ELIMINACION DE CAI";
+					$strDescripcion = "ELIMINACIÓN DE CAI";
 
 					//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
 					$request_bitacora = $this->model->insertCaiBitacora(
