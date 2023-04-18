@@ -160,7 +160,7 @@ $total 		= 0;
 <body>
 	<?php echo $anulada; ?>
 	<div id="page_pdf">
-		<table id="produccion_head">
+		<table id="factura_head">
 			<tr>
 				<td class="logo_produccion">
 					<div>
@@ -231,7 +231,7 @@ $total 		= 0;
 				<td class="info_produccion">
 					<div class="round">
 						<span class="h3">Producción</span>
-						<p>Vendedor: <?php echo $produccion['vendedor']; ?></p>
+						<p>Usuario: <?php echo $produccion['vendedor']; ?></p>
 						<p>Fecha: <?php echo $produccion['fecha']; ?></p>
 						<p>Hora: <?php echo $produccion['hora']; ?></p>
 					</div>
