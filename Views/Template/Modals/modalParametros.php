@@ -17,14 +17,14 @@
           <div class="form-row">
             <div class="form-group col-md-7">
               <label for="txtparametro">Parámetro</label>
-              <input type="text" pattern="[a-zA-Z0-9_]+" class="form-control" id="txtparametro" name="txtparametro" style="text-transform:uppercase" required="" title="Ingrese solo letras y números sin espacios">
+              <input type="text"  class="form-control" id="txtparametro" name="txtparametro" style="text-transform:uppercase" required="" >
             </div>
           </div>
           <div class="form-row">
 
             <div class="form-group col-md-7">
               <label for="txtparametro">Valor</label>
-              <input type="text" pattern="[A-Za-z0-9 ]+" class="form-control " id="txtvalor" name="txtvalor"  required="" title="Ingrese letras y números ">
+              <input type="text"  class="form-control " id="txtvalor" name="txtvalor"  required="" >
             </div>
 
           </div>
