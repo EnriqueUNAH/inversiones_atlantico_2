@@ -43,8 +43,10 @@ class Produccion extends Controllers
 
 			if ($_SESSION['permisosMod']['d']) {
 				$btnDelete = '<button class="btn btn-danger btn-sm btnDelProduccion" onClick="fntDelProduccion(' . $arrData[$i]['cod_produccion'] . ')" title="Anular Producción"><i class="fas fa-ban"></i></button>';
+				$btnComplete = '<button class="btn btn-success btn-sm btnFinProduccion" onClick="fntFinProduccion(' . $arrData[$i]['cod_produccion'] . ' , ' . $arrData[$i]['cantidad'] . ', ' . $arrData[$i]['cod_producto'] . ')"title="Finalizar Producción"><i class="fas fa-check" ></i></button>';
 			} else {
 				$btnDelete = '<button class="btn btn-secondary btn-sm" disabled ><i class="fas fa-ban"></i></button>';
+				$btnComplete = '<button class="btn btn-success btn-sm" disabled ><i class="fas fa-check"></i></button>';
 			}
 
 
@@ -54,11 +56,13 @@ class Produccion extends Controllers
 			} else if ($arrData[$i]['estado'] == 2) {
 				$arrData[$i]['estado'] = '<span class="badge badge-danger">ANULADA</span>';
 				$btnDelete = '<button class="btn btn-secondary btn-sm" disabled ><i class="fas fa-ban"></i></button>';
+				$btnComplete = '<button class="btn btn-success btn-sm" disabled ><i class="fas fa-check"></i></button>';
 			} else if ($arrData[$i]['estado'] == 3) {
 				$arrData[$i]['estado'] = '<span class="badge badge-success">TERMINADO</span>';
+				$btnDelete = '<button class="btn btn-secondary btn-sm" disabled ><i class="fas fa-ban"></i></button>';
+				$btnComplete = '<button class="btn btn-success btn-sm" disabled ><i class="fas fa-check"></i></button>';
 			}
 
-			$btnComplete = '<button class="btn btn-success btn-sm btnFinProduccion" onClick="fntFinProduccion(' . $arrData[$i]['cod_produccion'] . ' , ' . $arrData[$i]['cantidad'] . ', ' . $arrData[$i]['cod_producto'] . ')"title="Finalizar Producción"><i class="fas fa-check" ></i></button>';
 
 
 
