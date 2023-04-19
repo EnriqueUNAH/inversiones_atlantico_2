@@ -48,8 +48,7 @@ class Clientes extends Controllers
 	public function setCliente()
 	{
 		if ($_POST) {
-			if (empty($_POST['txtRtn']) || empty($_POST['txtNombres']) || empty($_POST['txtTelefono'])
-			 || empty($_POST['txtEmail']) || empty($_POST['txtDireccion'])) {
+			if (empty($_POST['txtNombres'])) {
 				$arrResponse = array("status" => false, "msg" => 'Datos incorrectos.');
 
 				/*El siguiente else if, sirve para que valide desde el servidor. Que si se ingresa una letra 
@@ -261,7 +260,6 @@ class Clientes extends Controllers
 				}
 
 				echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
-
 			}
 		}
 
