@@ -29,7 +29,7 @@ document.addEventListener(
         {
           extend: "pdfHtml5",
           download: "open",
-          title:"INVERSIONES DEL ATLÁNTICO",
+          title: "INVERSIONES DEL ATLÁNTICO",
           text: "<i class='fas fa-file-pdf'></i> PDF",
           titleAttr: "Exportar a PDF",
           className: "btn btn-danger",
@@ -59,25 +59,25 @@ document.addEventListener(
             doc.styles.tableHeader.fillColor = "#007bff";
             doc.styles.tableBodyEven.fillColor = "#f2f2f2";
             doc.styles.tableBodyOdd.fillColor = "#ffffff";
-            doc.content[1].table.widths = Array(
-              doc.content[1].table.body[0].length + 1
-            )
-              .join("*")
-              .split("");
+            // doc.content[1].table.widths = Array(
+            //   doc.content[1].table.body[0].length + 1
+            // )
+            //   .join("*")
+            //   .split("");
+            doc.content[1].table.width = "80%";
 
-              doc.content.splice(1,0, {
-                columns: [
-                  {
+            doc.content.splice(1, 0, {
+              columns: [
+                {
                   text: "REPORTE DE CAI",
                   fontsize: 20,
                   bold: true,
                   alignment: "center",
-                  margin: [0,0,0,15],
-                  width: "*"
-                  }
-                ]
-              })
-
+                  margin: [0, 0, 0, 15],
+                  width: "*",
+                },
+              ],
+            });
 
             // Agregar pie de página con la fecha
             var now = new Date();
