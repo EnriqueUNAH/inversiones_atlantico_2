@@ -121,10 +121,10 @@ $total 		= 0;
 		}
 
 		#produccion_detalle thead th {
-			background: #FFF;
-			color: #000000;
+			background: #007bff;
+			color: #FFF;
 			padding: 5px;
-			border: 1px solid #000000;
+			border: 1px solid #f2f2f2;
 		}
 
 
