@@ -66,6 +66,9 @@ $total 		= 0;
 
 		.info_factura {
 			width: 25%;
+			color: #000000;
+			padding: 5px;
+			border: 1px solid #f2f2f2;
 		}
 
 		.info_cliente {
@@ -121,10 +124,10 @@ $total 		= 0;
 		}
 
 		#factura_detalle thead th {
-			background: #FFF;
-			color: #000000;
+			background: #007bff;
+			color: #FFF;
 			padding: 5px;
-			border: 1px solid #000000;
+			border: 1px solid #f2f2f2;
 		}
 
 

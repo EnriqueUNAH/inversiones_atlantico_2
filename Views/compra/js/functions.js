@@ -344,7 +344,7 @@ $(document).ready(function () {
 
             //Ocultar boton agregar
             $("#add_product_venta").slideUp();
-            window.location.reload(true);
+           // window.location.reload(true);
           } else {
             console.log("no data");
           }
