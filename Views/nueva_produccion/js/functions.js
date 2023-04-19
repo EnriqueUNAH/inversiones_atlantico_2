@@ -416,7 +416,6 @@ $(document).ready(function () {
     }
   });
 
-  //Facturar Venta Ejemplo cuando pregunta si quiere ver el reporte.
   $("#btn_facturar_venta").click(function (e) {
     e.preventDefault();
 
@@ -452,72 +451,7 @@ $(document).ready(function () {
               var info = JSON.parse(response);
               console.log(info);
               Swal.fire({
-                title: "Venta Exitosa",
-                icon: "success",
-                confirmButtonText: "OK",
-              }).then(() => {
-                Swal.fire({
-                  title: "¿Desea mostrar detalles de producción?",
-                  icon: "info",
-                  showCancelButton: true,
-                  confirmButtonText: "OK",
-                  cancelButtonText: "Cancelar",
-                }).then((result) => {
-                  if (result.isConfirmed) {
-                    generarPDF(info.cod_cliente, info.cod_factura);
-                    location.reload();
-                    window.location.href = "../../produccion";
-                  } else if (result.dismiss === Swal.DismissReason.cancel) {
-                    window.location.href = "../../produccion";
-                  }
-                });
-              });
-            } else {
-              console.log("no data");
-            }
-          },
-          error: function (error) {},
-        });
-      }
-    }
-  });
-
-  $("#btn_facturar_venta").click(function (e) {
-    e.preventDefault();
-
-    var rows = $("#detalle_venta ").length;
-    if (rows > 0) {
-      var action = "procesarVenta";
-
-      var cod_producto = $("#select_product").val();
-      var cantidad_producto = $("#cantidad_producto").val();
-
-      if (cod_producto == "") {
-        // Agregar alerta de SweetAlert
-        Swal.fire({
-          icon: "info",
-          title: "Por favor seleccione un producto",
-          confirmButtonText: "OK",
-        });
-      } else {
-        $.ajax({
-          url: "ajax.php",
-          type: "POST",
-          async: true,
-          data: {
-            action: action,
-
-            cantidad_producto: cantidad_producto,
-            cod_producto: cod_producto,
-          },
-
-          success: function (response) {
-            console.log(response);
-            if (response != "error") {
-              var info = JSON.parse(response);
-              console.log(info);
-              Swal.fire({
-                title: "Proceso Realizado con Éxito",
+                title: "Producción agregada con éxito",
                 icon: "success",
                 confirmButtonText: "OK",
               }).then(() => {
