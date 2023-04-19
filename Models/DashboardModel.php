@@ -13,13 +13,19 @@
 			return $total;
 		}
 		public function cantClientes(){
-			$sql = "SELECT COUNT(*) as total FROM tbl_ms_usuarios WHERE estado != 0 AND id_rol = ".RCLIENTES;
+			$sql = "SELECT COUNT(*) as total FROM tbl_cliente WHERE estado != 0 ";
 			$request = $this->select($sql);
 			$total = $request['total']; 
 			return $total;
 		}
 		public function cantProductos(){
-			$sql = "SELECT COUNT(*) as total FROM producto WHERE estado != 0 ";
+			$sql = "SELECT COUNT(*) as total FROM tbl_producto WHERE estado != 0 ";
+			$request = $this->select($sql);
+			$total = $request['total']; 
+			return $total;
+		}
+		public function cantCompras(){
+			$sql = "SELECT COUNT(*) as total FROM tbl_compra WHERE estado != 0 ";
 			$request = $this->select($sql);
 			$total = $request['total']; 
 			return $total;

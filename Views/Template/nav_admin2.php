@@ -143,7 +143,11 @@
               <li><a class="treeview-item" href="http://localhost/inversiones_atlantico_2/clientes"><i class="icon fa fa-circle-o"></i>Clientes</a></li>
             <?php } ?>
 
-            <li><a class="treeview-item" href="http://localhost/inversiones_atlantico_2/resultado"><i class="icon fa fa-circle-o"></i>Resultado Produccion</a></li>
+
+            <?php if (!empty($_SESSION['permisos'][2]['r'])) { ?>
+              <li><a class="treeview-item"  href="http://localhost/inversiones_atlantico_2/produccion"><i class="icon fa fa-circle-o"></i>Producciòn</a></li>
+            <?php } ?>
+
 
 
           </ul>
