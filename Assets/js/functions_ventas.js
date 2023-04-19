@@ -81,11 +81,12 @@ document.addEventListener(
             doc.styles.tableHeader.fillColor = "#007bff";
             doc.styles.tableBodyEven.fillColor = "#f2f2f2";
             doc.styles.tableBodyOdd.fillColor = "#ffffff";
-            doc.content[1].table.widths = Array(
-              doc.content[1].table.body[0].length + 1
-            )
-              .join("*")
-              .split("");
+            // doc.content[1].table.widths = Array(
+            //   doc.content[1].table.body[0].length + 1
+            // )
+            //   .join("*")
+            //   .split("");
+            doc.content[1].table.width = "80%";
 
             doc.content.splice(1, 0, {
               columns: [

@@ -6,7 +6,7 @@ document.addEventListener(
   function () {
     // const dom = "<'row'<'col-sm-4'l><'col-sm-4 text-center'B><'col-sm-4'f>>"+
     // "<'row'<'col-sm-12'tr>>" + "<'row'<'col-sm-5'i><'col-sm-7'p>>";
-    
+
     tableUsuarios = $("#tableUsuarios").dataTable({
       aProcessing: true,
       aServerSide: true,
@@ -30,12 +30,12 @@ document.addEventListener(
         {
           extend: "pdfHtml5",
           download: "open",
-          title:"INVERSIONES DEL ATLÁNTICO",
+          title: "INVERSIONES DEL ATLÁNTICO",
           text: "<i class='fas fa-file-pdf'></i> PDF",
           titleAttr: "Exportar a PDF",
           className: "btn btn-danger",
           exportOptions: {
-            columns: [0, 1, 2, 3, 4],
+            columns: [1, 2, 3, 4],
           },
           customize: function (doc) {
             doc.styles.tableHeader.alignment = "left"; //Alineación de los nombres de columnas.
@@ -66,20 +66,18 @@ document.addEventListener(
               .join("*")
               .split("");
 
-
-              doc.content.splice(1,0, {
-                columns: [
-                  {
+            doc.content.splice(1, 0, {
+              columns: [
+                {
                   text: "REPORTE DE USUARIOS",
                   fontsize: 20,
                   bold: true,
                   alignment: "center",
-                  margin: [0,0,0,15],
-                  width: "*"
-                  }
-                ]
-              })
-
+                  margin: [0, 0, 0, 15],
+                  width: "*",
+                },
+              ],
+            });
 
             // Agregar pie de página con la fecha
             var now = new Date();
