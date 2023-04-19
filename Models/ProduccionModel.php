@@ -49,6 +49,15 @@ class ProduccionModel extends Mysql
 
 
 
+	public function deleteProduccionP(int $id_produccion)
+	{
+		$this->intCod_Produccion = $id_produccion;
+		$sql = "UPDATE tbl_produccion SET estado = ? WHERE cod_produccion = $this->intCod_Produccion ";
+		$arrData = array(4);
+		$request = $this->update($sql, $arrData);
+		return $request;
+	}
+
 
 	// public function finProduccion(int $idProduccion, int $cantidad, int $idProducto)
 	// {

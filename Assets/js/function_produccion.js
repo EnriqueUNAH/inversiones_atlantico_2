@@ -155,7 +155,49 @@ function fntDelProduccion(cod_produccion) {
     }
   );
 }
-
+function fntDelProduccionP(cod_produccion) {
+  swal(
+    {
+      title: "Anular Produccion",
+      text: "¿Realmente quiere anular la producción con pérdida?",
+      type: "warning",
+      showCancelButton: true,
+      confirmButtonText: "ANULAR",
+      cancelButtonText: "CANCELAR",
+      closeOnConfirm: false,
+      closeOnCancel: true,
+    },
+    function (isConfirm) {
+      if (isConfirm) {
+        let request = window.XMLHttpRequest
+          ? new XMLHttpRequest()
+          : new ActiveXObject("Microsoft.XMLHTTP");
+        let ajaxUrl = base_url + "/Produccion/delProduccionP";
+        let strData = "cod_produccion=" + cod_produccion;
+        request.open("POST", ajaxUrl, true);
+        request.setRequestHeader(
+          "Content-type",
+          "application/x-www-form-urlencoded"
+        );
+        request.send(strData);
+        request.onreadystatechange = function () {
+          if (request.readyState == 4 && request.status == 200) {
+            let objData = JSON.parse(request.responseText);
+            if (objData.status) {
+              swal("Anular!", objData.msg, "success");
+              tableProduccion.api().ajax.reload();
+            } else if (objData.statusReferencial) {
+              swal("Atención!", objData.msg, "error");
+              tableProduccion.api().ajax.reload();
+            } else {
+              swal("Atención!", objData.msg, "error");
+            }
+          }
+        };
+      }
+    }
+  );
+}
 function fntFinProduccion(cod_produccion, cantidad, cod_producto) {
   swal(
     {
