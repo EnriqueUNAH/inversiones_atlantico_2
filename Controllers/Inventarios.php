@@ -52,7 +52,7 @@ class Inventarios extends Controllers
 			$arrData = $this->model->selectInventarios();
 			for ($i = 0; $i < count($arrData); $i++) {
 				$btnView = '';
-			
+
 				if ($arrData[$i]['existencia'] < $arrData[$i]['cantidad_minima']) {
 					$badgeClass = 'badge badge-danger';
 					$badgeContent = sprintf('<span class="%s" style="padding: 6px 10px; border-radius: 4px; font-size: 18px">%d</span>', $badgeClass, $arrData[$i]['existencia']);
@@ -65,7 +65,7 @@ class Inventarios extends Controllers
 
 
 				if ($_SESSION['permisosMod']['r']) {
-					$btnView = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntViewInventario(' . $arrData[$i]['cod_producto'] . ')" title="Ver movimientos"><i class="far fa-eye"></i></button>';
+					$btnView = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="ver_inventario(' . $arrData[$i]['cod_producto'] . ')" title="Ver movimientos"><i class="far fa-eye"></i></button>';
 				}
 
 				$arrData[$i]['options'] = '<div class="text-center">' . $btnView . '</div>';

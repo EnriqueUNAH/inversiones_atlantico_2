@@ -18,14 +18,14 @@ document.addEventListener(
         { data: "nombre_producto" },
         { data: "nombre_tipo_producto" },
         { data: "existencia" },
-        { data: "options" }
+        { data: "options" },
       ],
       dom: "lBfrtip",
       buttons: [
         {
           extend: "pdfHtml5",
           download: "open",
-          title:"INVERSIONES DEL ATLÁNTICO",
+          title: "INVERSIONES DEL ATLÁNTICO",
           text: "<i class='fas fa-file-pdf'></i> PDF",
           titleAttr: "Exportar a PDF",
           className: "btn btn-danger",
@@ -61,21 +61,18 @@ document.addEventListener(
               .join("*")
               .split("");
 
-              doc.content.splice(1,0, {
-                columns: [
-                  {
+            doc.content.splice(1, 0, {
+              columns: [
+                {
                   text: "REPORTE DE INVENTARIOS",
                   fontsize: 20,
                   bold: true,
                   alignment: "center",
-                  margin: [0,0,0,15],
-                  width: "*"
-                  }
-                ]
-              })
-
-
-
+                  margin: [0, 0, 0, 15],
+                  width: "*",
+                },
+              ],
+            });
 
             // Agregar pie de página con la fecha
             var now = new Date();
@@ -118,3 +115,33 @@ document.addEventListener(
   },
   false
 );
+
+function ver_inventario(codInventario) {
+  var cod_inventario = codInventario;
+  // var cod_factura = codFactura;
+
+  generarPDF(cod_inventario);
+}
+
+function generarPDF(inventario) {
+  var ancho = 1000;
+  var alto = 800;
+  //Calcular posicion x,y para centrar la ventana
+  var x = parseInt(window.screen.width / 2 - ancho / 2);
+  var y = parseInt(window.screen.height / 2 - alto / 2);
+
+  $url = "Views/inventario/factura/generaFactura.php?f=" + inventario;
+  window.open(
+    $url,
+    "Factura",
+    "left=" +
+      x +
+      ",top=" +
+      y +
+      ",height=" +
+      alto +
+      ",width=" +
+      ancho +
+      ",scrollbar=si,location=no,resizable=si,menubar=no"
+  );
+}
