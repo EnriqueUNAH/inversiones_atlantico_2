@@ -263,6 +263,43 @@ $result_p->free();
 	</section>
 
 
+
+	
+	<table class="tbl_venta">
+			<thead>
+
+				<tr>
+
+					<!-- <td> <a href="#" id="add_product_ventaa" class="link_add"><i class="fas fa-plus"></i> Agregar Producto</a></td> -->
+
+					<th>
+						<h4>Seleccione el Producto a Producir</h4><BR>
+						<!---->
+						<select name="select_product" id="select_product" class="select-producto" style="width: 200px;">
+							<option value="">Productos</option>
+							<?php foreach ($productos as $producto) : ?>
+								<option value="<?php echo $producto['cod_producto']; ?>"><?php echo $producto['nombre_producto']; ?></option>
+							<?php endforeach; ?>
+						</select>
+
+						<!---->
+
+					</th>
+
+
+					<th>
+						<h4>Cantidad</h4><BR>
+						<input type="num" name="cantidad_producto" id="cantidad_producto" value="1" min="1">
+					</th>
+
+
+				</tr>
+			</thead>
+		</table>
+	
+
+
+
 	<!-- Sirve para buscar el nombre del producto dentro del select -->
 	<!-- <script>
 		$(document).ready(function() {

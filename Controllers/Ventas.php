@@ -12,7 +12,7 @@ class Ventas extends Controllers
 			die();
 		}
 
-		getPermisos(MUSUARIO);
+		getPermisos(MVENTA);
 	}
 
 	public function Ventas()

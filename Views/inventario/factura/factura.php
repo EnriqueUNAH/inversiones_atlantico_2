@@ -11,7 +11,7 @@ $total 		= 0;
 
 <head>
 	<meta charset="UTF-8">
-	<title>Detalles de Producción</title>
+	<title>Inventario</title>
 	<style>
 		* {
 			margin: 0;
@@ -233,7 +233,7 @@ $total 		= 0;
 		<table id="produccion_detalle">
 			<thead>
 				<tr>
-					<th class="textleft">Productos</th>
+					<th class="textleft">Producto</th>
 					<th class="textleft">Movimiento</th>
 					<th width="50px">Cantidad</th>
 					<th class="textleft">Fecha</th>
