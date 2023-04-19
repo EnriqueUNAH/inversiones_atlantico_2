@@ -138,14 +138,14 @@ class Productos extends Controllers
 					);
 				} //FIN DEL ELSE PARA ACTUALIZAR
 
-				if ($request_user > 0) {
+				if ($request_user === 'exist') {
+					$arrResponse = array('status' => false, 'msg' => '¡Atención! el producto ya existe, ingrese otro.');
+				} else if ($request_user > 0) {
 					if ($option == 1) {
 						$arrResponse = array('status' => true, 'msg' => 'Datos guardados correctamente.');
 					} else {
 						$arrResponse = array('status' => true, 'msg' => 'Datos Actualizados correctamente.');
 					}
-				} else if ($request_user == 'exist') {
-					$arrResponse = array('status' => false, 'msg' => '¡Atención! el email o la identificación ya existe, ingrese otro.');
 				} else {
 					$arrResponse = array("status" => false, "msg" => 'No es posible almacenar los datos.');
 				}
