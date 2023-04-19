@@ -24,7 +24,7 @@
 			$data['usuarios'] = $this->model->cantUsuarios();
 			$data['clientes'] = $this->model->cantClientes();
 			$data['productos'] = $this->model->cantProductos();
-
+			$data['compras'] = $this->model->cantCompras();
 
 			$anio = date('Y');
 			$mes = date('m');
