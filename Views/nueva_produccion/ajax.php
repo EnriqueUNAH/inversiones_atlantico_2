@@ -157,8 +157,7 @@ if (!empty($_POST)) {
 				
 															
 										<tr>
-											<td colspan="5" class="textright">TOTAL L.</td>
-											<td class="textright">' . $total . '</td>
+									
 										</tr>';
 
 				$arrayData['detalle'] = $detalleTabla;
@@ -240,8 +239,7 @@ if (!empty($_POST)) {
 	
 								
 										<tr>
-											<td colspan="5" class="textright">TOTAL </td>
-											<td class="textright">' . " L. " . $total . '</td>
+											
 										</tr>';
 
 				$arrayData['detalle'] = $detalleTabla;
@@ -308,8 +306,7 @@ if (!empty($_POST)) {
 
 				$detalleTotales = '
 										<tr>
-											<td colspan="5" class="textright">TOTAL L.</td>
-											<td class="textright">' . $total . '</td>
+										
 										</tr>';
 
 				$arrayData['detalle'] = $detalleTabla;
