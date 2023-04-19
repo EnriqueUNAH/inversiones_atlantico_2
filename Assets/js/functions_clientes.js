@@ -15,9 +15,27 @@ document.addEventListener(
         dataSrc: "",
       },
       columns: [
-        { data: "rtn" },
+        {
+          data: "rtn",
+          render: function (data, type, row) {
+            if (data == 0) {
+              return "";
+            } else {
+              return data;
+            }
+          },
+        },
         { data: "nombres" },
-        { data: "telefono" },
+        {
+          data: "telefono",
+          render: function (data, type, row) {
+            if (data === 0) {
+              return "";
+            } else {
+              return data;
+            }
+          },
+        },
         { data: "correo_electronico" },
         { data: "direccion" },
         { data: "options" },

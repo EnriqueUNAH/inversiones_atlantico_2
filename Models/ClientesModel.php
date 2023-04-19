@@ -8,8 +8,8 @@ class ClientesModel extends Mysql
 	private $intTelefono;
 	private $strEmail;
 	private $strDireccion;
-	
-	
+
+
 
 	public function __construct()
 	{
@@ -26,11 +26,11 @@ class ClientesModel extends Mysql
 		// $this->cod_genero = $cod_genero;
 		$this->strCreadoPor = $_SESSION['elUsuario'];
 		$this->fechaCreacion = date('Y-m-d H:i:s');
-		
+
 		$return = 0;
 
 		$sql = "SELECT * FROM tbl_cliente WHERE 
-					correo_electronico = '{$this->strEmail}' or nombres = '{$this->strNombres}' ";
+					 nombres = '{$this->strNombres}' ";
 		$request = $this->select_all($sql);
 
 		if (empty($request)) {
@@ -118,7 +118,7 @@ class ClientesModel extends Mysql
 	//Muestra los datos en el botón ver más
 	public function selectCliente(int $cod_cliente)
 	{
-		$this->cod_cliente= $cod_cliente;
+		$this->cod_cliente = $cod_cliente;
 		$sql = "SELECT p.cod_cliente,p.rtn,p.nombres,p.telefono,p.correo_electronico,p.direccion,
 		p.creado_por, DATE_FORMAT(p.fecha_creacion, '%Y-%m-%d %H:%i:%s') as fecha_creacion ,p.modificado_por,p.fecha_modificacion
 					FROM tbl_cliente p
@@ -127,7 +127,7 @@ class ClientesModel extends Mysql
 		return $request;
 	}
 
-	public function updateCliente(int $cod_cliente,int $rtn, string $nombres, int $telefono, string $correo_electronico, string $direccion)
+	public function updateCliente(int $cod_cliente, int $rtn, string $nombres, int $telefono, string $correo_electronico, string $direccion)
 	{
 
 		$this->cod_cliente = $cod_cliente;
@@ -139,9 +139,9 @@ class ClientesModel extends Mysql
 		// $this->cod_genero = $cod_genero;
 		$this->strModificadoPor = $_SESSION['elUsuario'];
 		$this->fechaModificacion = date('Y-m-d H:i:s');
-		
 
-		$sql = "SELECT * FROM tbl_cliente WHERE nombres = '{$this->strNombres}' AND cod_cliente != $this->cod_cliente" ;
+
+		$sql = "SELECT * FROM tbl_cliente WHERE nombres = '{$this->strNombres}' AND cod_cliente != $this->cod_cliente";
 		$request = $this->select_all($sql);
 
 		if (empty($request)) {
@@ -149,12 +149,12 @@ class ClientesModel extends Mysql
 			$sql = "UPDATE tbl_cliente SET rtn=?, nombres=?, telefono=?, correo_electronico=?, direccion=?, modificado_por=?, fecha_modificacion=?
 							WHERE cod_cliente = $this->cod_cliente ";
 			$arrData = array(
-				$this->strRtn ,
+				$this->strRtn,
 				$this->strNombres,
 				$this->intTelefono,
 				$this->strEmail,
-                $this->strDireccion,
-                // $this->cod_genero,
+				$this->strDireccion,
+				// $this->cod_genero,
 				$this->strModificadoPor,
 				$this->fechaModificacion
 
@@ -189,7 +189,4 @@ class ClientesModel extends Mysql
 		}
 		return $request;
 	}
-
-	
-
 }
