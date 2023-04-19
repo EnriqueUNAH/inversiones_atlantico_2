@@ -100,29 +100,28 @@ if (!empty($_POST)) {
 	}
 
 
-	
-		//Registra Cliente - Ventas
-		if($_POST['action'] == 'addCliente')
-		{
-			$rtn       = $_POST['rtn_cliente'];
-			$nombre    = $_POST['nom_cliente'];
-			$telefono  = $_POST['tel_cliente'];
-			$direccion = $_POST['dir_cliente'];
-			$usuario_id = $_SESSION['idUser'];
 
-			$query_insert = mysqli_query($conection,"INSERT INTO tbl_cliente(
+	//Registra Cliente - Ventas
+	if ($_POST['action'] == 'addCliente') {
+		$rtn       = $_POST['rtn_cliente'];
+		$nombre    = $_POST['nom_cliente'];
+		$telefono  = $_POST['tel_cliente'];
+		$direccion = $_POST['dir_cliente'];
+		$usuario_id = $_SESSION['idUser'];
+
+		$query_insert = mysqli_query($conection, "INSERT INTO tbl_cliente(
 														rtn,nombres,telefono,direccion,id_usuario)
 													VALUES('$rtn','$nombre','$telefono','$direccion','$usuario_id')");
-			if($query_insert){
-				$codCliente = mysqli_insert_id($conection);
-				$msg = $codCliente;
-			}else{
-				$msg='error';
-			}
-			mysqli_close($conection);
-			echo $msg;
-			exit;
+		if ($query_insert) {
+			$codCliente = mysqli_insert_id($conection);
+			$msg = $codCliente;
+		} else {
+			$msg = 'error';
 		}
+		mysqli_close($conection);
+		echo $msg;
+		exit;
+	}
 
 
 
@@ -270,8 +269,8 @@ if (!empty($_POST)) {
 
 				$tl_snisv 	= round($sub_total  / (1 + ($isv / 100)), 2);
 				$impuesto 	= round($tl_snisv * ($isv / 100), 2);
-				$total 		= round($tl_snisv + $impuesto, 2);
-
+				// $total 		= round($tl_snisv + $impuesto, 2);
+				$total 		= round($tl_snisv + $impuesto - $descuento, 2);
 				$detalleTotales = '
 				<tr>
 				<td colspan="5" class="textright">DESCUENTO (' . ($porcentaje_descuento == (int)$porcentaje_descuento ? number_format($porcentaje_descuento, 0) : number_format($porcentaje_descuento, 2)) . '%) </td>
