@@ -122,8 +122,8 @@ class Roles extends Controllers
 	public function setRol()
 	{
 		$intid_rol = intval($_POST['id_rol']);
-		$strRol =  strClean($_POST['txtNombre']);
-		$strDescipcion = strClean($_POST['txtDescripcion']);
+		$strRol =  strtoupper(strClean($_POST['txtNombre']));
+		$strDescipcion = strtoupper(strClean($_POST['txtDescripcion']));
 		$intStatus = intval($_POST['listStatus']);
 		$request_rol = "";
 		if ($intid_rol == 0) {
@@ -140,15 +140,14 @@ class Roles extends Controllers
 			}
 		}
 
-		if ($request_rol > 0) {
+		if ($request_rol === 'exist') {
+			$arrResponse = array('status' => false, 'msg' => '¡Atención! el rol ya existe, ingrese otro.');
+		} else if ($request_rol > 0) {
 			if ($option == 1) {
 				$arrResponse = array('status' => true, 'msg' => 'Datos guardados correctamente.');
 			} else {
 				$arrResponse = array('status' => true, 'msg' => 'Datos Actualizados correctamente.');
 			}
-		} else if ($request_rol == 'exist') {
-
-			$arrResponse = array('status' => false, 'msg' => '¡Atención! El Rol ya existe.');
 		} else {
 			$arrResponse = array("status" => false, "msg" => 'No es posible almacenar los datos.');
 		}
