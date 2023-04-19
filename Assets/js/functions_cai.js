@@ -170,7 +170,7 @@ document.addEventListener(
                 // rowTable.cells[2].textContent = intRangoA;
                 rowTable.cells[3].textContent = intNum;
                 rowTable.cells[4].textContent = dateFechaVenc;
-                rowTable.cells[5].textContent = estado;
+                // rowTable.cells[5].textContent = estado;
 
                 rowTable = "";
               }

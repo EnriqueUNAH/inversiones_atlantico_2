@@ -48,11 +48,9 @@ class Productos extends Controllers
 	public function setProducto()
 	{
 		if ($_POST) {
-			if (
-				empty($_POST['txtnombre']) || empty($_POST['txtdescripcion']) || empty($_POST['intCantidadMin']) ||
+			if (empty($_POST['txtnombre']) || empty($_POST['txtdescripcion']) || empty($_POST['intCantidadMin']) ||
 				empty($_POST['intCantidadMax']) || empty($_POST['listTipo']) || empty($_POST['intprecio']) ||
-				empty($_POST['listStatus'])
-			) {
+				empty($_POST['listStatus'])) {
 				$arrResponse = array("status" => false, "msg" => 'Datos incorrectos.');
 
 				/*El siguiente else if, sirve para que valide desde el servidor. Que si se ingresa una letra 
@@ -70,6 +68,12 @@ class Productos extends Controllers
 				$decPrecioVenta = (strClean($_POST['intprecio']));
 				$intStatus = (strClean($_POST['listStatus']));
 				$request_user = "";
+
+
+			 if ($intCantidadMaxima < $intCantidadMinima) {
+					$arrResponse = array("status" => false, "msg" => 'La cantidad máxima tiene que ser mayor a la mínima.');
+			} else {
+
 
 				//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora
 				//SE PUEDEN USAR PARA INSERTAR O ACTUALIZAR PORQUE SERÍAN LOS MISMOS DATOS
@@ -149,7 +153,9 @@ class Productos extends Controllers
 				} else {
 					$arrResponse = array("status" => false, "msg" => 'No es posible almacenar los datos.');
 				}
+
 			}
+		}
 
 			echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
 		}
