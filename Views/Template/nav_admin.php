@@ -147,10 +147,6 @@
               <li><a class="treeview-item" href="<?= base_url(); ?>/objetos"><i class="icon fa fa-circle-o"></i> Objetos</a></li>
             <?php } ?>
 
-            <?php if (!empty($_SESSION['permisos'][MDESCUENTO]['r'])) { ?>
-              <li><a class="treeview-item" href="<?= base_url(); ?>/descuentos"><i class="icon fa fa-circle-o"></i>Descuentos</a></li>
-            <?php } ?>
-
             <?php if (!empty($_SESSION['permisos'][MCAI]['r'])) { ?>
               <li><a class="treeview-item" href="<?= base_url(); ?>/cai"><i class="icon fa fa-circle-o"></i>CAI</a></li>
             <?php } ?>
