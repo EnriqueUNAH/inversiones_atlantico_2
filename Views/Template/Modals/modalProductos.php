@@ -38,11 +38,11 @@
           <div class="form-row">
             <div class="form-group col-md-6">
               <label for="intCantidadMin">Cantidad Mínima</label>
-              <input type="number" class="form-control" id="intCantidadMin" name="intCantidadMin" required="">
+              <input type="number" class="form-control" id="intCantidadMin" name="intCantidadMin" min="1" required="">
             </div>
             <div class="form-group col-md-6">
               <label for="intCantidadMax">Cantidad Máxima</label>
-              <input type="number" class="form-control" id="intCantidadMax" name="intCantidadMax" required="">
+              <input type="number" class="form-control" id="intCantidadMax" name="intCantidadMax" min="1" required="">
             </div>
 
 
