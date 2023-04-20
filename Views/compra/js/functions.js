@@ -272,7 +272,7 @@ $(document).ready(function () {
             $("#txt_nombre_producto").html("-");
             $("#txt_existencia").html("-");
             $("#txt_cant_producto").val("0");
-            $("#txt_precio").html("0.00");
+            $("#txt_precio").val("0.00");
             $("#txt_precio_total").html("0.00");
 
             //Bloquear Cantidad
@@ -293,11 +293,12 @@ $(document).ready(function () {
     e.preventDefault();
 
     var precio_total = $(this).val() * $("#txt_precio").html();
-    var existencia = parseInt($("#txt_existencia").html());
+    var precio_ = parseInt($("#txt_precio").html());
+
     $("#txt_precio_total").html(precio_total);
 
     //Oculta el boton agregar si la cantidad es menor que 1
-    if ($(this).val() < 1 || isNaN($(this).val())) {
+    if(  ($(this).val() < 1 || isNaN($(this).val())) || ( precio_ < 1)  ){
       $("#add_product_venta").slideUp();
     } else {
       $("#add_product_venta").slideDown();

@@ -31,7 +31,7 @@
 
         <li class="treeview">
           <a class="app-menu__item" href="#" data-toggle="treeview">
-            <i class="app-menu__icon " aria-hidden="true"></i>
+            <i class="app-menu__icon fa fa-line-chart" aria-hidden="true"></i>
 
 
             <span class="app-menu__label ">Ventas</span>
@@ -52,6 +52,57 @@
         <!--################################VENTAS################################-->
 
 
+<!--################################VENTAS################################-->
+
+
+
+      <li class="treeview">
+          <a class="app-menu__item" href="#" data-toggle="treeview">
+            <i class="app-menu__icon fa fa-shopping-cart" aria-hidden="true"></i>
+
+
+            <span class="app-menu__label ">Compras</span>
+            <i class="treeview-indicator fa fa-angle-right"></i>
+          </a>
+          <ul class="treeview-menu">
+
+
+
+          <?php if (!empty($_SESSION['permisos'][2]['r'])) { ?>
+              <li><a class="treeview-item" href="http://localhost/inversiones_atlantico_2/compras"><i class="icon fa fa-circle-o"></i>Compras</a></li>
+            <?php } ?>
+
+          </ul>
+        </li>
+
+        <!--################################VENTAS################################-->
+
+
+    <!--################################VENTAS################################-->
+
+
+
+    <li class="treeview">
+          <a class="app-menu__item" href="#" data-toggle="treeview">
+            <i class="app-menu__icon fa fa-hourglass-end" aria-hidden="true"></i>
+
+
+            <span class="app-menu__label ">Producción</span>
+            <i class="treeview-indicator fa fa-angle-right"></i>
+          </a>
+          <ul class="treeview-menu">
+
+
+
+          <?php if (!empty($_SESSION['permisos'][2]['r'])) { ?>
+              <li><a class="treeview-item"  href="http://localhost/inversiones_atlantico_2/produccion"><i class="icon fa fa-circle-o"></i>Producciòn</a></li>
+            <?php } ?>
+
+
+          </ul>
+        </li>
+
+        <!--################################VENTAS################################-->
 
 
 
@@ -64,51 +115,7 @@
 
 
 
-
-
-        <!--################################SEGURIDAD################################-->
-        <?php if (
-          !empty($_SESSION['permisos'][2]['r'])
-          || !empty($_SESSION['permisos'][2]['r'])
-          || !empty($_SESSION['permisos'][2]['r'])
-          || !empty($_SESSION['permisos'][2]['r'])
-          || !empty($_SESSION['permisos'][2]['r'])
-        ) { ?>
-
-
-          <li class="treeview">
-            <a class="app-menu__item" href="#" data-toggle="treeview">
-              <i class="app-menu__icon fas fa-lock" aria-hidden="true"></i>
-
-              <span class="app-menu__label">Seguridad</span>
-              <i class="treeview-indicator fa fa-angle-right"></i>
-            </a>
-            <ul class="treeview-menu">
-
-              <?php if (!empty($_SESSION['permisos'][2]['r'])) { ?>
-                <li><a class="treeview-item" href="http://localhost/inversiones_atlantico_2/usuarios"><i class="icon fa fa-circle-o"></i> Usuarios</a></li>
-              <?php } ?>
-
-              <?php if (!empty($_SESSION['permisos'][2]['r'])) { ?>
-                <li><a class="treeview-item" href="http://localhost/inversiones_atlantico_2/roles"><i class="icon fa fa-circle-o"></i> Roles</a></li>
-              <?php } ?>
-
-              <?php if (!empty($_SESSION['permisos'][2]['r'])) { ?>
-                <li><a class="treeview-item" href="http://localhost/inversiones_atlantico_2/bitacora"><i class="icon fa fa-circle-o"></i> Bitacora</a></li>
-              <?php } ?>
-
-              <?php if (!empty($_SESSION['permisos'][2]['r'])) { ?>
-                <li><a class="treeview-item" href="http://localhost/inversiones_atlantico_2/parametros"><i class="icon fa fa-circle-o"></i> Parámetros</a></li>
-              <?php } ?>
-
-              <?php if (!empty($_SESSION['permisos'][2]['r'])) { ?>
-                <li><a class="treeview-item" href="http://localhost/inversiones_atlantico_2.../Respaldo/php/index.php"><i class="icon fa fa-circle-o"></i> Backup</a></li>
-              <?php } ?>
-
-            </ul>
-          </li>
-        <?php } ?>
-        <!--################################SEGURIDAD################################-->
+  
 
 
 
@@ -135,18 +142,11 @@
               <li><a class="treeview-item" href="http://localhost/inversiones_atlantico_2/kardex"><i class="icon fa fa-circle-o"></i>Kardex</a></li>
             <?php } ?>
 
-            <?php if (!empty($_SESSION['permisos'][2]['r'])) { ?>
-              <li><a class="treeview-item" href="http://localhost/inversiones_atlantico_2/compras"><i class="icon fa fa-circle-o"></i>Compras</a></li>
-            <?php } ?>
 
             <?php if (!empty($_SESSION['permisos'][2]['r'])) { ?>
               <li><a class="treeview-item" href="http://localhost/inversiones_atlantico_2/clientes"><i class="icon fa fa-circle-o"></i>Clientes</a></li>
             <?php } ?>
 
-
-            <?php if (!empty($_SESSION['permisos'][2]['r'])) { ?>
-              <li><a class="treeview-item"  href="http://localhost/inversiones_atlantico_2/produccion"><i class="icon fa fa-circle-o"></i>Producciòn</a></li>
-            <?php } ?>
 
 
 
@@ -196,7 +196,49 @@
         <!--################################MANTENIMIENTO################################-->
 
 
+      <!--################################SEGURIDAD################################-->
+      <?php if (
+          !empty($_SESSION['permisos'][2]['r'])
+          || !empty($_SESSION['permisos'][2]['r'])
+          || !empty($_SESSION['permisos'][2]['r'])
+          || !empty($_SESSION['permisos'][2]['r'])
+          || !empty($_SESSION['permisos'][2]['r'])
+        ) { ?>
 
+
+          <li class="treeview">
+            <a class="app-menu__item" href="#" data-toggle="treeview">
+              <i class="app-menu__icon fas fa-lock" aria-hidden="true"></i>
+
+              <span class="app-menu__label">Seguridad</span>
+              <i class="treeview-indicator fa fa-angle-right"></i>
+            </a>
+            <ul class="treeview-menu">
+
+              <?php if (!empty($_SESSION['permisos'][2]['r'])) { ?>
+                <li><a class="treeview-item" href="http://localhost/inversiones_atlantico_2/usuarios"><i class="icon fa fa-circle-o"></i> Usuarios</a></li>
+              <?php } ?>
+
+              <?php if (!empty($_SESSION['permisos'][2]['r'])) { ?>
+                <li><a class="treeview-item" href="http://localhost/inversiones_atlantico_2/roles"><i class="icon fa fa-circle-o"></i> Roles</a></li>
+              <?php } ?>
+
+              <?php if (!empty($_SESSION['permisos'][2]['r'])) { ?>
+                <li><a class="treeview-item" href="http://localhost/inversiones_atlantico_2/bitacora"><i class="icon fa fa-circle-o"></i> Bitacora</a></li>
+              <?php } ?>
+
+              <?php if (!empty($_SESSION['permisos'][2]['r'])) { ?>
+                <li><a class="treeview-item" href="http://localhost/inversiones_atlantico_2/parametros"><i class="icon fa fa-circle-o"></i> Parámetros</a></li>
+              <?php } ?>
+
+              <?php if (!empty($_SESSION['permisos'][2]['r'])) { ?>
+                <li><a class="treeview-item" href="http://localhost/inversiones_atlantico_2.../Respaldo/php/index.php"><i class="icon fa fa-circle-o"></i> Backup</a></li>
+              <?php } ?>
+
+            </ul>
+          </li>
+        <?php } ?>
+        <!--################################SEGURIDAD################################-->
 
 
 

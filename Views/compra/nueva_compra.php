@@ -68,6 +68,15 @@ $result->free();
 
 <body>
 
+<script>
+	function validaNumericos(event) {
+    if(event.charCode >= 48 && event.charCode <= 57){
+      return true;
+     }
+     return false;        
+}
+
+</script>
 
 	<section id="container">
 
@@ -160,7 +169,7 @@ $result->free();
 						<th></th>
 						<th>Existencia</th>
 						<th width="100px">Cantidad</th>
-						<th class="textright">Precio</th>
+						<th width="100px">Precio</th>
 						<th class="textright">Precio Total</th>
 						<th class="textright"></th>
 					</tr>
@@ -171,10 +180,9 @@ $result->free();
 						<td id="txt_nombre_producto">-</td>
 						<td></td>
 						<td id="txt_existencia">-</td>
-						<td><input type="text" name="txt_cant_producto" id="txt_cant_producto" value="0" min="1" disabled></td>
+						<td><input type="text" name="txt_cant_producto" id="txt_cant_producto" value="0" min="1" disabled onkeypress='return validaNumericos(event)'></td>
 
-						<td><input type="text" name="txt_precio" id="txt_precio" value="0" min="1" disabled></td>
-
+						<td><input type="text" name="txt_precio"	    id="txt_precio" 	   value="0" min="1" disabled onkeypress='return validaNumericos(event)'></td>
 
 						<td id="txt_precio_total" class="textright">0.00</td>
 						<td> <a href="#"><i></i> </a></td>
@@ -183,7 +191,7 @@ $result->free();
 						<th>Código</th>
 						<th colspan="2">Descripción</th>
 						<th>Cantidad</th>
-						<th class="textright">Precio</th>
+						<th> Precio </th>
 						<th class="textright">Precio Total</th>
 						<th> Eliminar</th>
 					</tr>
