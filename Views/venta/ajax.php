@@ -31,6 +31,23 @@ if (!empty($_POST)) {
 
 
 
+	//Extraer datos de la promocion
+	if ($_POST['action'] == 'infoPromocion') {
+		$producto_id = $_POST['promocion'];
+
+		$query = mysqli_query($conection, "SELECT cod_promocion,nombre_promocion,fecha_inicio,fecha_final,precio_venta FROM tbl_promocion
+												WHERE cod_promocion = $producto_id ");
+		mysqli_close($conection);
+
+		$result = mysqli_num_rows($query);
+		if ($result > 0) {
+			$data = mysqli_fetch_assoc($query);
+			echo json_encode($data, JSON_UNESCAPED_UNICODE);
+			exit;
+		}
+		echo 'error';
+		exit;
+	}
 
 
 
@@ -206,6 +223,102 @@ if (!empty($_POST)) {
 		exit;
 	}
 
+	////////////////////////////////////////////////////////////////////////////////////
+
+	//Agregar producto al detalle temporal cuando es promocion
+	if ($_POST['action'] == 'addPromocionDetalle') {
+		if (empty($_POST['promocion'])) {
+			echo 'error';
+		} else {
+			$cod_producto = $_POST['promocion'];
+			$token 		 = md5($_SESSION['idUser']);
+
+			$query_isv = mysqli_query($conection, "SELECT valor FROM tbl_ms_parametros where parametro = 'impuesto'");
+			$result_isv = mysqli_num_rows($query_isv);
+			$resultado = mysqli_fetch_assoc($query_isv);
+
+
+			$query_detalle_temp 	= mysqli_query($conection, "CALL add_detalle_temp($cod_producto,$cantidad,'$token',)");
+			$result = mysqli_num_rows($query_detalle_temp);
+
+			$detalleTabla = '';
+			$sub_total  = 0;
+			$isv 		= 0;
+			$total 		= 0;
+			$arrayData = array();
+
+			if ($result > 0) {
+				// if ($result_isv > 0) {
+				// 	$info_isv =  mysqli_fetch_assoc($query_isv);
+				// 	$isv = $info_isv['isv'];
+				// }
+				$isv = $resultado['valor'];
+
+
+				while ($data = mysqli_fetch_assoc($query_detalle_temp)) {
+					$precioTotal = round($data['cantidad'] * $data['precio_venta'], 2);
+					$sub_total 	 = round($sub_total + $precioTotal, 2);
+					$total 	 	 = round($total + $precioTotal, 2);
+
+					$detalleTabla .= '<tr>
+											<td>' . $data['cod_producto'] . '</td>
+											<td colspan="2">' . $data['nombre_producto'] . '</td>
+											<td class="textcenter">' . $data['cantidad'] . '</td>
+											<td class="textright">' . $data['precio_venta'] . '</td>
+											<td class="textright">' . $precioTotal . '</td>
+											<td class="">
+												<a class="link_delete" href="#" onclick="event.preventDefault(); del_product_detalle(' . $data['cod_detalle_factura'] . ');"><i class="far fa-trash-alt"></i></a>
+											</td>
+										</tr>';
+				}
+
+				$impuesto 	= round($sub_total * ($isv / 100), 2);
+				$tl_snisv 	= round($sub_total - $impuesto, 2);
+				$total 		= round($tl_snisv + $impuesto, 2);
+
+				$detalleTotales = '
+									
+				
+										<tr>
+											<td colspan="5" class="textright">SUBTOTAL L.</td>
+											<td class="textright">' . $tl_snisv . '</td>
+										</tr>
+									
+										<tr>
+											<td colspan="5" class="textright">ISV (' . $isv . '%)</td>
+											<td class="textright">' . $impuesto . '</td>
+										</tr>
+										<tr>
+											<td colspan="5" class="textright">TOTAL L.</td>
+											<td class="textright">' . $total . '</td>
+										</tr>';
+
+				$arrayData['detalle'] = $detalleTabla;
+				$arrayData['totales'] = $detalleTotales;
+
+				echo json_encode($arrayData, JSON_UNESCAPED_UNICODE);
+			} else {
+				echo 'error';
+			}
+			mysqli_close($conection);
+		}
+		exit;
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	///////////////////////////////////////////
 	//Extrae datos del detalle_temp
 	if ($_POST['action'] == 'serchForDetalle') {
 		if (empty($_POST['user'])) {
