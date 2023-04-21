@@ -46,7 +46,7 @@ class Cai extends Controllers
 	{
 		if ($_POST) {
 			if (
-				empty($_POST['txtRangoI']) || empty($_POST['txtRangoF'])
+				empty($_POST['txtRangoI']) || empty($_POST['txtRangoF']) || empty($_POST['txtRangoA']) 
 				|| empty($_POST['txtnum']) || empty($_POST['txtFecha'])
 			) {
 				$arrResponse = array("status" => false, "msg" => 'Datos incorrectos.');
@@ -54,13 +54,15 @@ class Cai extends Controllers
 				$cod_talonario = intval($_POST['cod_talonario']);
 				$intRangoI = strtoupper(strClean($_POST['txtRangoI']));
 				$intRangoF = strtoupper(strClean($_POST['txtRangoF']));
-				// $intRangoA = intval($_POST['rango_actual']);
+			    $intRangoA = intval($_POST['txtRangoA']);
 				$intNum = strtoupper(strClean($_POST['txtnum']));
 				$dateFechaVenc =  strClean($_POST['txtFecha']);;
 				$strUsuario = $_SESSION['idUser'];
+				$fecha_actual = date('Y-m-d H:i:s');
 				$request_user = "";
-
-				if ($intRangoF < $intRangoI) {
+				if ($dateFechaVenc < $fecha_actual  ) {
+					$arrResponse = array("status" => false, "msg" => 'La fecha de vencimiento tiene que ser mayor a la fecha actual.');
+				} else if ($intRangoF < $intRangoI) {
 					$arrResponse = array("status" => false, "msg" => 'El Rango final tiene que ser mayor al Rango inicial.');
 				} else {
 
@@ -79,7 +81,7 @@ class Cai extends Controllers
 							$request_user = $this->model->insertCai(
 								$intRangoI,
 								$intRangoF,
-								// $intRangoA,
+								$intRangoA,
 								$intNum,
 								$dateFechaVenc,
 								$strUsuario
@@ -107,7 +109,7 @@ class Cai extends Controllers
 								$cod_talonario,
 								$intRangoI,
 								$intRangoF,
-								// $intRangoA,
+								$intRangoA,
 								$intNum,
 								$dateFechaVenc
 							);
@@ -139,6 +141,7 @@ class Cai extends Controllers
 						$arrResponse = array("status" => false, "msg" => 'No es posible almacenar los datos.');
 					}
 				}
+
 			}
 			echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
 		}
@@ -153,14 +156,11 @@ class Cai extends Controllers
 		if ($_SESSION['permisosMod']['r']) {
 			$arrData = $this->model->selectCais();
 			for ($i = 0; $i < count($arrData); $i++) {
+				$btnView = '';
 				$btnEdit = '';
 				$btnDelete = '';
 
-				if ($arrData[$i]['estado'] == 1) {
-					$arrData[$i]['estado'] = '<span class="badge badge-success">ACTIVO</span>';   //Aqui le asigna Activo si es 1
-				} else if ($arrData[$i]['estado'] == 2) {
-					$arrData[$i]['estado'] = '<span class="badge badge-danger">INACTIVO</span>';
-				}
+				
 
 
 				if ($_SESSION['permisosMod']['u']) {
@@ -174,7 +174,16 @@ class Cai extends Controllers
 				} else {
 					$btnDelete = '<button class="btn btn-secondary btn-sm" disabled ><i class="far fa-trash-alt"></i></button>';
 				}
-				$arrData[$i]['options'] = '<div class="text-center">' . $btnEdit . ' ' . $btnDelete . '</div>';
+
+               if ($arrData[$i]['estado'] == 1) {
+					$arrData[$i]['estado'] = '<span class="badge badge-success">ACTIVO</span>';   //Aqui le asigna Activo si es 1
+				} else if ($arrData[$i]['estado'] == 2) {
+					$arrData[$i]['estado'] = '<span class="badge badge-danger">INACTIVO</span>';
+					$btnView = '<button class="btn btn-secondary btn-sm" disabled ><i class="fas fa-ban"></i></button>';
+				}
+
+
+				$arrData[$i]['options'] = '<div class="text-center">' . $btnEdit . ' ' . $btnDelete . '' . $btnView . '</div>';
 			}
 			echo json_encode($arrData, JSON_UNESCAPED_UNICODE);
 		}
