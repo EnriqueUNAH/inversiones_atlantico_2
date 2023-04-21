@@ -422,6 +422,8 @@ $(document).ready(function () {
 
       success: function (response) {
         if (response != "error") {
+          console.log(response);
+          console.log(info);
           var info = JSON.parse(response);
           $("#detalle_venta").html(info.detalle);
           $("#detalle_totales").html(info.totales);
