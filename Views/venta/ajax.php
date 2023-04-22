@@ -428,6 +428,7 @@ if (!empty($_POST)) {
 														 tmp.cantidad,
 														 tmp.precio_venta,
 														 tmp.promo,
+														 tmp.cant_multi,
 														 p.cod_producto,
 														 p.nombre_producto
 													FROM detalle_temp tmp
@@ -459,7 +460,7 @@ if (!empty($_POST)) {
 				$porcentaje_descuento = $resultado_descuento['porcentaje_descuento'];
 				$isv = $resultado['valor'];
 				while ($data = mysqli_fetch_assoc($query)) {
-					$precioTotal = round($data['cantidad'] * $data['precio_venta'], 2);
+					$precioTotal = round($data['cant_multi'] * $data['precio_venta'], 2);
 					$sub_total 	 = round($sub_total + $precioTotal, 2);
 					$total 	 	 = round($total + $precioTotal, 2);
 
@@ -550,7 +551,7 @@ if (!empty($_POST)) {
 
 					$detalleTabla .= '<tr>
 											<td>' . $data['cod_producto'] . '</td>
-											<td colspan="2">' . $data['promo'] . '</td>
+											
 											<td colspan="2">' . $data['nombre_producto'] . '</td>
 											<td class="textcenter">' . $data['cantidad'] . '</td>
 											<td class="textright">' . $data['precio_venta'] . '</td>
