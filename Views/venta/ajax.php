@@ -338,7 +338,8 @@ if (!empty($_POST)) {
 													FROM detalle_temp tmp
 													INNER JOIN tbl_producto p
 													ON tmp.cod_producto = p.cod_producto
-													WHERE token_user = '$token' ");
+													WHERE token_user = '$token' 
+													ORDER BY tmp.cod_detalle_factura ASC");
 
 			$result = mysqli_num_rows($query);
 
