@@ -222,6 +222,7 @@ $result_p->free();
 					</tr>
 					<tr>
 						<th>Código</th>
+						<th colspan="2">Promoción</th>
 						<th colspan="2">Descripción</th>
 						<th>Cantidad</th>
 						<th class="textright">Precio</th>

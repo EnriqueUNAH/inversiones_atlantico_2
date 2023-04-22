@@ -180,6 +180,7 @@ if (!empty($_POST)) {
 
 					$detalleTabla .= '<tr>
 											<td>' . $data['cod_producto'] . '</td>
+										
 											<td colspan="2">' . $data['nombre_producto'] . '</td>
 											<td class="textcenter">' . $data['cantidad'] . '</td>
 											<td class="textright">' . $data['precio_venta'] . '</td>
@@ -356,6 +357,7 @@ if (!empty($_POST)) {
 
 					$detalleTabla .= '<tr>
 											<td>' . $data['cod_producto'] . '</td>
+											<td colspan="2">' . $data['promo'] . '</td>
 											<td colspan="2">' . $data['nombre_producto'] . '</td>
 											<td class="textcenter">' . $data['cantidad'] . '</td>
 											<td class="textright">' . $data['precio_venta'] . '</td>
@@ -425,6 +427,7 @@ if (!empty($_POST)) {
 														 tmp.token_user,
 														 tmp.cantidad,
 														 tmp.precio_venta,
+														 tmp.promo,
 														 p.cod_producto,
 														 p.nombre_producto
 													FROM detalle_temp tmp
@@ -462,6 +465,7 @@ if (!empty($_POST)) {
 
 					$detalleTabla .= '<tr>
 											<td>' . $data['cod_producto'] . '</td>
+											<td colspan="2">' . $data['promo'] . '</td>
 											<td colspan="2">' . $data['nombre_producto'] . '</td>
 											<td class="textcenter">' . $data['cantidad'] . '</td>
 											<td class="textright">' . $data['precio_venta'] . '</td>
@@ -546,6 +550,7 @@ if (!empty($_POST)) {
 
 					$detalleTabla .= '<tr>
 											<td>' . $data['cod_producto'] . '</td>
+											<td colspan="2">' . $data['promo'] . '</td>
 											<td colspan="2">' . $data['nombre_producto'] . '</td>
 											<td class="textcenter">' . $data['cantidad'] . '</td>
 											<td class="textright">' . $data['precio_venta'] . '</td>
@@ -673,44 +678,6 @@ if (!empty($_POST)) {
 			}
 		}
 		echo "error";
-		exit;
-	}
-
-	// Cambiar contraseña
-	if ($_POST['action'] == 'changePassword') {
-
-		if (!empty($_POST['passActual']) && !empty($_POST['passNuevo'])) {
-			$password = md5($_POST['passActual']);
-			$newPass  = md5($_POST['passNuevo']);
-			$idUser   = $_SESSION['idUser'];
-
-			$code 		= '';
-			$msg    	= '';
-			$arrData 	= array();
-
-			$query_user = mysqli_query($conection, "SELECT * FROM tbl_ms_usuarios 
-														WHERE clave = '$password' and idusuario = $idUser ");
-			$result 	 = mysqli_num_rows($query_user);
-			if ($result > 0) {
-				$query_update = mysqli_query($conection, "UPDATE tbl_ms_usuarios SET clave = '$newPass' WHERE idusuario = $idUser ");
-				mysqli_close($conection);
-
-				if ($query_update) {
-					$code = '00';
-					$msg = "Su contraseña se ha actualizado con éxito.";
-				} else {
-					$code = '2';
-					$msg = "No es posible cambiar su contraseña.";
-				}
-			} else {
-				$code = '1';
-				$msg = "La contraseña actual es incorrecta.";
-			}
-			$arrData = array('cod' => $code, 'msg' => $msg);
-			echo json_encode($arrData, JSON_UNESCAPED_UNICODE);
-		} else {
-			echo "error";
-		}
 		exit;
 	}
 }
