@@ -56,7 +56,7 @@ if (empty($_REQUEST['cl']) || empty($_REQUEST['f'])) {
 
 
 		//$logo = '/img/logo.png';
-		$query_productos = mysqli_query($conection, "SELECT p.nombre_producto,dt.cantidad,dt.precio_venta,(dt.cantidad * dt.precio_venta) as precio_total
+		$query_productos = mysqli_query($conection, "SELECT p.nombre_producto,dt.cantidad,dt.precio_venta,dt.cantidad_multi,(dt.cantidad_multi * dt.precio_venta) as precio_total
 														FROM tbl_factura f
 														INNER JOIN tbl_detalle_factura dt
 														ON f.cod_factura = dt.cod_factura

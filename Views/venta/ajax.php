@@ -224,102 +224,7 @@ if (!empty($_POST)) {
 		exit;
 	}
 
-	////////////////////////////////////////////////////////////////////////////////////
 
-	//Agregar producto al detalle temporal cuando es promocion
-
-	// Agregar productos de una promoción al detalle temporal
-	// if ($_POST['action'] == 'addPromocionDetalle') {
-	// 	if (empty($_POST['promocion'])) {
-	// 		echo 'error';
-	// 	} else {
-
-
-
-
-	// 		$cod_promocion = $_POST['promocion'];
-	// 		$token = md5($_SESSION['idUser']);
-
-	// 		// Obtener los productos de la promoción
-	// 		$query_promocion_producto = mysqli_query($conection, "SELECT cod_producto FROM tbl_promocion_producto WHERE cod_promocion = $cod_promocion");
-
-	// 		// Agregar cada producto al detalle temporal
-
-	// 		while ($promocion_producto = mysqli_fetch_assoc($query_promocion_producto)) {
-	// 			$cod_producto = $promocion_producto['cod_producto'];
-	// 			$query_detalle_temp = mysqli_query($conection, "CALL add_detalle_temp($cod_producto, 1, '$token')");
-	// 		}
-	// 		mysqli_free_result($query_promocion_producto);
-	// 		mysqli_next_result($conection);
-
-
-	// 		// Obtener el detalle temporal actualizado
-	// 		$query_detalle_temp = mysqli_query($conection, "SELECT dt.cod_detalle_factura, dt.cod_producto, p.nombre_producto, dt.cantidad, dt.precio_venta FROM detalle_temp dt INNER JOIN tbl_producto p ON dt.cod_producto = p.cod_producto WHERE dt.token_user = '$token'");
-	// 		$result = mysqli_num_rows($query_detalle_temp);
-	// 		$detalleTabla = '';
-	// 		$sub_total = 0;
-	// 		$isv = 0;
-	// 		$total = 0;
-	// 		$arrayData = array();
-
-	// 		if ($result > 0) {
-	// 			// Obtener el valor del impuesto
-	// 			$query_isv = mysqli_query($conection, "SELECT valor FROM tbl_parametros WHERE id_parametro = 1");
-	// 			$result_isv = mysqli_num_rows($query_isv);
-	// 			if ($result_isv > 0) {
-	// 				$info_isv = mysqli_fetch_assoc($query_isv);
-	// 				$isv = $info_isv['valor'];
-	// 			}
-
-	// 			while ($data = mysqli_fetch_assoc($query_detalle_temp)) {
-	// 				$precioTotal = round($data['cantidad'] * $data['precio_venta'], 2);
-	// 				$sub_total = round($sub_total + $precioTotal, 2);
-	// 				$total = round($total + $precioTotal, 2);
-
-	// 				$detalleTabla .= '<tr>
-	// 		  <td>' . $data['cod_producto'] . '</td>
-	// 		  <td colspan="2">' . $data['nombre_producto'] . '</td>
-	// 		  <td class="textcenter">' . $data['cantidad'] . '</td>
-	// 		  <td class="textright">' . $data['precio_venta'] . '</td>
-	// 		  <td class="textright">' . $precioTotal . '</td>
-	// 		  <td class="">
-	// 			<a class="link_delete" href="#" onclick="event.preventDefault(); del_product_detalle(' . $data['cod_detalle_factura'] . ');"><i class="far fa-trash-alt"></i></a>
-	// 		  </td>
-	// 		</tr>';
-	// 			}
-
-	// 			$impuesto = round($sub_total * ($isv / 100), 2);
-	// 			$tl_snisv = round($sub_total - $impuesto, 2);
-	// 			$total = round($tl_snisv + $impuesto, 2);
-
-	// 			$detalleTotales = '
-	// 		<tr>
-	// 		  <td colspan="5" class="textright">Subtotal:</td>
-	// 		  <td class="textright">' . $sub_total . '</td>
-	// 		  <td></td>
-	// 		</tr>
-
-
-	// 									<tr>
-	// 										<td colspan="5" class="textright">ISV (' . $isv . '%)</td>
-	// 										<td class="textright">' . $impuesto . '</td>
-	// 									</tr>
-	// 									<tr>
-	// 										<td colspan="5" class="textright">TOTAL L.</td>
-	// 										<td class="textright">' . $total . '</td>
-	// 									</tr>';
-
-	// 			$arrayData['detalle'] = $detalleTabla;
-	// 			$arrayData['totales'] = $detalleTotales;
-
-	// 			echo json_encode($arrayData, JSON_UNESCAPED_UNICODE);
-	// 		} else {
-	// 			echo 'error';
-	// 		}
-	// 		mysqli_close($conection);
-	// 	}
-	// 	exit;
-	// }
 	if ($_POST['action'] == 'addPromocionDetalle') {
 		if (empty($_POST['promocion'])) {
 			echo 'error';
@@ -363,7 +268,6 @@ if (!empty($_POST)) {
 											<td class="textright">' . $data['precio_venta'] . '</td>
 											<td class="textright">' . $precioTotal . '</td>
 											<td class="">
-												<a class="link_delete" href="#" onclick="event.preventDefault(); del_product_detalle(' . $data['cod_detalle_factura'] . ');"><i class="far fa-trash-alt"></i></a>
 											</td>
 										</tr>';
 				}
