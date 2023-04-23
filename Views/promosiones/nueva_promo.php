@@ -86,6 +86,16 @@ $result_p->free();
 
 ?>
 
+
+<script>
+	function validaNumericos(event) {
+    if(event.charCode >= 48 && event.charCode <= 57){
+      return true;
+     }
+     return false;        
+}
+</script>
+
 <head>
 	<meta charset="UTF-8">
 
@@ -153,6 +163,7 @@ $result_p->free();
 			<form name="form_new_cliente_venta" id="form_new_cliente_venta" class="datos">
 				<input type="hidden" name="action" value="addCliente">
 				<input type="hidden" id="cod_cliente" name="cod_cliente" value="" required>
+				
 				<div class="wd30">
 					<label for="txtnombre_promocion">Nombre Promocion</label>
               		<input type="text" pattern="[a-zA-Z0-9 ]+" class="form-control" id="txtnombre_promocion" name="txtnombre_promocion" style="text-transform:uppercase" required="" title="Ingrese solo letras y números ">
@@ -169,11 +180,11 @@ $result_p->free();
 					<label for="txtpromocion">Precio venta </label>
 					<input type="number" class="form-control" id="txtprecio_venta" name="txtprecio_venta" required="">
 				</div>
-				<div class="wd50">
+			<!--	<div class="wd50">
 					<button type="submit" class="btn_save"><i class="far fa-save fa-lg"></i> Guardar</button>
-				</div>
+				</div> -->
 			</form>
-		</div> 
+		</div>  
 
 	<section id="container">
 		<div class="containerTable">
@@ -244,6 +255,8 @@ $result_p->free();
 
 		</div>
 	</section>
+
+
 
 
 

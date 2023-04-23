@@ -417,55 +417,63 @@ $(document).ready(function () {
   });
 
 
-  // factuarar
  //Facturar Venta
- $("#btn_facturar_compra").click(function (e) {
+ $("#btn_facturar_venta").click(function (e) {
   e.preventDefault();
 
-  var rows = $("#detalle_venta tr").length;
+  var rows = $("#detalle_venta ").length;
   if (rows > 0) {
     var action = "procesarVenta";
-    var cod_cliente = $("#cod_cliente").val();
 
-    $.ajax({
-      url: "ajax.php",
-      type: "POST",
-      async: true,
-      data: { action: action },
+    var nombre_promo = $("#txtnombre_promocion").val();
+    var fecha_i = $("#txtfecha_inicio").val();
+    var fecha_f = $("#txtfecha_final").val();
+    var precio = $("#txtprecio_venta").val();
 
-      success: function (response) {
-        if (response != "error") {
-          var info = JSON.parse(response);
-          //console.log(info);
-          Swal.fire({
-            title: "Compra Exitosa",
-            icon: "success",
-            confirmButtonText: "OK",
-          }).then(() => {
+
+    if (nombre_promo == "" || fecha_i == "" || fecha_f == "" || precio == "") {
+      // Agregar alerta de SweetAlert
+      Swal.fire({
+        icon: "info",
+        title: "Por favor complete todos los espacios",
+        confirmButtonText: "OK",
+      });
+    } else {
+      $.ajax({
+        url: "ajax.php",
+        type: "POST",
+        async: true,
+        data: {
+          action: action,
+
+          nombre_promo: nombre_promo,
+          fecha_i: fecha_i,
+          fecha_f: fecha_f,
+          precio: precio,
+        },
+
+        success: function (response) {
+          console.log(response);
+          if (response != "error") {
+            var info = JSON.parse(response);
+            console.log(info);
             Swal.fire({
-              title: "¿Desea mostrar la Compra?",
-              icon: "info",
-              showCancelButton: true,
+              title: "Producción agregada con éxito",
+              icon: "success",
               confirmButtonText: "OK",
-              cancelButtonText: "Cancelar",
-            }).then((result) => {
-              if (result.isConfirmed) {
-                generarPDF(info.cod_compra);
-                location.reload();
-                window.location.href = "../../Compras";
-              } else if (result.dismiss === Swal.DismissReason.cancel) {
-                window.location.href = "../../Compras";
-              }
+            }).then(() => {
+              window.location.href = "../../promocion";
             });
-          });
-        } else {
-          console.log("no data");
-        }
-      },
-      error: function (error) {},
-    });
+          } else {
+            console.log("no data");
+          }
+        },
+        error: function (error) {},
+      });
+    }
   }
 });
+
 
   // Modal Form Anular Factura
   $(".anular_factura").click(function (e) {
