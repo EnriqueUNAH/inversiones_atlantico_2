@@ -31,6 +31,23 @@ if (!empty($_POST)) {
 
 
 
+	//Extraer datos de la promocion
+	if ($_POST['action'] == 'infoPromocion') {
+		$producto_id = $_POST['promocion'];
+
+		$query = mysqli_query($conection, "SELECT cod_promocion,nombre_promocion,fecha_inicio,fecha_final,precio_venta FROM tbl_promocion
+												WHERE cod_promocion = $producto_id ");
+		mysqli_close($conection);
+
+		$result = mysqli_num_rows($query);
+		if ($result > 0) {
+			$data = mysqli_fetch_assoc($query);
+			echo json_encode($data, JSON_UNESCAPED_UNICODE);
+			exit;
+		}
+		echo 'error';
+		exit;
+	}
 
 
 
@@ -163,6 +180,7 @@ if (!empty($_POST)) {
 
 					$detalleTabla .= '<tr>
 											<td>' . $data['cod_producto'] . '</td>
+										
 											<td colspan="2">' . $data['nombre_producto'] . '</td>
 											<td class="textcenter">' . $data['cantidad'] . '</td>
 											<td class="textright">' . $data['precio_venta'] . '</td>
@@ -206,6 +224,97 @@ if (!empty($_POST)) {
 		exit;
 	}
 
+
+	if ($_POST['action'] == 'addPromocionDetalle') {
+		if (empty($_POST['promocion'])) {
+			echo 'error';
+		} else {
+			$cod_promocion = $_POST['promocion'];
+			$token 		 = md5($_SESSION['idUser']);
+
+			$query_isv = mysqli_query($conection, "SELECT valor FROM tbl_ms_parametros where parametro = 'impuesto'");
+			$result_isv = mysqli_num_rows($query_isv);
+			$resultado = mysqli_fetch_assoc($query_isv);
+
+
+			$query_detalle_temp 	= mysqli_query($conection, "CALL add_promocion_detalle_temp($cod_promocion,'$token')");
+			$result = mysqli_num_rows($query_detalle_temp);
+
+			$detalleTabla = '';
+			$sub_total  = 0;
+			$isv 		= 0;
+			$total 		= 0;
+			$arrayData = array();
+
+			if ($result > 0) {
+
+				$isv = $resultado['valor'];
+
+
+				while ($data = mysqli_fetch_assoc($query_detalle_temp)) {
+					$precioTotal = round($data['cantidad'] * $data['precio_venta'], 2);
+					$sub_total 	 = round($sub_total + $precioTotal, 2);
+					$total 	 	 = round($total + $precioTotal, 2);
+
+					$detalleTabla .= '<tr>
+											<td>' . $data['cod_producto'] . '</td>
+											<td colspan="2">' . $data['promo'] . '</td>
+											<td colspan="2">' . $data['nombre_producto'] . '</td>
+											<td class="textcenter">' . $data['cantidad'] . '</td>
+											<td class="textright">' . $data['precio_venta'] . '</td>
+											<td class="textright">' . $precioTotal . '</td>
+											<td class="">
+											</td>
+										</tr>';
+				}
+
+				$impuesto 	= round($sub_total * ($isv / 100), 2);
+				$tl_snisv 	= round($sub_total - $impuesto, 2);
+				$total 		= round($tl_snisv + $impuesto, 2);
+
+				$detalleTotales = '
+									
+				
+										<tr>
+											<td colspan="5" class="textright">SUBTOTAL L.</td>
+											<td class="textright">' . $tl_snisv . '</td>
+										</tr>
+									
+										<tr>
+											<td colspan="5" class="textright">ISV (' . $isv . '%)</td>
+											<td class="textright">' . $impuesto . '</td>
+										</tr>
+										<tr>
+											<td colspan="5" class="textright">TOTAL L.</td>
+											<td class="textright">' . $total . '</td>
+										</tr>';
+
+				$arrayData['detalle'] = $detalleTabla;
+				$arrayData['totales'] = $detalleTotales;
+
+				echo json_encode($arrayData, JSON_UNESCAPED_UNICODE);
+			} else {
+				echo 'error';
+			}
+			mysqli_close($conection);
+		}
+		exit;
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	///////////////////////////////////////////
 	//Extrae datos del detalle_temp
 	if ($_POST['action'] == 'serchForDetalle') {
 		if (empty($_POST['user'])) {
@@ -218,12 +327,15 @@ if (!empty($_POST)) {
 														 tmp.token_user,
 														 tmp.cantidad,
 														 tmp.precio_venta,
+														 tmp.promo,
+														 tmp.cant_multi,
 														 p.cod_producto,
 														 p.nombre_producto
 													FROM detalle_temp tmp
 													INNER JOIN tbl_producto p
 													ON tmp.cod_producto = p.cod_producto
-													WHERE token_user = '$token' ");
+													WHERE token_user = '$token' 
+													ORDER BY tmp.cod_detalle_factura ASC");
 
 			$result = mysqli_num_rows($query);
 
@@ -249,12 +361,13 @@ if (!empty($_POST)) {
 				$porcentaje_descuento = $resultado_descuento['porcentaje_descuento'];
 				$isv = $resultado['valor'];
 				while ($data = mysqli_fetch_assoc($query)) {
-					$precioTotal = round($data['cantidad'] * $data['precio_venta'], 2);
+					$precioTotal = round($data['cant_multi'] * $data['precio_venta'], 2);
 					$sub_total 	 = round($sub_total + $precioTotal, 2);
 					$total 	 	 = round($total + $precioTotal, 2);
 
 					$detalleTabla .= '<tr>
 											<td>' . $data['cod_producto'] . '</td>
+											<td colspan="2">' . $data['promo'] . '</td>
 											<td colspan="2">' . $data['nombre_producto'] . '</td>
 											<td class="textcenter">' . $data['cantidad'] . '</td>
 											<td class="textright">' . $data['precio_venta'] . '</td>
@@ -339,6 +452,7 @@ if (!empty($_POST)) {
 
 					$detalleTabla .= '<tr>
 											<td>' . $data['cod_producto'] . '</td>
+											
 											<td colspan="2">' . $data['nombre_producto'] . '</td>
 											<td class="textcenter">' . $data['cantidad'] . '</td>
 											<td class="textright">' . $data['precio_venta'] . '</td>
@@ -466,44 +580,6 @@ if (!empty($_POST)) {
 			}
 		}
 		echo "error";
-		exit;
-	}
-
-	// Cambiar contraseña
-	if ($_POST['action'] == 'changePassword') {
-
-		if (!empty($_POST['passActual']) && !empty($_POST['passNuevo'])) {
-			$password = md5($_POST['passActual']);
-			$newPass  = md5($_POST['passNuevo']);
-			$idUser   = $_SESSION['idUser'];
-
-			$code 		= '';
-			$msg    	= '';
-			$arrData 	= array();
-
-			$query_user = mysqli_query($conection, "SELECT * FROM tbl_ms_usuarios 
-														WHERE clave = '$password' and idusuario = $idUser ");
-			$result 	 = mysqli_num_rows($query_user);
-			if ($result > 0) {
-				$query_update = mysqli_query($conection, "UPDATE tbl_ms_usuarios SET clave = '$newPass' WHERE idusuario = $idUser ");
-				mysqli_close($conection);
-
-				if ($query_update) {
-					$code = '00';
-					$msg = "Su contraseña se ha actualizado con éxito.";
-				} else {
-					$code = '2';
-					$msg = "No es posible cambiar su contraseña.";
-				}
-			} else {
-				$code = '1';
-				$msg = "La contraseña actual es incorrecta.";
-			}
-			$arrData = array('cod' => $code, 'msg' => $msg);
-			echo json_encode($arrData, JSON_UNESCAPED_UNICODE);
-		} else {
-			echo "error";
-		}
 		exit;
 	}
 }

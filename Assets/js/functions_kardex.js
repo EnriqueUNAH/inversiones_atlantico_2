@@ -18,6 +18,7 @@ document.addEventListener(
         { data: "fecha" },
         { data: "nombre_movimiento" },
         { data: "nombre_producto" },
+        { data: "cantidad" }
       ],
       dom: "lBfrtip",
       buttons: [

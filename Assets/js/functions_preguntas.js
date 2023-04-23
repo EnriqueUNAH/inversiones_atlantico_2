@@ -195,6 +195,10 @@ function fntEditPreguntas(element, id_pregunta) {
         document.querySelector("#id_pregunta").value = objData.data.id_pregunta;
 
         document.querySelector("#txtpregunta").value = objData.data.pregunta;
+
+        if (id_pregunta) {
+          document.querySelector("#txtpregunta").setAttribute("readonly", true);
+        }
       }
     }
 
@@ -249,6 +253,7 @@ function fntDelPreguntas(id_pregunta) {
 function openModal() {
   rowTable = "";
   document.querySelector("#id_pregunta").value = "";
+  document.querySelector("#txtpregunta").removeAttribute("readonly");
   document
     .querySelector(".modal-header")
     .classList.replace("headerUpdate", "headerRegister");

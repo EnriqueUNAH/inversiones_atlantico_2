@@ -26,6 +26,7 @@ headerAdmin($data);
                   <th>Fecha</th>
                   <th>Tipo Movimiento</th>
                   <th>Producto</th>
+                  <th>Cantidad</th>
                 </tr>
               </thead>
               <tbody>

@@ -47,7 +47,7 @@ class KardexModel extends Mysql
 			$whereAdmin = " and p.cod_kardex != 1 ";
 		}
 
-    	$sql = "SELECT p.fecha,p.cod_tipo_movimiento,p.cod_producto,r.nombre_movimiento,o.nombre_producto
+    	$sql = "SELECT p.fecha,p.cod_tipo_movimiento,p.cod_producto,p.cantidad,r.nombre_movimiento,o.nombre_producto
 			FROM tbl_tipo_movimiento r
 			INNER JOIN tbl_kardex p 
 			ON p.cod_tipo_movimiento = r.cod_tipo_movimiento

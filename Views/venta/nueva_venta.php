@@ -93,7 +93,7 @@ $result_p->free();
 		<div class="datos_cliente">
 			<div class="action_cliente">
 				<h4>Datos del Cliente</h4>
-				<a href="#" class="btn_new btn_new_cliente"><i class="fas fa-plus"></i> Nuevo cliente</a> 
+				<a href="#" class="btn_new btn_new_cliente"><i class="fas fa-plus"></i> Nuevo cliente</a>
 			</div>
 			<form name="form_new_cliente_venta" id="form_new_cliente_venta" class="datos">
 				<input type="hidden" name="action" value="addCliente">
@@ -133,6 +133,10 @@ $result_p->free();
 					<div id="acciones_venta">
 						<a href="#" class="btn_ok textcenter" id="btn_anular_venta"><i class="fas fa-ban"></i> Cancelar</a>
 						<a href="#" class="btn_new textcenter" id="btn_facturar_venta" style="display: none;"><i class="far fa-edit"></i> Facturar</a>
+
+						<a href="../promo/nueva_promo.php" class="btn_new textcenter" id="" style="background-color: #87CEFA; color: #fff;"><i class="far fa-edit"></i> Agregar Promociones</a>
+
+
 					</div>
 				</div>
 			</div>
@@ -160,7 +164,7 @@ $result_p->free();
 
 
 
-						<td> <a href="#" id="add_product_venta" class="link_add"><i class="fas fa-plus"></i> Agregar Promoción</a></td>
+						<td> <a href="#" id="add_promocion_venta" class="link_add"><i class="fas fa-plus"></i> Agregar Promoción</a></td>
 						<th>
 							<!---->
 							<select name="select_promocion" id="select_promocion" class="select-promocion" style="width: 200px;">
@@ -206,6 +210,7 @@ $result_p->free();
 
 
 					<tr>
+						<td hidden><input type="text" name="txt_cod_promocion" id="txt_cod_promocion"></td>
 						<td hidden><input type="text" name="txt_cod_producto" id="txt_cod_producto"></td>
 						<td id="txt_nombre_producto">-</td>
 						<td></td>
@@ -217,6 +222,7 @@ $result_p->free();
 					</tr>
 					<tr>
 						<th>Código</th>
+						<th colspan="2">Promoción</th>
 						<th colspan="2">Descripción</th>
 						<th>Cantidad</th>
 						<th class="textright">Precio</th>

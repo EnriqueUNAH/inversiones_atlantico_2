@@ -31,6 +31,16 @@
 
           <div class="form-row">
 
+           <div class="form-group col-md-6">
+              <label for="txtRangoA">Rango Actual</label>
+              <input type="text" class="form-control" id="txtRangoA" name="txtRangoA" required="" maxlength="19">
+
+            </div>
+
+          </div>
+
+          <div class="form-row">
+
             <div class="form-group col-md-8">
               <label for="txtnum">Numero CAI</label>
               <input type="text" class="form-control" id="txtnum" name="txtnum" style="text-transform:uppercase" required="">

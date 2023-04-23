@@ -286,6 +286,54 @@ $(document).ready(function () {
     }
   });
 
+  $("#select_promocion").change(function (e) {
+    e.preventDefault();
+
+    var promocion = $(this).val();
+    var action = "infoPromocion";
+
+    if (promocion != "") {
+      $.ajax({
+        url: "ajax.php",
+        type: "POST",
+        async: true,
+        data: { action: action, promocion: promocion },
+
+        success: function (response) {
+          if (response != "error") {
+            var info = JSON.parse(response);
+            $("#txt_cod_promocion").val(promocion);
+            $("#txt_nombre_promocion").html(info.nombre_promocion);
+            // $("#txt_existencia").html(info.existencia);
+            // $("#txt_cant_producto").val("1");
+            // $("#txt_precio").html(info.precio_venta);
+            // $("#txt_precio_total").html(info.precio_venta);
+
+            // //Activar Cantidad
+            // $("#txt_cant_producto").removeAttr("disabled");
+
+            // //Mostrar botón agregar
+            $("#add_promocion_venta").slideDown();
+          } else {
+            $("#txt_cod_producto").val("");
+            $("#txt_nombre_producto").html("-");
+            $("#txt_existencia").html("-");
+            $("#txt_cant_producto").val("0");
+            $("#txt_precio").html("0.00");
+            $("#txt_precio_total").html("0.00");
+
+            //Bloquear Cantidad
+            $("#txt_cant_producto").attr("disabled", "disabled");
+
+            //Ocultar boton agregar
+            $("#add_product_venta").slideUp();
+          }
+        },
+        error: function (error) {},
+      });
+    }
+  });
+
   // Validar Cantidad del producto antes de agregar
   $("#txt_cant_producto").keyup(function (e) {
     e.preventDefault();
@@ -357,6 +405,57 @@ $(document).ready(function () {
   });
 
   //////////////////////////////////////////////////////////
+  //Agregar promocion al detalle
+  $("#add_promocion_venta").click(function (e) {
+    e.preventDefault();
+
+    // if ($("#txt_cant_producto").val() > 0) {
+    var cod_promocion = $("#txt_cod_promocion").val();
+    // var cantidad = $("#txt_cant_producto").val();
+    var action = "addPromocionDetalle";
+
+    $.ajax({
+      url: "ajax.php",
+      type: "POST",
+      async: true,
+      data: { action: action, promocion: cod_promocion },
+
+      success: function (response) {
+        if (response != "error") {
+          console.log(response);
+          console.log(info);
+          var info = JSON.parse(response);
+          $("#detalle_venta").html(info.detalle);
+          $("#detalle_totales").html(info.totales);
+
+          $("#txt_cod_producto").val("");
+          $("#txt_nombre_producto").html("-");
+          $("#txt_existencia").html("-");
+          $("#txt_cant_producto").val("0");
+          $("#txt_precio").html("0.00");
+          $("#txt_precio_total").html("0.00");
+
+          //Bloquear Cantidad
+          $("#txt_cant_producto").attr("disabled", "disabled");
+
+          //Ocultar boton agregar
+          $("#add_product_venta").slideUp();
+
+          /* Lo coloqué para que me recargara la página 
+             y así un producto solo lo pueda elegir una vez
+            Así ya queda validado para que no se pase de la exitencia
+            cuando elige mas de una vez el producto.
+          */
+          window.location.reload(true);
+        } else {
+          console.log("no data");
+        }
+        viewProcesar();
+      },
+      error: function (error) {},
+    });
+    // }
+  });
 
   ////////////////////////////////////////////////////
 
@@ -912,7 +1011,19 @@ document.addEventListener("DOMContentLoaded", () => {
     cod_producto.value = selectedCode;
   });
 });
+//####################################################################################################################
+document.addEventListener("DOMContentLoaded", () => {
+  const selectProducto = document.getElementById("select_promocion");
+  const cod_promocion = document.getElementById("txt_cod_promocion");
 
+  selectProducto.addEventListener("change", (event) => {
+    const selectedOption = event.target.options[event.target.selectedIndex];
+    const selectedCode = selectedOption.value;
+
+    cod_promocion.value = selectedCode;
+  });
+});
+//####################################################################################################################
 $(document).ready(function () {
   // Asignar evento de clic al botón "Agregar"
   $("#add_descuento").click(function (e) {

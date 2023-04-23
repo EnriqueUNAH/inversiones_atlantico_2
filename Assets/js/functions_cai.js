@@ -125,13 +125,14 @@ document.addEventListener(
 
         let intRangoI = document.querySelector("#txtRangoI").value;
         let intRangoF = document.querySelector("#txtRangoF").value;
-        // let intRangoA = document.querySelector("#rango_actual").value;
+        let intRangoA = document.querySelector("#txtRangoA").value;
         let intNum = document.querySelector("#txtnum").value;
         let dateFechaVenc = document.querySelector("#txtFecha").value;
 
         if (
           intRangoI == "" ||
           intRangoF == "" ||
+          intRangoA == "" ||
           intNum == "" ||
           dateFechaVenc == ""
         ) {
@@ -167,7 +168,7 @@ document.addEventListener(
               } else {
                 rowTable.cells[0].textContent = intRangoI;
                 rowTable.cells[1].textContent = intRangoF;
-                // rowTable.cells[2].textContent = intRangoA;
+                rowTable.cells[2].textContent = intRangoA;
                 rowTable.cells[3].textContent = intNum;
                 rowTable.cells[4].textContent = dateFechaVenc;
                 // rowTable.cells[5].textContent = estado;
@@ -218,7 +219,7 @@ function fntEditCai(element, cod_talonario) {
           objData.data.cod_talonario;
         document.querySelector("#txtRangoI").value = objData.data.rango_inicial;
         document.querySelector("#txtRangoF").value = objData.data.rango_final;
-        // document.querySelector("#txtRangoA").value = objData.data.rango_actual;
+        document.querySelector("#txtRangoA").value = objData.data.rango_actual;
         document.querySelector("#txtnum").value = objData.data.numero_CAI;
         document.querySelector("#txtFecha").value =
           objData.data.fecha_vencimiento;
