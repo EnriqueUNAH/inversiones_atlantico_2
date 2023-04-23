@@ -233,13 +233,10 @@ $result_p->free();
 	</section>
 
 	<section id="container">
-	<table class="tbl_venta">
+		<table class="tbl_venta">
 			<thead>
-
 				<tr>
-
 					<!-- <td> <a href="#" id="add_product_ventaa" class="link_add"><i class="fas fa-plus"></i> Agregar Producto</a></td> -->
-
 					<th>
 						<h4>Seleccione el Producto a Producir</h4><BR>
 						<!---->
@@ -249,40 +246,16 @@ $result_p->free();
 								<option value="<?php echo $producto['cod_producto']; ?>"><?php echo $producto['nombre_producto']; ?></option>
 							<?php endforeach; ?>
 						</select>
-
 						<!---->
-
 					</th>
-
-
 					<th>
 						<h4>Cantidad</h4><BR>
 						<input type="num" name="cantidad_producto" id="cantidad_producto" value="1" min="1">
 					</th>
-
-
 				</tr>
 			</thead>
 		</table>
-								</section>
-
-
-	<!-- Sirve para buscar el nombre del producto dentro del select -->
-	<!-- <script>
-		$(document).ready(function() {
-			$('.select-producto').select2({
-				placeholder: 'Productos',
-				allowClear: true,
-				language: {
-					noResults: function() {
-						return 'No se encontraron resultados';
-					}
-				}
-			});
-		});
-	</script> -->
-	<!-- Sirve para buscar el nombre del producto dentro del select -->
-	<!-- SIN PLACE HOLDER -->
+	</section>
 	<script>
 		$(document).ready(function() {
 			$('.select-producto').select2({
@@ -295,8 +268,6 @@ $result_p->free();
 			});
 		});
 	</script>
-
-
 	<script type="text/javascript">
 		$(document).ready(function() {
 			var usuarioid = '<?php echo $_SESSION['idUser']; ?>';
@@ -304,6 +275,7 @@ $result_p->free();
 
 		});
 	</script>
+
 
 </body>
 
