@@ -229,8 +229,7 @@ if (!empty($_POST)) {
 		if (empty($_POST['promocion'])) {
 			echo 'error';
 		} else {
-			$cod_producto = $_POST['promocion'];
-			// $cantidad 	 = $_POST['cantidad'];
+			$cod_promocion = $_POST['promocion'];
 			$token 		 = md5($_SESSION['idUser']);
 
 			$query_isv = mysqli_query($conection, "SELECT valor FROM tbl_ms_parametros where parametro = 'impuesto'");
@@ -238,7 +237,7 @@ if (!empty($_POST)) {
 			$resultado = mysqli_fetch_assoc($query_isv);
 
 
-			$query_detalle_temp 	= mysqli_query($conection, "CALL add_promocion_detalle_temp($cod_producto,'$token')");
+			$query_detalle_temp 	= mysqli_query($conection, "CALL add_promocion_detalle_temp($cod_promocion,'$token')");
 			$result = mysqli_num_rows($query_detalle_temp);
 
 			$detalleTabla = '';
@@ -248,10 +247,7 @@ if (!empty($_POST)) {
 			$arrayData = array();
 
 			if ($result > 0) {
-				// if ($result_isv > 0) {
-				// 	$info_isv =  mysqli_fetch_assoc($query_isv);
-				// 	$isv = $info_isv['isv'];
-				// }
+
 				$isv = $resultado['valor'];
 
 
