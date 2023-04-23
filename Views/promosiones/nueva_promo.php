@@ -112,7 +112,7 @@ $result_p->free();
 
 	<div class="containerTable">
 		<div class="title_page">
-			<a href="../../produccion" class="btn_atras ">
+			<a href="../../promocion" class="btn_atras ">
 				<h2><i class="fas fa-arrow-left"></i>
 					ATRÁS</h2>
 			</a>
