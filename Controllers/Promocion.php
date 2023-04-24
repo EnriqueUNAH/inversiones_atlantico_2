@@ -143,10 +143,6 @@ class Promocion extends Controllers
 
 
 
-
-
-
-
 	public function getPromocion()
 	{
 		if ($_SESSION['permisosMod']['r']) {
