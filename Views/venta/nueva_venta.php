@@ -119,20 +119,25 @@ $result_d->free();
 				<input type="hidden" id="cod_cliente" name="cod_cliente" value="" required>
 				<div class="wd30">
 					<label>RTN</label>
-					<input type="text" name="rtn_cliente" id="rtn_cliente">
+					<input type="text" name="rtn_cliente" id="rtn_cliente" pattern="[1-9]{1}[0-9]{13}" title="Debes ingresar 14 dígitos que no sean todos ceros" required maxlength="14">
 				</div>
+
+
 				<div class="wd30">
 					<label>Nombre</label>
-					<input type="text" name="nom_cliente" id="nom_cliente" disabled required>
+					<input type="text" name="nom_cliente" id="nom_cliente" oninput="this.value = this.value.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑ]/g, '').toUpperCase()" disabled required>
 				</div>
+
 				<div class="wd30">
 					<label>Teléfono</label>
-					<input type="number" name="tel_cliente" id="tel_cliente" disabled required>
+					<input type="text" name="tel_cliente" id="tel_cliente" pattern="[1-9]{1}[0-9]{7}" title="Debes ingresar 8 dígitos que no sean todos ceros" required maxlength="8">
 				</div>
+
 				<div class="wd100">
 					<label>Dirección</label>
-					<input type="text" name="dir_cliente" id="dir_cliente" disabled required>
+					<input type="text" name="dir_cliente" id="dir_cliente" oninput="this.value = this.value.toUpperCase()" disabled required>
 				</div>
+
 				<div id="div_registro_cliente" class="wd100">
 					<button type="submit" class="btn_save"><i class="far fa-save fa-lg"></i> Guardar</button>
 				</div>
@@ -309,6 +314,8 @@ $result_d->free();
 
 		});
 	</script>
+
+
 
 </body>
 
