@@ -28,7 +28,7 @@ if (empty($_REQUEST['cl']) || empty($_REQUEST['f'])) {
 	}
 
 
-	$query = mysqli_query($conection, "SELECT f.cod_factura,f.numero_factura,f.cai, DATE_FORMAT(f.fecha, '%d/%m/%Y') as fecha, DATE_FORMAT(f.fecha,'%H:%i:%s') as  hora, f.cod_cliente, f.estado,
+	$query = mysqli_query($conection, "SELECT f.cod_factura,f.numero_factura,f.cai, DATE_FORMAT(f.fecha, '%d/%m/%Y') as fecha, DATE_FORMAT(f.fecha,'%H:%i:%s') as  hora, f.cod_cliente, f.estado,f.descuento,
 												 v.nombre_usuario as vendedor,
 												 cl.rtn, cl.nombres, cl.telefono,cl.direccion
 											FROM tbl_factura f

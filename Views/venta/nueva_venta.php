@@ -59,6 +59,25 @@ $result_p->free();
 ###############################################################################
 
 
+###############################################################################
+// Consulta para obtener las promociones
+$sql_d = "SELECT cod_descuento, nombre_descuento, porcentaje_descuento FROM tbl_descuento";
+$result_d = $conection->query($sql_d);
+
+// Crea un arreglo con los datos obtenidos de la tabla promocion
+$descuentos = array();
+while ($row_d = $result_d->fetch_assoc()) {
+	$descuentos[] = array(
+		'cod_descuento' => $row_d['cod_descuento'],
+		'nombre_descuento' => $row_d['nombre_descuento'],
+		'porcentaje_descuento' => $row_d['porcentaje_descuento']
+	);
+}
+
+// Libera el resultado de la consulta
+$result_d->free();
+###############################################################################
+
 ?>
 
 <head>
@@ -178,23 +197,30 @@ $result_p->free();
 						</th>
 
 
+
+
+
+						<td> <a href="#" id="add_descuento" class="link_add"><i class="fas fa-plus"></i> Agregar Descuento</a></td>
+						<th>
+							<!---->
+							<select name="select_descuento" id="select_descuento" class="select-descuento" style="width: 200px;">
+								<option value="">Descuentos</option>
+								<?php foreach ($descuentos as $descuento) : ?>
+									<option value="<?php echo $descuento['cod_descuento']; ?>"><?php echo $descuento['nombre_descuento']; ?></option>
+								<?php endforeach; ?>
+							</select>
+							<!---->
+
+						</th>
+
+
+
+
+
+
 					</tr>
 
 
-					<tr>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td>
-							<a href="#" id="add_descuento" class="link_add"><i></i>% Agregar Descuento</a>
-						</td>
-
-						<td>
-							<input type="text" placeholder="%" id="valor_descuento" name="valor_descuento">
-						</td>
-					</tr>
 
 
 					<tr>
@@ -212,6 +238,7 @@ $result_p->free();
 					<tr>
 						<td hidden><input type="text" name="txt_cod_promocion" id="txt_cod_promocion"></td>
 						<td hidden><input type="text" name="txt_cod_producto" id="txt_cod_producto"></td>
+						<td hidden><input type="text" name="txt_cod_descuento" id="txt_cod_descuento"></td>
 						<td id="txt_nombre_producto">-</td>
 						<td></td>
 						<td id="txt_existencia">-</td>

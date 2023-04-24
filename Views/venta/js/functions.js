@@ -333,6 +333,53 @@ $(document).ready(function () {
       });
     }
   });
+  $("#select_descuento").change(function (e) {
+    e.preventDefault();
+
+    var descuento = $(this).val();
+    var action = "infoDescuento";
+
+    if (descuento != "") {
+      $.ajax({
+        url: "ajax.php",
+        type: "POST",
+        async: true,
+        data: { action: action, descuento: descuento },
+
+        success: function (response) {
+          if (response != "error") {
+            var info = JSON.parse(response);
+            $("#txt_cod_descuento").val(descuento);
+            $("#txt_nombre_descuento").html(info.nombre_descuento);
+            // $("#txt_existencia").html(info.existencia);
+            // $("#txt_cant_producto").val("1");
+            // $("#txt_precio").html(info.precio_venta);
+            // $("#txt_precio_total").html(info.precio_venta);
+
+            // //Activar Cantidad
+            // $("#txt_cant_producto").removeAttr("disabled");
+
+            // //Mostrar botón agregar
+            $("#add_descuento_venta").slideDown();
+          } else {
+            $("#txt_cod_producto").val("");
+            $("#txt_nombre_producto").html("-");
+            $("#txt_existencia").html("-");
+            $("#txt_cant_producto").val("0");
+            $("#txt_precio").html("0.00");
+            $("#txt_precio_total").html("0.00");
+
+            //Bloquear Cantidad
+            $("#txt_cant_producto").attr("disabled", "disabled");
+
+            //Ocultar boton agregar
+            $("#add_product_venta").slideUp();
+          }
+        },
+        error: function (error) {},
+      });
+    }
+  });
 
   // Validar Cantidad del producto antes de agregar
   $("#txt_cant_producto").keyup(function (e) {
@@ -458,7 +505,58 @@ $(document).ready(function () {
   });
 
   ////////////////////////////////////////////////////
+  //Agregar descuento al detalle
+  $("#add_descuento").click(function (e) {
+    e.preventDefault();
 
+    // if ($("#txt_cant_producto").val() > 0) {
+    var descuento = $("#txt_cod_descuento").val();
+    // var cantidad = $("#txt_cant_producto").val();
+    var action = "addDescuentoDetalle";
+
+    $.ajax({
+      url: "ajax.php",
+      type: "POST",
+      async: true,
+      data: { action: action, descuento: descuento },
+
+      success: function (response) {
+        if (response != "error") {
+          window.location.reload(true);
+          console.log(response);
+          console.log(info);
+          var info = JSON.parse(response);
+          // $("#detalle_venta").html(info.detalle);
+          // $("#detalle_totales").html(info.totales);
+
+          // $("#txt_cod_producto").val("");
+          // $("#txt_nombre_producto").html("-");
+          // $("#txt_existencia").html("-");
+          // $("#txt_cant_producto").val("0");
+          // $("#txt_precio").html("0.00");
+          // $("#txt_precio_total").html("0.00");
+
+          // //Bloquear Cantidad
+          // $("#txt_cant_producto").attr("disabled", "disabled");
+
+          // //Ocultar boton agregar
+          // $("#add_product_venta").slideUp();
+
+          /* Lo coloqué para que me recargara la página 
+             y así un producto solo lo pueda elegir una vez
+            Así ya queda validado para que no se pase de la exitencia
+            cuando elige mas de una vez el producto.
+          */
+          window.location.reload(true);
+        } else {
+          console.log("no data");
+        }
+        viewProcesar();
+      },
+      error: function (error) {},
+    });
+    // }
+  });
   //Agregar descuento al detalle
   // $("#addDescuentoDetalle").click(function (e) {
   //   e.preventDefault();
@@ -515,35 +613,6 @@ $(document).ready(function () {
     }
   });
 
-  // //Facturar Venta
-  // $("#btn_facturar_venta").click(function (e) {
-  //   e.preventDefault();
-
-  //   var rows = $("#detalle_venta tr").length;
-  //   if (rows > 0) {
-  //     var action = "procesarVenta";
-  //     var cod_cliente = $("#cod_cliente").val();
-
-  //     $.ajax({
-  //       url: "ajax.php",
-  //       type: "POST",
-  //       async: true,
-  //       data: { action: action, cod_cliente: cod_cliente },
-
-  //       success: function (response) {
-  //         if (response != "error") {
-  //           var info = JSON.parse(response);
-  //           //console.log(info);
-  //           generarPDF(info.cod_cliente, info.cod_factura);
-  //           location.reload();
-  //         } else {
-  //           console.log("no data");
-  //         }
-  //       },
-  //       error: function (error) {},
-  //     });
-  //   }
-  // });
   //Facturar Venta
   $("#btn_facturar_venta").click(function (e) {
     e.preventDefault();
@@ -649,118 +718,6 @@ $(document).ready(function () {
     var cod_cliente = $(this).attr("cl");
     var cod_factura = $(this).attr("f");
     generarPDF(cod_cliente, cod_factura);
-  });
-
-  //Cambiar password
-  $(".newPass").keyup(function () {
-    validPass();
-  });
-
-  //Form Cambiar contraseña
-  $("#frmChangePass").submit(function (e) {
-    e.preventDefault();
-
-    var passActual = $("#txtPassUser").val();
-    var passNuevo = $("#txtNewPassUser").val();
-    var confirmPassNuevo = $("#txtPassConfirm").val();
-    var action = "changePassword";
-
-    if (passNuevo != confirmPassNuevo) {
-      $(".alertChangePass").html(
-        '<p style="color:red;">Las contraeñas no son iguales.</p>'
-      );
-      $(".alertChangePass").slideDown();
-      return false;
-    }
-
-    if (passNuevo.length < 5) {
-      $(".alertChangePass").html(
-        '<p style="color:red;">La nueva contraseña debe ser de 5 caracteres como mínimo.</p>'
-      );
-      $(".alertChangePass").slideDown();
-      return false;
-    }
-
-    $.ajax({
-      url: "ajax.php",
-      type: "POST",
-      async: true,
-      data: { action: action, passActual: passActual, passNuevo: passNuevo },
-
-      success: function (response) {
-        if (response != "error") {
-          var info = JSON.parse(response);
-          if (info.cod == "00") {
-            $(".alertChangePass").html(
-              '<p style="color:green;">' + info.msg + "</p>"
-            );
-            $("#frmChangePass")[0].reset();
-          } else {
-            $(".alertChangePass").html(
-              '<p style="color:red;">' + info.msg + "</p>"
-            );
-          }
-          $(".alertChangePass").slideDown();
-        }
-      },
-      error: function (error) {},
-    });
-  });
-
-  //Actualizar datos empresa
-  $("#frmEmpresa").submit(function (e) {
-    e.preventDefault();
-
-    var intrtn = $("#txtrtn").val();
-    var strNombreEmp = $("#txtNombre").val();
-    var strRSocialEmp = $("#txtRSocial").val();
-    var intTelEmp = $("#txtTelEmpresa").val();
-    var strEmailEmp = $("#txtEmailEmpresa").val();
-    var strDirEmp = $("#txtDirEmpresa").val();
-    var intIva = $("#txtIva").val();
-
-    if (
-      intrtn == "" ||
-      strNombreEmp == "" ||
-      intTelEmp == "" ||
-      strEmailEmp == "" ||
-      strDirEmp == "" ||
-      intIva == ""
-    ) {
-      $(".alertFormEmrpresa").html(
-        '<p style="color:red">Todos los campos son obligatorios.</p>'
-      );
-      $(".alertFormEmrpresa").slideDown();
-      return false;
-    }
-
-    $.ajax({
-      url: "ajax.php",
-      type: "POST",
-      async: true,
-      data: $("#frmEmpresa").serialize(),
-      beforeSend: function () {
-        $(".alertFormEmrpresa").slideUp();
-        $(".alertFormEmrpresa").html("");
-        $("#frmEmpresa input").attr("disabled", "disabled");
-      },
-      success: function (response) {
-        var info = JSON.parse(response);
-        if (info.cod == "00") {
-          $(".alertFormEmrpresa").html(
-            '<p style="color: #23922d;">' + info.msg + "</p>"
-          );
-          $(".alertFormEmrpresa").slideDown();
-        } else {
-          $(".alertFormEmrpresa").html(
-            '<p style="color:red;">' + info.msg + "</p>"
-          );
-        }
-        $(".alertFormEmrpresa").slideDown();
-        $("#frmEmpresa input").removeAttr("disabled");
-      },
-      error: function (error) {},
-    });
   });
 }); //End Ready
 
@@ -1024,33 +981,39 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 //####################################################################################################################
-$(document).ready(function () {
-  // Asignar evento de clic al botón "Agregar"
-  $("#add_descuento").click(function (e) {
-    e.preventDefault();
+document.addEventListener("DOMContentLoaded", () => {
+  const selectDescuento = document.getElementById("select_descuento");
+  const cod_descuento = document.getElementById("txt_cod_descuento");
 
-    var valor_descuento = $("#valor_descuento").val();
+  selectDescuento.addEventListener("change", (event) => {
+    const selectedOption = event.target.options[event.target.selectedIndex];
+    const selectedCode = selectedOption.value;
 
-    // Validar el valor del descuento
-    if (isNaN(valor_descuento) || valor_descuento < 0) {
-      alert("El valor de descuento debe ser un número mayor o igual a cero.");
-      return;
-    }
-
-    // Enviar solicitud POST al archivo PHP
-    $.ajax({
-      url: "ajax.php",
-      type: "POST",
-      data: { valor_descuento: valor_descuento },
-      success: function (response) {
-        // Manejar la respuesta del servidor
-        console.log(response);
-        location.reload(); // Recargar la página
-      },
-      error: function () {
-        // Manejar errores
-        console.log("Error al actualizar descuento");
-      },
-    });
+    cod_descuento.value = selectedCode;
   });
 });
+
+// $(document).ready(function () {
+//   // Asignar evento de clic al botón "Agregar"
+//   $("#add_descuento").click(function (e) {
+//     e.preventDefault();
+
+//     var valor_descuento = $("#valor_descuento").val();
+
+//     // Enviar solicitud POST al archivo PHP
+//     $.ajax({
+//       url: "ajax.php",
+//       type: "POST",
+//       data: { valor_descuento: valor_descuento },
+//       success: function (response) {
+//         // Manejar la respuesta del servidor
+//         console.log(response);
+//         // location.reload(); // Recargar la página
+//       },
+//       error: function () {
+//         // Manejar errores
+//         console.log("Error al actualizar descuento");
+//       },
+//     });
+//   });
+// });

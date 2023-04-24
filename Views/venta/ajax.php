@@ -12,18 +12,18 @@ if (!empty($_POST)) {
 
 
 
-	if (isset($_POST["valor_descuento"])) {
-		$valor_descuento = $_POST["valor_descuento"];
+	// if (isset($_POST["valor_descuento"])) {
+	// 	$valor_descuento = $_POST["valor_descuento"];
 
-		// Actualizar la tabla tbl_descuento
-		$sql = "UPDATE tbl_descuento SET porcentaje_descuento='$valor_descuento' WHERE nombre_descuento='descuento'";
+	// 	// Actualizar la tabla tbl_descuento
+	// 	$sql = "UPDATE tbl_descuento SET porcentaje_descuento='$valor_descuento' WHERE nombre_descuento='descuento'";
 
-		if ($conection->query($sql) === TRUE) {
-			echo "Descuento actualizado correctamente";
-		} else {
-			echo "Error al actualizar descuento: " . $conection->error;
-		}
-	}
+	// 	if ($conection->query($sql) === TRUE) {
+	// 		echo "Descuento actualizado correctamente";
+	// 	} else {
+	// 		echo "Error al actualizar descuento: " . $conection->error;
+	// 	}
+	// }
 
 
 
@@ -37,6 +37,24 @@ if (!empty($_POST)) {
 
 		$query = mysqli_query($conection, "SELECT cod_promocion,nombre_promocion,fecha_inicio,fecha_final,precio_venta FROM tbl_promocion
 												WHERE cod_promocion = $producto_id ");
+		mysqli_close($conection);
+
+		$result = mysqli_num_rows($query);
+		if ($result > 0) {
+			$data = mysqli_fetch_assoc($query);
+			echo json_encode($data, JSON_UNESCAPED_UNICODE);
+			exit;
+		}
+		echo 'error';
+		exit;
+	}
+
+	//Extraer datos del descuento
+	if ($_POST['action'] == 'infoDescuento') {
+		$producto_id = $_POST['descuento'];
+
+		$query = mysqli_query($conection, "SELECT cod_descuento,nombre_descuento,porcentaje_descuento FROM tbl_descuento
+											WHERE cod_descuento = $producto_id ");
 		mysqli_close($conection);
 
 		$result = mysqli_num_rows($query);
@@ -301,6 +319,89 @@ if (!empty($_POST)) {
 		exit;
 	}
 
+	if ($_POST['action'] == 'addDescuentoDetalle') {
+		if (empty($_POST['descuento'])) {
+			echo 'error';
+		} else {
+			$cod_descuento = $_POST['descuento'];
+			// $token 		 = md5($_SESSION['idUser']);
+
+			// $query_isv = mysqli_query($conection, "SELECT valor FROM tbl_ms_parametros where parametro = 'impuesto'");
+			// $result_isv = mysqli_num_rows($query_isv);
+			// $resultado = mysqli_fetch_assoc($query_isv);
+
+			$query_por = mysqli_query($conection, "SELECT porcentaje_descuento FROM tbl_descuento where cod_descuento = $cod_descuento");
+			$result_por = mysqli_num_rows($query_por);
+			$resultado_por = mysqli_fetch_assoc($query_por);
+
+			$porcent_descuento = $resultado_por['porcentaje_descuento'];
+
+
+
+			$query_detalle_temp 	= mysqli_query($conection, "UPDATE tbl_porcentaje_descuento SET porcentaje_descuento = $porcent_descuento where cod = 1;
+			");
+			$result_por = mysqli_num_rows($query_detalle_temp);
+
+			$detalleTabla = '';
+			$sub_total  = 0;
+			$isv 		= 0;
+			$total 		= 0;
+			$arrayData = array();
+
+			if ($result_por > 0) {
+
+				$isv = $resultado['valor'];
+
+
+				while ($data = mysqli_fetch_assoc($query_detalle_temp)) {
+					$precioTotal = round($data['cantidad'] * $data['precio_venta'], 2);
+					$sub_total 	 = round($sub_total + $precioTotal, 2);
+					$total 	 	 = round($total + $precioTotal, 2);
+
+					$detalleTabla .= '<tr>
+											<td>' . $data['cod_producto'] . '</td>
+											<td colspan="2">' . $data['promo'] . '</td>
+											<td colspan="2">' . $data['nombre_producto'] . '</td>
+											<td class="textcenter">' . $data['cantidad'] . '</td>
+											<td class="textright">' . $data['precio_venta'] . '</td>
+											<td class="textright">' . $precioTotal . '</td>
+											<td class="">
+											</td>
+										</tr>';
+				}
+
+				$impuesto 	= round($sub_total * ($isv / 100), 2);
+				$tl_snisv 	= round($sub_total - $impuesto, 2);
+				$total 		= round($tl_snisv + $impuesto, 2);
+
+				$detalleTotales = '
+									
+				
+										<tr>
+											<td colspan="5" class="textright">SUBTOTAL L.</td>
+											<td class="textright">' . $tl_snisv . '</td>
+										</tr>
+									
+										<tr>
+											<td colspan="5" class="textright">ISV (' . $isv . '%)</td>
+											<td class="textright">' . $impuesto . '</td>
+										</tr>
+										<tr>
+											<td colspan="5" class="textright">TOTAL L.</td>
+											<td class="textright">' . $total . '</td>
+										</tr>';
+
+				$arrayData['detalle'] = $detalleTabla;
+				$arrayData['totales'] = $detalleTotales;
+
+				echo json_encode($arrayData, JSON_UNESCAPED_UNICODE);
+			} else {
+				echo 'error';
+			}
+			mysqli_close($conection);
+		}
+		exit;
+	}
 
 
 
@@ -343,7 +444,7 @@ if (!empty($_POST)) {
 			$result_isv = mysqli_num_rows($query_isv);
 			$resultado = mysqli_fetch_assoc($query_isv);
 
-			$query_descuento = mysqli_query($conection, "SELECT porcentaje_descuento FROM tbl_descuento");
+			$query_descuento = mysqli_query($conection, "SELECT porcentaje_descuento FROM tbl_porcentaje_descuento");
 			$result_descuento = mysqli_num_rows($query_descuento);
 			$resultado_descuento = mysqli_fetch_assoc($query_descuento);
 
