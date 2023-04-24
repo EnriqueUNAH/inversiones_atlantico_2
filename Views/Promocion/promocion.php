@@ -28,6 +28,7 @@ getModal('modalPromocion', $data);
                   <th>Fecha inicio</th>
                   <th>Fecha final</th>
                   <th>Precio</th>
+                  <th>Estado</th>
                   <th>Acciones</th>
                 </tr>
               </thead>

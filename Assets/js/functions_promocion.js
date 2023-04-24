@@ -19,6 +19,7 @@ document.addEventListener(
         { data: "fecha_inicio" },
         { data: "fecha_final" },
         { data: "precio_venta" },
+        { data: "estado" },
         { data: "options" },
       ],
       dom: "lBfrtip",
