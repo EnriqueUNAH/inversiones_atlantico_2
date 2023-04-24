@@ -318,24 +318,27 @@ $total 		= 0;
 						$subtotal = round($subtotal + $precio_total, 2);
 					}
 				}
-
-				$tl_snisv 	= round($subtotal  / (1 + ($isv / 100)), 2);
-				$impuesto 	= round($tl_snisv * ($isv / 100), 2);
-
-
-				// $impuesto 	= round($subtotal * ($isv / 100), 2);
-				// $tl_snisv 	= round($subtotal - $impuesto, 2);
-				$total 		= round($tl_snisv + $impuesto, 2);
+				// $descuento = round($subtotal  / (1 + ($isv / 100)), 2);
+				// $sub_total	= round($subtotal  / (1 + ($isv / 100)), 2);
+				// $impuesto 	= round($tl_snisv * ($isv / 100), 2);
+				// $totalpagar 		= round($tl_snisv + $impuesto, 2);
+				if ($query_totales_factura) {
+					$fila = mysqli_fetch_assoc($query_totales_factura);
+					$descuento = $fila['descuento'];
+					$sub_total = $fila['subtotal'];
+					$impuesto = $fila['isv'];
+					$totalpagar = $fila['totalfactura'];
+				}
 				?>
 			</tbody>
 			<tfoot id="detalle_totales">
 				<tr>
 					<td colspan="3" class="textright"><span>DESCUENTOS </span></td>
-					<td class="textright"><span><?php echo "- L." . 0; ?></span></td>
+					<td class="textright"><span><?php echo "- L." . $descuento; ?></span></td>
 				</tr>
 				<tr>
 					<td colspan="3" class="textright"><span>SUBTOTAL L.</span></td>
-					<td class="textright"><span><?php echo $tl_snisv; ?></span></td>
+					<td class="textright"><span><?php echo $sub_total; ?></span></td>
 				</tr>
 
 				<tr>
@@ -344,7 +347,7 @@ $total 		= 0;
 				</tr>
 				<tr>
 					<td colspan="3" class="textright"><span>TOTAL L.</span></td>
-					<td class="textright"><span><?php echo $total; ?></span></td>
+					<td class="textright"><span><?php echo $totalpagar; ?></span></td>
 				</tr>
 			</tfoot>
 		</table>
