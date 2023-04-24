@@ -157,14 +157,17 @@ document.addEventListener(
           return false;
         }
         
-
-        // else if(strRtn = (00000000000000)){
-        //   swal("Atención", "Rtn no puede ser 0", "error");
-        //   return false;
-        // }
+         else if(strRtn == 00000000000000){
+           swal("Atención", "Rtn no puede ser 0", "error");
+           return false;
+         }
 
         else if(intTelefono.length < 8){
           swal("Atención", "Teléfono Tiene que contener 8 digitos", "error");
+          return false;
+        }
+        else if(intTelefono == 00000000){
+          swal("Atención", "Teléfono no puede ser 0", "error");
           return false;
         }
 
