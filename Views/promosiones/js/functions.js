@@ -458,7 +458,7 @@ $(document).ready(function () {
             var info = JSON.parse(response);
             console.log(info);
             Swal.fire({
-              title: "Producción agregada con éxito",
+              title: "Promociónn agregada con éxito",
               icon: "success",
               confirmButtonText: "OK",
             }).then(() => {

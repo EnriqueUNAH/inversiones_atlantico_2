@@ -375,10 +375,10 @@ if (!empty($_POST)) {
 	// Procesar Venta
 	if ($_POST['action'] == 'procesarVenta') {
 
-		/*$nombre_promo = $_POST['txtnombre_promocion'];
-		$fecha_i = $_POST['txtfecha_inicio'];
-		$fecha_f = $_POST['txtfecha_final'];
-		$precio = $_POST['txtprecio_venta'];*/
+		$nombre_promo = $_POST['nombre_promo'];
+		$fecha_i = $_POST['fecha_i'];
+		$fecha_f = $_POST['fecha_f'];
+		$precio = $_POST['precio'];
 
 
 		$token 		= md5($_SESSION['idUser']);
@@ -387,10 +387,10 @@ if (!empty($_POST)) {
 
 		$query = mysqli_query($conection, "SELECT * FROM detalle_temp_p WHERE token_user = '$token' ");
 		$result = mysqli_num_rows($query);
-		//$query_procesar = mysqli_query($conection, "call procesar_promo($usuario,'$token',$nombre_promo,$fecha_i,$fecha_f,$precio)");
+		
 
 		if ($result > 0) {
-			$query_procesar = mysqli_query($conection, "call procesar_promo($usuario,'$token',prueba,202-04-23,2023-04-29,69)");
+			$query_procesar = mysqli_query($conection, "call procesar_promo($usuario,'$token','$nombre_promo','$fecha_i','$fecha_f',$precio)");
 			$result_detalle = mysqli_num_rows($query_procesar);
 
 			if ($result_detalle > 0) {
