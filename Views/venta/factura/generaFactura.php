@@ -65,6 +65,14 @@ if (empty($_REQUEST['cl']) || empty($_REQUEST['f'])) {
 														WHERE f.cod_factura = $no_factura ");
 		$result_detalle = mysqli_num_rows($query_productos);
 
+
+
+		$query_totales_factura = mysqli_query($conection, "SELECT descuento, subtotal, isv, totalfactura
+															FROM tbl_factura 
+															WHERE cod_factura = $no_factura ");
+
+
+
 		ob_start();
 		include(dirname('__FILE__') . '/factura.php');
 		$html = ob_get_clean();
