@@ -201,7 +201,6 @@
 
               <li><a class="treeview-item" href="<?= base_url(); ?>.../Respaldo/php/index.php"><i class="icon fa fa-circle-o"></i>Configuracion</a></li>
 
-
             </ul>
           </li>
         <?php } ?>
