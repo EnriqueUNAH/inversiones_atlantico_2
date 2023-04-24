@@ -55,6 +55,8 @@ $total 		= 0;
 			margin-bottom: 10px;
 		}
 
+
+
 		.logo_factura {
 			width: 25%;
 		}
@@ -64,9 +66,34 @@ $total 		= 0;
 			text-align: center;
 		}
 
+
+
+
+
+
+
 		.info_factura {
-			width: 25%;
+			width: 50%;
 		}
+
+		#factura_factura {
+			width: 100%;
+			margin-bottom: 10px;
+		}
+
+		.cai {
+			display: inline-block;
+			margin-left: 20px;
+		}
+
+		.round p {
+			display: inline-block;
+			margin-right: 20px;
+		}
+
+
+
+
 
 		.info_cliente {
 			width: 100%;
@@ -234,26 +261,23 @@ $total 		= 0;
 
 
 
-		<table id="factura_cliente">
+		<table id="factura_factura">
 			<tr>
-
 				<td class="info_factura">
 					<table class="datos_cliente">
 						<div class="round">
 							<span class="h3">Factura</span>
-							<p>No. Factura: <strong><?php echo $factura['numero_factura']; ?></strong></p><br><br>
-							<p>CAI: <strong><?php echo $factura['cai']; ?></strong></p><br><br>
+							<p>No. Factura: <strong><?php echo $factura['numero_factura']; ?></strong></p>
+							<p class="cai">CAI: <strong><?php echo $factura['cai']; ?></strong></p>
 							<p>Fecha: <?php echo $factura['fecha']; ?></p>
 							<p>Hora: <?php echo $factura['hora']; ?></p>
 							<p>Vendedor: <?php echo $factura['vendedor']; ?></p>
-
-
 						</div>
 					</table>
 				</td>
-
 			</tr>
 		</table>
+
 
 
 		<table id="factura_cliente">
