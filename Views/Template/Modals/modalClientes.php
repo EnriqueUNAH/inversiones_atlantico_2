@@ -24,7 +24,7 @@
           <div class="form-row">
             <div class="form-group col-md-6">
               <label for="txtRtn">RTN</label>
-              <input type="number" class="form-control" id="txtRtn" name="txtRtn" maxlength="14" onkeypress="if(this.value.length == 14) return false; " >
+              <input type="number" class="form-control" id="txtRtn" name="txtRtn"  maxlength="14" onkeypress="if(this.value.length == 14) return false; " >
             </div>
 
            <div class="form-group col-md-6">

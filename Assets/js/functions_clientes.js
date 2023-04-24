@@ -17,13 +17,13 @@ document.addEventListener(
       columns: [
         {
           data: "rtn",
-          render: function (data, type, row) {
-            if (data == 0) {
-              return "";
-            } else {
-              return data;
-            }
-          },
+          // render: function (data, type, row) {
+          //   if (data == 0) {
+          //     return "";
+          //   } else {
+          //     return data;
+          //   }
+          // },
         },
         { data: "nombres" },
         {
@@ -151,6 +151,20 @@ document.addEventListener(
         if (strNombres == "") {
           swal("Atención", "Los campos con * son obligatorios.", "error");
           return false;
+        } 
+        else if(strRtn.length < 14){
+          swal("Atención", "Rtn Tiene que contener 14 digitos", "error");
+          return false;
+        }
+
+        // else if(strRtn = (00000000000000)){
+        //   swal("Atención", "Rtn no puede ser 0", "error");
+        //   return false;
+        // }
+
+        else if(intTelefono.length < 8){
+          swal("Atención", "Teléfono Tiene que contener 8 digitos", "error");
+          return false;
         }
 
         let elementsValid = document.getElementsByClassName("valid");
@@ -163,6 +177,10 @@ document.addEventListener(
             );
             return false;
           }
+
+          
+
+
         }
         divLoading.style.display = "flex";
         let request = window.XMLHttpRequest
