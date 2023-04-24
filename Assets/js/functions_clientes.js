@@ -156,6 +156,7 @@ document.addEventListener(
           swal("Atención", "Rtn Tiene que contener 14 digitos", "error");
           return false;
         }
+        
 
         // else if(strRtn = (00000000000000)){
         //   swal("Atención", "Rtn no puede ser 0", "error");
