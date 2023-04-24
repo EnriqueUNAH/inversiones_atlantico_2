@@ -139,6 +139,15 @@ document.addEventListener(
           swal("Atención", "Todos los campos son obligatorios.", "error");
           return false;
         }
+        else if(intRangoA  < intRangoI){
+          swal("Atención", "Rango actual tiene que estar entre el rango inicial y final", "error");
+          return false;
+        }
+        else if(intRangoA  > intRangoF){
+          swal("Atención", "Rango actual tiene que estar entre el rango inicial y final", "error");
+          return false;
+        }
+        
 
         let elementsValid = document.getElementsByClassName("valid");
         for (let i = 0; i < elementsValid.length; i++) {
