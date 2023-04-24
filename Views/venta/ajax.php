@@ -202,7 +202,7 @@ if (!empty($_POST)) {
 											<td colspan="2">' . $data['nombre_producto'] . '</td>
 											<td class="textcenter">' . $data['cantidad'] . '</td>
 											<td class="textright">' . $data['precio_venta'] . '</td>
-											<td class="textright">' . $precioTotal . '</td>
+											<td class="textright">' . (($precioTotal == 0) ? '' : $precioTotal) . '</td>
 											<td class="">
 												<a class="link_delete" href="#" onclick="event.preventDefault(); del_product_detalle(' . $data['cod_detalle_factura'] . ');"><i class="far fa-trash-alt"></i></a>
 											</td>
@@ -280,7 +280,7 @@ if (!empty($_POST)) {
 											<td colspan="2">' . $data['nombre_producto'] . '</td>
 											<td class="textcenter">' . $data['cantidad'] . '</td>
 											<td class="textright">' . $data['precio_venta'] . '</td>
-											<td class="textright">' . $precioTotal . '</td>
+											<td class="textright">' . (($precioTotal == 0) ? '' : $precioTotal) . '</td>
 											<td class="">
 											<a class="link_delete" href="#" onclick="event.preventDefault(); del_product_detalle(' . $data['cod_detalle_factura'] . ');"><i class="far fa-trash-alt"></i></a>
 											
@@ -366,7 +366,7 @@ if (!empty($_POST)) {
 											<td colspan="2">' . $data['nombre_producto'] . '</td>
 											<td class="textcenter">' . $data['cantidad'] . '</td>
 											<td class="textright">' . $data['precio_venta'] . '</td>
-											<td class="textright">' . $precioTotal . '</td>
+											<td class="textright">' . (($precioTotal == 0) ? '' : $precioTotal) . '</td>
 											<td class="">
 											<a class="link_delete" href="#" onclick="event.preventDefault(); del_product_detalle(' . $data['cod_detalle_factura'] . ');"><i class="far fa-trash-alt"></i></a>
 											
@@ -476,7 +476,7 @@ if (!empty($_POST)) {
 											<td colspan="2">' . $data['nombre_producto'] . '</td>
 											<td class="textcenter">' . $data['cantidad'] . '</td>
 											<td class="textright">' . $data['precio_venta'] . '</td>
-											<td class="textright">' . $precioTotal . '</td>
+											<td class="textright">' . (($precioTotal == 0) ? '' : $precioTotal) . '</td>
 											<td class="">
 												<a class="link_delete" href="#" onclick="event.preventDefault(); del_product_detalle(' . $data['cod_detalle_factura'] . ');"><i class="far fa-trash-alt"></i></a>
 											</td>
@@ -561,7 +561,8 @@ if (!empty($_POST)) {
 											<td colspan="2">' . $data['nombre_producto'] . '</td>
 											<td class="textcenter">' . $data['cantidad'] . '</td>
 											<td class="textright">' . $data['precio_venta'] . '</td>
-											<td class="textright">' . $precioTotal . '</td>
+											<td class="textright">' . (($precioTotal == 0) ? '' : $precioTotal) . '</td>
+
 											<td class="">
 												<a class="link_delete" href="#" onclick="event.preventDefault(); del_product_detalle(' . $data['cod_detalle_factura'] . ');"><i class="far fa-trash-alt"></i></a>
 											</td>
