@@ -24,7 +24,7 @@
           <div class="form-row">
             <div class="form-group col-md-6">
               <label for="txtRtn">RTN</label>
-              <input type="number" class="form-control" id="txtRtn" name="txtRtn" >
+              <input type="number" class="form-control" id="txtRtn" name="txtRtn" maxlength="14" onkeypress="if(this.value.length == 14) return false; " >
             </div>
 
            <div class="form-group col-md-6">
@@ -39,7 +39,7 @@
 
           <div class="form-group col-md-6">
               <label for="txtTelefono">Teléfono</label>
-              <input type="number" class="form-control" id="txtTelefono" name="txtTelefono">
+              <input type="number" class="form-control" id="txtTelefono" name="txtTelefono"  maxlength="8" onkeypress="if(this.value.length == 8) return false;" >
             </div>
 
             <div class="form-group col-md-6">
