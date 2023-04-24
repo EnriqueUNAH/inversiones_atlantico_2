@@ -43,6 +43,11 @@
             <li><a class="treeview-item" href="<?= base_url(); ?>/ventas"><i class="icon fa fa-circle-o"></i> Ventas</a></li>
           <?php } ?>
 
+          <?php if (!empty($_SESSION['permisos'][MCLIENTE]['r'])) { ?>
+              <li><a class="treeview-item" href="<?= base_url(); ?>/clientes"><i class="icon fa fa-circle-o"></i>Clientes</a></li>
+          <?php } ?>
+
+
           </ul>
         </li>
 
@@ -111,9 +116,7 @@
               <li><a class="treeview-item" href="<?= base_url(); ?>/kardex"><i class="icon fa fa-circle-o"></i>Kardex</a></li>
             <?php } ?>
 
-            <?php if (!empty($_SESSION['permisos'][MCLIENTE]['r'])) { ?>
-              <li><a class="treeview-item" href="<?= base_url(); ?>/clientes"><i class="icon fa fa-circle-o"></i>Clientes</a></li>
-            <?php } ?>
+         
 
           </ul>
         </li>
@@ -150,6 +153,11 @@
             <?php if (!empty($_SESSION['permisos'][MCAI]['r'])) { ?>
               <li><a class="treeview-item" href="<?= base_url(); ?>/cai"><i class="icon fa fa-circle-o"></i>CAI</a></li>
             <?php } ?>
+
+            <?php if (!empty($_SESSION['permisos'][MDESCUENTO]['r'])) { ?>
+              <li><a class="treeview-item" href="<?= base_url(); ?>/descuentos"><i class="icon fa fa-circle-o"></i>Descuentos</a></li>
+            <?php } ?>
+
 
           </ul>
         </li>
@@ -198,8 +206,6 @@
               <?php if (!empty($_SESSION['permisos'][MBACKUP]['r'])) { ?>
                 <li><a class="treeview-item" href="<?= base_url(); ?>.../Respaldo/php/index.php"><i class="icon fa fa-circle-o"></i> Backup</a></li>
               <?php } ?>
-
-              <li><a class="treeview-item" href="<?= base_url(); ?>.../Respaldo/php/index.php"><i class="icon fa fa-circle-o"></i>Configuracion</a></li>
 
             </ul>
           </li>

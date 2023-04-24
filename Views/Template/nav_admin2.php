@@ -40,10 +40,14 @@
           <ul class="treeview-menu">
 
 
-
+           <?php if (!empty($_SESSION['permisos'][2]['r'])) { ?>
             <li><a class="treeview-item" href="http://localhost/inversiones_atlantico_2/ventas"><i class="icon fa fa-circle-o"></i> Ventas</a></li>
+            <?php } ?>
 
 
+           <?php if (!empty($_SESSION['permisos'][2]['r'])) { ?>
+              <li><a class="treeview-item" href="http://localhost/inversiones_atlantico_2/clientes"><i class="icon fa fa-circle-o"></i>Clientes</a></li>
+            <?php } ?>
 
 
           </ul>
@@ -143,9 +147,7 @@
             <?php } ?>
 
 
-            <?php if (!empty($_SESSION['permisos'][2]['r'])) { ?>
-              <li><a class="treeview-item" href="http://localhost/inversiones_atlantico_2/clientes"><i class="icon fa fa-circle-o"></i>Clientes</a></li>
-            <?php } ?>
+           
 
 
 
