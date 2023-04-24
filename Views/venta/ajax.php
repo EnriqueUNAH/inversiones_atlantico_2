@@ -693,6 +693,23 @@ if (!empty($_POST)) {
 		echo "error";
 		exit;
 	}
+	if ($_POST["action"] == "validate_nombre_cliente") {
+		$nom_cliente = $_POST["nom_cliente"];
+
+		//Realiza una consulta a la base de datos para verificar si el nombre del cliente ya existe
+		$sql = "SELECT * FROM tbl_cliente WHERE nombres = '$nom_cliente'";
+		$resultado = mysqli_query($conection, $sql);
+
+		if (mysqli_num_rows($resultado) > 0) {
+			echo "error";
+		} else {
+			echo "success";
+		}
+		// Agrega estas líneas para depurar
+		if (mysqli_error($conection)) {
+			echo mysqli_error($conection);
+		}
+	}
 }
 
 exit;
