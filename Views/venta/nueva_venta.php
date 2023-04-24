@@ -44,7 +44,7 @@ $result->free();
 
 ###############################################################################
 // Consulta para obtener las promociones
-$sql_p = "SELECT cod_promocion, nombre_promocion FROM tbl_promocion";
+$sql_p = "SELECT cod_promocion, nombre_promocion FROM tbl_promocion where estado = 1";
 $result_p = $conection->query($sql_p);
 
 // Crea un arreglo con los datos obtenidos de la tabla promocion
