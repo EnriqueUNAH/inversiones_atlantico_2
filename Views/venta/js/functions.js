@@ -223,7 +223,68 @@ $(document).ready(function () {
       });
       return false;
     }
+    var rtn_cliente = $("#rtn_cliente").val().trim();
 
+    //Validar que el valor de rtn_cliente no sean 14 dígitos "0"
+    if (rtn_cliente === "00000000000000") {
+      Swal.fire({
+        title: "Error",
+        text: "El RTN ingresado no es válido.",
+        icon: "error",
+        confirmButtonText: "Cerrar",
+      });
+
+      return false; //Detener el envío del formulario
+    }
+
+    var tel_cliente = $("#tel_cliente").val().trim();
+
+    // Validar que el valor de tel_cliente no sea "00000000"
+    if (tel_cliente === "00000000") {
+      Swal.fire({
+        title: "Error",
+        text: "El número de teléfono ingresado no es válido.",
+        icon: "error",
+        confirmButtonText: "Cerrar",
+      });
+
+      return false;
+    }
+    // Validar que se hayan ingresado exactamente 8 caracteres
+    if (tel_cliente.length !== 8) {
+      Swal.fire({
+        title: "Error",
+        text: "Debes ingresar 8 dígitos para el número de teléfono.",
+        icon: "error",
+        confirmButtonText: "Cerrar",
+      });
+
+      return false;
+    }
+    // Validar que se hayan ingresado exactamente 14 caracteres
+    if (rtn_cliente.length !== 14) {
+      Swal.fire({
+        title: "Error",
+        text: "Debes ingresar 14 dígitos para el número de rtn.",
+        icon: "error",
+        confirmButtonText: "Cerrar",
+      });
+
+      return false;
+    }
+    // Validar que el valor de rtn_cliente solo contenga números
+    // var regex = /^[0-9]+$/;
+
+    // if (!regex.test(rtn_cliente)) {
+    //   Swal.fire({
+    //     title: "Error",
+    //     text: "El valor de RTN solo debe contener números.",
+    //     icon: "error",
+    //     confirmButtonText: "Cerrar",
+    //   });
+
+    //   return false;
+    // }
     // Verificar si el nombre del cliente ya existe en la base de datos
     $.ajax({
       url: "ajax.php",
