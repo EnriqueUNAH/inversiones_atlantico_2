@@ -156,21 +156,25 @@ class Promocion extends Controllers
 				$btnEdit = '';
 				$btnDelete = '';
 
-				if ($arrData[$i]['estado'] == 1) {
-					$arrData[$i]['estado'] = '<span class="badge badge-success">ACTIVO</span>';   //Aqui le asigna Activo si es 1
-				} else if ($arrData[$i]['estado'] == 2) {
-					$arrData[$i]['estado'] = '<span class="badge badge-danger">INACTIVO</span>';
-					// $btnView = '<button class="btn btn-secondary btn-sm" disabled ><i class="fas fa-ban"></i></button>';
-				}
-
-
-
 				if ($_SESSION['permisosMod']['u']) {
 					$btnEdit = '<button class="btn btn-primary  btn-sm btnEditPromocion" onClick="fntEditPromocion(this,' . $arrData[$i]['cod_promocion'] . ')" title="Editar promocion"><i class="fas fa-pencil-alt"></i></button>';
 				}
+				
 				if ($_SESSION['permisosMod']['d']) {
-					$btnDelete = '<button class="btn btn-danger btn-sm btnDelPromocion" onClick="fntDelPromocion(' . $arrData[$i]['cod_promocion'] . ')" title="Eliminar promocion"><i class="far fa-trash-alt"></i></button>';
+					$btnDelete = '<button class="btn btn-danger btn-sm btnDelPromocion" onClick=" fntDelPromocion(' . $arrData[$i]['cod_promocion'] . ')" title="Anular promocion"><i class="fas fa-ban"></i></button>';
+				} else {
+					$btnDelete = '<button class="btn btn-secondary btn-sm" disabled ><i class="fas fa-ban"></i></button>';
 				}
+				if ($arrData[$i]['estado'] == 1) {
+					$arrData[$i]['estado'] = '<span class="badge badge-success">ACTIVA</span>';   //Aqui le asigna Activo si es 1
+				} else if ($arrData[$i]['estado'] == 2) {
+					$arrData[$i]['estado'] = '<span class="badge badge-danger">ANULADA</span>';
+					$btnDelete = '<button class="btn btn-secondary btn-sm" disabled ><i class="fas fa-ban"></i></button>';
+				}
+
+
+
+
 				$arrData[$i]['options'] = '<div class="text-center">' . $btnEdit . ' ' . $btnDelete . '</div>';
 			}
 			echo json_encode($arrData, JSON_UNESCAPED_UNICODE);
@@ -203,31 +207,29 @@ class Promocion extends Controllers
 				$cod_promocion = intval($_POST['cod_promocion']);
 				$requestDelete = $this->model->deletePromocion($cod_promocion);
 
-				//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora
+					//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora
 				//SE PUEDEN USAR PARA INSERTAR O ACTUALIZAR PORQUE SERÍAN LOS MISMOS DATOS
-				$dateFecha = date('Y-m-d H:i:s');
-				$intIdUsuario = $_SESSION['idUser'];
-				$intIdObjeto = (MPROMOCION);
-				$request_bitacora = "";
+				// $dateFecha = date('Y-m-d H:i:s');
+				// $intIdUsuario = $_SESSION['idUser'];
+				// $intIdObjeto = 2;
+				// $request_bitacora = "";
 
-				if ($requestDelete == 'ok') {
-					$arrResponse = array('status' => true, 'msg' => 'Se ha eliminado la promoción');
+				if ($requestDelete) {
+					$arrResponse = array('status' => true, 'msg' => 'Se ha anulado la promocion');
 
-					$strAccion = "ELIMINAR";
-					$strDescripcion = "ELIMINACIÓN DE PROMOCIÓN";
+					// $strAccion = "ELIMINAR";
+					// $strDescripcion = "ELIMINACION DE USUARIO";
 
-					//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
-					$request_bitacora = $this->model->insertPromocionBitacora(
-						$dateFecha,
-						$intIdUsuario,
-						$intIdObjeto,
-						$strAccion,
-						$strDescripcion
-					);
-				} else if ($requestDelete == 'exist') {
-					$arrResponse = array('statusReferencial' => true, 'msg' => 'No es posible eliminar por Integridad Referencial');
+					// //Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
+					// $request_bitacora = $this->model->insertParametroBitacora(
+					// 	$dateFecha,
+					// 	$intIdUsuario,
+					// 	$intIdObjeto,
+					// 	$strAccion,
+					// 	$strDescripcion
+					// );
 				} else {
-					$arrResponse = array('status' => false, 'msg' => 'Error al eliminar la pregunta.');
+					$arrResponse = array('status' => false, 'msg' => 'Error al anular la promocion.');
 				}
 
 				echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);

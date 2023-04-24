@@ -234,11 +234,11 @@ function fntEditPromocion(element, cod_promocion) {
 function fntDelPromocion(cod_promocion) {
   swal(
     {
-      title: "Eliminar promocion",
-      text: "¿Realmente quiere eliminar la promocion?",
+      title: "ANULAR",
+      text: "¿Realmente quiere anular la promocion?",
       type: "warning",
       showCancelButton: true,
-      confirmButtonText: "ELIMINAR",
+      confirmButtonText: "ANULAR",
       cancelButtonText: "CANCELAR",
       closeOnConfirm: false,
       closeOnCancel: true,
@@ -260,11 +260,11 @@ function fntDelPromocion(cod_promocion) {
           if (request.readyState == 4 && request.status == 200) {
             let objData = JSON.parse(request.responseText);
             if (objData.status) {
-              swal("Eliminar!", objData.msg, "success");
-              tablePromocion.api().ajax.reload();
+              swal("Anular!", objData.msg, "success");
+              tableCompras.api().ajax.reload();
             } else if (objData.statusReferencial) {
               swal("Atención!", objData.msg, "error");
-              tablePromocion.api().ajax.reload();
+              tableCompras.api().ajax.reload();
             } else {
               swal("Atención!", objData.msg, "error");
             }
