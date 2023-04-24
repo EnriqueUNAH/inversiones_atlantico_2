@@ -233,7 +233,7 @@ $result_d->free();
 								<td> <a href="#"><i></i> </a></td>
 							</tr>
 							<tr>
-								<th>Código</th>
+
 								<th colspan="2">Promoción</th>
 								<th colspan="2">Descripción</th>
 								<th>Cantidad</th>
