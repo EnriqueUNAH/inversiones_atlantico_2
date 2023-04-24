@@ -7,7 +7,7 @@ getModal('modalPromocion', $data);
     <div>
       <h1><i class="fas fa-user-tag"></i> <?= $data['page_title'] ?>
         <?php if ($_SESSION['permisosMod']['w']) { ?>
-           <button class="btn btn-primary" type="button" onclick="window.location.href = 'Views/promosiones/nueva_promo.php';"><i class="fas fa-plus-circle"></i> Nueva Compra</button> 
+          <button class="btn btn-primary" type="button" onclick="window.location.href = 'Views/promosiones/nueva_promo.php';"><i class="fas fa-plus-circle"></i> Nueva Promoción</button>
         <?php } ?>
       </h1>
     </div>

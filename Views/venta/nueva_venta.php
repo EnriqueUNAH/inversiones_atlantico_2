@@ -214,6 +214,7 @@ $result_d->free();
 								<th hidden width="100px">Código</th>
 								<th>Descripción</th>
 								<th></th>
+								<th></th>
 								<th>Existencia</th>
 								<th width="100px">Cantidad</th>
 								<th class="textright">Precio</th>
@@ -227,6 +228,7 @@ $result_d->free();
 								<td hidden><input type="text" name="txt_cod_producto" id="txt_cod_producto"></td>
 								<td hidden><input type="text" name="txt_cod_descuento" id="txt_cod_descuento"></td>
 								<td id="txt_nombre_producto">-</td>
+								<td></td>
 								<td></td>
 								<td id="txt_existencia">-</td>
 								<td><input type="text" name="txt_cant_producto" id="txt_cant_producto" value="0" min="1" disabled></td>
