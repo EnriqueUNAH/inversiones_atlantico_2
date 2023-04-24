@@ -595,17 +595,23 @@ if (!empty($_POST)) {
 
 	// Anular Venta
 	if ($_POST['action'] == 'anularVenta') {
+		$token = md5($_SESSION['idUser']);
 
-		$token 		 = md5($_SESSION['idUser']);
-
-
+		// Eliminar los registros del usuario actual de la tabla detalle_temp
 		$query_del = mysqli_query($conection, "DELETE FROM detalle_temp WHERE token_user = '$token' ");
+
+		// Actualizar el porcentaje de descuento en la tabla tbl_porcentaje_descuento
+		// Esto me sirve para manejar el valor del descuento.
+		$query_upd = mysqli_query($conection, "UPDATE tbl_porcentaje_descuento SET porcentaje_descuento = 0 WHERE cod = 1");
+
 		mysqli_close($conection);
-		if ($query_del) {
+
+		if ($query_del && $query_upd) {
 			echo 'ok';
 		} else {
 			echo 'error';
 		}
+
 		exit;
 	}
 

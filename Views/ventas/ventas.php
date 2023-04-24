@@ -32,6 +32,7 @@ getModal('modalUsuarios', $data);
                   <th>Subtotal</th>
                   <th>ISV</th>
                   <th>Porcentaje ISV</th>
+                  <th>Descuento</th>
                   <th>Total</th>
                   <th>Estado</th>
                   <th>Acciones</th>

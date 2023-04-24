@@ -38,6 +38,12 @@ document.addEventListener(
           },
         },
         {
+          data: "descuento",
+          render: function (data, type, row) {
+            return "L. " + data;
+          },
+        },
+        {
           data: "totalfactura",
           render: function (data, type, row) {
             return "L. " + data;
@@ -56,7 +62,7 @@ document.addEventListener(
           titleAttr: "Exportar a PDF",
           className: "btn btn-danger",
           exportOptions: {
-            columns: [0, 1, 2, 3, 4, 5, 6, 7],
+            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8],
           },
           customize: function (doc) {
             doc.styles.tableHeader.alignment = "left"; //Alineación de los nombres de columnas.
