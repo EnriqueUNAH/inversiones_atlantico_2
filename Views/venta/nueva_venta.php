@@ -277,7 +277,7 @@ $result_d->free();
 						<input type="hidden" id="cod_cliente" name="cod_cliente" value="" required>
 						<div class="wd30">
 							<label>RTN</label>
-							<input type="text" name="rtn_cliente" id="rtn_cliente" pattern="[1-9]{1}[0-9]{13}" title="Debes ingresar 14 dígitos que no sean todos ceros" required maxlength="14">
+							<input type="text" name="rtn_cliente" id="rtn_cliente" required maxlength="14" oninput="validarNumeros(this)">
 						</div>
 
 
@@ -370,8 +370,16 @@ $result_d->free();
 
 		});
 	</script>
-
-
+	<script>
+		function validarNumeros(input) {
+			var regex = /^[0-9]+$/;
+			if (!regex.test(input.value)) {
+				input.setCustomValidity("Solo se permiten números.");
+			} else {
+				input.setCustomValidity("");
+			}
+		}
+	</script>
 
 </body>
 
