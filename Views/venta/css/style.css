@@ -755,3 +755,17 @@ table td {
   text-align: center;
   font-weight: bold;
 }
+
+.container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.left-column {
+  width: 66.67%;
+}
+
+.right-column {
+  width: 33.33%;
+}
