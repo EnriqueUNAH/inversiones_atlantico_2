@@ -50,7 +50,7 @@ class DescuentosModel extends Mysql
 	public function selectDescuentos()
 	{
 		$sql = "SELECT cod_descuento,nombre_descuento,porcentaje_descuento  
-				FROM tbl_descuento";
+				FROM tbl_descuento where cod_descuento != 16 ";
 		$request = $this->select_all($sql);
 		return $request;
 	}
@@ -97,5 +97,3 @@ class DescuentosModel extends Mysql
 		return $request;
 	}
 }
-
- ?>
