@@ -19,8 +19,10 @@ WHERE cod_tipo_producto = 4
 AND NOT EXISTS (
     SELECT 1 
     FROM detalle_temp 
-    WHERE detalle_temp.cod_producto = tbl_producto.cod_producto
+    WHERE detalle_temp.cod_producto = tbl_producto.cod_producto 
+    AND (detalle_temp.promo IS NULL OR detalle_temp.promo = '')
 );
+
 "; //Cuando sea un PRODUCTO TERMINADO Y NO EXISTA EN DETALLE_TEMP
 //OJO, puede que se cambie el 4 si se cambia algo en la Base de Datos.
 $result = $conection->query($sql);
