@@ -92,7 +92,7 @@ class ClientesModel extends Mysql
 		// 	$whereAdmin = " and p.cod_cliente != 1 ";
 		// }
 		$sql = "SELECT p.cod_cliente,p.rtn,p.nombres,p.telefono,p.correo_electronico,p.direccion
-					FROM tbl_cliente p 
+					FROM tbl_cliente p where cod_cliente != 5;
 					-- INNER JOIN tbl_genero r
 					-- ON p.cod_genero = r.cod_genero
 					-- WHERE p.estado != 0
