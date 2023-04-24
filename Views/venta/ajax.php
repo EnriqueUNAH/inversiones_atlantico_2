@@ -197,7 +197,7 @@ if (!empty($_POST)) {
 					$total 	 	 = round($total + $precioTotal, 2);
 
 					$detalleTabla .= '<tr>
-											<td>' . $data['cod_producto'] . '</td>
+				
 										
 											<td colspan="2">' . $data['nombre_producto'] . '</td>
 											<td class="textcenter">' . $data['cantidad'] . '</td>
@@ -275,13 +275,15 @@ if (!empty($_POST)) {
 					$total 	 	 = round($total + $precioTotal, 2);
 
 					$detalleTabla .= '<tr>
-											<td>' . $data['cod_producto'] . '</td>
+										
 											<td colspan="2">' . $data['promo'] . '</td>
 											<td colspan="2">' . $data['nombre_producto'] . '</td>
 											<td class="textcenter">' . $data['cantidad'] . '</td>
 											<td class="textright">' . $data['precio_venta'] . '</td>
 											<td class="textright">' . $precioTotal . '</td>
 											<td class="">
+											<a class="link_delete" href="#" onclick="event.preventDefault(); del_product_detalle(' . $data['cod_detalle_factura'] . ');"><i class="far fa-trash-alt"></i></a>
+											
 											</td>
 										</tr>';
 				}
@@ -359,13 +361,15 @@ if (!empty($_POST)) {
 					$total 	 	 = round($total + $precioTotal, 2);
 
 					$detalleTabla .= '<tr>
-											<td>' . $data['cod_producto'] . '</td>
+									
 											<td colspan="2">' . $data['promo'] . '</td>
 											<td colspan="2">' . $data['nombre_producto'] . '</td>
 											<td class="textcenter">' . $data['cantidad'] . '</td>
 											<td class="textright">' . $data['precio_venta'] . '</td>
 											<td class="textright">' . $precioTotal . '</td>
 											<td class="">
+											<a class="link_delete" href="#" onclick="event.preventDefault(); del_product_detalle(' . $data['cod_detalle_factura'] . ');"><i class="far fa-trash-alt"></i></a>
+											
 											</td>
 										</tr>';
 				}
@@ -467,7 +471,7 @@ if (!empty($_POST)) {
 					$total 	 	 = round($total + $precioTotal, 2);
 
 					$detalleTabla .= '<tr>
-											<td>' . $data['cod_producto'] . '</td>
+											
 											<td colspan="2">' . $data['promo'] . '</td>
 											<td colspan="2">' . $data['nombre_producto'] . '</td>
 											<td class="textcenter">' . $data['cantidad'] . '</td>
@@ -552,7 +556,7 @@ if (!empty($_POST)) {
 					$total 	 	 = round($total + $precioTotal, 2);
 
 					$detalleTabla .= '<tr>
-											<td>' . $data['cod_producto'] . '</td>
+											
 											
 											<td colspan="2">' . $data['nombre_producto'] . '</td>
 											<td class="textcenter">' . $data['cantidad'] . '</td>
