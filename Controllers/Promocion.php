@@ -164,7 +164,7 @@ class Promocion extends Controllers
 				if ($arrData[$i]['estado'] == 1) {
 					$arrData[$i]['estado'] = '<span class="badge badge-success">ACTIVA</span>';   //Aqui le asigna Activo si es 1
 				} else if ($arrData[$i]['estado'] == 2) {
-					$arrData[$i]['estado'] = '<span class="badge badge-danger">ANULADA</span>';
+					$arrData[$i]['estado'] = '<span class="badge badge-danger">INACTIVA</span>';
 					$btnDelete = '<button class="btn btn-secondary btn-sm" disabled ><i class="fas fa-ban"></i></button>';
 				}
 
