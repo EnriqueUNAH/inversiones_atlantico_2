@@ -206,7 +206,7 @@ $result_d->free();
 							<select name="select_descuento" id="select_descuento" class="select-descuento" style="width: 200px;">
 								<option value="">Descuentos</option>
 								<?php foreach ($descuentos as $descuento) : ?>
-									<option value="<?php echo $descuento['cod_descuento']; ?>"><?php echo $descuento['nombre_descuento']; ?></option>
+									<option value="<?php echo $descuento['cod_descuento']; ?>"><?php echo $descuento['nombre_descuento'] . ' (' . $descuento['porcentaje_descuento'] . '%)'; ?></option>
 								<?php endforeach; ?>
 							</select>
 							<!---->
