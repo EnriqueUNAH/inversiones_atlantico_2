@@ -17,13 +17,13 @@
           <div class="form-row">
             <div class="form-group col-md-6">
               <label for="txtRangoI">Rango Inicial </label>
-              <input type="text" class="form-control" id="txtRangoI" name="txtRangoI" required="" maxlength="19">
+              <input type="number" class="form-control" id="txtRangoI" name="txtRangoI" required="" maxlength="19">
             </div>
 
 
             <div class="form-group col-md-6">
               <label for="txtRangoF">Rango Final</label>
-              <input type="text" class="form-control" id="txtRangoF" name="txtRangoF" required="" maxlength="19">
+              <input type="number" class="form-control" id="txtRangoF" name="txtRangoF" required="" maxlength="19">
             </div>
 
           </div>
@@ -33,7 +33,7 @@
 
            <div class="form-group col-md-6">
               <label for="txtRangoA">Rango Actual</label>
-              <input type="text" class="form-control" id="txtRangoA" name="txtRangoA" required="" maxlength="19">
+              <input type="number" class="form-control" id="txtRangoA" name="txtRangoA" required="" maxlength="19">
 
             </div>
 

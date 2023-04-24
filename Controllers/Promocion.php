@@ -156,6 +156,15 @@ class Promocion extends Controllers
 				$btnEdit = '';
 				$btnDelete = '';
 
+				if ($arrData[$i]['estado'] == 1) {
+					$arrData[$i]['estado'] = '<span class="badge badge-success">ACTIVO</span>';   //Aqui le asigna Activo si es 1
+				} else if ($arrData[$i]['estado'] == 2) {
+					$arrData[$i]['estado'] = '<span class="badge badge-danger">INACTIVO</span>';
+					// $btnView = '<button class="btn btn-secondary btn-sm" disabled ><i class="fas fa-ban"></i></button>';
+				}
+
+
+
 				if ($_SESSION['permisosMod']['u']) {
 					$btnEdit = '<button class="btn btn-primary  btn-sm btnEditPromocion" onClick="fntEditPromocion(this,' . $arrData[$i]['cod_promocion'] . ')" title="Editar promocion"><i class="fas fa-pencil-alt"></i></button>';
 				}

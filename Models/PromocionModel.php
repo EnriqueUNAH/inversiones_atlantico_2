@@ -56,6 +56,7 @@ class PromocionModel extends Mysql
 		$this->intIdObjeto = $idObjeto;
 		$this->strAccion = $accion;
 		$this->strDescripcion = $descripcion;
+		$this->intEstado = 1;
 		$return = 0;
 
 		$query_insert  = "INSERT INTO tbl_ms_bitacora(fecha,id_usuario,id_objeto,accion,descripcion) 
@@ -78,7 +79,7 @@ class PromocionModel extends Mysql
 	public function selectPromocion()
 	{
 
-		$sql = "SELECT p.cod_promocion,p.nombre_promocion,p.fecha_inicio,p.fecha_final,p.precio_venta 
+		$sql = "SELECT p.cod_promocion,p.nombre_promocion,p.fecha_inicio,p.fecha_final,p.precio_venta, p.estado
 					FROM tbl_promocion p
 					";
 		$request = $this->select_all($sql);
