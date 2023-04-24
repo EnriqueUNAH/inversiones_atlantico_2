@@ -64,7 +64,7 @@ class Produccion extends Controllers
 			} else if ($arrData[$i]['estado'] == 3) {
 				$arrData[$i]['estado'] = '<span class="badge badge-success">TERMINADO</span>';
 				$btnPerdida = '<button class="btn btn-secondary btn-sm" disabled ><i class="fas fa-ban"></i></button>';
-				$btnDelete = '<button class="btn btn-secondary btn-sm" disabled ><i class="fas fa-ban"></i></button>';
+				// $btnDelete = '<button class="btn btn-secondary btn-sm" disabled ><i class="fas fa-ban"></i></button>';
 				$btnComplete = '<button class="btn btn-success btn-sm" disabled ><i class="fas fa-check"></i></button>';
 			} else if ($arrData[$i]['estado'] == 4) {
 				$arrData[$i]['estado'] = '<span class="badge badge-danger">ANULADA CON PÉRDIDA</span>';
