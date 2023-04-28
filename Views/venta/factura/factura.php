@@ -318,6 +318,7 @@ $total 		= 0;
 			<thead>
 				<tr>
 					<th width="50px">Cant.</th>
+					<th class="textleft">Promoción</th>
 					<th class="textleft">Descripción</th>
 					<th class="textright" width="150px">Precio Unitario.</th>
 					<th class="textright" width="150px"> Precio Total</th>
@@ -333,6 +334,7 @@ $total 		= 0;
 				?>
 						<tr>
 							<td class="textcenter"><?php echo $row['cantidad']; ?></td>
+							<td><?php echo $row['promocion']; ?></td>
 							<td><?php echo $row['nombre_producto']; ?></td>
 							<td class="textright"><?php echo $row['precio_venta']; ?></td>
 							<td class="textright"><?php echo $row['precio_total']; ?></td>
