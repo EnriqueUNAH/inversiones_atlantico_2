@@ -39,14 +39,21 @@
           </a>
           <ul class="treeview-menu">
 
-          <?php if (!empty($_SESSION['permisos'][MVENTA]['r'])) { ?>
-            <li><a class="treeview-item" href="<?= base_url(); ?>/ventas"><i class="icon fa fa-circle-o"></i> Ventas</a></li>
-          <?php } ?>
+            <?php if (!empty($_SESSION['permisos'][MVENTA]['r'])) { ?>
+              <li><a class="treeview-item" href="<?= base_url(); ?>/ventas"><i class="icon fa fa-circle-o"></i> Ventas</a></li>
+            <?php } ?>
 
-          <?php if (!empty($_SESSION['permisos'][MCLIENTE]['r'])) { ?>
+            <?php if (!empty($_SESSION['permisos'][MCLIENTE]['r'])) { ?>
               <li><a class="treeview-item" href="<?= base_url(); ?>/clientes"><i class="icon fa fa-circle-o"></i>Clientes</a></li>
-          <?php } ?>
+            <?php } ?>
 
+            <?php if (!empty($_SESSION['permisos'][MPROMOCION]['r'])) { ?>
+              <li><a class="treeview-item" href="<?= base_url(); ?>/promocion"><i class="icon fa fa-circle-o"></i> Promocion</a></li>
+            <?php } ?>
+
+            <?php if (!empty($_SESSION['permisos'][MDESCUENTO]['r'])) { ?>
+              <li><a class="treeview-item" href="<?= base_url(); ?>/descuentos"><i class="icon fa fa-circle-o"></i>Descuentos</a></li>
+            <?php } ?>
 
           </ul>
         </li>
@@ -64,9 +71,9 @@
           </a>
           <ul class="treeview-menu">
 
-          <?php if (!empty($_SESSION['permisos'][MCOMPRA]['r'])) { ?>
+            <?php if (!empty($_SESSION['permisos'][MCOMPRA]['r'])) { ?>
               <li><a class="treeview-item" href="<?= base_url(); ?>/compras"><i class="icon fa fa-circle-o"></i>Compras</a></li>
-          <?php } ?>
+            <?php } ?>
 
           </ul>
         </li>
@@ -76,7 +83,7 @@
 
 
         <li class="treeview">
-           <a class="app-menu__item" href="#" data-toggle="treeview">
+          <a class="app-menu__item" href="#" data-toggle="treeview">
             <i class="app-menu__icon fa fa-hourglass-end" aria-hidden="true"></i>
 
             <span class="app-menu__label ">Producción</span>
@@ -84,9 +91,9 @@
           </a>
           <ul class="treeview-menu">
 
-          <?php if (!empty($_SESSION['permisos'][MPRODUCCION]['r'])) { ?>
+            <?php if (!empty($_SESSION['permisos'][MPRODUCCION]['r'])) { ?>
               <li><a class="treeview-item" href="<?= base_url(); ?>/produccion"><i class="icon fa fa-circle-o"></i>Producción</a></li>
-          <?php } ?>
+            <?php } ?>
 
 
           </ul>
@@ -116,7 +123,7 @@
               <li><a class="treeview-item" href="<?= base_url(); ?>/kardex"><i class="icon fa fa-circle-o"></i>Kardex</a></li>
             <?php } ?>
 
-         
+
 
           </ul>
         </li>
@@ -138,9 +145,7 @@
           </a>
           <ul class="treeview-menu">
 
-            <?php if (!empty($_SESSION['permisos'][MPROMOCION]['r'])) { ?>
-              <li><a class="treeview-item" href="<?= base_url(); ?>/promocion"><i class="icon fa fa-circle-o"></i> Promocion</a></li>
-            <?php } ?>
+
 
             <?php if (!empty($_SESSION['permisos'][MPREGUNTA]['r'])) { ?>
               <li><a class="treeview-item" href="<?= base_url(); ?>/preguntas"><i class="icon fa fa-circle-o"></i> Preguntas</a></li>
@@ -154,9 +159,7 @@
               <li><a class="treeview-item" href="<?= base_url(); ?>/cai"><i class="icon fa fa-circle-o"></i>CAI</a></li>
             <?php } ?>
 
-            <?php if (!empty($_SESSION['permisos'][MDESCUENTO]['r'])) { ?>
-              <li><a class="treeview-item" href="<?= base_url(); ?>/descuentos"><i class="icon fa fa-circle-o"></i>Descuentos</a></li>
-            <?php } ?>
+
 
 
           </ul>
@@ -164,10 +167,10 @@
 
         <!--################################MANTENIMIENTO################################-->
 
-        
+
 
         <!--################################SEGURIDAD################################-->
-      <?php if (
+        <?php if (
           !empty($_SESSION['permisos'][MUSUARIO]['r'])
           || !empty($_SESSION['permisos'][MROL]['r'])
           || !empty($_SESSION['permisos'][MBITACORA]['r'])
