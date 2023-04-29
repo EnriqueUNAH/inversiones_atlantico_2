@@ -120,14 +120,7 @@ if (!empty($_POST)) {
 				$tl_snisv 	= round($sub_total - $impuesto, 2);
 				$total 		= round($tl_snisv + $impuesto, 2);
 
-				$detalleTotales = '<tr>
-											<td colspan="5" class="textright">SUBTOTAL L.</td>
-											<td class="textright">' . $tl_snisv . '</td>
-										</tr>
-										<tr>
-											<td colspan="5" class="textright">ISV (' . $isv . '%)</td>
-											<td class="textright">' . $impuesto . '</td>
-										</tr>
+				$detalleTotales = '
 										<tr>
 											<td colspan="5" class="textright">TOTAL L.</td>
 											<td class="textright">' . $total . '</td>
@@ -205,14 +198,7 @@ if (!empty($_POST)) {
 				$tl_snisv 	= round($sub_total - $impuesto, 2);
 				$total 		= round($tl_snisv + $impuesto, 2);
 
-				$detalleTotales = '<tr>
-											<td colspan="5" class="textright">SUBTOTAL L.</td>
-											<td class="textright">' . $tl_snisv . '</td>
-										</tr>
-										<tr>
-											<td colspan="5" class="textright">ISV (' . $isv . '%)</td>
-											<td class="textright">' . $impuesto . '</td>
-										</tr>
+				$detalleTotales = '
 										<tr>
 											<td colspan="5" class="textright">TOTAL L.</td>
 											<td class="textright">' . $total . '</td>
@@ -281,14 +267,7 @@ if (!empty($_POST)) {
 				$tl_snisv 	= round($sub_total - $impuesto, 2);
 				$total 		= round($tl_snisv + $impuesto, 2);
 
-				$detalleTotales = '<tr>
-											<td colspan="5" class="textright">SUBTOTAL L.</td>
-											<td class="textright">' . $tl_snisv . '</td>
-										</tr>
-										<tr>
-											<td colspan="5" class="textright">isv (' . $isv . '%)</td>
-											<td class="textright">' . $impuesto . '</td>
-										</tr>
+				$detalleTotales = '
 										<tr>
 											<td colspan="5" class="textright">TOTAL L.</td>
 											<td class="textright">' . $total . '</td>
