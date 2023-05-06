@@ -179,7 +179,7 @@ class Preguntas extends Controllers
 			if ($_SESSION['permisosMod']['d']) {
 				$id_pregunta = intval($_POST['id_pregunta']);
 
-				$requestNombrePregunta = $this->model->nombrePregunta($id_pregunta);
+				$requestNombrePregunta = $this->model->selectPregunta($id_pregunta);
 				$requestDelete = $this->model->deletePreguntas($id_pregunta);
 				$nombrePregunta = $requestNombrePregunta['pregunta'];
 
