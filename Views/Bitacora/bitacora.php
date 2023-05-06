@@ -38,13 +38,13 @@ headerAdmin($data);
                   <th>Fecha</th>
                   <th>Usuario</th>
                   <th>Objeto</th>
-                  <th>Accion</th>
-                  <th>Descripcion</th>
+                  <th>Acción</th>
+                  <th>Descripción</th>
 
                 </tr>
               </thead>
               <tbody>
-            
+
 
               </tbody>
             </table>

@@ -199,7 +199,7 @@
               <?php } ?>
 
               <?php if (!empty($_SESSION['permisos'][MBITACORA]['r'])) { ?>
-                <li><a class="treeview-item" href="<?= base_url(); ?>/bitacora"><i class="icon fa fa-circle-o"></i> Bitacora</a></li>
+                <li><a class="treeview-item" href="<?= base_url(); ?>/bitacora"><i class="icon fa fa-circle-o"></i> Bitácora</a></li>
               <?php } ?>
 
               <?php if (!empty($_SESSION['permisos'][MPARAMETRO]['r'])) { ?>

@@ -17,10 +17,10 @@
           <div class="form-row">
             <div class="form-group col-md-7">
               <label for="txtpregunta">Pregunta</label>
-              <input type="text" pattern="[a-zA-Z ]+" class="form-control valid validText" id="txtpregunta" name="txtpregunta" style="text-transform:uppercase" required="" title="Ingrese solo letras">
+              <input type="text" pattern="[a-zA-Zá-úÁ-Ú ?]+" class="form-control valid validText" id="txtpregunta" name="txtpregunta" style="text-transform:uppercase" required="" title="Ingrese solo letras">
             </div>
           </div>
-          
+
           <div class="tile-footer">
             <button id="btnActionForm" class="btn btn-primary" type="submit"><i class="fa fa-fw fa-lg fa-check-circle"></i><span id="btnText">Guardar</span></button>&nbsp;&nbsp;&nbsp;
             <button class="btn btn-danger" type="button" data-dismiss="modal"><i class="fa fa-fw fa-lg fa-times-circle"></i>Cerrar</button>

@@ -75,7 +75,7 @@ class Preguntas extends Controllers
 
 						//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora 	en caso de que se esté insertando
 						$strAccion = "CREAR";
-						$strDescripcion = "CREACIÓN DE PREGUNTA";
+						$strDescripcion = "SE CREÓ LA PREGUNTA: $strpregunta";
 
 						//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
 						$request_bitacora = $this->model->insertPreguntasBitacora(
@@ -178,23 +178,26 @@ class Preguntas extends Controllers
 		if ($_POST) {
 			if ($_SESSION['permisosMod']['d']) {
 				$id_pregunta = intval($_POST['id_pregunta']);
+
+				$requestNombrePregunta = $this->model->nombrePregunta($id_pregunta);
 				$requestDelete = $this->model->deletePreguntas($id_pregunta);
+				$nombrePregunta = $requestNombrePregunta['pregunta'];
+
 
 				//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora
 				//SE PUEDEN USAR PARA INSERTAR O ACTUALIZAR PORQUE SERÍAN LOS MISMOS DATOS
 				$dateFecha = date('Y-m-d H:i:s');
 				$intIdUsuario = $_SESSION['idUser'];
 				$intIdObjeto = (MPREGUNTA);
-				$request_bitacora = "";
 
 				if ($requestDelete == 'ok') {
 					$arrResponse = array('status' => true, 'msg' => 'Se ha eliminado la pregunta');
 
 					$strAccion = "ELIMINAR";
-					$strDescripcion = "ELIMINACIÓN DE PREGUNTA";
+					$strDescripcion = "ELIMINACIÓN DE LA PREGUNTA: $nombrePregunta";
 
 					//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
-					$request_bitacora = $this->model->insertPreguntasBitacora(
+					$this->model->insertPreguntasBitacora(
 						$dateFecha,
 						$intIdUsuario,
 						$intIdObjeto,
@@ -203,6 +206,19 @@ class Preguntas extends Controllers
 					);
 				} else if ($requestDelete == 'exist') {
 					$arrResponse = array('statusReferencial' => true, 'msg' => 'No es posible eliminar por Integridad Referencial');
+
+					$strAccion = "ELIMINAR";
+					$strDescripcion = "SE INTENTÓ ELIMINAR LA PREGUNTA: ($nombrePregunta), NO SE ELIMINÓ POR INTEGRIDAD REFERENCIAL.";
+
+
+					//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
+					$this->model->insertPreguntasBitacora(
+						$dateFecha,
+						$intIdUsuario,
+						$intIdObjeto,
+						$strAccion,
+						$strDescripcion
+					);
 				} else {
 					$arrResponse = array('status' => false, 'msg' => 'Error al eliminar la pregunta.');
 				}

@@ -86,6 +86,15 @@ class PreguntasModel extends Mysql
 		$request = $this->select($sql);
 		return $request;
 	}
+	public function nombrePregunta(int $id_pregunta)
+	{
+		$this->id_pregunta = $id_pregunta;
+		$sql = "SELECT pregunta
+	 				FROM tbl_ms_preguntas
+	 					WHERE id_pregunta = $this->id_pregunta";
+		$request = $this->select($sql);
+		return $request;
+	}
 
 
 
