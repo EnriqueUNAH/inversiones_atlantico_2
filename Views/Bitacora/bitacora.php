@@ -27,6 +27,10 @@ headerAdmin($data);
       <li class="breadcrumb-item"><a href="<?= base_url(); ?>/bitacora"><?= $data['page_title'] ?></a></li>
     </ul>
   </div>
+  <input type="date" id="fechaInicio">
+  <input type="date" id="fechaFin">
+  <button id="btnBuscar">Buscar</button>
+
   <div class="row">
     <div class="col-md-12">
       <div class="tile">
@@ -55,3 +59,22 @@ headerAdmin($data);
   </div>
 </main>
 <?php footerAdmin($data); ?>
+
+
+<script>
+  $("#btnBuscar").on("click", function() {
+    var fechaInicio = $("#fechaInicio").val();
+    var fechaFin = $("#fechaFin").val();
+
+    tableBitacora
+      .api()
+      .ajax.url(
+        base_url +
+        "/Bitacora/getBitacoraPorFecha?fechaInicio=" +
+        fechaInicio +
+        "&fechaFin=" +
+        fechaFin
+      )
+      .load();
+  });
+</script>

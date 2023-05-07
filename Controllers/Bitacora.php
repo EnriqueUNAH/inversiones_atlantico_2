@@ -28,8 +28,22 @@ class Bitacora extends Controllers
 
 	public function getBitacora()
 	{
+
 		if ($_SESSION['permisosMod']['r']) {
 			$arrData = $this->model->selectBitacora();
+			echo json_encode($arrData, JSON_UNESCAPED_UNICODE);
+		}
+		die();
+	}
+	public function getBitacoraPorFecha()
+	{
+		$fechaInicio = $this->input->get("fechaInicio");
+		$fechaFin = $this->input->get("fechaFin");
+
+		$this->db->where("fecha BETWEEN '$fechaInicio' AND '$fechaFin'");
+
+		if ($_SESSION['permisosMod']['r']) {
+			$arrData = $this->model->selectBitacoraPorFecha($fechaInicio, $fechaFin);
 			echo json_encode($arrData, JSON_UNESCAPED_UNICODE);
 		}
 		die();
