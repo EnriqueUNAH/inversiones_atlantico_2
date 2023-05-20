@@ -348,7 +348,7 @@ $(document).ready(function () {
             var info = JSON.parse(response);
             $("#txt_cod_producto").val(producto);
             $("#txt_nombre_producto").html(info.nombre_producto);
-            $("#txt_existencia").html(info.existencia);
+            $("#txt_existencia").html(info.disponible);
             $("#txt_cant_producto").val("1");
             $("#txt_precio").html(info.precio_venta);
             $("#txt_precio_total").html(info.precio_venta);

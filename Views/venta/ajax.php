@@ -80,8 +80,14 @@ if (!empty($_POST)) {
 	if ($_POST['action'] == 'infoProducto') {
 		$producto_id = $_POST['producto'];
 
-		$query = mysqli_query($conection, "SELECT cod_producto,nombre_producto,existencia,precio_venta FROM tbl_producto
-												WHERE cod_producto = $producto_id AND estado = 1");
+		$query = mysqli_query($conection, "SELECT p.cod_producto, p.nombre_producto, p.existencia, p.precio_venta, (p.existencia - COALESCE(tablaTemporal.total_cantidad, 0)) AS disponible
+		FROM tbl_producto p
+		LEFT JOIN (
+			SELECT cod_producto, SUM(cantidad) AS total_cantidad
+			FROM detalle_temp
+			GROUP BY cod_producto
+		) tablaTemporal ON p.cod_producto = tablaTemporal.cod_producto
+		WHERE p.cod_producto = $producto_id AND estado = 1");
 		mysqli_close($conection);
 
 		$result = mysqli_num_rows($query);
