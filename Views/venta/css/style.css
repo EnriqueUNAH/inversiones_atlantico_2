@@ -763,9 +763,15 @@ table td {
 }
 
 .left-column {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 66.67%;
 }
 
 .right-column {
+  position: absolute;
+  top: 0;
+  right: 0;
   width: 33.33%;
 }

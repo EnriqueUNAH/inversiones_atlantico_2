@@ -102,11 +102,6 @@ $result_d->free();
 
 
 
-
-
-
-
-
 	<div class="container">
 		<div class="left-column">
 
@@ -121,8 +116,6 @@ $result_d->free();
 					</a>
 					<h1><i class=""></i> Nueva Venta</h1>
 				</div>
-
-
 
 
 

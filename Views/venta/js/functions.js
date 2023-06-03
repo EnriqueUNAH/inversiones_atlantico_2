@@ -564,21 +564,21 @@ $(document).ready(function () {
           console.log(response);
           console.log(info);
           var info = JSON.parse(response);
-          $("#detalle_venta").html(info.detalle);
-          $("#detalle_totales").html(info.totales);
+          // $("#detalle_venta").html(info.detalle);
+          // $("#detalle_totales").html(info.totales);
 
-          $("#txt_cod_producto").val("");
-          $("#txt_nombre_producto").html("-");
-          $("#txt_existencia").html("-");
-          $("#txt_cant_producto").val("0");
-          $("#txt_precio").html("0.00");
-          $("#txt_precio_total").html("0.00");
+          // $("#txt_cod_producto").val("");
+          // $("#txt_nombre_producto").html("-");
+          // $("#txt_existencia").html("-");
+          // $("#txt_cant_producto").val("0");
+          // $("#txt_precio").html("0.00");
+          // $("#txt_precio_total").html("0.00");
 
-          //Bloquear Cantidad
-          $("#txt_cant_producto").attr("disabled", "disabled");
+          // //Bloquear Cantidad
+          // $("#txt_cant_producto").attr("disabled", "disabled");
 
-          //Ocultar boton agregar
-          $("#add_product_venta").slideUp();
+          // //Ocultar boton agregar
+          // $("#add_product_venta").slideUp();
 
           /* Lo coloqué para que me recargara la página 
              y así un producto solo lo pueda elegir una vez
