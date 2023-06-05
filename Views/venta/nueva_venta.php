@@ -278,7 +278,7 @@ $result_d->free();
 
 						<div class="wd30">
 							<label>Nombre</label>
-							<input type="text" name="nom_cliente" id="nom_cliente" oninput="this.value = this.value.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑ]/g, '').toUpperCase()" disabled required>
+							<input type="text" name="nom_cliente" id="nom_cliente" oninput="this.value = this.value.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑ ]/g, '').toUpperCase()" disabled required>
 						</div>
 
 						<div class="wd30">
