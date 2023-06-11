@@ -448,8 +448,8 @@ $(document).ready(function () {
           success: function (response) {
             console.log(response);
             if (response != "error") {
-              var info = JSON.parse(response);
-              console.log(info);
+              //var info = JSON.parse(response);
+              //console.log(info);
               Swal.fire({
                 title: "Producción agregada con éxito",
                 icon: "success",
