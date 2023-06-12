@@ -1,5 +1,6 @@
 <?php
-include './Connet.php';
+include '../php/Connet.php';
+//Lineas de msj al cargar pagina de acuerdo a actualizar o eliminar datos
 $day=date("d");
 $mont=date("m");
 $year=date("Y");
@@ -8,6 +9,7 @@ $fecha=$day.'_'.$mont.'_'.$year;
 $DataBASE=$fecha."_(".$hora."_hrs).sql";
 $tables=array();
 $result=SGBD::sql('SHOW TABLES');
+
 if($result){
     while($row=mysqli_fetch_row($result)){
        $tables[] = $row[0];
@@ -54,16 +56,8 @@ if($result){
         $handle=fopen(BACKUP_PATH.$DataBASE,'w+');
         if(fwrite($handle, $sql)){
             fclose($handle);
-            
-            echo '<script>alert("Copia de seguridad realizada con exito");</script>';
-            ?>
-           <script type="text/javascript">
-           window.location.href = "index.php";
-
-           </script>
-
-         <?php
-         
+            // echo 'Copia de seguridad realizada con éxito';
+            header("location:../php/index.php");
         }else{
             echo 'Ocurrio un error inesperado al crear la copia de seguridad';
         }

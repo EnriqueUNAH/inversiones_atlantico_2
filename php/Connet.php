@@ -1,20 +1,34 @@
 <?php
 error_reporting(E_PARSE);
 
+// //Nombre de usuario de mysql
+// const USER = "a9a769_dba";
+
+// //Servidor de mysql
+//  const SERVER = "MYSQL5048.site4now.net"; 
+
+// //Nombre de la base de datos
+// const BD = "db_a9a769_dba";
+
+// //Contraseña de myqsl
+// const PASS = "InversionesA8";
+
 //Nombre de usuario de mysql
- const USER = "root";
+const USER = "root";
 
 //Servidor de mysql
- const SERVER = "localhost"; 
+ const SERVER = "127.0.0.1:33065"; 
 
 //Nombre de la base de datos
 const BD = "db_inversiones_atlantico";
 
 //Contraseña de myqsl
-const PASS = "123456";
+const PASS = "";
+
+
 
 //Carpeta donde se almacenaran las copias de seguridad
-const BACKUP_PATH =  "../backup/";
+const BACKUP_PATH =  "../php/Backup/";
 
 /*Configuración de zona horaria de tu país para más información visita
     http://php.net/manual/es/function.date-default-timezone-set.php
