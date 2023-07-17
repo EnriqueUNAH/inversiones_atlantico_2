@@ -47,12 +47,12 @@
         <h3 class="login-head"><i class="fa fa-lg fa-fw fa-user"></i>INICIAR SESIÓN</h3>
         <div class="form-group">
           <label class="control-label">USUARIO</label>
-          <input id="txtEmail" name="txtEmail" class="form-control" type="" placeholder="Usuario" autofocus>
+          <input id="txtEmail" name="txtEmail" class="form-control" type="" placeholder="Usuario" autofocus onpaste="return borrarPegado(event)">
         </div>
         <div class="form-group">
           <label class="control-label">CONTRASEÑA</label>
           <div class="input-group">
-            <input id="txtPassword" name="txtPassword" class="form-control" type="password" placeholder="Contraseña">
+            <input id="txtPassword" name="txtPassword" class="form-control" type="password" placeholder="Contraseña" onpaste="return borrarPegado(event)">
             <div class="input-group-append">
               <button type="button" class="btn btn-outline-secondary" id="btnTogglePassword">
                 <i class="fa fa-eye-slash" id="iconTogglePassword"></i>
@@ -139,8 +139,13 @@
   </script>
 
 
-
-
+  <script>
+    //Para que no pueda copiar ni pegar
+    function borrarPegado(event) {
+      event.preventDefault();
+      document.execCommand("insertText", false, "");
+    }
+  </script>
 </body>
 
 </html>
