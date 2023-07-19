@@ -12,6 +12,7 @@ headerAdmin($data);
 // $resultado = $mysqli->query($bitacora);
 
 
+
 ?>
 <main class="app-content">
   <div class="app-title">

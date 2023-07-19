@@ -46,6 +46,7 @@ INSERT INTO `configuracion` VALUES (1,'123123123','Inversiones del Atlántico','
 UNLOCK TABLES;
 
 --
+<<<<<<< HEAD
 -- Table structure for table `detalle_temp`
 --
 
@@ -53,6 +54,15 @@ DROP TABLE IF EXISTS `detalle_temp`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `detalle_temp` (
+=======
+-- Table structure for table `tbl_detalle_temp`
+--
+
+DROP TABLE IF EXISTS `tbl_detalle_temp`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `tbl_detalle_temp` (
+>>>>>>> 5d930bd342bb9360df81c876aee4f7487d59bfb2
   `cod_detalle_factura` int NOT NULL AUTO_INCREMENT,
   `token_user` varchar(50) DEFAULT NULL,
   `cod_producto` int DEFAULT NULL,
@@ -63,11 +73,16 @@ CREATE TABLE `detalle_temp` (
   PRIMARY KEY (`cod_detalle_factura`),
   KEY `nofactura` (`token_user`),
   KEY `codproducto` (`cod_producto`),
+<<<<<<< HEAD
   CONSTRAINT `detalle_temp_ibfk_2` FOREIGN KEY (`cod_producto`) REFERENCES `tbl_producto` (`cod_producto`) ON DELETE CASCADE ON UPDATE CASCADE
+=======
+  CONSTRAINT `tbl_detalle_temp_ibfk_2` FOREIGN KEY (`cod_producto`) REFERENCES `tbl_producto` (`cod_producto`) ON DELETE CASCADE ON UPDATE CASCADE
+>>>>>>> 5d930bd342bb9360df81c876aee4f7487d59bfb2
 ) ENGINE=InnoDB AUTO_INCREMENT=959 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+<<<<<<< HEAD
 -- Dumping data for table `detalle_temp`
 --
 
@@ -84,17 +99,40 @@ DROP TABLE IF EXISTS `detalle_temp_c`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `detalle_temp_c` (
+=======
+-- Dumping data for table `tbl_detalle_temp`
+--
+
+LOCK TABLES `tbl_detalle_temp` WRITE;
+/*!40000 ALTER TABLE `tbl_detalle_temp` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tbl_detalle_temp` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tbl_detalle_temp_c`
+--
+
+DROP TABLE IF EXISTS `tbl_detalle_temp_c`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `tbl_detalle_temp_c` (
+>>>>>>> 5d930bd342bb9360df81c876aee4f7487d59bfb2
   `cod_detalle_factura` int NOT NULL AUTO_INCREMENT,
   `token_user` varchar(50) NOT NULL,
   `cod_producto` int NOT NULL,
   `cantcodad` int NOT NULL,
   `precio_venta` decimal(10,2) NOT NULL,
   PRIMARY KEY (`cod_detalle_factura`),
+<<<<<<< HEAD
   KEY `detalle_temp_ibfk_2_codx` (`cod_producto`)
+=======
+  KEY `tbl_detalle_temp_ibfk_2_codx` (`cod_producto`)
+>>>>>>> 5d930bd342bb9360df81c876aee4f7487d59bfb2
 ) ENGINE=InnoDB AUTO_INCREMENT=126 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+<<<<<<< HEAD
 -- Dumping data for table `detalle_temp_c`
 --
 
@@ -111,6 +149,24 @@ DROP TABLE IF EXISTS `detalle_temp_p`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `detalle_temp_p` (
+=======
+-- Dumping data for table `tbl_detalle_temp_c`
+--
+
+LOCK TABLES `tbl_detalle_temp_c` WRITE;
+/*!40000 ALTER TABLE `tbl_detalle_temp_c` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tbl_detalle_temp_c` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tbl_detalle_temp_p`
+--
+
+DROP TABLE IF EXISTS `tbl_detalle_temp_p`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `tbl_detalle_temp_p` (
+>>>>>>> 5d930bd342bb9360df81c876aee4f7487d59bfb2
   `cod_detalle_produccion` int NOT NULL AUTO_INCREMENT,
   `token_user` varchar(50) NOT NULL,
   `cod_producto` int NOT NULL,
@@ -122,6 +178,7 @@ CREATE TABLE `detalle_temp_p` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+<<<<<<< HEAD
 -- Dumping data for table `detalle_temp_p`
 --
 
@@ -138,6 +195,24 @@ DROP TABLE IF EXISTS `detalle_temp_pr`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `detalle_temp_pr` (
+=======
+-- Dumping data for table `tbl_detalle_temp_p`
+--
+
+LOCK TABLES `tbl_detalle_temp_p` WRITE;
+/*!40000 ALTER TABLE `tbl_detalle_temp_p` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tbl_detalle_temp_p` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tbl_detalle_temp_pr`
+--
+
+DROP TABLE IF EXISTS `tbl_detalle_temp_pr`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `tbl_detalle_temp_pr` (
+>>>>>>> 5d930bd342bb9360df81c876aee4f7487d59bfb2
   `cod_detalle_produccion` int NOT NULL AUTO_INCREMENT,
   `token_user` varchar(50) NOT NULL,
   `cod_producto` int NOT NULL,
@@ -147,6 +222,7 @@ CREATE TABLE `detalle_temp_pr` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+<<<<<<< HEAD
 -- Dumping data for table `detalle_temp_pr`
 --
 
@@ -163,6 +239,24 @@ DROP TABLE IF EXISTS `detalle_temp_promo`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `detalle_temp_promo` (
+=======
+-- Dumping data for table `tbl_detalle_temp_pr`
+--
+
+LOCK TABLES `tbl_detalle_temp_pr` WRITE;
+/*!40000 ALTER TABLE `tbl_detalle_temp_pr` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tbl_detalle_temp_pr` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tbl_detalle_temp_promo`
+--
+
+DROP TABLE IF EXISTS `tbl_detalle_temp_promo`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `tbl_detalle_temp_promo` (
+>>>>>>> 5d930bd342bb9360df81c876aee4f7487d59bfb2
   `cod_promocion_producto` int NOT NULL AUTO_INCREMENT,
   `token_user` varchar(50) DEFAULT NULL,
   `cod_producto` int DEFAULT NULL,
@@ -172,12 +266,21 @@ CREATE TABLE `detalle_temp_promo` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+<<<<<<< HEAD
 -- Dumping data for table `detalle_temp_promo`
 --
 
 LOCK TABLES `detalle_temp_promo` WRITE;
 /*!40000 ALTER TABLE `detalle_temp_promo` DISABLE KEYS */;
 /*!40000 ALTER TABLE `detalle_temp_promo` ENABLE KEYS */;
+=======
+-- Dumping data for table `tbl_detalle_temp_promo`
+--
+
+LOCK TABLES `tbl_detalle_temp_promo` WRITE;
+/*!40000 ALTER TABLE `tbl_detalle_temp_promo` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tbl_detalle_temp_promo` ENABLE KEYS */;
+>>>>>>> 5d930bd342bb9360df81c876aee4f7487d59bfb2
 UNLOCK TABLES;
 
 --
@@ -735,9 +838,15 @@ DROP TABLE IF EXISTS `tbl_porcentaje_descuento`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tbl_porcentaje_descuento` (
+<<<<<<< HEAD
   `cod` int NOT NULL AUTO_INCREMENT COMMENT 'Código.',
   `porcentaje_descuento` decimal(10,2) DEFAULT NULL COMMENT 'Porcentaje del descuento.',
   PRIMARY KEY (`cod`)
+=======
+  `cod_porcentaje_descuento` int NOT NULL AUTO_INCREMENT COMMENT 'Código.',
+  `porcentaje_descuento` decimal(10,2) DEFAULT NULL COMMENT 'Porcentaje del descuento.',
+  PRIMARY KEY (`cod_porcentaje_descuento`)
+>>>>>>> 5d930bd342bb9360df81c876aee4f7487d59bfb2
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Tabla que guarda el porcentaje del descuento que se haya seleccionado al momento de crear una venta.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 

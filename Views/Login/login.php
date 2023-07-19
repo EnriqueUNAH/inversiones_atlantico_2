@@ -84,10 +84,8 @@
         </div><br>
         <div class="form-group btn-container">
           <button type="submit" class="btn btn-primary btn-block" id="btnPregunta"><i class="fa fa-unlock fa-lg fa-fw"></i>Recuperar por pregunta</button>
-        </div><br>
-        <div class="form-group mt-3">
           <p class="semibold-text mb-0"><a href="#" data-toggle="flip"><i class="fa fa-angle-left fa-fw"></i> Atrás</a></p>
-        </div>
+        </div><br>
       </form>
 
 
