@@ -262,11 +262,16 @@ class Usuarios extends Controllers
 				// 		$btnEdit = '<button class="btn btn-secondary btn-sm" disabled ><i class="fas fa-pencil-alt"></i></button>';
 				// 	}
 				// }
-				if ($_SESSION['permisosMod']['u']) {
+
+
+				//if ($_SESSION['permisosMod']['u']) {
+				if ($_SESSION['idUser'] == 1) {
 					$btnEdit = '<button class="btn btn-primary  btn-sm btnEditUsuario" onClick="fntEditUsuario(this,' . $arrData[$i]['id_usuario'] . ')" title="Editar usuario"><i class="fas fa-pencil-alt"></i></button>';
 				} else {
 					$btnEdit = '<button class="btn btn-secondary btn-sm" disabled ><i class="fas fa-pencil-alt"></i></button>';
 				}
+				
+
 				// if($_SESSION['permisosMod']['d']){
 				// 	if(($_SESSION['idUser'] == 1 and $_SESSION['userData']['id_rol'] == 1) ||
 				// 		($_SESSION['userData']['id_rol'] == 1 and $arrData[$i]['id_rol'] != 1) and
