@@ -15,35 +15,6 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
---
--- Table structure for table `configuracion`
---
-
-DROP TABLE IF EXISTS `configuracion`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `configuracion` (
-  `cod` bigint NOT NULL AUTO_INCREMENT,
-  `rtn` varchar(20) NOT NULL,
-  `nombre` varchar(100) NOT NULL,
-  `razon_social` varchar(100) NOT NULL,
-  `telefono` bigint NOT NULL,
-  `email` varchar(200) NOT NULL,
-  `direccion` text NOT NULL,
-  `isv` decimal(10,2) NOT NULL,
-  PRIMARY KEY (`cod`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `configuracion`
---
-
-LOCK TABLES `configuracion` WRITE;
-/*!40000 ALTER TABLE `configuracion` DISABLE KEYS */;
-INSERT INTO `configuracion` VALUES (1,'123123123','Inversiones del Atlántico','Ventas SA',12121212,'info@atlantico.com','Tela, Honduras',15.00);
-/*!40000 ALTER TABLE `configuracion` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `tbl_detalle_temp`
@@ -91,7 +62,7 @@ CREATE TABLE `tbl_detalle_temp_c` (
   `precio_venta` decimal(10,2) NOT NULL,
   PRIMARY KEY (`cod_detalle_factura`),
   KEY `tbl_detalle_temp_ibfk_2_idx` (`cod_producto`)
-) ENGINE=InnoDB AUTO_INCREMENT=126 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=126 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -118,7 +89,7 @@ CREATE TABLE `tbl_detalle_temp_p` (
   PRIMARY KEY (`cod_detalle_produccion`),
   KEY `DetallePromoTmp_CodProducto_idx` (`cod_producto`),
   CONSTRAINT `DetallePromoTmp_CodProducto` FOREIGN KEY (`cod_producto`) REFERENCES `tbl_producto` (`cod_producto`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -143,7 +114,7 @@ CREATE TABLE `tbl_detalle_temp_pr` (
   `cod_producto` int NOT NULL,
   `cantidad` int NOT NULL,
   PRIMARY KEY (`cod_detalle_produccion`)
-) ENGINE=InnoDB AUTO_INCREMENT=105 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=105 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -168,7 +139,7 @@ CREATE TABLE `tbl_detalle_temp_promo` (
   `cod_producto` int DEFAULT NULL,
   `cantidad` int DEFAULT NULL,
   PRIMARY KEY (`id_promocion_producto`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -203,7 +174,7 @@ CREATE TABLE `tbl_cliente` (
   `modificado_por` varchar(15) DEFAULT NULL COMMENT 'Nombre del usuario que modificó algún dato del cliente.',
   `fecha_modificacion` datetime DEFAULT NULL COMMENT 'Fecha en que se mdificó algún dato del cliente.',
   PRIMARY KEY (`cod_cliente`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Tabla que guardará los datos de los clientes.';
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Tabla que guardará los datos de los clientes.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -231,7 +202,7 @@ CREATE TABLE `tbl_compra` (
   PRIMARY KEY (`cod_compra`),
   KEY `Compra_idUsuario_idx` (`id_usuario`),
   CONSTRAINT `Compra_idUsuario` FOREIGN KEY (`id_usuario`) REFERENCES `tbl_ms_usuarios` (`id_usuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Tabla que almacena los datos principales de una compra.';
+) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Tabla que almacena los datos principales de una compra.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -263,7 +234,7 @@ CREATE TABLE `tbl_configuracion_cai` (
   PRIMARY KEY (`cod_talonario`),
   KEY `CAI_IdUsuario_idx` (`id_usuario`),
   CONSTRAINT `CAI_IdUsuario` FOREIGN KEY (`id_usuario`) REFERENCES `tbl_ms_usuarios` (`id_usuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Tabla que sirve para controlar el CAI y los rangos disponibles de un talonario.';
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Tabla que sirve para controlar el CAI y los rangos disponibles de un talonario.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -288,7 +259,7 @@ CREATE TABLE `tbl_descuento` (
   `nombre_descuento` varchar(20) DEFAULT NULL COMMENT 'Nombre del descuento.',
   `porcentaje_descuento` decimal(8,2) DEFAULT NULL COMMENT 'Porcentaje del descuento.',
   PRIMARY KEY (`cod_descuento`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Tabla que almacena los descuentos que quiere dar la empresa.';
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Tabla que almacena los descuentos que quiere dar la empresa.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -319,7 +290,7 @@ CREATE TABLE `tbl_detalle_compra` (
   KEY `TBL_COMPRA_COD_COMPRA_idx` (`cod_compra`),
   CONSTRAINT `DetalleCompra_CodCompra` FOREIGN KEY (`cod_compra`) REFERENCES `tbl_compra` (`cod_compra`),
   CONSTRAINT `DetalleCompra_CodProducto` FOREIGN KEY (`cod_producto`) REFERENCES `tbl_producto` (`cod_producto`)
-) ENGINE=InnoDB AUTO_INCREMENT=98 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Tabla que almacena los detalles de una compra.';
+) ENGINE=InnoDB AUTO_INCREMENT=98 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Tabla que almacena los detalles de una compra.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -352,7 +323,7 @@ CREATE TABLE `tbl_detalle_factura` (
   KEY `DetalleFactura_NoFactura_idx` (`cod_factura`),
   CONSTRAINT `DetalleFactura_CodProducto` FOREIGN KEY (`cod_producto`) REFERENCES `tbl_producto` (`cod_producto`),
   CONSTRAINT `DetalleFactura_NoFactura` FOREIGN KEY (`cod_factura`) REFERENCES `tbl_factura` (`cod_factura`)
-) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Tabla que almacena los detalles de una facatura, es decir, los detalles de una venta.';
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Tabla que almacena los detalles de una facatura, es decir, los detalles de una venta.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -382,7 +353,7 @@ CREATE TABLE `tbl_detalle_produccion` (
   KEY `DetalleProduccion_CodProducto_idx` (`cod_producto`),
   CONSTRAINT `DetalleProduccion_CodProduccion` FOREIGN KEY (`cod_produccion`) REFERENCES `tbl_produccion` (`cod_produccion`),
   CONSTRAINT `DetalleProduccion_CodProducto` FOREIGN KEY (`cod_producto`) REFERENCES `tbl_producto` (`cod_producto`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Tabla que almacena los detalles de una producción.';
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Tabla que almacena los detalles de una producción.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -418,7 +389,7 @@ CREATE TABLE `tbl_factura` (
   PRIMARY KEY (`cod_factura`),
   KEY `TBL_CLIENTE_COD_CLIENTE_idx` (`cod_cliente`),
   CONSTRAINT `Venta_CodCliente` FOREIGN KEY (`cod_cliente`) REFERENCES `tbl_cliente` (`cod_cliente`)
-) ENGINE=InnoDB AUTO_INCREMENT=134 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Esta tabla almacena los datos de una venta.';
+) ENGINE=InnoDB AUTO_INCREMENT=134 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Esta tabla almacena los datos de una venta.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -449,7 +420,7 @@ CREATE TABLE `tbl_kardex` (
   KEY `Kardex_idTipoMovimiento_idx` (`cod_tipo_movimiento`),
   CONSTRAINT `Kardex_CodProducto` FOREIGN KEY (`cod_producto`) REFERENCES `tbl_producto` (`cod_producto`),
   CONSTRAINT `Kardex_idTipoMovimiento` FOREIGN KEY (`cod_tipo_movimiento`) REFERENCES `tbl_tipo_movimiento` (`cod_tipo_movimiento`)
-) ENGINE=InnoDB AUTO_INCREMENT=154 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Tabla que mostrará los movimientos de los productos. Ya sean de entrada o salida.';
+) ENGINE=InnoDB AUTO_INCREMENT=154 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Tabla que mostrará los movimientos de los productos. Ya sean de entrada o salida.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -481,7 +452,7 @@ CREATE TABLE `tbl_ms_bitacora` (
   KEY `bitacora_usuario_idx` (`id_usuario`),
   CONSTRAINT `bitacora_objeto` FOREIGN KEY (`id_objeto`) REFERENCES `tbl_ms_objetos` (`id_objeto`),
   CONSTRAINT `bitacora_usuario` FOREIGN KEY (`id_usuario`) REFERENCES `tbl_ms_usuarios` (`id_usuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=970 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Tabla que almacena todos los eventos que se generen dentro del sistema.';
+) ENGINE=InnoDB AUTO_INCREMENT=970 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Tabla que almacena todos los eventos que se generen dentro del sistema.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -510,7 +481,7 @@ CREATE TABLE `tbl_ms_hist_contrasena` (
   `fecha_modificacion` datetime DEFAULT NULL COMMENT 'Fecha de modificación.',
   PRIMARY KEY (`id_usuario`),
   CONSTRAINT `histContra_idUsuario` FOREIGN KEY (`id_usuario`) REFERENCES `tbl_ms_usuarios` (`id_usuario`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Tabla que almacena el historial de las contraseñas de los usuarios.';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Tabla que almacena el historial de las contraseñas de los usuarios.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -564,7 +535,7 @@ CREATE TABLE `tbl_ms_parametros` (
   `modificado_por` varchar(15) DEFAULT NULL COMMENT 'Nombre del usuario que modificó el parámetro.',
   `fecha_modificacion` datetime DEFAULT NULL COMMENT 'Fecha de modificación del parámetro.',
   PRIMARY KEY (`id_parametro`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Tabla que almacena los parámetros principales de la empresa.';
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Tabla que almacena los parámetros principales de la empresa.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -621,7 +592,7 @@ CREATE TABLE `tbl_ms_preguntas` (
   `id_pregunta` int NOT NULL AUTO_INCREMENT COMMENT 'cod de la pregunta.',
   `pregunta` varchar(100) DEFAULT NULL COMMENT 'Nombre de la pregunta.',
   PRIMARY KEY (`id_pregunta`)
-) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Tabla que guarda las preguntas que le aparecerán al usuario cuando conteste las preguntas secretas.';
+) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Tabla que guarda las preguntas que le aparecerán al usuario cuando conteste las preguntas secretas.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -647,7 +618,7 @@ CREATE TABLE `tbl_ms_preguntas_usuario` (
   `respuesta` varchar(100) DEFAULT NULL COMMENT 'Respuesta que dió el usuario cuando contestó la pregunta.',
   KEY `preguntaUsuario_idUsuario_idx` (`id_usuario`),
   CONSTRAINT `preguntaUsuario_idUsuario` FOREIGN KEY (`id_usuario`) REFERENCES `tbl_ms_usuarios` (`id_usuario`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Tabla intermedia entre las preguntas y los usuarios. Va guardando las preguntas que contesta un usuario, que pueden ser varias.';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Tabla intermedia entre las preguntas y los usuarios. Va guardando las preguntas que contesta un usuario, que pueden ser varias.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -737,7 +708,7 @@ CREATE TABLE `tbl_porcentaje_descuento` (
   `cod_porcentaje_descuento` int NOT NULL AUTO_INCREMENT COMMENT 'Código.',
   `porcentaje_descuento` decimal(10,2) DEFAULT NULL COMMENT 'Porcentaje del descuento.',
   PRIMARY KEY (`cod_porcentaje_descuento`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Tabla que guarda el porcentaje del descuento que se haya seleccionado al momento de crear una venta.';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Tabla que guarda el porcentaje del descuento que se haya seleccionado al momento de crear una venta.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -769,7 +740,7 @@ CREATE TABLE `tbl_produccion` (
   KEY `Produccion_IdUsuario_idx` (`id_usuario`),
   CONSTRAINT `Produccion_CodProducto` FOREIGN KEY (`cod_producto`) REFERENCES `tbl_producto` (`cod_producto`),
   CONSTRAINT `Produccion_IdUsuario` FOREIGN KEY (`id_usuario`) REFERENCES `tbl_ms_usuarios` (`id_usuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=122 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Tabla que almacena la producción de productos en la empresa.';
+) ENGINE=InnoDB AUTO_INCREMENT=122 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Tabla que almacena la producción de productos en la empresa.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -791,8 +762,8 @@ DROP TABLE IF EXISTS `tbl_producto`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tbl_producto` (
   `cod_producto` int NOT NULL AUTO_INCREMENT COMMENT 'Código del producto.',
-  `nombre_producto` varchar(30) DEFAULT NOT NULL COMMENT 'Nombre del producto.',
-  `descripcion` varchar(255) DEFAULT NOT NULL COMMENT 'Descripción del producto.',
+  `nombre_producto` varchar(30) NOT NULL COMMENT 'Nombre del producto.',
+  `descripcion` varchar(255) NOT NULL COMMENT 'Descripción del producto.',
   `cantidad_minima` int DEFAULT NULL COMMENT 'Cantidad mínima que se debe tener de ese producto en el inventario.',
   `cantidad_maxima` int DEFAULT NULL COMMENT 'Cantidad máxima que se debe tener de ese producto en el inventario.',
   `cod_tipo_producto` int DEFAULT NULL COMMENT 'Código del tipo de producto. Me ayuda a diferenciar si es un producto terminado o un insumo.',
@@ -806,7 +777,7 @@ CREATE TABLE `tbl_producto` (
   PRIMARY KEY (`cod_producto`),
   KEY `TBL_TIPO_PRODUCTO_COD_TIPO_PRODUCTO_idx` (`cod_tipo_producto`),
   CONSTRAINT `Producto_CodTipoProducto` FOREIGN KEY (`cod_tipo_producto`) REFERENCES `tbl_tipo_producto` (`cod_tipo_producto`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Tabla que almacena los productos e insumos de la empresa.';
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Tabla que almacena los productos e insumos de la empresa.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -837,7 +808,7 @@ CREATE TABLE `tbl_promocion` (
   PRIMARY KEY (`cod_promocion`),
   KEY `Promo_Usuario_idx` (`id_usuario`),
   CONSTRAINT `Promo_Usuario` FOREIGN KEY (`id_usuario`) REFERENCES `tbl_ms_usuarios` (`id_usuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Tabla que almacena las promociones que quiera implementar la empresa.';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Tabla que almacena las promociones que quiera implementar la empresa.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -867,7 +838,7 @@ CREATE TABLE `tbl_promocion_producto` (
   KEY `promocionProducto_Producto_idx` (`cod_producto`),
   CONSTRAINT `promocionProducto_Producto` FOREIGN KEY (`cod_producto`) REFERENCES `tbl_producto` (`cod_producto`),
   CONSTRAINT `promocionProducto_Promocion` FOREIGN KEY (`cod_promocion`) REFERENCES `tbl_promocion` (`cod_promocion`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Tabla intermedia entre promoción y producto. Almacenará los detalles de una promoción. Una promoción puede tener varios productos, y un producto puede estar en varias promociones.';
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Tabla intermedia entre promoción y producto. Almacenará los detalles de una promoción. Una promoción puede tener varios productos, y un producto puede estar en varias promociones.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -891,7 +862,7 @@ CREATE TABLE `tbl_tipo_movimiento` (
   `cod_tipo_movimiento` int NOT NULL AUTO_INCREMENT COMMENT 'Código del tipo de movimiento.',
   `nombre_movimiento` varchar(7) DEFAULT NULL COMMENT 'Nombre del tipo de movimiento.',
   PRIMARY KEY (`cod_tipo_movimiento`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Taba que almacena los dos tipos de movimientos. Entrada y Salida.';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Taba que almacena los dos tipos de movimientos. Entrada y Salida.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -915,7 +886,7 @@ CREATE TABLE `tbl_tipo_producto` (
   `cod_tipo_producto` int NOT NULL AUTO_INCREMENT COMMENT 'código del tipo de producto.',
   `nombre_tipo_producto` varchar(30) DEFAULT NULL COMMENT 'Nombre del tipo de producto.',
   PRIMARY KEY (`cod_tipo_producto`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Tabla que almacena el tipo de producto.';
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Tabla que almacena el tipo de producto.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -937,7 +908,7 @@ UNLOCK TABLES;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
 /*!50003 SET character_set_client  = utf8mb4 */ ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET collation_connection  = utf8mb4_unicode_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
@@ -966,7 +937,7 @@ DELIMITER ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
 /*!50003 SET character_set_client  = utf8mb4 */ ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET collation_connection  = utf8mb4_unicode_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
@@ -990,7 +961,7 @@ DELIMITER ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
 /*!50003 SET character_set_client  = utf8mb4 */ ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET collation_connection  = utf8mb4_unicode_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
@@ -1018,7 +989,7 @@ DELIMITER ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
 /*!50003 SET character_set_client  = utf8mb4 */ ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET collation_connection  = utf8mb4_unicode_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
@@ -1047,7 +1018,7 @@ DELIMITER ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
 /*!50003 SET character_set_client  = utf8mb4 */ ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET collation_connection  = utf8mb4_unicode_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
@@ -1114,7 +1085,7 @@ DELIMITER ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
 /*!50003 SET character_set_client  = utf8mb4 */ ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET collation_connection  = utf8mb4_unicode_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
@@ -1174,7 +1145,7 @@ DELIMITER ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
 /*!50003 SET character_set_client  = utf8mb4 */ ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET collation_connection  = utf8mb4_unicode_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
@@ -1235,7 +1206,7 @@ DELIMITER ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
 /*!50003 SET character_set_client  = utf8mb4 */ ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET collation_connection  = utf8mb4_unicode_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
@@ -1296,7 +1267,7 @@ DELIMITER ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
 /*!50003 SET character_set_client  = utf8mb4 */ ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET collation_connection  = utf8mb4_unicode_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
@@ -1356,7 +1327,7 @@ DELIMITER ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
 /*!50003 SET character_set_client  = utf8mb4 */ ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET collation_connection  = utf8mb4_unicode_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
@@ -1388,7 +1359,7 @@ DELIMITER ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
 /*!50003 SET character_set_client  = utf8mb4 */ ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET collation_connection  = utf8mb4_unicode_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
@@ -1412,7 +1383,7 @@ DELIMITER ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
 /*!50003 SET character_set_client  = utf8mb4 */ ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET collation_connection  = utf8mb4_unicode_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
@@ -1436,7 +1407,7 @@ DELIMITER ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
 /*!50003 SET character_set_client  = utf8mb4 */ ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET collation_connection  = utf8mb4_unicode_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
@@ -1460,7 +1431,7 @@ DELIMITER ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
 /*!50003 SET character_set_client  = utf8mb4 */ ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET collation_connection  = utf8mb4_unicode_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
@@ -1537,7 +1508,7 @@ DELIMITER ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
 /*!50003 SET character_set_client  = utf8mb4 */ ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET collation_connection  = utf8mb4_unicode_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
@@ -1614,7 +1585,7 @@ DELIMITER ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
 /*!50003 SET character_set_client  = utf8mb4 */ ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET collation_connection  = utf8mb4_unicode_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
@@ -1679,7 +1650,7 @@ DELIMITER ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
 /*!50003 SET character_set_client  = utf8mb4 */ ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET collation_connection  = utf8mb4_unicode_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
