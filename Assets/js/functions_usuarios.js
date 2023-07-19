@@ -134,6 +134,14 @@ document.addEventListener(
         let intStatus = document.querySelector("#listStatus").value;
 
         if (
+          strusuario == "ADMIN" &&
+          intStatus != 1 
+        ) {
+          swal("Atención", "El usuario admin no se puede inactivar.", "error");
+          return false;
+        }
+        
+        if (
           strusuario == "" ||
           strnombre_usuario == "" ||
           strEmail == "" ||

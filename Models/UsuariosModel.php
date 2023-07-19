@@ -147,6 +147,12 @@ class UsuariosModel extends Mysql
 		$request = $this->select_all($sql);
 
 		if (empty($request)) {
+
+
+			if ($this->intStatus  != 1 AND $this->intIdUsuario == 1) {
+				$request = "admin";
+			}else
+
 			if ($this->strPassword  != "") {
 				$sql = "UPDATE tbl_ms_usuarios SET usuario=?, nombre_usuario=?, correo_electronico=?, contrasena=?, id_rol=?, modificado_por=?, fecha_modificacion=?, estado=? 
 							WHERE id_usuario = $this->intIdUsuario ";
@@ -174,6 +180,12 @@ class UsuariosModel extends Mysql
 				);
 			}
 			$request = $this->update($sql, $arrData);
+
+		
+
+
+
+
 		} else {
 			$request = "exist";
 		}

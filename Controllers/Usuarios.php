@@ -177,7 +177,13 @@ class Usuarios extends Controllers
 				} //FIN DEL ELSE PARA ACTUALIZAR
 				if ($request_user === 'exist') {
 					$arrResponse = array('status' => false, 'msg' => '¡Atención! el email o la identificación ya existe, ingrese otro.');
-				} else if ($request_user > 0) {
+				} 
+				else if ($request_user === 'admin') {
+					$arrResponse = array('status' => false, 'msg' => '¡Atención! el usuario Administrador no se puede inactivar.');
+				}
+
+			
+				else if ($request_user > 0) {
 					if ($option == 1) {
 
 
