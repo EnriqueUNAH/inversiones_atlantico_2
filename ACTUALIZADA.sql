@@ -46,13 +46,13 @@ INSERT INTO `configuracion` VALUES (1,'123123123','Inversiones del Atlántico','
 UNLOCK TABLES;
 
 --
--- Table structure for table `detalle_temp`
+-- Table structure for table `tbl_detalle_temp`
 --
 
-DROP TABLE IF EXISTS `detalle_temp`;
+DROP TABLE IF EXISTS `tbl_detalle_temp`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `detalle_temp` (
+CREATE TABLE `tbl_detalle_temp` (
   `cod_detalle_factura` int NOT NULL AUTO_INCREMENT,
   `token_user` varchar(50) DEFAULT NULL,
   `cod_producto` int DEFAULT NULL,
@@ -63,54 +63,54 @@ CREATE TABLE `detalle_temp` (
   PRIMARY KEY (`cod_detalle_factura`),
   KEY `nofactura` (`token_user`),
   KEY `codproducto` (`cod_producto`),
-  CONSTRAINT `detalle_temp_ibfk_2` FOREIGN KEY (`cod_producto`) REFERENCES `tbl_producto` (`cod_producto`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `tbl_detalle_temp_ibfk_2` FOREIGN KEY (`cod_producto`) REFERENCES `tbl_producto` (`cod_producto`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=959 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `detalle_temp`
+-- Dumping data for table `tbl_detalle_temp`
 --
 
-LOCK TABLES `detalle_temp` WRITE;
-/*!40000 ALTER TABLE `detalle_temp` DISABLE KEYS */;
-/*!40000 ALTER TABLE `detalle_temp` ENABLE KEYS */;
+LOCK TABLES `tbl_detalle_temp` WRITE;
+/*!40000 ALTER TABLE `tbl_detalle_temp` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tbl_detalle_temp` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `detalle_temp_c`
+-- Table structure for table `tbl_detalle_temp_c`
 --
 
-DROP TABLE IF EXISTS `detalle_temp_c`;
+DROP TABLE IF EXISTS `tbl_detalle_temp_c`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `detalle_temp_c` (
+CREATE TABLE `tbl_detalle_temp_c` (
   `cod_detalle_factura` int NOT NULL AUTO_INCREMENT,
   `token_user` varchar(50) NOT NULL,
   `cod_producto` int NOT NULL,
   `cantidad` int NOT NULL,
   `precio_venta` decimal(10,2) NOT NULL,
   PRIMARY KEY (`cod_detalle_factura`),
-  KEY `detalle_temp_ibfk_2_idx` (`cod_producto`)
+  KEY `tbl_detalle_temp_ibfk_2_idx` (`cod_producto`)
 ) ENGINE=InnoDB AUTO_INCREMENT=126 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `detalle_temp_c`
+-- Dumping data for table `tbl_detalle_temp_c`
 --
 
-LOCK TABLES `detalle_temp_c` WRITE;
-/*!40000 ALTER TABLE `detalle_temp_c` DISABLE KEYS */;
-/*!40000 ALTER TABLE `detalle_temp_c` ENABLE KEYS */;
+LOCK TABLES `tbl_detalle_temp_c` WRITE;
+/*!40000 ALTER TABLE `tbl_detalle_temp_c` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tbl_detalle_temp_c` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `detalle_temp_p`
+-- Table structure for table `tbl_detalle_temp_p`
 --
 
-DROP TABLE IF EXISTS `detalle_temp_p`;
+DROP TABLE IF EXISTS `tbl_detalle_temp_p`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `detalle_temp_p` (
+CREATE TABLE `tbl_detalle_temp_p` (
   `cod_detalle_produccion` int NOT NULL AUTO_INCREMENT,
   `token_user` varchar(50) NOT NULL,
   `cod_producto` int NOT NULL,
@@ -122,22 +122,22 @@ CREATE TABLE `detalle_temp_p` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `detalle_temp_p`
+-- Dumping data for table `tbl_detalle_temp_p`
 --
 
-LOCK TABLES `detalle_temp_p` WRITE;
-/*!40000 ALTER TABLE `detalle_temp_p` DISABLE KEYS */;
-/*!40000 ALTER TABLE `detalle_temp_p` ENABLE KEYS */;
+LOCK TABLES `tbl_detalle_temp_p` WRITE;
+/*!40000 ALTER TABLE `tbl_detalle_temp_p` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tbl_detalle_temp_p` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `detalle_temp_pr`
+-- Table structure for table `tbl_detalle_temp_pr`
 --
 
-DROP TABLE IF EXISTS `detalle_temp_pr`;
+DROP TABLE IF EXISTS `tbl_detalle_temp_pr`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `detalle_temp_pr` (
+CREATE TABLE `tbl_detalle_temp_pr` (
   `cod_detalle_produccion` int NOT NULL AUTO_INCREMENT,
   `token_user` varchar(50) NOT NULL,
   `cod_producto` int NOT NULL,
@@ -147,22 +147,22 @@ CREATE TABLE `detalle_temp_pr` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `detalle_temp_pr`
+-- Dumping data for table `tbl_detalle_temp_pr`
 --
 
-LOCK TABLES `detalle_temp_pr` WRITE;
-/*!40000 ALTER TABLE `detalle_temp_pr` DISABLE KEYS */;
-/*!40000 ALTER TABLE `detalle_temp_pr` ENABLE KEYS */;
+LOCK TABLES `tbl_detalle_temp_pr` WRITE;
+/*!40000 ALTER TABLE `tbl_detalle_temp_pr` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tbl_detalle_temp_pr` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `detalle_temp_promo`
+-- Table structure for table `tbl_detalle_temp_promo`
 --
 
-DROP TABLE IF EXISTS `detalle_temp_promo`;
+DROP TABLE IF EXISTS `tbl_detalle_temp_promo`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `detalle_temp_promo` (
+CREATE TABLE `tbl_detalle_temp_promo` (
   `id_promocion_producto` int NOT NULL AUTO_INCREMENT,
   `token_user` varchar(50) DEFAULT NULL,
   `cod_producto` int DEFAULT NULL,
@@ -172,12 +172,12 @@ CREATE TABLE `detalle_temp_promo` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `detalle_temp_promo`
+-- Dumping data for table `tbl_detalle_temp_promo`
 --
 
-LOCK TABLES `detalle_temp_promo` WRITE;
-/*!40000 ALTER TABLE `detalle_temp_promo` DISABLE KEYS */;
-/*!40000 ALTER TABLE `detalle_temp_promo` ENABLE KEYS */;
+LOCK TABLES `tbl_detalle_temp_promo` WRITE;
+/*!40000 ALTER TABLE `tbl_detalle_temp_promo` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tbl_detalle_temp_promo` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -734,9 +734,9 @@ DROP TABLE IF EXISTS `tbl_porcentaje_descuento`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tbl_porcentaje_descuento` (
-  `cod` int NOT NULL AUTO_INCREMENT COMMENT 'Código.',
+  `cod_porcentaje_descuento` int NOT NULL AUTO_INCREMENT COMMENT 'Código.',
   `porcentaje_descuento` decimal(10,2) DEFAULT NULL COMMENT 'Porcentaje del descuento.',
-  PRIMARY KEY (`cod`)
+  PRIMARY KEY (`cod_porcentaje_descuento`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Tabla que guarda el porcentaje del descuento que se haya seleccionado al momento de crear una venta.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -931,7 +931,7 @@ UNLOCK TABLES;
 --
 -- Dumping routines for database 'db_inversiones_atlantico'
 --
-/*!50003 DROP PROCEDURE IF EXISTS `add_detalle_temp` */;
+/*!50003 DROP PROCEDURE IF EXISTS `add_tbl_detalle_temp` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
@@ -941,15 +941,15 @@ UNLOCK TABLES;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `add_detalle_temp`(`codigo` INT, `cantidad` INT, `token_user` VARCHAR(50))
+CREATE DEFINER=`root`@`localhost` PROCEDURE `add_tbl_detalle_temp`(`codigo` INT, `cantidad` INT, `token_user` VARCHAR(50))
 BEGIN
 
         DECLARE precio_actual decimal(10,2);
         SELECT precio_venta INTO precio_actual FROM tbl_producto WHERE cod_producto = codigo;
 
-        INSERT INTO detalle_temp(token_user,cod_producto,cantidad,precio_venta,cant_multi) VALUES(token_user,codigo,cantidad,precio_actual,cantidad);
+        INSERT INTO tbl_detalle_temp(token_user,cod_producto,cantidad,precio_venta,cant_multi) VALUES(token_user,codigo,cantidad,precio_actual,cantidad);
 
-        SELECT tmp.cod_detalle_factura, tmp.cod_producto,p.nombre_producto,tmp.cantidad,tmp.precio_venta FROM detalle_temp tmp
+        SELECT tmp.cod_detalle_factura, tmp.cod_producto,p.nombre_producto,tmp.cantidad,tmp.precio_venta FROM tbl_detalle_temp tmp
         INNER JOIN tbl_producto p
         ON tmp.cod_producto = p.cod_producto
         WHERE tmp.token_user = token_user;
@@ -960,7 +960,7 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `add_detalle_temp_c` */;
+/*!50003 DROP PROCEDURE IF EXISTS `add_tbl_detalle_temp_c` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
@@ -970,11 +970,11 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `add_detalle_temp_c`(`codigo` INT, `cantidad` INT, `token_user` VARCHAR(50), `precio_compra` decimal(10,2))
+CREATE DEFINER=`root`@`localhost` PROCEDURE `add_tbl_detalle_temp_c`(`codigo` INT, `cantidad` INT, `token_user` VARCHAR(50), `precio_compra` decimal(10,2))
 BEGIN                
-        INSERT INTO detalle_temp_c(token_user,cod_producto,cantidad,precio_venta) VALUES(token_user,codigo,cantidad,precio_compra);
+        INSERT INTO tbl_detalle_temp_c(token_user,cod_producto,cantidad,precio_venta) VALUES(token_user,codigo,cantidad,precio_compra);
 
-        SELECT tmp.cod_detalle_factura, tmp.cod_producto,p.nombre_producto,tmp.cantidad,tmp.precio_venta FROM detalle_temp_c tmp
+        SELECT tmp.cod_detalle_factura, tmp.cod_producto,p.nombre_producto,tmp.cantidad,tmp.precio_venta FROM tbl_detalle_temp_c tmp
         INNER JOIN tbl_producto p
         ON tmp.cod_producto = p.cod_producto
         WHERE tmp.token_user = token_user;
@@ -984,7 +984,7 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `add_detalle_temp_p` */;
+/*!50003 DROP PROCEDURE IF EXISTS `add_tbl_detalle_temp_p` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
@@ -994,14 +994,14 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `add_detalle_temp_p`(`codigo` INT, `cantidad` INT, `token_user` VARCHAR(50))
+CREATE DEFINER=`root`@`localhost` PROCEDURE `add_tbl_detalle_temp_p`(`codigo` INT, `cantidad` INT, `token_user` VARCHAR(50))
 BEGIN		
         DECLARE precio_actual decimal(10,2);
         SELECT precio_venta INTO precio_actual FROM tbl_producto WHERE cod_producto = codigo;
 
-        INSERT INTO detalle_temp_p(token_user,cod_producto,cantidad) VALUES(token_user,codigo,cantidad);
+        INSERT INTO tbl_detalle_temp_p(token_user,cod_producto,cantidad) VALUES(token_user,codigo,cantidad);
 
-        SELECT tmp.cod_detalle_produccion, tmp.cod_producto,p.nombre_producto,tmp.cantidad FROM detalle_temp_p tmp
+        SELECT tmp.cod_detalle_produccion, tmp.cod_producto,p.nombre_producto,tmp.cantidad FROM tbl_detalle_temp_p tmp
         INNER JOIN tbl_producto p
         ON tmp.cod_producto = p.cod_producto
         WHERE tmp.token_user = token_user;
@@ -1012,7 +1012,7 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `add_detalle_temp_pr` */;
+/*!50003 DROP PROCEDURE IF EXISTS `add_tbl_detalle_temp_pr` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
@@ -1022,15 +1022,15 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `add_detalle_temp_pr`(`codigo` INT, `cantidad` INT, `token_user` VARCHAR(50))
+CREATE DEFINER=`root`@`localhost` PROCEDURE `add_tbl_detalle_temp_pr`(`codigo` INT, `cantidad` INT, `token_user` VARCHAR(50))
 BEGIN
 
         DECLARE precio_actual decimal(10,2);
         SELECT precio_venta INTO precio_actual FROM tbl_producto WHERE cod_producto = codigo;
 
-        INSERT INTO detalle_temp_pr(token_user,cod_producto,cantidad) VALUES(token_user,codigo,cantidad);
+        INSERT INTO tbl_detalle_temp_pr(token_user,cod_producto,cantidad) VALUES(token_user,codigo,cantidad);
 
-        SELECT tmp.cod_detalle_produccion, tmp.cod_producto,p.nombre_producto,tmp.cantidad FROM detalle_temp_pr tmp
+        SELECT tmp.cod_detalle_produccion, tmp.cod_producto,p.nombre_producto,tmp.cantidad FROM tbl_detalle_temp_pr tmp
         INNER JOIN tbl_producto p
         ON tmp.cod_producto = p.cod_producto
         WHERE tmp.token_user = token_user;
@@ -1041,7 +1041,7 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `add_promocion_detalle_temp` */;
+/*!50003 DROP PROCEDURE IF EXISTS `add_promocion_tbl_detalle_temp` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
@@ -1051,7 +1051,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `add_promocion_detalle_temp`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `add_promocion_tbl_detalle_temp`(
     IN `cod_promocion` INT,
     IN `token_user` VARCHAR(50)
 )
@@ -1085,11 +1085,11 @@ DECLARE promo VARCHAR(50);
         
         -- use the isFirstRow variable to insert the precio_venta value only in the first row
         IF isFirstRow THEN
-            INSERT INTO detalle_temp(token_user,cod_producto,cantidad,precio_venta, promo, cant_multi) 
+            INSERT INTO tbl_detalle_temp(token_user,cod_producto,cantidad,precio_venta, promo, cant_multi) 
             VALUES(token_user,cod_producto,cantidad,precio_actual, promo, 1);
             SET isFirstRow = FALSE; -- set isFirstRow to false after the first insert
         ELSE
-            INSERT INTO detalle_temp(token_user,cod_producto,cantidad, promo) 
+            INSERT INTO tbl_detalle_temp(token_user,cod_producto,cantidad, promo) 
             VALUES(token_user,cod_producto,cantidad, promo);
         END IF;
         
@@ -1099,7 +1099,7 @@ DECLARE promo VARCHAR(50);
     CLOSE cursor_productos;
     
     SELECT cod_detalle_factura, d.cod_producto, nombre_producto, d.cantidad, d.precio_venta, d.promo
-    FROM detalle_temp d
+    FROM tbl_detalle_temp d
     INNER JOIN tbl_producto p ON d.cod_producto = p.cod_producto 
     WHERE d.token_user = token_user;
 END ;;
@@ -1350,7 +1350,7 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `del_detalle_temp` */;
+/*!50003 DROP PROCEDURE IF EXISTS `del_tbl_detalle_temp` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
@@ -1360,19 +1360,19 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `del_detalle_temp`(`id_detalle` INT, `token` VARCHAR(50))
+CREATE DEFINER=`root`@`localhost` PROCEDURE `del_tbl_detalle_temp`(`id_detalle` INT, `token` VARCHAR(50))
 BEGIN
     DECLARE promo_valor VARCHAR(50);
 
-    SELECT promo INTO promo_valor FROM detalle_temp WHERE cod_detalle_factura = id_detalle;
+    SELECT promo INTO promo_valor FROM tbl_detalle_temp WHERE cod_detalle_factura = id_detalle;
 
-    DELETE FROM detalle_temp WHERE cod_detalle_factura = id_detalle AND (promo IS NOT NULL OR promo IS NULL);
+    DELETE FROM tbl_detalle_temp WHERE cod_detalle_factura = id_detalle AND (promo IS NOT NULL OR promo IS NULL);
 
     IF promo_valor IS NOT NULL THEN
-        DELETE FROM detalle_temp WHERE promo = promo_valor;
+        DELETE FROM tbl_detalle_temp WHERE promo = promo_valor;
     END IF;
 
-    SELECT tmp.cod_detalle_factura, tmp.cod_producto,p.nombre_producto,tmp.cantidad,tmp.precio_venta FROM detalle_temp tmp
+    SELECT tmp.cod_detalle_factura, tmp.cod_producto,p.nombre_producto,tmp.cantidad,tmp.precio_venta FROM tbl_detalle_temp tmp
     INNER JOIN tbl_producto p
     ON tmp.cod_producto = p.cod_producto
     WHERE tmp.token_user = token;
@@ -1382,7 +1382,7 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `del_detalle_temp_c` */;
+/*!50003 DROP PROCEDURE IF EXISTS `del_tbl_detalle_temp_c` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
@@ -1392,11 +1392,11 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `del_detalle_temp_c`(`id_detalle` INT, `token` VARCHAR(50))
+CREATE DEFINER=`root`@`localhost` PROCEDURE `del_tbl_detalle_temp_c`(`id_detalle` INT, `token` VARCHAR(50))
 BEGIN
-	DELETE FROM detalle_temp_c WHERE cod_detalle_factura = id_detalle;
+	DELETE FROM tbl_detalle_temp_c WHERE cod_detalle_factura = id_detalle;
 
-	SELECT tmp.cod_detalle_factura, tmp.cod_producto,p.nombre_producto,tmp.cantidad,tmp.precio_venta FROM detalle_temp_c tmp
+	SELECT tmp.cod_detalle_factura, tmp.cod_producto,p.nombre_producto,tmp.cantidad,tmp.precio_venta FROM tbl_detalle_temp_c tmp
 	INNER JOIN tbl_producto p
 	ON tmp.cod_producto = p.cod_producto
 	WHERE tmp.token_user = token;
@@ -1406,7 +1406,7 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `del_detalle_temp_p` */;
+/*!50003 DROP PROCEDURE IF EXISTS `del_tbl_detalle_temp_p` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
@@ -1416,11 +1416,11 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `del_detalle_temp_p`(`id_detalle` INT, `token` VARCHAR(50))
+CREATE DEFINER=`root`@`localhost` PROCEDURE `del_tbl_detalle_temp_p`(`id_detalle` INT, `token` VARCHAR(50))
 BEGIN
-DELETE FROM detalle_temp_p WHERE cod_detalle_produccion = id_detalle;
+DELETE FROM tbl_detalle_temp_p WHERE cod_detalle_produccion = id_detalle;
 
-        SELECT tmp.cod_detalle_produccion, tmp.cod_producto,p.nombre_producto,tmp.cantidad FROM detalle_temp_p tmp
+        SELECT tmp.cod_detalle_produccion, tmp.cod_producto,p.nombre_producto,tmp.cantidad FROM tbl_detalle_temp_p tmp
         INNER JOIN tbl_producto p
         ON tmp.cod_producto = p.cod_producto
         WHERE tmp.token_user = token;
@@ -1430,7 +1430,7 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `del_detalle_temp_pr` */;
+/*!50003 DROP PROCEDURE IF EXISTS `del_tbl_detalle_temp_pr` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
@@ -1440,11 +1440,11 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `del_detalle_temp_pr`(`id_detalle` INT, `token` VARCHAR(50))
+CREATE DEFINER=`root`@`localhost` PROCEDURE `del_tbl_detalle_temp_pr`(`id_detalle` INT, `token` VARCHAR(50))
 BEGIN
-        DELETE FROM detalle_temp_pr WHERE cod_detalle_produccion = id_detalle;
+        DELETE FROM tbl_detalle_temp_pr WHERE cod_detalle_produccion = id_detalle;
 
-        SELECT tmp.cod_detalle_produccion, tmp.cod_producto,p.nombre_producto,tmp.cantidad FROM detalle_temp_pr tmp
+        SELECT tmp.cod_detalle_produccion, tmp.cod_producto,p.nombre_producto,tmp.cantidad FROM tbl_detalle_temp_pr tmp
         INNER JOIN tbl_producto p
         ON tmp.cod_producto = p.cod_producto
         WHERE tmp.token_user = token;
@@ -1484,20 +1484,20 @@ BEGIN
                 cod_prod BIGINT,
                 cant_prod int);
                 
-        SET registros = (SELECT COUNT(*) FROM detalle_temp_c WHERE token_user = token);
+        SET registros = (SELECT COUNT(*) FROM tbl_detalle_temp_c WHERE token_user = token);
         
         IF registros > 0 THEN
-        	INSERT INTO tbl_tmp_tokenuser_c(cod_prod,cant_prod) SELECT cod_producto,cantidad FROM detalle_temp_c WHERE token_user = token;
+        	INSERT INTO tbl_tmp_tokenuser_c(cod_prod,cant_prod) SELECT cod_producto,cantidad FROM tbl_detalle_temp_c WHERE token_user = token;
            
             INSERT INTO tbl_compra(id_usuario) VALUES(cod_usuario);
             SET compra = LAST_INSERT_ID();
             
-            INSERT INTO tbl_detalle_compra(cod_compra,cod_producto,cantidad,precio_venta) SELECT (compra) as cod_compra, cod_producto,cantidad,precio_venta FROM detalle_temp_c WHERE token_user = token;
+            INSERT INTO tbl_detalle_compra(cod_compra,cod_producto,cantidad,precio_venta) SELECT (compra) as cod_compra, cod_producto,cantidad,precio_venta FROM tbl_detalle_temp_c WHERE token_user = token;
                         INSERT INTO tbl_kardex (cod_producto, cantidad, fecha, cod_tipo_movimiento)
                         
                         
 SELECT cod_producto, cantidad, NOW(), 1
-FROM detalle_temp_c
+FROM tbl_detalle_temp_c
 WHERE token_user = token;
             
             
@@ -1514,12 +1514,12 @@ WHERE token_user = token;
                                   
             
             
-		   SET total = (SELECT SUM(cantidad * precio_venta) FROM detalle_temp_c WHERE token_user = token);
+		   SET total = (SELECT SUM(cantidad * precio_venta) FROM tbl_detalle_temp_c WHERE token_user = token);
            
             UPDATE tbl_compra SET total_pagado = total
             WHERE cod_compra = compra;--
           
-            DELETE FROM detalle_temp_c WHERE token_user = token;
+            DELETE FROM tbl_detalle_temp_c WHERE token_user = token;
             TRUNCATE TABLE tbl_tmp_tokenuser_c;
             SELECT * FROM tbl_compra WHERE cod_compra = compra;
         ELSE
@@ -1560,19 +1560,19 @@ BEGIN
                 cod_prod BIGINT,
                 cant_prod int);
                 
-        SET registros = (SELECT COUNT(*) FROM detalle_temp_pr WHERE token_user = token);
+        SET registros = (SELECT COUNT(*) FROM tbl_detalle_temp_pr WHERE token_user = token);
         
         IF registros > 0 THEN
-        	INSERT INTO tbl_tmp_tokenuser(cod_prod,cant_prod) SELECT cod_producto,cantidad FROM detalle_temp_pr WHERE token_user = token;
+        	INSERT INTO tbl_tmp_tokenuser(cod_prod,cant_prod) SELECT cod_producto,cantidad FROM tbl_detalle_temp_pr WHERE token_user = token;
             
             INSERT INTO tbl_produccion(id_usuario) VALUES(cod_usuario);
             SET factura = LAST_INSERT_ID();
             
-            INSERT INTO tbl_detalle_produccion(cod_produccion,cod_producto,cantidad) SELECT (factura) as cod_produccion, cod_producto,cantidad FROM detalle_temp_pr WHERE token_user = token;
+            INSERT INTO tbl_detalle_produccion(cod_produccion,cod_producto,cantidad) SELECT (factura) as cod_produccion, cod_producto,cantidad FROM tbl_detalle_temp_pr WHERE token_user = token;
      
             INSERT INTO tbl_kardex (cod_producto, cantidad, fecha, cod_tipo_movimiento)
 SELECT cod_producto, cantidad, NOW(), 2
-FROM detalle_temp_pr
+FROM tbl_detalle_temp_pr
 WHERE token_user = token;
             
                  
@@ -1595,7 +1595,7 @@ WHERE token_user = token;
 									cantidad = cantidadproducto							
             WHERE cod_produccion = factura;
           
-            DELETE FROM detalle_temp_pr WHERE token_user = token;
+            DELETE FROM tbl_detalle_temp_pr WHERE token_user = token;
             TRUNCATE TABLE tbl_tmp_tokenuser;
             SELECT * FROM tbl_produccion WHERE cod_produccion = factura;
            
@@ -1637,15 +1637,15 @@ BEGIN
                 cod_prod BIGINT,
                 cant_prod int);
                 
-        SET registros = (SELECT COUNT(*) FROM detalle_temp_p WHERE token_user = token);
+        SET registros = (SELECT COUNT(*) FROM tbl_detalle_temp_p WHERE token_user = token);
         
         IF registros > 0 THEN
-        	INSERT INTO tbl_tmp_tokenuser_p(cod_prod,cant_prod) SELECT cod_producto,cantidad FROM detalle_temp_p WHERE token_user = token;
+        	INSERT INTO tbl_tmp_tokenuser_p(cod_prod,cant_prod) SELECT cod_producto,cantidad FROM tbl_detalle_temp_p WHERE token_user = token;
             
             INSERT INTO tbl_promocion(id_usuario) VALUES(cod_usuario);
             SET factura = LAST_INSERT_ID();
             
-            INSERT INTO tbl_promocion_producto(cod_promocion,cod_producto,cantidad) SELECT (factura) as cod_promocion, cod_producto,cantidad FROM detalle_temp_p WHERE token_user = token;
+            INSERT INTO tbl_promocion_producto(cod_promocion,cod_producto,cantidad) SELECT (factura) as cod_promocion, cod_producto,cantidad FROM tbl_detalle_temp_p WHERE token_user = token;
 	 
             WHILE a <= registros DO
             	SELECT cod_prod,cant_prod INTO tmp_cod_producto,tmp_cant_producto FROM tbl_tmp_tokenuser_p WHERE cod = a;
@@ -1660,7 +1660,7 @@ BEGIN
                                     precio_venta = precio
             WHERE cod_promocion = factura;
           
-            DELETE FROM detalle_temp_p WHERE token_user = token;
+            DELETE FROM tbl_detalle_temp_p WHERE token_user = token;
             TRUNCATE TABLE tbl_tmp_tokenuser_p;
             SELECT * FROM tbl_promocion WHERE cod_promocion = factura;
            
@@ -1712,21 +1712,21 @@ BEGIN
                 cod_prod BIGINT,
                 cant_prod int);
                 
-        SET registros = (SELECT COUNT(*) FROM detalle_temp WHERE token_user = token);
+        SET registros = (SELECT COUNT(*) FROM tbl_detalle_temp WHERE token_user = token);
         
         IF registros > 0 THEN
-        	INSERT INTO tbl_tmp_tokenuser(cod_prod,cant_prod) SELECT cod_producto,cantidad FROM detalle_temp WHERE token_user = token;
+        	INSERT INTO tbl_tmp_tokenuser(cod_prod,cant_prod) SELECT cod_producto,cantidad FROM tbl_detalle_temp WHERE token_user = token;
             
             INSERT INTO tbl_factura(id_usuario,cod_cliente) VALUES(cod_usuario,cod_cliente);
             SET factura = LAST_INSERT_ID();
             
-            INSERT INTO tbl_detalle_factura(cod_factura,cod_producto,cantidad,precio_venta,cantidad_multi,promocion) SELECT (factura) as cod_factura, cod_producto,cantidad,precio_venta,cant_multi,promo FROM detalle_temp WHERE token_user = token;
+            INSERT INTO tbl_detalle_factura(cod_factura,cod_producto,cantidad,precio_venta,cantidad_multi,promocion) SELECT (factura) as cod_factura, cod_producto,cantidad,precio_venta,cant_multi,promo FROM tbl_detalle_temp WHERE token_user = token;
             
             
             
             INSERT INTO tbl_kardex (cod_producto, cantidad, fecha, cod_tipo_movimiento)
 			SELECT cod_producto, cantidad, NOW(), 2
-			FROM detalle_temp
+			FROM tbl_detalle_temp
 	WHERE token_user = token;
             
             
@@ -1742,7 +1742,7 @@ BEGIN
             	
             END WHILE;
             
-		   SET total = (SELECT SUM(cantidad * precio_venta) FROM detalle_temp WHERE token_user = token);
+		   SET total = (SELECT SUM(cantidad * precio_venta) FROM tbl_detalle_temp WHERE token_user = token);
 		   SET porcentaje_impuesto = (SELECT valor FROM tbl_ms_parametros where parametro = "impuesto");--
            
            
@@ -1764,7 +1764,7 @@ BEGIN
                                     descuento = descuentos
             WHERE cod_factura = factura;
           
-            DELETE FROM detalle_temp WHERE token_user = token;
+            DELETE FROM tbl_detalle_temp WHERE token_user = token;
             TRUNCATE TABLE tbl_tmp_tokenuser;
             
             
