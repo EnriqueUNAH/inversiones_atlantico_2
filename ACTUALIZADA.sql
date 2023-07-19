@@ -791,8 +791,8 @@ DROP TABLE IF EXISTS `tbl_producto`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tbl_producto` (
   `cod_producto` int NOT NULL AUTO_INCREMENT COMMENT 'Código del producto.',
-  `nombre_producto` varchar(30) DEFAULT NULL COMMENT 'Nombre del producto.',
-  `descripcion` varchar(255) DEFAULT NULL COMMENT 'Descripción del producto.',
+  `nombre_producto` varchar(30) DEFAULT NOT NULL COMMENT 'Nombre del producto.',
+  `descripcion` varchar(255) DEFAULT NOT NULL COMMENT 'Descripción del producto.',
   `cantidad_minima` int DEFAULT NULL COMMENT 'Cantidad mínima que se debe tener de ese producto en el inventario.',
   `cantidad_maxima` int DEFAULT NULL COMMENT 'Cantidad máxima que se debe tener de ese producto en el inventario.',
   `cod_tipo_producto` int DEFAULT NULL COMMENT 'Código del tipo de producto. Me ayuda a diferenciar si es un producto terminado o un insumo.',
