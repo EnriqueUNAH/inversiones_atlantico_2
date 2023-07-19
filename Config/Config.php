@@ -8,7 +8,7 @@ date_default_timezone_set('America/Guatemala');
 const DB_HOST = "localhost";
 const DB_NAME = "db_inversiones_atlantico";
 const DB_USER = "root";
-const DB_PASSWORD = "123456";
+const DB_PASSWORD = "";
 const DB_CHARSET = "utf8";
 
 //Para envío de correo

@@ -208,7 +208,7 @@ class UsuariosModel extends Mysql
 		$request = $this->select_all($sql);
 
 		if ($request) {
-			$sql = "UPDATE tbl_ms_usuarios SET estado = ? WHERE id_usuario = $this->intid_Usuario ";
+			$sql = "UPDATE tbl_ms_usuarios SET estado = ? WHERE id_usuario = $this->intid_Usuario and id_usuario != 1";
 			$arrData = array(2);
 			$request = $this->update($sql, $arrData);
 		}

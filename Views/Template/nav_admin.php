@@ -207,7 +207,7 @@
               <?php } ?>
 
               <?php if (!empty($_SESSION['permisos'][MBACKUP]['r'])) { ?>
-                <li><a class="treeview-item" href="<?= base_url(); ?>.../Respaldo/php/index.php"><i class="icon fa fa-circle-o"></i> Backup</a></li>
+                <li><a class="treeview-item" href="<?= base_url(); ?>.../php/index.php"><i class="icon fa fa-circle-o"></i> Backup</a></li>
               <?php } ?>
 
             </ul>

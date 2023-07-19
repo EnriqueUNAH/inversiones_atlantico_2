@@ -49,6 +49,13 @@
               <li><a class="treeview-item" href="http://localhost/inversiones_atlantico_2/clientes"><i class="icon fa fa-circle-o"></i>Clientes</a></li>
             <?php } ?>
 
+            <?php if (!empty($_SESSION['permisos'][2]['r'])) { ?>
+              <li><a class="treeview-item" href="http://localhost/inversiones_atlantico_2/promocion"><i class="icon fa fa-circle-o"></i> Promocion</a></li>
+            <?php } ?>
+
+            <?php if (!empty($_SESSION['permisos'][2]['r'])) { ?>
+              <li><a class="treeview-item" href="http://localhost/inversiones_atlantico_2/descuentos"><i class="icon fa fa-circle-o"></i>Descuentos</a></li>
+            <?php } ?>
 
           </ul>
         </li>
@@ -172,9 +179,6 @@
           </a>
           <ul class="treeview-menu">
 
-            <?php if (!empty($_SESSION['permisos'][2]['r'])) { ?>
-              <li><a class="treeview-item" href="http://localhost/inversiones_atlantico_2/promocion"><i class="icon fa fa-circle-o"></i> Promocion</a></li>
-            <?php } ?>
 
             <?php if (!empty($_SESSION['permisos'][2]['r'])) { ?>
               <li><a class="treeview-item" href="http://localhost/inversiones_atlantico_2/preguntas"><i class="icon fa fa-circle-o"></i> Preguntas</a></li>
@@ -182,10 +186,6 @@
 
             <?php if (!empty($_SESSION['permisos'][2]['r'])) { ?>
               <li><a class="treeview-item" href="http://localhost/inversiones_atlantico_2/objetos"><i class="icon fa fa-circle-o"></i> Objetos</a></li>
-            <?php } ?>
-
-            <?php if (!empty($_SESSION['permisos'][2]['r'])) { ?>
-              <li><a class="treeview-item" href="http://localhost/inversiones_atlantico_2/descuentos"><i class="icon fa fa-circle-o"></i>Descuentos</a></li>
             <?php } ?>
 
             <?php if (!empty($_SESSION['permisos'][2]['r'])) { ?>
@@ -234,7 +234,7 @@
               <?php } ?>
 
               <?php if (!empty($_SESSION['permisos'][2]['r'])) { ?>
-                <li><a class="treeview-item" href="http://localhost/inversiones_atlantico_2.../Respaldo/php/index.php"><i class="icon fa fa-circle-o"></i> Backup</a></li>
+                <li><a class="treeview-item" href="http://localhost/inversiones_atlantico_2.../php/index.php"><i class="icon fa fa-circle-o"></i> Backup</a></li>
               <?php } ?>
 
             </ul>

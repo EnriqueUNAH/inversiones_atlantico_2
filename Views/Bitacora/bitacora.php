@@ -2,7 +2,7 @@
 headerAdmin($data);
 //getModal('modalUsuarios', $data);
 
-// $servidor= "localhost";$usuario= "root";$password = "123456";$base= "db_inversiones_atlantico";
+// $servidor= "localhost";$usuario= "root";$password = "";$base= "db_inversiones_atlantico";
 // $mysqli = new mysqli($servidor,$usuario,$password,$base);
 // $connection = mysqli_connect($servidor,$usuario,$password,$base) or die("Error" . mysqli_error($connection));
 // if($mysqli->connect_error){ echo "Nuestro sitio presenta fallas...."; die('Error en la conexion' . $mysqli->connect_error); exit();}
