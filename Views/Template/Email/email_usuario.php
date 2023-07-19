@@ -112,7 +112,7 @@
 					<p>Usuario: <strong><?= $data['usuario']; ?></strong></p>
 					<p>Contraseña: <strong><?= $data['contrasena']; ?></strong></p>
 					<!--Lo manda solo a la ruta raiz, porque si se va al login y la sesión está abierta, entrará y no habría seguridad-->
-					<a href="<?= BASE_URL; ?>" target="_blank" class="x_button_link x_link_blue">INGRESAR</a>
+					<a href="<?= BASE_URL; ?>/login" target="_blank" class="x_button_link x_link_blue">INGRESAR</a>
 					<p class="x_title_gray"><a href="<?= BASE_URL; ?>" target="_blanck"><?= WEB_EMPRESA; ?></a></p>
 				</td>
 			</tr>
