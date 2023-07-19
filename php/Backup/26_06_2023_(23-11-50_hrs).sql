@@ -115,11 +115,12 @@ CREATE TABLE `tbl_cliente` (
   `modificado_por` varchar(15) DEFAULT NULL COMMENT 'Nombre del usuario que modificó algún dato del cliente.',
   `fecha_modificacion` datetime DEFAULT NULL COMMENT 'Fecha en que se mdificó algún dato del cliente.',
   PRIMARY KEY (`cod_cliente`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-INSERT INTO tbl_cliente VALUES("5","","CONSUMIDOR FINAL","","","","","","1","1","","","ADMIN","2023-04-13 00:57:28");
-INSERT INTO tbl_cliente VALUES("6","801200002389","DORCA NINOSCA AGUILAR","A","97293000","dorca@hotmail.com","LOS PINOS","","","1","ADMIN","2023-04-11 21:21:35","ADMIN","2023-04-13 00:36:35");
-INSERT INTO tbl_cliente VALUES("11","0801000011112","ELIZABETH REYES","","98237281","","TELA","","1","1","","","","");
+INSERT INTO tbl_cliente VALUES("5","","CONSUMIDOR FINAL","","0","","","0000-00-00 00:00:00","1","1","","0000-00-00 00:00:00","ADMIN","2023-04-13 00:57:28");
+INSERT INTO tbl_cliente VALUES("6","801200002389","DORCA NINOSCA AGUILAR","A","97293000","dorca@hotmail.com","LOS PINOS","0000-00-00 00:00:00","0","1","ADMIN","2023-04-11 21:21:35","ADMIN","2023-04-13 00:36:35");
+INSERT INTO tbl_cliente VALUES("11","0801000011112","ELIZABETH REYES","","98237281","","TELA","0000-00-00 00:00:00","1","1","","0000-00-00 00:00:00","","0000-00-00 00:00:00");
+INSERT INTO tbl_cliente VALUES("12","99999","nnnnnnnnn","hhhh","0","","","0000-00-00 00:00:00","0","1","","0000-00-00 00:00:00","","0000-00-00 00:00:00");
 
 
 
@@ -136,43 +137,43 @@ CREATE TABLE `tbl_compra` (
   CONSTRAINT `Compra_idUsuario` FOREIGN KEY (`id_usuario`) REFERENCES `tbl_ms_usuarios` (`id_usuario`)
 ) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-INSERT INTO tbl_compra VALUES("4","","","1","");
-INSERT INTO tbl_compra VALUES("5","","","1","");
-INSERT INTO tbl_compra VALUES("6","30.00","","1","");
-INSERT INTO tbl_compra VALUES("7","30.00","","1","");
-INSERT INTO tbl_compra VALUES("8","30.00","","1","");
-INSERT INTO tbl_compra VALUES("9","30.00","","1","");
-INSERT INTO tbl_compra VALUES("10","30.00","","1","");
-INSERT INTO tbl_compra VALUES("11","20.00","","1","");
-INSERT INTO tbl_compra VALUES("12","40.00","","1","");
-INSERT INTO tbl_compra VALUES("13","210.00","","1","");
-INSERT INTO tbl_compra VALUES("14","30.00","","1","");
-INSERT INTO tbl_compra VALUES("15","50.00","","1","");
-INSERT INTO tbl_compra VALUES("16","50.00","","1","");
-INSERT INTO tbl_compra VALUES("17","50.00","","1","");
-INSERT INTO tbl_compra VALUES("18","50.00","","1","");
-INSERT INTO tbl_compra VALUES("19","50.00","","1","");
-INSERT INTO tbl_compra VALUES("20","50.00","","1","");
-INSERT INTO tbl_compra VALUES("21","80.00","","1","");
-INSERT INTO tbl_compra VALUES("22","50.00","","1","");
-INSERT INTO tbl_compra VALUES("23","50.00","","1","");
-INSERT INTO tbl_compra VALUES("24","50.00","","1","");
-INSERT INTO tbl_compra VALUES("25","100.00","","1","");
-INSERT INTO tbl_compra VALUES("26","50.00","","1","");
-INSERT INTO tbl_compra VALUES("27","50.00","","1","");
-INSERT INTO tbl_compra VALUES("28","50.00","","1","");
-INSERT INTO tbl_compra VALUES("29","50.00","","1","");
-INSERT INTO tbl_compra VALUES("30","50.00","","1","");
-INSERT INTO tbl_compra VALUES("31","30.00","","1","");
-INSERT INTO tbl_compra VALUES("32","30.00","","1","");
-INSERT INTO tbl_compra VALUES("33","50.00","","1","");
-INSERT INTO tbl_compra VALUES("34","30.00","","1","");
-INSERT INTO tbl_compra VALUES("35","30.00","","1","");
-INSERT INTO tbl_compra VALUES("36","70.00","","1","");
-INSERT INTO tbl_compra VALUES("37","80.00","","1","");
-INSERT INTO tbl_compra VALUES("38","50.00","","1","");
-INSERT INTO tbl_compra VALUES("39","20.00","","1","");
-INSERT INTO tbl_compra VALUES("40","20.00","","1","");
+INSERT INTO tbl_compra VALUES("4","0.00","0000-00-00 00:00:00","1","0");
+INSERT INTO tbl_compra VALUES("5","0.00","0000-00-00 00:00:00","1","0");
+INSERT INTO tbl_compra VALUES("6","30.00","0000-00-00 00:00:00","1","0");
+INSERT INTO tbl_compra VALUES("7","30.00","0000-00-00 00:00:00","1","0");
+INSERT INTO tbl_compra VALUES("8","30.00","0000-00-00 00:00:00","1","0");
+INSERT INTO tbl_compra VALUES("9","30.00","0000-00-00 00:00:00","1","0");
+INSERT INTO tbl_compra VALUES("10","30.00","0000-00-00 00:00:00","1","0");
+INSERT INTO tbl_compra VALUES("11","20.00","0000-00-00 00:00:00","1","0");
+INSERT INTO tbl_compra VALUES("12","40.00","0000-00-00 00:00:00","1","0");
+INSERT INTO tbl_compra VALUES("13","210.00","0000-00-00 00:00:00","1","0");
+INSERT INTO tbl_compra VALUES("14","30.00","0000-00-00 00:00:00","1","0");
+INSERT INTO tbl_compra VALUES("15","50.00","0000-00-00 00:00:00","1","0");
+INSERT INTO tbl_compra VALUES("16","50.00","0000-00-00 00:00:00","1","0");
+INSERT INTO tbl_compra VALUES("17","50.00","0000-00-00 00:00:00","1","0");
+INSERT INTO tbl_compra VALUES("18","50.00","0000-00-00 00:00:00","1","0");
+INSERT INTO tbl_compra VALUES("19","50.00","0000-00-00 00:00:00","1","0");
+INSERT INTO tbl_compra VALUES("20","50.00","0000-00-00 00:00:00","1","0");
+INSERT INTO tbl_compra VALUES("21","80.00","0000-00-00 00:00:00","1","0");
+INSERT INTO tbl_compra VALUES("22","50.00","0000-00-00 00:00:00","1","0");
+INSERT INTO tbl_compra VALUES("23","50.00","0000-00-00 00:00:00","1","0");
+INSERT INTO tbl_compra VALUES("24","50.00","0000-00-00 00:00:00","1","0");
+INSERT INTO tbl_compra VALUES("25","100.00","0000-00-00 00:00:00","1","0");
+INSERT INTO tbl_compra VALUES("26","50.00","0000-00-00 00:00:00","1","0");
+INSERT INTO tbl_compra VALUES("27","50.00","0000-00-00 00:00:00","1","0");
+INSERT INTO tbl_compra VALUES("28","50.00","0000-00-00 00:00:00","1","0");
+INSERT INTO tbl_compra VALUES("29","50.00","0000-00-00 00:00:00","1","0");
+INSERT INTO tbl_compra VALUES("30","50.00","0000-00-00 00:00:00","1","0");
+INSERT INTO tbl_compra VALUES("31","30.00","0000-00-00 00:00:00","1","0");
+INSERT INTO tbl_compra VALUES("32","30.00","0000-00-00 00:00:00","1","0");
+INSERT INTO tbl_compra VALUES("33","50.00","0000-00-00 00:00:00","1","0");
+INSERT INTO tbl_compra VALUES("34","30.00","0000-00-00 00:00:00","1","0");
+INSERT INTO tbl_compra VALUES("35","30.00","0000-00-00 00:00:00","1","0");
+INSERT INTO tbl_compra VALUES("36","70.00","0000-00-00 00:00:00","1","0");
+INSERT INTO tbl_compra VALUES("37","80.00","0000-00-00 00:00:00","1","0");
+INSERT INTO tbl_compra VALUES("38","50.00","0000-00-00 00:00:00","1","0");
+INSERT INTO tbl_compra VALUES("39","20.00","0000-00-00 00:00:00","1","0");
+INSERT INTO tbl_compra VALUES("40","20.00","0000-00-00 00:00:00","1","0");
 INSERT INTO tbl_compra VALUES("41","150.00","2023-04-13 11:37:55","1","2");
 INSERT INTO tbl_compra VALUES("42","120.00","2023-04-13 15:22:38","1","2");
 INSERT INTO tbl_compra VALUES("43","30.00","2023-04-13 22:03:18","1","2");
@@ -334,33 +335,33 @@ CREATE TABLE `tbl_detalle_factura` (
 INSERT INTO tbl_detalle_factura VALUES("1","126","18","1","100.00","1","");
 INSERT INTO tbl_detalle_factura VALUES("2","126","19","14","220.00","14","");
 INSERT INTO tbl_detalle_factura VALUES("3","126","19","5","50.00","1","");
-INSERT INTO tbl_detalle_factura VALUES("4","126","12","5","","","");
-INSERT INTO tbl_detalle_factura VALUES("5","126","17","5","","","");
+INSERT INTO tbl_detalle_factura VALUES("4","126","12","5","0.00","0","");
+INSERT INTO tbl_detalle_factura VALUES("5","126","17","5","0.00","0","");
 INSERT INTO tbl_detalle_factura VALUES("8","127","19","4","220.00","4","");
 INSERT INTO tbl_detalle_factura VALUES("9","128","21","1","150.00","1","");
 INSERT INTO tbl_detalle_factura VALUES("10","128","18","1","500.00","1","");
-INSERT INTO tbl_detalle_factura VALUES("11","128","24","2","","","");
-INSERT INTO tbl_detalle_factura VALUES("12","128","25","2","","","");
+INSERT INTO tbl_detalle_factura VALUES("11","128","24","2","0.00","0","");
+INSERT INTO tbl_detalle_factura VALUES("12","128","25","2","0.00","0","");
 INSERT INTO tbl_detalle_factura VALUES("13","128","18","1","100.00","1","");
 INSERT INTO tbl_detalle_factura VALUES("14","129","15","1","65.20","1","");
 INSERT INTO tbl_detalle_factura VALUES("15","129","18","1","500.00","1","PROMO 1");
-INSERT INTO tbl_detalle_factura VALUES("16","129","24","2","","","PROMO 1");
-INSERT INTO tbl_detalle_factura VALUES("17","129","25","2","","","PROMO 1");
+INSERT INTO tbl_detalle_factura VALUES("16","129","24","2","0.00","0","PROMO 1");
+INSERT INTO tbl_detalle_factura VALUES("17","129","25","2","0.00","0","PROMO 1");
 INSERT INTO tbl_detalle_factura VALUES("21","130","19","1","220.00","1","");
 INSERT INTO tbl_detalle_factura VALUES("22","130","18","3","400.00","1","PROMO 2");
-INSERT INTO tbl_detalle_factura VALUES("23","130","19","2","","","PROMO 2");
+INSERT INTO tbl_detalle_factura VALUES("23","130","19","2","0.00","0","PROMO 2");
 INSERT INTO tbl_detalle_factura VALUES("24","131","18","2","100.00","2","");
 INSERT INTO tbl_detalle_factura VALUES("25","131","18","1","500.00","1","PROMO 1");
-INSERT INTO tbl_detalle_factura VALUES("26","131","24","2","","","PROMO 1");
-INSERT INTO tbl_detalle_factura VALUES("27","131","25","2","","","PROMO 1");
+INSERT INTO tbl_detalle_factura VALUES("26","131","24","2","0.00","0","PROMO 1");
+INSERT INTO tbl_detalle_factura VALUES("27","131","25","2","0.00","0","PROMO 1");
 INSERT INTO tbl_detalle_factura VALUES("28","131","22","1","100.00","1","");
 INSERT INTO tbl_detalle_factura VALUES("31","132","18","1","100.00","1","");
 INSERT INTO tbl_detalle_factura VALUES("32","132","18","3","400.00","1","PROMO 2");
-INSERT INTO tbl_detalle_factura VALUES("33","132","19","2","","","PROMO 2");
+INSERT INTO tbl_detalle_factura VALUES("33","132","19","2","0.00","0","PROMO 2");
 INSERT INTO tbl_detalle_factura VALUES("34","133","18","12","100.00","12","");
 INSERT INTO tbl_detalle_factura VALUES("35","133","18","1","500.00","1","PROMO 1");
-INSERT INTO tbl_detalle_factura VALUES("36","133","24","2","","","PROMO 1");
-INSERT INTO tbl_detalle_factura VALUES("37","133","25","2","","","PROMO 1");
+INSERT INTO tbl_detalle_factura VALUES("36","133","24","2","0.00","0","PROMO 1");
+INSERT INTO tbl_detalle_factura VALUES("37","133","25","2","0.00","0","PROMO 1");
 
 
 
@@ -1064,9 +1065,9 @@ INSERT INTO tbl_ms_bitacora VALUES("471","2023-04-19 02:57:54","1","2","INGRESO"
 INSERT INTO tbl_ms_bitacora VALUES("472","2023-04-19 08:36:28","1","2","INGRESO","INGRESO AL SISTEMA");
 INSERT INTO tbl_ms_bitacora VALUES("473","2023-04-19 08:36:40","1","2","INGRESO","INGRESO AL MODULO VENTAS");
 INSERT INTO tbl_ms_bitacora VALUES("474","2023-04-19 08:43:21","1","2","INGRESO","INGRESO AL MODULO VENTAS");
-INSERT INTO tbl_ms_bitacora VALUES("475","","","","","");
-INSERT INTO tbl_ms_bitacora VALUES("476","","","","","");
-INSERT INTO tbl_ms_bitacora VALUES("477","","","","","");
+INSERT INTO tbl_ms_bitacora VALUES("475","0000-00-00 00:00:00","0","0","","");
+INSERT INTO tbl_ms_bitacora VALUES("476","0000-00-00 00:00:00","0","0","","");
+INSERT INTO tbl_ms_bitacora VALUES("477","0000-00-00 00:00:00","0","0","","");
 INSERT INTO tbl_ms_bitacora VALUES("478","2023-04-19 08:47:54","1","15","INGRESO","INGRESO AL MÓDULO DE KARDEX");
 INSERT INTO tbl_ms_bitacora VALUES("479","2023-04-19 09:09:01","1","2","INGRESO","INGRESO AL MODULO VENTAS");
 INSERT INTO tbl_ms_bitacora VALUES("480","2023-04-19 09:09:30","1","2","INGRESO","INGRESO AL MODULO VENTAS");
@@ -1590,16 +1591,16 @@ CREATE TABLE `tbl_ms_parametros` (
   PRIMARY KEY (`id_parametro`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-INSERT INTO tbl_ms_parametros VALUES("1","ADMIN_INTENTOS","3","","","","");
-INSERT INTO tbl_ms_parametros VALUES("2","ADMIN_PREGUNTAS","2","","","","");
-INSERT INTO tbl_ms_parametros VALUES("3","ADMIN_CORREO","uniformesdelatlantico@hotmail.com","","","","");
-INSERT INTO tbl_ms_parametros VALUES("4","FECHA_VENCIMIENTO","30","","","","");
-INSERT INTO tbl_ms_parametros VALUES("5","IMPUESTO","15","","","ADMIN","2023-04-16 02:57:05");
-INSERT INTO tbl_ms_parametros VALUES("6","NOMBRE_EMPRESA","INVERSIONES UNIFORMES DEL ATLÁNTICO","","","ADMIN","2023-04-18 10:35:48");
-INSERT INTO tbl_ms_parametros VALUES("7","RAZON_SOCIAL","S. DE R. L. DE C. V.","","","","");
-INSERT INTO tbl_ms_parametros VALUES("8","TELEFONO_EMPRESA","9970-5887","","","","");
-INSERT INTO tbl_ms_parametros VALUES("9","DIRECCION","BO. EL CENTRO, DOMICILIO RENTADO, ATRÁS DE LA DESPENSA FAMILIAR, TELA. ATLÁNTIDA","","","","");
-INSERT INTO tbl_ms_parametros VALUES("10","RTN","01079021315692","","","","");
+INSERT INTO tbl_ms_parametros VALUES("1","ADMIN_INTENTOS","3","","0000-00-00 00:00:00","","0000-00-00 00:00:00");
+INSERT INTO tbl_ms_parametros VALUES("2","ADMIN_PREGUNTAS","2","","0000-00-00 00:00:00","","0000-00-00 00:00:00");
+INSERT INTO tbl_ms_parametros VALUES("3","ADMIN_CORREO","uniformesdelatlantico@hotmail.com","","0000-00-00 00:00:00","","0000-00-00 00:00:00");
+INSERT INTO tbl_ms_parametros VALUES("4","FECHA_VENCIMIENTO","30","","0000-00-00 00:00:00","","0000-00-00 00:00:00");
+INSERT INTO tbl_ms_parametros VALUES("5","IMPUESTO","15","","0000-00-00 00:00:00","ADMIN","2023-04-16 02:57:05");
+INSERT INTO tbl_ms_parametros VALUES("6","NOMBRE_EMPRESA","INVERSIONES UNIFORMES DEL ATLÁNTICO","","0000-00-00 00:00:00","ADMIN","2023-04-18 10:35:48");
+INSERT INTO tbl_ms_parametros VALUES("7","RAZON_SOCIAL","S. DE R. L. DE C. V.","","0000-00-00 00:00:00","","0000-00-00 00:00:00");
+INSERT INTO tbl_ms_parametros VALUES("8","TELEFONO_EMPRESA","9970-5887","","0000-00-00 00:00:00","","0000-00-00 00:00:00");
+INSERT INTO tbl_ms_parametros VALUES("9","DIRECCION","BO. EL CENTRO, DOMICILIO RENTADO, ATRÁS DE LA DESPENSA FAMILIAR, TELA. ATLÁNTIDA","","0000-00-00 00:00:00","","0000-00-00 00:00:00");
+INSERT INTO tbl_ms_parametros VALUES("10","RTN","01079021315692","","0000-00-00 00:00:00","","0000-00-00 00:00:00");
 
 
 
@@ -1759,13 +1760,13 @@ CREATE TABLE `tbl_ms_usuarios` (
   CONSTRAINT `tbl_ms_usuarios_ibfk_1` FOREIGN KEY (`id_rol`) REFERENCES `tbl_ms_roles` (`id_rol`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=193 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-INSERT INTO tbl_ms_usuarios VALUES("1","ADMIN","ADMINISTRADOR","1","ca29863b8b4be2fd63b5bc73276c8e407cda29e03da5c4646b96612110aaf901","2023-06-03 00:07:12","0","","","admin@atlantico.com","733464113f1d79251461-4ff19d069fb2ec635522-a12faeec9a0c21dd0b33-435908728e5136f3ae80","","2021-08-20 01:34:15","ADMIN","2023-04-28 20:23:52","1");
-INSERT INTO tbl_ms_usuarios VALUES("19","ALEXANDER","ALEXANDER AGUILAR","2","3ea87a56da3844b420ec2925ae922bc731ec16a4fc44dcbeafdad49b0e61d39c","","0","","","alex@hotmail.com","","","2023-02-04 01:16:01","ADMIN","2023-03-22 10:36:01","4");
-INSERT INTO tbl_ms_usuarios VALUES("20","ERIKA","ERIKA AYALA","2","18ac3e7343f016890c510e93f935261169d9e3f565436429830faf0934f4f8e4","","0","","","erika3@gmail.com","","","2023-02-08 21:40:58","ADMIN","2023-03-22 10:35:34","2");
-INSERT INTO tbl_ms_usuarios VALUES("104","HECTOR","HECTOR BUSTILLOO","2","3ea87a56da3844b420ec2925ae922bc731ec16a4fc44dcbeafdad49b0e61d39c","","2","","","hector@hotmail.com","","ADMIN","2023-03-08 15:22:09","ADMIN","2023-03-22 21:14:43","1");
-INSERT INTO tbl_ms_usuarios VALUES("190","ANA","ANA","3","c7a1efa3453d748fe74f4ec5ea1decee819cdc2898c933d00348507ccf99dfcb","","0","","","ana@hotmail.com","","ADMIN","2023-05-04 21:05:39","","","1");
-INSERT INTO tbl_ms_usuarios VALUES("191","ANALIA","ANALIA","3","c7a1efa3453d748fe74f4ec5ea1decee819cdc2898c933d00348507ccf99dfcb","","0","","","analia@hotmail.com","","ADMIN","2023-05-04 21:06:03","","","1");
-INSERT INTO tbl_ms_usuarios VALUES("192","LOPEZ","LOPEZ","1","c7a1efa3453d748fe74f4ec5ea1decee819cdc2898c933d00348507ccf99dfcb","2023-06-03 00:08:14","2","","","lopez@hotmail.com","","ADMIN","2023-05-04 21:07:37","ADMIN","2023-06-02 23:57:58","4");
+INSERT INTO tbl_ms_usuarios VALUES("1","ADMIN","ADMINISTRADOR","1","ca29863b8b4be2fd63b5bc73276c8e407cda29e03da5c4646b96612110aaf901","2023-06-03 00:07:12","0","0","0000-00-00 00:00:00","admin@atlantico.com","733464113f1d79251461-4ff19d069fb2ec635522-a12faeec9a0c21dd0b33-435908728e5136f3ae80","","2021-08-20 01:34:15","ADMIN","2023-04-28 20:23:52","1");
+INSERT INTO tbl_ms_usuarios VALUES("19","ALEXANDER","ALEXANDER AGUILAR","2","3ea87a56da3844b420ec2925ae922bc731ec16a4fc44dcbeafdad49b0e61d39c","0000-00-00 00:00:00","0","0","0000-00-00 00:00:00","alex@hotmail.com","","","2023-02-04 01:16:01","ADMIN","2023-03-22 10:36:01","4");
+INSERT INTO tbl_ms_usuarios VALUES("20","ERIKA","ERIKA AYALA","2","18ac3e7343f016890c510e93f935261169d9e3f565436429830faf0934f4f8e4","0000-00-00 00:00:00","0","0","0000-00-00 00:00:00","erika3@gmail.com","","","2023-02-08 21:40:58","ADMIN","2023-03-22 10:35:34","2");
+INSERT INTO tbl_ms_usuarios VALUES("104","HECTOR","HECTOR BUSTILLOO","2","3ea87a56da3844b420ec2925ae922bc731ec16a4fc44dcbeafdad49b0e61d39c","0000-00-00 00:00:00","2","0","0000-00-00 00:00:00","hector@hotmail.com","","ADMIN","2023-03-08 15:22:09","ADMIN","2023-03-22 21:14:43","1");
+INSERT INTO tbl_ms_usuarios VALUES("190","ANA","ANA","3","c7a1efa3453d748fe74f4ec5ea1decee819cdc2898c933d00348507ccf99dfcb","0000-00-00 00:00:00","0","0","0000-00-00 00:00:00","ana@hotmail.com","","ADMIN","2023-05-04 21:05:39","","0000-00-00 00:00:00","1");
+INSERT INTO tbl_ms_usuarios VALUES("191","ANALIA","ANALIA","3","c7a1efa3453d748fe74f4ec5ea1decee819cdc2898c933d00348507ccf99dfcb","0000-00-00 00:00:00","0","0","0000-00-00 00:00:00","analia@hotmail.com","","ADMIN","2023-05-04 21:06:03","","0000-00-00 00:00:00","1");
+INSERT INTO tbl_ms_usuarios VALUES("192","LOPEZ","LOPEZ","1","c7a1efa3453d748fe74f4ec5ea1decee819cdc2898c933d00348507ccf99dfcb","2023-06-03 00:08:14","2","0","0000-00-00 00:00:00","lopez@hotmail.com","","ADMIN","2023-05-04 21:07:37","ADMIN","2023-06-02 23:57:58","4");
 
 
 
@@ -1828,19 +1829,19 @@ CREATE TABLE `tbl_producto` (
   CONSTRAINT `Producto_CodTipoProducto` FOREIGN KEY (`cod_tipo_producto`) REFERENCES `tbl_tipo_producto` (`cod_tipo_producto`)
 ) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-INSERT INTO tbl_producto VALUES("12","TELA","TELA BLANCA","200","30","3","30.00","1","","","","","77");
-INSERT INTO tbl_producto VALUES("13","PINTURA","ROJA","10","100","3","20.00","1","","","","","48");
+INSERT INTO tbl_producto VALUES("12","TELA","TELA BLANCA","200","30","3","30.00","1","","0000-00-00 00:00:00","","0000-00-00 00:00:00","77");
+INSERT INTO tbl_producto VALUES("13","PINTURA","ROJA","10","100","3","20.00","1","","0000-00-00 00:00:00","","0000-00-00 00:00:00","48");
 INSERT INTO tbl_producto VALUES("15","MONOGRAMA","MONOGRAMA ESCOLAR","3","4","4","65.20","1","ADMIN","2023-04-13 10:21:05","ADMIN","2023-04-13 10:30:07","23");
-INSERT INTO tbl_producto VALUES("16","PINTURA PARA SERIGRAFíA","PINTURA","12","23","3","100.00","1","ADMIN","2023-04-13 10:27:48","","","201");
-INSERT INTO tbl_producto VALUES("17","PAPEL VINIL","PAPEL","200","100","3","23.00","1","ADMIN","2023-04-13 10:29:04","","","122");
+INSERT INTO tbl_producto VALUES("16","PINTURA PARA SERIGRAFíA","PINTURA","12","23","3","100.00","1","ADMIN","2023-04-13 10:27:48","","0000-00-00 00:00:00","201");
+INSERT INTO tbl_producto VALUES("17","PAPEL VINIL","PAPEL","200","100","3","23.00","1","ADMIN","2023-04-13 10:29:04","","0000-00-00 00:00:00","122");
 INSERT INTO tbl_producto VALUES("18","BUSO ESCOLAR","BUSO","20","40","4","100.00","1","ADMIN","2023-04-13 10:30:40","ADMIN","2023-04-13 10:30:55","16");
-INSERT INTO tbl_producto VALUES("19","CAMISA BLANCA","CAMISA","5","100","4","220.00","1","ADMIN","2023-04-13 15:16:06","","","959");
-INSERT INTO tbl_producto VALUES("20","HILASA","HILASA","2","23","3","43.00","1","ADMIN","2023-04-17 01:33:35","","","124");
-INSERT INTO tbl_producto VALUES("21","BANDERA HONDURAS","BANDERA","12","22","4","150.00","1","ADMIN","2023-04-24 15:21:08","","","11");
+INSERT INTO tbl_producto VALUES("19","CAMISA BLANCA","CAMISA","5","100","4","220.00","1","ADMIN","2023-04-13 15:16:06","","0000-00-00 00:00:00","959");
+INSERT INTO tbl_producto VALUES("20","HILASA","HILASA","2","23","3","43.00","1","ADMIN","2023-04-17 01:33:35","","0000-00-00 00:00:00","124");
+INSERT INTO tbl_producto VALUES("21","BANDERA HONDURAS","BANDERA","12","22","4","150.00","1","ADMIN","2023-04-24 15:21:08","","0000-00-00 00:00:00","11");
 INSERT INTO tbl_producto VALUES("22","TERMO","TERMO","12","45","4","100.00","1","ADMIN","2023-04-24 15:21:30","ADMIN","2023-04-24 15:31:16","22");
-INSERT INTO tbl_producto VALUES("23","COJíN","COJíN","3","45","4","170.00","1","ADMIN","2023-04-24 15:22:09","","","100");
-INSERT INTO tbl_producto VALUES("24","PANTALóN ESCOLAR","PANTALóN","120","200","4","250.00","1","ADMIN","2023-04-24 15:22:42","","","6");
-INSERT INTO tbl_producto VALUES("25","CUBALLERA BLANCA","CUBALLERA","24","55","4","250.00","1","ADMIN","2023-04-24 15:23:06","","","28");
+INSERT INTO tbl_producto VALUES("23","COJíN","COJíN","3","45","4","170.00","1","ADMIN","2023-04-24 15:22:09","","0000-00-00 00:00:00","100");
+INSERT INTO tbl_producto VALUES("24","PANTALóN ESCOLAR","PANTALóN","120","200","4","250.00","1","ADMIN","2023-04-24 15:22:42","","0000-00-00 00:00:00","6");
+INSERT INTO tbl_producto VALUES("25","CUBALLERA BLANCA","CUBALLERA","24","55","4","250.00","1","ADMIN","2023-04-24 15:23:06","","0000-00-00 00:00:00","28");
 
 
 
