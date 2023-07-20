@@ -50,7 +50,7 @@
         <div class="form-group col-md-16 d-flex align-items-center">
           <input id="txtPasswordConfirm" name="txtPasswordConfirm" class="form-control" type="password" placeholder="Confirmar contraseña" required onpaste="return borrarPegado(event)">
           <button type="button" class="btn btn-outline-secondary" id="btnTogglePassword2">
-            <i class="fa fa-eye-slash" id="iconTogglePassword"></i>
+            <i class="fa fa-eye-slash" id="iconTogglePassword2"></i>
           </button>
         </div>
         <div class="form-group btn-container">
