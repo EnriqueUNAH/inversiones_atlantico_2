@@ -52,7 +52,7 @@
         <div class="form-group">
           <label class="control-label">CONTRASEÑA</label>
           <div class="input-group">
-            <input id="txtPassword" name="txtPassword" class="form-control" type="password" placeholder="Contraseña" onpaste="return borrarPegado(event)">
+            <input id="txtPassword" name="txtPassword" class="form-control" type="password" placeholder="Contraseña" maxlength="16" onkeypress="return event.charCode!=32" onpaste="return borrarPegado(event)">
             <div class="input-group-append">
               <button type="button" class="btn btn-outline-secondary" id="btnTogglePassword">
                 <i class="fa fa-eye-slash" id="iconTogglePassword"></i>

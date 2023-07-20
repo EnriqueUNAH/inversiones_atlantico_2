@@ -160,7 +160,7 @@
                       <label for="yourUsername" class="form-label">NOMBRE DE USUARIO:</label>
                       <div class="input-group has-validation">
                         <span class="input-group-text" id="inputGroupPrepend">@</span>
-                        <input type="text" style="text-transform:uppercase" name="username" placeholder="Usuario" onkeypress="javascript: return validar_espacio(event,this)" onKeyUp="maximo(this,100)" onKeyDown="maximo(this,100)" class="form-control" id="yourUsername" required value="<?php echo isset($_POST['username']) ? $_POST['username'] : ''; ?>" maxlength="15" onkeypress="if(this.value.length == 15) return false; ">
+                        <input type="text" style="text-transform:uppercase" name="username" placeholder="Usuario" maxlength="15" onkeypress="javascript: return validar_espacio(event,this)" onKeyUp="maximo(this,100)" onKeyDown="maximo(this,100)" class="form-control" id="yourUsername" required value="<?php echo isset($_POST['username']) ? $_POST['username'] : ''; ?>" maxlength="15" onkeypress="if(this.value.length == 15) return false; ">
 
                         <div class="invalid-feedback">POR FAVOR ESCRIBA UN NOMBRE DE USUARIO.</div>
                       </div>
@@ -169,17 +169,21 @@
                     <div class="col-12">
                       <label for="yourPassword" class="form-label">CONTRASEÑA:</label>
                       <div class="input-group">
-                        <input type="Password" Class="form-control" name="password" placeholder="Ingrese su contraseña" onkeypress="javascript: return validar_espacio(event,this)" class="form-control" id="yourPassword" required value="<?php echo isset($_POST['password']) ? $_POST['password'] : ''; ?>" onpaste="return borrarPegado(event)">
+                        <input type="Password" Class="form-control" name="password" placeholder="Ingrese su contraseña" maxlength="16" onkeypress="return event.charCode!=32" onkeypress="javascript: return validar_espacio(event,this)" class="form-control" id="yourPassword" required value="<?php echo isset($_POST['password']) ? $_POST['password'] : ''; ?>" onpaste="return borrarPegado(event)">
                         <div class="input-group-append">
                           <button id="show_password" class="btn btn-primary" type="button" onclick="mostrarPassword()"> <span class="fa fa-eye-slash icon"></span> </button>
                         </div>
                       </div>
                     </div>
+                    
 
                     <div class="col-12">
                       <label for="yourPassword" class="form-label">CONFIRMAR CONTRASEÑA:</label>
                       <div class="input-group">
-                        <input type="Password" Class="form-control" name="password1" placeholder="Confirme su contraseña" onkeypress="javascript: return validar_espacio(event,this)" class="form-control" id="yourPassword1" required value="<?php echo isset($_POST['password1']) ? $_POST['password1'] : ''; ?>" onpaste="return borrarPegado(event)">
+                        <input type="Password" Class="form-control" name="password1" placeholder="Confirme su contraseña" maxlength="16" onkeypress="return event.charCode!=32" onkeypress="javascript: return validar_espacio(event,this)" class="form-control" id="yourPassword1" required value="<?php echo isset($_POST['password1']) ? $_POST['password1'] : ''; ?>" onpaste="return borrarPegado(event)">
+                        <div id="message_usuario" style="position: absolute; left: 20px; top: 60px; background-color: #EFEFEF; 
+					color:black; font-weight: 500; z-index:5; padding:8px;  border: 2px solid #FF4C12;" hidden>
+      				Introduzca solo letras mayúsculas(A-Z).</div>
                         <div class="input-group-append">
                           <button id="show_password" class="btn btn-primary" type="button" onclick="mostrarPassword1()"> <span class="fa fa-eye-slash icon"></span> </button>
                         </div>
