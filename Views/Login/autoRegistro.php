@@ -169,7 +169,7 @@
                     <div class="col-12">
                       <label for="yourPassword" class="form-label">CONTRASEÑA:</label>
                       <div class="input-group">
-                        <input type="Password" Class="form-control" name="password" placeholder="Ingrese su contraseña" onkeypress="javascript: return validar_espacio(event,this)" class="form-control" id="yourPassword" required value="<?php echo isset($_POST['password']) ? $_POST['password'] : ''; ?>" onpaste="return borrarPegado(event)">
+                        <input type="Password" Class="form-control" name="password" placeholder="Ingrese su contraseña" maxlength="16" onkeypress="return event.charCode!=32" onkeypress="javascript: return validar_espacio(event,this)" class="form-control" id="yourPassword" required value="<?php echo isset($_POST['password']) ? $_POST['password'] : ''; ?>" onpaste="return borrarPegado(event)">
                         <div class="input-group-append">
                           <button id="show_password" class="btn btn-primary" type="button" onclick="mostrarPassword()"> <span class="fa fa-eye-slash icon"></span> </button>
                         </div>
@@ -179,7 +179,7 @@
                     <div class="col-12">
                       <label for="yourPassword" class="form-label">CONFIRMAR CONTRASEÑA:</label>
                       <div class="input-group">
-                        <input type="Password" Class="form-control" name="password1" placeholder="Confirme su contraseña" onkeypress="javascript: return validar_espacio(event,this)" class="form-control" id="yourPassword1" required value="<?php echo isset($_POST['password1']) ? $_POST['password1'] : ''; ?>" onpaste="return borrarPegado(event)">
+                        <input type="Password" Class="form-control" name="password1" placeholder="Confirme su contraseña" maxlength="16" onkeypress="return event.charCode!=32" onkeypress="javascript: return validar_espacio(event,this)" class="form-control" id="yourPassword1" required value="<?php echo isset($_POST['password1']) ? $_POST['password1'] : ''; ?>" onpaste="return borrarPegado(event)">
                         <div class="input-group-append">
                           <button id="show_password" class="btn btn-primary" type="button" onclick="mostrarPassword1()"> <span class="fa fa-eye-slash icon"></span> </button>
                         </div>
