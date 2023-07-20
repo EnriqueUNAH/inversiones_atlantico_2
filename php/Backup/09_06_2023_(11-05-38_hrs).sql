@@ -115,12 +115,11 @@ CREATE TABLE `tbl_cliente` (
   `modificado_por` varchar(15) DEFAULT NULL COMMENT 'Nombre del usuario que modificó algún dato del cliente.',
   `fecha_modificacion` datetime DEFAULT NULL COMMENT 'Fecha en que se mdificó algún dato del cliente.',
   PRIMARY KEY (`cod_cliente`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO tbl_cliente VALUES("5","","CONSUMIDOR FINAL","","0","","","0000-00-00 00:00:00","1","1","","0000-00-00 00:00:00","ADMIN","2023-04-13 00:57:28");
 INSERT INTO tbl_cliente VALUES("6","801200002389","DORCA NINOSCA AGUILAR","A","97293000","dorca@hotmail.com","LOS PINOS","0000-00-00 00:00:00","0","1","ADMIN","2023-04-11 21:21:35","ADMIN","2023-04-13 00:36:35");
 INSERT INTO tbl_cliente VALUES("11","0801000011112","ELIZABETH REYES","","98237281","","TELA","0000-00-00 00:00:00","1","1","","0000-00-00 00:00:00","","0000-00-00 00:00:00");
-INSERT INTO tbl_cliente VALUES("12","99999","nnnnnnnnn","hhhh","0","","","0000-00-00 00:00:00","0","1","","0000-00-00 00:00:00","","0000-00-00 00:00:00");
 
 
 
@@ -589,7 +588,7 @@ CREATE TABLE `tbl_ms_bitacora` (
   KEY `bitacora_usuario_idx` (`id_usuario`),
   CONSTRAINT `bitacora_objeto` FOREIGN KEY (`id_objeto`) REFERENCES `tbl_ms_objetos` (`id_objeto`),
   CONSTRAINT `bitacora_usuario` FOREIGN KEY (`id_usuario`) REFERENCES `tbl_ms_usuarios` (`id_usuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=938 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=940 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO tbl_ms_bitacora VALUES("1","2023-04-12 21:34:54","1","2","INGRESO","INGRESO AL MODULO DE ROLES");
 INSERT INTO tbl_ms_bitacora VALUES("2","2023-04-12 21:48:25","1","2","INGRESO","INGRESO AL MODULO DE ROLES");
@@ -1528,6 +1527,8 @@ INSERT INTO tbl_ms_bitacora VALUES("934","2023-06-03 00:08:14","192","2","INGRES
 INSERT INTO tbl_ms_bitacora VALUES("935","2023-06-03 00:08:22","192","23","INGRESO","INGRESO AL MÓDULO DE ROLES");
 INSERT INTO tbl_ms_bitacora VALUES("936","2023-06-03 00:08:49","192","24","INGRESO","INGRESO AL MÓDULO USUARIOS");
 INSERT INTO tbl_ms_bitacora VALUES("937","2023-06-03 00:14:22","192","2","CERRAR SESIÓN","USUARIO CERRÓ SESIÓN");
+INSERT INTO tbl_ms_bitacora VALUES("938","2023-06-06 13:47:18","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("939","2023-06-09 09:54:06","1","2","INGRESO","INGRESO AL SISTEMA");
 
 
 
@@ -1555,7 +1556,7 @@ CREATE TABLE `tbl_ms_objetos` (
   `descripcion` text CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci DEFAULT NULL COMMENT 'Descripción del objeto.',
   `estado` int(11) NOT NULL DEFAULT 1 COMMENT 'Estado del objeto.',
   PRIMARY KEY (`id_objeto`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO tbl_ms_objetos VALUES("1","BACKUP","","1");
 INSERT INTO tbl_ms_objetos VALUES("2","BITÁCORA","","1");
@@ -1760,7 +1761,7 @@ CREATE TABLE `tbl_ms_usuarios` (
   CONSTRAINT `tbl_ms_usuarios_ibfk_1` FOREIGN KEY (`id_rol`) REFERENCES `tbl_ms_roles` (`id_rol`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=193 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-INSERT INTO tbl_ms_usuarios VALUES("1","ADMIN","ADMINISTRADOR","1","ca29863b8b4be2fd63b5bc73276c8e407cda29e03da5c4646b96612110aaf901","2023-06-03 00:07:12","0","0","0000-00-00 00:00:00","admin@atlantico.com","733464113f1d79251461-4ff19d069fb2ec635522-a12faeec9a0c21dd0b33-435908728e5136f3ae80","","2021-08-20 01:34:15","ADMIN","2023-04-28 20:23:52","1");
+INSERT INTO tbl_ms_usuarios VALUES("1","ADMIN","ADMINISTRADOR","1","ca29863b8b4be2fd63b5bc73276c8e407cda29e03da5c4646b96612110aaf901","2023-06-09 09:54:06","0","0","0000-00-00 00:00:00","admin@atlantico.com","733464113f1d79251461-4ff19d069fb2ec635522-a12faeec9a0c21dd0b33-435908728e5136f3ae80","","2021-08-20 01:34:15","ADMIN","2023-04-28 20:23:52","1");
 INSERT INTO tbl_ms_usuarios VALUES("19","ALEXANDER","ALEXANDER AGUILAR","2","3ea87a56da3844b420ec2925ae922bc731ec16a4fc44dcbeafdad49b0e61d39c","0000-00-00 00:00:00","0","0","0000-00-00 00:00:00","alex@hotmail.com","","","2023-02-04 01:16:01","ADMIN","2023-03-22 10:36:01","4");
 INSERT INTO tbl_ms_usuarios VALUES("20","ERIKA","ERIKA AYALA","2","18ac3e7343f016890c510e93f935261169d9e3f565436429830faf0934f4f8e4","0000-00-00 00:00:00","0","0","0000-00-00 00:00:00","erika3@gmail.com","","","2023-02-08 21:40:58","ADMIN","2023-03-22 10:35:34","2");
 INSERT INTO tbl_ms_usuarios VALUES("104","HECTOR","HECTOR BUSTILLOO","2","3ea87a56da3844b420ec2925ae922bc731ec16a4fc44dcbeafdad49b0e61d39c","0000-00-00 00:00:00","2","0","0000-00-00 00:00:00","hector@hotmail.com","","ADMIN","2023-03-08 15:22:09","ADMIN","2023-03-22 21:14:43","1");

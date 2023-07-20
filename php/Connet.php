@@ -17,7 +17,7 @@ error_reporting(E_PARSE);
 const USER = "root";
 
 //Servidor de mysql
- const SERVER = "127.0.0.1:33065"; 
+ const SERVER = "localhost"; 
 
 //Nombre de la base de datos
 const BD = "db_inversiones_atlantico";

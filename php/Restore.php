@@ -15,8 +15,13 @@ $con->query("SET FOREIGN_KEY_CHECKS=1");
 $con->close();
 if($totalErrors<=0){
 	// echo "Restauración completada con éxito";
-	header("location:../php/index.php"); 
-	
+	//header("location:../php/index.php"); 
+	?>
+<script>
+     window.location.href = "http://localhost/inversiones_atlantico_2/dashboard";
+</script>
+
+<?php
 }else{
 	echo "Ocurrio un error inesperado, no se pudo hacer la restauración completamente";
 }
