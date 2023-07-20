@@ -160,7 +160,7 @@
                       <label for="yourUsername" class="form-label">NOMBRE DE USUARIO:</label>
                       <div class="input-group has-validation">
                         <span class="input-group-text" id="inputGroupPrepend">@</span>
-                        <input type="text" style="text-transform:uppercase" name="username" placeholder="Usuario" onkeypress="javascript: return validar_espacio(event,this)" onKeyUp="maximo(this,100)" onKeyDown="maximo(this,100)" class="form-control" id="yourUsername" required value="<?php echo isset($_POST['username']) ? $_POST['username'] : ''; ?>" maxlength="15" onkeypress="if(this.value.length == 15) return false; ">
+                        <input type="text" style="text-transform:uppercase" name="username" placeholder="Usuario" maxlength="15" onkeypress="javascript: return validar_espacio(event,this)" onKeyUp="maximo(this,100)" onKeyDown="maximo(this,100)" class="form-control" id="yourUsername" required value="<?php echo isset($_POST['username']) ? $_POST['username'] : ''; ?>" maxlength="15" onkeypress="if(this.value.length == 15) return false; ">
 
                         <div class="invalid-feedback">POR FAVOR ESCRIBA UN NOMBRE DE USUARIO.</div>
                       </div>
