@@ -175,11 +175,15 @@
                         </div>
                       </div>
                     </div>
+                    
 
                     <div class="col-12">
                       <label for="yourPassword" class="form-label">CONFIRMAR CONTRASEÑA:</label>
                       <div class="input-group">
                         <input type="Password" Class="form-control" name="password1" placeholder="Confirme su contraseña" maxlength="16" onkeypress="return event.charCode!=32" onkeypress="javascript: return validar_espacio(event,this)" class="form-control" id="yourPassword1" required value="<?php echo isset($_POST['password1']) ? $_POST['password1'] : ''; ?>" onpaste="return borrarPegado(event)">
+                        <div id="message_usuario" style="position: absolute; left: 20px; top: 60px; background-color: #EFEFEF; 
+					color:black; font-weight: 500; z-index:5; padding:8px;  border: 2px solid #FF4C12;" hidden>
+      				Introduzca solo letras mayúsculas(A-Z).</div>
                         <div class="input-group-append">
                           <button id="show_password" class="btn btn-primary" type="button" onclick="mostrarPassword1()"> <span class="fa fa-eye-slash icon"></span> </button>
                         </div>
