@@ -134,11 +134,11 @@ DROP TABLE IF EXISTS `tbl_detalle_temp_promo`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tbl_detalle_temp_promo` (
-  `id_promocion_producto` int NOT NULL AUTO_INCREMENT,
+  `cod_promocion_producto` int NOT NULL AUTO_INCREMENT,
   `token_user` varchar(50) DEFAULT NULL,
   `cod_producto` int DEFAULT NULL,
   `cantidad` int DEFAULT NULL,
-  PRIMARY KEY (`id_promocion_producto`)
+  PRIMARY KEY (`cod_promocion_producto`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -167,7 +167,7 @@ CREATE TABLE `tbl_cliente` (
   `correo_electronico` varchar(30) DEFAULT NULL COMMENT 'Correo electrónico del cliente.',
   `direccion` varchar(255) DEFAULT NULL COMMENT 'Dirección del cliente.',
   `fecha_registro` datetime DEFAULT NULL COMMENT 'Fecha en que se registró al cliente.',
-  `id_usuario` int DEFAULT NULL COMMENT 'cod del usuario que registró a ese cliente.',
+  `cod_usuario` int DEFAULT NULL COMMENT 'cod del usuario que registró a ese cliente.',
   `estado` int NOT NULL DEFAULT '1' COMMENT 'Estado del cliente.',
   `creado_por` varchar(15) DEFAULT NULL COMMENT 'Nombre de quién creó al cliente.',
   `fecha_creacion` datetime DEFAULT NULL COMMENT 'Fecha de creación del cliente.',
@@ -197,11 +197,11 @@ CREATE TABLE `tbl_compra` (
   `cod_compra` int NOT NULL AUTO_INCREMENT COMMENT 'Llave primaria de la compra. ',
   `total_pagado` decimal(8,2) DEFAULT NULL COMMENT 'Total que se pagó en la compra.',
   `fecha` datetime DEFAULT CURRENT_TIMESTAMP COMMENT 'Fecha en la que se realizó la compra.',
-  `id_usuario` bigint DEFAULT NULL COMMENT 'cod del usuario que hizo la compra.',
+  `cod_usuario` bigint DEFAULT NULL COMMENT 'cod del usuario que hizo la compra.',
   `estado` int DEFAULT '1' COMMENT 'Estado de la compra.',
   PRIMARY KEY (`cod_compra`),
-  KEY `Compra_idUsuario_idx` (`id_usuario`),
-  CONSTRAINT `Compra_idUsuario` FOREIGN KEY (`id_usuario`) REFERENCES `tbl_ms_usuarios` (`id_usuario`)
+  KEY `Compra_idUsuario_idx` (`cod_usuario`),
+  CONSTRAINT `Compra_idUsuario` FOREIGN KEY (`cod_usuario`) REFERENCES `tbl_ms_usuarios` (`cod_usuario`)
 ) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Tabla que almacena los datos principales de una compra.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -229,11 +229,11 @@ CREATE TABLE `tbl_configuracion_cai` (
   `rango_actual` int DEFAULT NULL COMMENT 'Rango actual del talonario.',
   `numero_CAI` varchar(100) DEFAULT NULL COMMENT 'Número CAI de la Empresa.',
   `fecha_vencimiento` date DEFAULT NULL COMMENT 'Fecha de vencimiento del talonario.',
-  `id_usuario` bigint DEFAULT NULL COMMENT 'cod del usuario que registró el talonario.',
+  `cod_usuario` bigint DEFAULT NULL COMMENT 'cod del usuario que registró el talonario.',
   `estado` int NOT NULL COMMENT 'Estado del talonario.',
   PRIMARY KEY (`cod_talonario`),
-  KEY `CAI_IdUsuario_idx` (`id_usuario`),
-  CONSTRAINT `CAI_IdUsuario` FOREIGN KEY (`id_usuario`) REFERENCES `tbl_ms_usuarios` (`id_usuario`)
+  KEY `CAI_IdUsuario_idx` (`cod_usuario`),
+  CONSTRAINT `CAI_IdUsuario` FOREIGN KEY (`cod_usuario`) REFERENCES `tbl_ms_usuarios` (`cod_usuario`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Tabla que sirve para controlar el CAI y los rangos disponibles de un talonario.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -377,7 +377,7 @@ CREATE TABLE `tbl_factura` (
   `cod_factura` bigint NOT NULL AUTO_INCREMENT COMMENT 'Código de la factura.',
   `numero_factura` bigint DEFAULT NULL COMMENT 'Número de factura en caso de usar el talonario.',
   `fecha` datetime DEFAULT CURRENT_TIMESTAMP COMMENT 'Fecha en que se realizó la venta.',
-  `id_usuario` bigint DEFAULT NULL COMMENT 'cod del usuario que realizó la venta.',
+  `cod_usuario` bigint DEFAULT NULL COMMENT 'cod del usuario que realizó la venta.',
   `cod_cliente` int DEFAULT NULL COMMENT 'Código del cliente al que se le realizó la venta. (En caso de que se haya facturado con RTN).',
   `totalfactura` decimal(10,2) DEFAULT NULL COMMENT 'Total de la factura. Es decir, total a pagar.',
   `estado` int NOT NULL DEFAULT '1' COMMENT 'Estado de la factura.',
@@ -441,17 +441,17 @@ DROP TABLE IF EXISTS `tbl_ms_bitacora`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tbl_ms_bitacora` (
-  `id_bitacora` int NOT NULL AUTO_INCREMENT COMMENT 'cod de la bitácora.',
+  `cod_bitacora` int NOT NULL AUTO_INCREMENT COMMENT 'cod de la bitácora.',
   `fecha` datetime DEFAULT NULL COMMENT 'Fecha en que sucedió el evento.',
-  `id_usuario` bigint DEFAULT NULL COMMENT 'cod del usuario que realizó algún movimiento.',
-  `id_objeto` bigint DEFAULT NULL COMMENT 'cod del objeto (pantalla) en la que se dió el evento.',
+  `cod_usuario` bigint DEFAULT NULL COMMENT 'cod del usuario que realizó algún movimiento.',
+  `cod_objeto` bigint DEFAULT NULL COMMENT 'cod del objeto (pantalla) en la que se dió el evento.',
   `accion` varchar(20) DEFAULT NULL COMMENT 'Acción realizada.',
   `descripcion` varchar(255) DEFAULT NULL COMMENT 'Descripción detallada del evento.',
-  PRIMARY KEY (`id_bitacora`),
-  KEY `bitacora_objeto_idx` (`id_objeto`),
-  KEY `bitacora_usuario_idx` (`id_usuario`),
-  CONSTRAINT `bitacora_objeto` FOREIGN KEY (`id_objeto`) REFERENCES `tbl_ms_objetos` (`id_objeto`),
-  CONSTRAINT `bitacora_usuario` FOREIGN KEY (`id_usuario`) REFERENCES `tbl_ms_usuarios` (`id_usuario`)
+  PRIMARY KEY (`cod_bitacora`),
+  KEY `bitacora_objeto_idx` (`cod_objeto`),
+  KEY `bitacora_usuario_idx` (`cod_usuario`),
+  CONSTRAINT `bitacora_objeto` FOREIGN KEY (`cod_objeto`) REFERENCES `tbl_ms_objetos` (`cod_objeto`),
+  CONSTRAINT `bitacora_usuario` FOREIGN KEY (`cod_usuario`) REFERENCES `tbl_ms_usuarios` (`cod_usuario`)
 ) ENGINE=InnoDB AUTO_INCREMENT=970 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Tabla que almacena todos los eventos que se generen dentro del sistema.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -473,14 +473,14 @@ DROP TABLE IF EXISTS `tbl_ms_hist_contrasena`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tbl_ms_hist_contrasena` (
-  `id_usuario` bigint NOT NULL COMMENT 'cod del usuario.',
+  `cod_usuario` bigint NOT NULL COMMENT 'cod del usuario.',
   `contrasena` varchar(100) DEFAULT NULL COMMENT 'Contraseña del usuario.',
   `creado_por` varchar(15) DEFAULT NULL COMMENT 'Nombre del usuario.',
   `fecha_creacion` datetime DEFAULT NULL COMMENT 'Fecha de creación.',
   `modificado_por` varchar(15) DEFAULT NULL COMMENT 'Nombre del usuario que modificó.',
   `fecha_modificacion` datetime DEFAULT NULL COMMENT 'Fecha de modificación.',
-  PRIMARY KEY (`id_usuario`),
-  CONSTRAINT `histContra_idUsuario` FOREIGN KEY (`id_usuario`) REFERENCES `tbl_ms_usuarios` (`id_usuario`)
+  PRIMARY KEY (`cod_usuario`),
+  CONSTRAINT `histContra_idUsuario` FOREIGN KEY (`cod_usuario`) REFERENCES `tbl_ms_usuarios` (`cod_usuario`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Tabla que almacena el historial de las contraseñas de los usuarios.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -501,11 +501,11 @@ DROP TABLE IF EXISTS `tbl_ms_objetos`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tbl_ms_objetos` (
-  `id_objeto` bigint NOT NULL AUTO_INCREMENT COMMENT 'cod el objeto.',
+  `cod_objeto` bigint NOT NULL AUTO_INCREMENT COMMENT 'cod el objeto.',
   `objeto` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL COMMENT 'Nombre del objeto (Pantalla).',
   `descripcion` text CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci COMMENT 'Descripción del objeto.',
   `estado` int NOT NULL DEFAULT '1' COMMENT 'Estado del objeto.',
-  PRIMARY KEY (`id_objeto`)
+  PRIMARY KEY (`cod_objeto`)
 ) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci COMMENT='Tabla que almacena el nombre del objeto (Pantalla).';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -527,14 +527,14 @@ DROP TABLE IF EXISTS `tbl_ms_parametros`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tbl_ms_parametros` (
-  `id_parametro` int NOT NULL AUTO_INCREMENT COMMENT 'cod del parámetro.',
-  `parametro` varchar(50) DEFAULT NULL,
-  `valor` varchar(100) DEFAULT NULL COMMENT 'Valor que tendrá el parámetro.',
+  `cod_parametro` int NOT NULL AUTO_INCREMENT COMMENT 'cod del parámetro.',
+  `parametro` varchar(50) NOT NULL,
+  `valor` varchar(100) NOT NULL COMMENT 'Valor que tendrá el parámetro.',
   `creado_por` varchar(15) DEFAULT NULL COMMENT 'Nombre del usuario que registró el parámetro.',
   `fecha_creacion` datetime DEFAULT NULL COMMENT 'Fecha en la que se registró el parámetro.',
   `modificado_por` varchar(15) DEFAULT NULL COMMENT 'Nombre del usuario que modificó el parámetro.',
   `fecha_modificacion` datetime DEFAULT NULL COMMENT 'Fecha de modificación del parámetro.',
-  PRIMARY KEY (`id_parametro`)
+  PRIMARY KEY (`cod_parametro`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Tabla que almacena los parámetros principales de la empresa.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -557,17 +557,17 @@ DROP TABLE IF EXISTS `tbl_ms_permisos`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tbl_ms_permisos` (
   `idpermiso` bigint NOT NULL AUTO_INCREMENT COMMENT 'cod del permiso.',
-  `id_rol` bigint NOT NULL COMMENT 'cod del rol del usuario.',
-  `id_objeto` bigint NOT NULL COMMENT 'cod del objeto, es decir, la pantalla.',
+  `cod_rol` bigint NOT NULL COMMENT 'cod del rol del usuario.',
+  `cod_objeto` bigint NOT NULL COMMENT 'cod del objeto, es decir, la pantalla.',
   `r` int NOT NULL DEFAULT '0' COMMENT 'Permiso de consultar.',
   `w` int NOT NULL DEFAULT '0' COMMENT 'Permiso de agregar.',
   `u` int NOT NULL DEFAULT '0' COMMENT 'Permiso de actualizar.',
   `d` int NOT NULL DEFAULT '0' COMMENT 'Permiso de eliminar.',
   PRIMARY KEY (`idpermiso`),
-  KEY `rolid` (`id_rol`),
-  KEY `moduloid` (`id_objeto`),
-  CONSTRAINT `tbl_ms_permisos_ibfk_1` FOREIGN KEY (`id_rol`) REFERENCES `tbl_ms_roles` (`id_rol`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `tbl_ms_permisos_ibfk_2` FOREIGN KEY (`id_objeto`) REFERENCES `tbl_ms_objetos` (`id_objeto`) ON DELETE CASCADE ON UPDATE CASCADE
+  KEY `rolid` (`cod_rol`),
+  KEY `moduloid` (`cod_objeto`),
+  CONSTRAINT `tbl_ms_permisos_ibfk_1` FOREIGN KEY (`cod_rol`) REFERENCES `tbl_ms_roles` (`cod_rol`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `tbl_ms_permisos_ibfk_2` FOREIGN KEY (`cod_objeto`) REFERENCES `tbl_ms_objetos` (`cod_objeto`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=609 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci COMMENT='Permisos que tendrá un usuario dentro del sistema.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -589,9 +589,9 @@ DROP TABLE IF EXISTS `tbl_ms_preguntas`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tbl_ms_preguntas` (
-  `id_pregunta` int NOT NULL AUTO_INCREMENT COMMENT 'cod de la pregunta.',
-  `pregunta` varchar(100) DEFAULT NULL COMMENT 'Nombre de la pregunta.',
-  PRIMARY KEY (`id_pregunta`)
+  `cod_pregunta` int NOT NULL AUTO_INCREMENT COMMENT 'cod de la pregunta.',
+  `pregunta` varchar(100) NOT NULL COMMENT 'Nombre de la pregunta.',
+  PRIMARY KEY (`cod_pregunta`)
 ) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Tabla que guarda las preguntas que le aparecerán al usuario cuando conteste las preguntas secretas.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -613,11 +613,11 @@ DROP TABLE IF EXISTS `tbl_ms_preguntas_usuario`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tbl_ms_preguntas_usuario` (
-  `id_pregunta` int NOT NULL COMMENT 'cod de la pregunta.',
-  `id_usuario` bigint NOT NULL COMMENT 'cod del usuario.',
+  `cod_pregunta` int NOT NULL COMMENT 'cod de la pregunta.',
+  `cod_usuario` bigint NOT NULL COMMENT 'cod del usuario.',
   `respuesta` varchar(100) DEFAULT NULL COMMENT 'Respuesta que dió el usuario cuando contestó la pregunta.',
-  KEY `preguntaUsuario_idUsuario_idx` (`id_usuario`),
-  CONSTRAINT `preguntaUsuario_idUsuario` FOREIGN KEY (`id_usuario`) REFERENCES `tbl_ms_usuarios` (`id_usuario`)
+  KEY `preguntaUsuario_idUsuario_idx` (`cod_usuario`),
+  CONSTRAINT `preguntaUsuario_idUsuario` FOREIGN KEY (`cod_usuario`) REFERENCES `tbl_ms_usuarios` (`cod_usuario`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Tabla intermedia entre las preguntas y los usuarios. Va guardando las preguntas que contesta un usuario, que pueden ser varias.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -639,11 +639,11 @@ DROP TABLE IF EXISTS `tbl_ms_roles`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tbl_ms_roles` (
-  `id_rol` bigint NOT NULL AUTO_INCREMENT COMMENT 'cod del rol.',
+  `cod_rol` bigint NOT NULL AUTO_INCREMENT COMMENT 'cod del rol.',
   `nombrerol` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL COMMENT 'Nombre del rol.',
   `descripcion` text CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL COMMENT 'Descripción del rol. Osea una explicación de ese rol.',
   `estado` int NOT NULL DEFAULT '1' COMMENT 'Estado del rol.',
-  PRIMARY KEY (`id_rol`)
+  PRIMARY KEY (`cod_rol`)
 ) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci COMMENT='Tabla que almacena los roles del sistema.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -665,7 +665,7 @@ DROP TABLE IF EXISTS `tbl_ms_usuarios`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tbl_ms_usuarios` (
-  `id_usuario` bigint NOT NULL AUTO_INCREMENT COMMENT 'cod del usuario.',
+  `cod_usuario` bigint NOT NULL AUTO_INCREMENT COMMENT 'cod del usuario.',
   `usuario` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci DEFAULT NULL COMMENT 'Usuario.',
   `nombre_usuario` varchar(80) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL COMMENT 'Nombre del usuario.',
   `estado` int NOT NULL DEFAULT '1' COMMENT 'Estado del usuario.',
@@ -680,10 +680,10 @@ CREATE TABLE `tbl_ms_usuarios` (
   `fecha_creacion` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Fecha en que se registró al usuario.',
   `modificado_por` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci DEFAULT NULL COMMENT 'Muestra quién fue que modificó al usuario.',
   `fecha_modificacion` datetime DEFAULT NULL COMMENT 'Fecha en que se modificó al usuario.',
-  `id_rol` bigint NOT NULL COMMENT 'cod del rol que tiene el usuario dentro del sistema.',
-  PRIMARY KEY (`id_usuario`),
-  KEY `rolid` (`id_rol`),
-  CONSTRAINT `tbl_ms_usuarios_ibfk_1` FOREIGN KEY (`id_rol`) REFERENCES `tbl_ms_roles` (`id_rol`) ON DELETE CASCADE ON UPDATE CASCADE
+  `cod_rol` bigint NOT NULL COMMENT 'cod del rol que tiene el usuario dentro del sistema.',
+  PRIMARY KEY (`cod_usuario`),
+  KEY `rolid` (`cod_rol`),
+  CONSTRAINT `tbl_ms_usuarios_ibfk_1` FOREIGN KEY (`cod_rol`) REFERENCES `tbl_ms_roles` (`cod_rol`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=193 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci COMMENT='Tabla que almacena los usuarios del sistema.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -733,13 +733,13 @@ CREATE TABLE `tbl_produccion` (
   `cod_producto` int DEFAULT NULL,
   `cantidad` int DEFAULT NULL COMMENT 'Cantidad que se va a producir.',
   `fecha` datetime DEFAULT CURRENT_TIMESTAMP COMMENT 'Fecha en que se mandó a producción.',
-  `id_usuario` bigint DEFAULT NULL COMMENT 'cod del usuario que registró la producción.',
+  `cod_usuario` bigint DEFAULT NULL COMMENT 'cod del usuario que registró la producción.',
   `estado` int DEFAULT '1' COMMENT 'Estado de la producción.',
   PRIMARY KEY (`cod_produccion`),
   KEY `Produccion_CodProducto_idx` (`cod_producto`),
-  KEY `Produccion_IdUsuario_idx` (`id_usuario`),
+  KEY `Produccion_IdUsuario_idx` (`cod_usuario`),
   CONSTRAINT `Produccion_CodProducto` FOREIGN KEY (`cod_producto`) REFERENCES `tbl_producto` (`cod_producto`),
-  CONSTRAINT `Produccion_IdUsuario` FOREIGN KEY (`id_usuario`) REFERENCES `tbl_ms_usuarios` (`id_usuario`)
+  CONSTRAINT `Produccion_IdUsuario` FOREIGN KEY (`cod_usuario`) REFERENCES `tbl_ms_usuarios` (`cod_usuario`)
 ) ENGINE=InnoDB AUTO_INCREMENT=122 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Tabla que almacena la producción de productos en la empresa.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -803,11 +803,11 @@ CREATE TABLE `tbl_promocion` (
   `fecha_inicio` datetime DEFAULT NULL COMMENT 'Fecha de inicio de la promoción.',
   `fecha_final` datetime DEFAULT NULL COMMENT 'Fecha en que finaliza la promoción.',
   `precio_venta` decimal(8,2) DEFAULT NULL COMMENT 'Precio de venta.',
-  `id_usuario` bigint DEFAULT NULL COMMENT 'cod del usuario que registró esa promoción.',
+  `cod_usuario` bigint DEFAULT NULL COMMENT 'cod del usuario que registró esa promoción.',
   `estado` int DEFAULT '1' COMMENT 'Estado de la promoción.',
   PRIMARY KEY (`cod_promocion`),
-  KEY `Promo_Usuario_idx` (`id_usuario`),
-  CONSTRAINT `Promo_Usuario` FOREIGN KEY (`id_usuario`) REFERENCES `tbl_ms_usuarios` (`id_usuario`)
+  KEY `Promo_Usuario_idx` (`cod_usuario`),
+  CONSTRAINT `Promo_Usuario` FOREIGN KEY (`cod_usuario`) REFERENCES `tbl_ms_usuarios` (`cod_usuario`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Tabla que almacena las promociones que quiera implementar la empresa.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -829,11 +829,11 @@ DROP TABLE IF EXISTS `tbl_promocion_producto`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tbl_promocion_producto` (
-  `id_promocion_producto` int NOT NULL AUTO_INCREMENT COMMENT 'cod de la promoción producto.',
+  `cod_promocion_producto` int NOT NULL AUTO_INCREMENT COMMENT 'cod de la promoción producto.',
   `cod_promocion` int DEFAULT NULL COMMENT 'Código de la promoción.',
   `cod_producto` int DEFAULT NULL COMMENT 'Código del producto.',
   `cantidad` int DEFAULT NULL COMMENT 'Cantidad de producto.',
-  PRIMARY KEY (`id_promocion_producto`),
+  PRIMARY KEY (`cod_promocion_producto`),
   KEY `promocion_producto_idx` (`cod_promocion`),
   KEY `promocionProducto_Producto_idx` (`cod_producto`),
   CONSTRAINT `promocionProducto_Producto` FOREIGN KEY (`cod_producto`) REFERENCES `tbl_producto` (`cod_producto`),
@@ -1331,13 +1331,13 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `del_tbl_detalle_temp`(`id_detalle` INT, `token` VARCHAR(50))
+CREATE DEFINER=`root`@`localhost` PROCEDURE `del_tbl_detalle_temp`(`cod_detalle` INT, `token` VARCHAR(50))
 BEGIN
     DECLARE promo_valor VARCHAR(50);
 
-    SELECT promo INTO promo_valor FROM tbl_detalle_temp WHERE cod_detalle_factura = id_detalle;
+    SELECT promo INTO promo_valor FROM tbl_detalle_temp WHERE cod_detalle_factura = cod_detalle;
 
-    DELETE FROM tbl_detalle_temp WHERE cod_detalle_factura = id_detalle AND (promo IS NOT NULL OR promo IS NULL);
+    DELETE FROM tbl_detalle_temp WHERE cod_detalle_factura = cod_detalle AND (promo IS NOT NULL OR promo IS NULL);
 
     IF promo_valor IS NOT NULL THEN
         DELETE FROM tbl_detalle_temp WHERE promo = promo_valor;
@@ -1363,9 +1363,9 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `del_tbl_detalle_temp_c`(`id_detalle` INT, `token` VARCHAR(50))
+CREATE DEFINER=`root`@`localhost` PROCEDURE `del_tbl_detalle_temp_c`(`cod_detalle` INT, `token` VARCHAR(50))
 BEGIN
-	DELETE FROM tbl_detalle_temp_c WHERE cod_detalle_factura = id_detalle;
+	DELETE FROM tbl_detalle_temp_c WHERE cod_detalle_factura = cod_detalle;
 
 	SELECT tmp.cod_detalle_factura, tmp.cod_producto,p.nombre_producto,tmp.cantidad,tmp.precio_venta FROM tbl_detalle_temp_c tmp
 	INNER JOIN tbl_producto p
@@ -1387,9 +1387,9 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `del_tbl_detalle_temp_p`(`id_detalle` INT, `token` VARCHAR(50))
+CREATE DEFINER=`root`@`localhost` PROCEDURE `del_tbl_detalle_temp_p`(`cod_detalle` INT, `token` VARCHAR(50))
 BEGIN
-DELETE FROM tbl_detalle_temp_p WHERE cod_detalle_produccion = id_detalle;
+DELETE FROM tbl_detalle_temp_p WHERE cod_detalle_produccion = cod_detalle;
 
         SELECT tmp.cod_detalle_produccion, tmp.cod_producto,p.nombre_producto,tmp.cantidad FROM tbl_detalle_temp_p tmp
         INNER JOIN tbl_producto p
@@ -1411,9 +1411,9 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `del_tbl_detalle_temp_pr`(`id_detalle` INT, `token` VARCHAR(50))
+CREATE DEFINER=`root`@`localhost` PROCEDURE `del_tbl_detalle_temp_pr`(`cod_detalle` INT, `token` VARCHAR(50))
 BEGIN
-        DELETE FROM tbl_detalle_temp_pr WHERE cod_detalle_produccion = id_detalle;
+        DELETE FROM tbl_detalle_temp_pr WHERE cod_detalle_produccion = cod_detalle;
 
         SELECT tmp.cod_detalle_produccion, tmp.cod_producto,p.nombre_producto,tmp.cantidad FROM tbl_detalle_temp_pr tmp
         INNER JOIN tbl_producto p
@@ -1460,7 +1460,7 @@ BEGIN
         IF registros > 0 THEN
         	INSERT INTO tbl_tmp_tokenuser_c(cod_prod,cant_prod) SELECT cod_producto,cantidad FROM tbl_detalle_temp_c WHERE token_user = token;
            
-            INSERT INTO tbl_compra(id_usuario) VALUES(cod_usuario);
+            INSERT INTO tbl_compra(cod_usuario) VALUES(cod_usuario);
             SET compra = LAST_INSERT_ID();
             
             INSERT INTO tbl_detalle_compra(cod_compra,cod_producto,cantidad,precio_venta) SELECT (compra) as cod_compra, cod_producto,cantidad,precio_venta FROM tbl_detalle_temp_c WHERE token_user = token;
@@ -1536,7 +1536,7 @@ BEGIN
         IF registros > 0 THEN
         	INSERT INTO tbl_tmp_tokenuser(cod_prod,cant_prod) SELECT cod_producto,cantidad FROM tbl_detalle_temp_pr WHERE token_user = token;
             
-            INSERT INTO tbl_produccion(id_usuario) VALUES(cod_usuario);
+            INSERT INTO tbl_produccion(cod_usuario) VALUES(cod_usuario);
             SET factura = LAST_INSERT_ID();
             
             INSERT INTO tbl_detalle_produccion(cod_produccion,cod_producto,cantidad) SELECT (factura) as cod_produccion, cod_producto,cantidad FROM tbl_detalle_temp_pr WHERE token_user = token;
@@ -1613,7 +1613,7 @@ BEGIN
         IF registros > 0 THEN
         	INSERT INTO tbl_tmp_tokenuser_p(cod_prod,cant_prod) SELECT cod_producto,cantidad FROM tbl_detalle_temp_p WHERE token_user = token;
             
-            INSERT INTO tbl_promocion(id_usuario) VALUES(cod_usuario);
+            INSERT INTO tbl_promocion(cod_usuario) VALUES(cod_usuario);
             SET factura = LAST_INSERT_ID();
             
             INSERT INTO tbl_promocion_producto(cod_promocion,cod_producto,cantidad) SELECT (factura) as cod_promocion, cod_producto,cantidad FROM tbl_detalle_temp_p WHERE token_user = token;
@@ -1688,7 +1688,7 @@ BEGIN
         IF registros > 0 THEN
         	INSERT INTO tbl_tmp_tokenuser(cod_prod,cant_prod) SELECT cod_producto,cantidad FROM tbl_detalle_temp WHERE token_user = token;
             
-            INSERT INTO tbl_factura(id_usuario,cod_cliente) VALUES(cod_usuario,cod_cliente);
+            INSERT INTO tbl_factura(cod_usuario,cod_cliente) VALUES(cod_usuario,cod_cliente);
             SET factura = LAST_INSERT_ID();
             
             INSERT INTO tbl_detalle_factura(cod_factura,cod_producto,cantidad,precio_venta,cantidad_multi,promocion) SELECT (factura) as cod_factura, cod_producto,cantidad,precio_venta,cant_multi,promo FROM tbl_detalle_temp WHERE token_user = token;
