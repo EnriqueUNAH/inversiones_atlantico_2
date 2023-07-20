@@ -42,14 +42,15 @@
         <input type="hidden" id="txtToken" name="txtToken" value="<?= $data['token']; ?>" required>
         <h3 class="login-head"><i class="fas fa-key"></i> Cambiar contraseña</h3>
         <div class="form-group col-md-16 d-flex align-items-center">
-          <input id="txtPassword" name="txtPassword" class="form-control" type="password" placeholder="Nueva contraseña" required onpaste="return borrarPegado(event)">
+          <input id="txtPassword" name="txtPassword" class="form-control" type="password" placeholder="Nueva contraseña" maxlength="16" onkeypress="return event.charCode!=32" required onpaste="return borrarPegado(event)">
           <button type="button" class="btn btn-outline-secondary" id="btnTogglePassword">
             <i class="fa fa-eye-slash" id="iconTogglePassword"></i>
           </button>
         </div>
         <label>Min/Max de 5 a 16 caracteres</label>
         <div class="form-group col-md-16 d-flex align-items-center">
-          <input id="txtPasswordConfirm" name="txtPasswordConfirm" class="form-control" type="password" placeholder="Confirmar contraseña" required onpaste="return borrarPegado(event)">
+        
+          <input id="txtPasswordConfirm" name="txtPasswordConfirm" class="form-control" type="password" placeholder="Confirmar contraseña" maxlength="16" onkeypress="return event.charCode!=32" required onpaste="return borrarPegado(event)">
           <button type="button" class="btn btn-outline-secondary" id="btnTogglePassword2">
             <i class="fa fa-eye-slash" id="iconTogglePassword2"></i>
           </button>
