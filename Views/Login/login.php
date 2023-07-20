@@ -47,7 +47,7 @@
         <h3 class="login-head"><i class="fa fa-lg fa-fw fa-user"></i>INICIAR SESIÓN</h3>
         <div class="form-group">
           <label class="control-label">USUARIO</label>
-          <input id="txtEmail" name="txtEmail" class="form-control" type="" placeholder="Usuario" autofocus onpaste="return borrarPegado(event)">
+          <input id="txtEmail" name="txtEmail" class="form-control" type="" placeholder="Usuario" autofocus onpaste="return borrarPegado(event)"  maxlength="15" onkeypress="if(this.value.length == 15) return false; ">
         </div>
         <div class="form-group">
           <label class="control-label">CONTRASEÑA</label>

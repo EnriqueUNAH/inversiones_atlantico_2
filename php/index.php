@@ -7,6 +7,16 @@ session_start();
 <!DOCTYPE html>
 <html>
 <head>
+
+
+	<!-- Para las alertas -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.css">
+	<!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script> -->
+
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js"></script>
+
+
+
 <!-- <link rel="stylesheet" href="../css/option.css"> -->
   <title></title>
 </head>
@@ -33,13 +43,13 @@ session_start();
     <p class="card-text">Hacer click en el boton respaldo para hacer una copia de seguridad de la base de datos</p>
 
     
-    <center> <a href="../php/Backup.php" class="btn btn-info" onclick="return ConfirmarRespaldo()">
-          
-           Respaldo       
-          </a> </center>    
+    <center> <a  class="btn btn-info" onclick="return ConfirmarRespaldo()">          
+          				 Respaldo       
+         	 </a> </center>    
 
   </div>
-</div></center> 
+</div>
+	</center> 
 
 
 
@@ -94,15 +104,46 @@ session_start();
 <script type="text/javascript">
 function ConfirmarRespaldo()
 {
-    var respuesta = confirm("Esta seguro de hacer un respaldo de la base de datos");
-    if(respuesta == true)
-{
-    return true;
-}
-else
-{
-     return false;
-}
+	//swal( "Atención", "Respaldo.", "info"  );
+	Swal.fire({
+                title: "¿Desea hacer el respaldo?",
+                icon: "info",
+                showCancelButton: true,
+                confirmButtonText: "OK",
+                cancelButtonText: "Cancelar",
+              }).then((result) => {
+                if (result.isConfirmed) {
+			
+                   
+				Swal.fire({
+                			title: "Respaldo Exitoso",
+                			icon: "info",                
+                			confirmButtonText: "OK",                
+             	 }).then((result) => {
+                	if (result.isConfirmed) {
+						window.location.href="../php/Backup.php";
+						location.reload();	
+                	} 
+              	});
+
+
+
+                } else if (result.dismiss === Swal.DismissReason.cancel) {
+					
+					location.reload();				
+              
+                }
+              });
+
+    //var respuesta = confirm("Esta seguro de hacer un respaldo de la base de datos");
+//     if(respuesta == true)
+// {
+//     return true;
+// }
+// else
+// {
+//      return false;
+// }
 }
 
 </script>
@@ -115,6 +156,11 @@ function ConfirmarRestore()
     if(respuesta == true)
 {
     return true;
+	swal(
+              "Atención",
+              "Respaldo.",
+              "info"
+            );
 }
 else
 {

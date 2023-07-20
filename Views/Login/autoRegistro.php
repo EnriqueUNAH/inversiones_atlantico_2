@@ -134,7 +134,7 @@
             <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
 
               <div class="d-flex justify-content-center py-4">
-                <a href="pages-register.html" class="logo d-flex align-items-center w-auto">
+                <a href="http://localhost/inversiones_atlantico_2/login" class="logo d-flex align-items-center w-auto">
                   <img src="assets/img/logo.png" alt="">
                   <span class="d-none d-lg-block">INVERSIONES DEL ATLANTICO</span>
                 </a>
@@ -152,7 +152,7 @@
                   <form action="registro.php" onsubmit="validatePassword(); return false;" method="post" class="row g-3 needs-validation" novalidate="false">
                     <div class="col-12">
                       <label for="yourName" class="form-label">Nombre Completo:</label>
-                      <input type="text" style="text-transform:uppercase" name="name" placeholder="nombre" class="form-control" id="yourName" required value="<?php echo isset($_POST['name']) ? $_POST['name'] : ''; ?>">
+                      <input type="text" style="text-transform:uppercase" name="name" placeholder="nombre" class="form-control" id="yourName" required value="<?php echo isset($_POST['name']) ? $_POST['name'] : ''; ?>" maxlength="80" onkeypress="if(this.value.length == 80) return false; ">
                       <div class="invalid-feedback">POR FAVOR, INGRESA TU NOMBRE DE USUARIO!</div>
                     </div>
 
@@ -160,7 +160,7 @@
                       <label for="yourUsername" class="form-label">NOMBRE DE USUARIO:</label>
                       <div class="input-group has-validation">
                         <span class="input-group-text" id="inputGroupPrepend">@</span>
-                        <input type="text" style="text-transform:uppercase" name="username" placeholder="Usuario" onkeypress="javascript: return validar_espacio(event,this)" onKeyUp="maximo(this,100)" onKeyDown="maximo(this,100)" class="form-control" id="yourUsername" required value="<?php echo isset($_POST['username']) ? $_POST['username'] : ''; ?>">
+                        <input type="text" style="text-transform:uppercase" name="username" placeholder="Usuario" onkeypress="javascript: return validar_espacio(event,this)" onKeyUp="maximo(this,100)" onKeyDown="maximo(this,100)" class="form-control" id="yourUsername" required value="<?php echo isset($_POST['username']) ? $_POST['username'] : ''; ?>" maxlength="15" onkeypress="if(this.value.length == 15) return false; ">
 
                         <div class="invalid-feedback">POR FAVOR ESCRIBA UN NOMBRE DE USUARIO.</div>
                       </div>
