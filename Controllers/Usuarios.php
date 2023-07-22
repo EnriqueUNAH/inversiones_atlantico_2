@@ -177,13 +177,9 @@ class Usuarios extends Controllers
 				} //FIN DEL ELSE PARA ACTUALIZAR
 				if ($request_user === 'exist') {
 					$arrResponse = array('status' => false, 'msg' => '¡Atención! el email o la identificación ya existe, ingrese otro.');
-				} 
-				else if ($request_user === 'admin') {
+				} else if ($request_user === 'admin') {
 					$arrResponse = array('status' => false, 'msg' => '¡Atención! el usuario Administrador no se puede inactivar.');
-				}
-
-			
-				else if ($request_user > 0) {
+				} else if ($request_user > 0) {
 					if ($option == 1) {
 
 
@@ -240,6 +236,7 @@ class Usuarios extends Controllers
 				$btnView = '';
 				$btnEdit = '';
 				$btnDelete = '';
+				$btnReinicio = '';
 
 				if ($arrData[$i]['estado'] == 1) {
 					$arrData[$i]['estado'] = '<span class="badge badge-success">ACTIVO</span>';   //Aqui le asigna Activo si es 1
@@ -270,7 +267,14 @@ class Usuarios extends Controllers
 				} else {
 					$btnEdit = '<button class="btn btn-secondary btn-sm" disabled ><i class="fas fa-pencil-alt"></i></button>';
 				}
-				
+				############################
+				if ($_SESSION['idUser'] == 1) {
+					$btnReinicio = '<button class="btn btn-Warning btn-sm btnEditUsuario" onClick="fntEditUsuario(this,' . $arrData[$i]['id_usuario'] . ')" title="Reiniciar Contraseña"><i class="fas fa-sync-alt"></i></button>';
+				}
+				// } else {
+				// 	$btnEdit = '<button class="btn btn-secondary btn-sm" disabled ><i class="fas fa-pencil-alt"></i></button>';
+				// }
+				############################
 
 				// if($_SESSION['permisosMod']['d']){
 				// 	if(($_SESSION['idUser'] == 1 and $_SESSION['userData']['id_rol'] == 1) ||
@@ -287,7 +291,7 @@ class Usuarios extends Controllers
 				} else {
 					$btnDelete = '<button class="btn btn-secondary btn-sm" disabled ><i class="far fa-trash-alt"></i></button>';
 				}
-				$arrData[$i]['options'] = '<div class="text-center">' . $btnView . ' ' . $btnEdit . ' ' . $btnDelete . '</div>';
+				$arrData[$i]['options'] = '<div class="text-center">' . $btnView . ' ' . $btnEdit . ' ' . $btnDelete . ' ' . $btnReinicio . '</div>';
 			}
 			echo json_encode($arrData, JSON_UNESCAPED_UNICODE);
 		}
