@@ -76,7 +76,7 @@ function sendMailLocal($data, $template)
         $mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
         $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
         $mail->Username   = 'inversionesatlanticotela@gmail.com';                     //SMTP username
-        $mail->Password   = 'ynjptdxjnlcndsap';                               //SMTP password
+        $mail->Password   = 'bphefaokcfgthcdn';                               //SMTP password
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;             //Enable implicit TLS encryption
         $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
@@ -281,7 +281,7 @@ function passGenerator($length = 10)
 {
     $pass = "";
     $longitudPass = $length;
-    $cadena = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";
+    $cadena = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890*";
     $longitudCadena = strlen($cadena);
 
     for ($i = 1; $i <= $longitudPass; $i++) {
