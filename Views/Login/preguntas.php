@@ -77,7 +77,7 @@ mysqli_query($conexion, $bitacora);
 // $resultado_ = mysqli_query($conexion, $consultar_);
 // $filas_ = mysqli_num_rows($resultado_);
 // $valor_p_p_ = $valor_p_p - 1;
-echo "   El valor parametro es: " . $valor_p_p + 1; /////////////////////////////////////////////////////
+//echo "   El valor parametro es: " . $valor_p_p + 1; /////////////////////////////////////////////////////
 
 if ($valor_contestadas < $valor_p_p - 1) { ////////////////////////////////////CAMBIADO
     #Trae preguntas contestadas tabla ms_usuarios
