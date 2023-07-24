@@ -62,13 +62,13 @@ while ($otra_pre = mysqli_fetch_array($consultar_contestadas)) {
     $valor_contestadas = $otra_pre['preguntas_contestadas'];
 }
 $fechaC = date('Y-m-d');
-echo "   Ha contestado: " . $valor_contestadas; /////////////////////////////////////////////////////
+//echo "   Ha contestado: " . $valor_contestadas; /////////////////////////////////////////////////////
 
 $insertar_ = "INSERT INTO tbl_ms_preguntas_usuario VALUES('$id','$id_Usuario','$respuesta')";
 mysqli_query($conexion, $insertar_);
 
-$bitacora="INSERT INTO tbl_ms_bitacora(fecha,id_usuario,id_objeto,accion,descripcion) VALUES(now(),'$id_Usuario','2','PREGUNTAS','CONTESTO PREGUNTA CORRECTAMENTE') ";
-mysqli_query( $conexion , $bitacora );
+$bitacora = "INSERT INTO tbl_ms_bitacora(fecha,id_usuario,id_objeto,accion,descripcion) VALUES(now(),'$id_Usuario','2','PREGUNTAS','CONTESTO PREGUNTA CORRECTAMENTE') ";
+mysqli_query($conexion, $bitacora);
 
 /* $bitacora="INSERT INTO tbl_bitacora VALUES('$filas_bbitacora','$fechaC','$filas','3','AUTOREGISTRO','CONSTESTO PREGUNTA EXITOSAMENTE')";
     mysqli_query( $conexion , $bitacora );*/
@@ -81,37 +81,17 @@ echo "   El valor parametro es: " . $valor_p_p + 1; ////////////////////////////
 
 if ($valor_contestadas < $valor_p_p - 1) { ////////////////////////////////////CAMBIADO
     #Trae preguntas contestadas tabla ms_usuarios
-    // $preguntascontestadas = "SELECT preguntas_contestadas FROM tbl_ms_usuarios where id_usuario = '$id_Usuario'";
-    // $resultado_pregu = mysqli_query($conexion, $preguntascontestadas);
 
-    // while ($preguntasco = mysqli_fetch_array($resultado_pregu)) {
-    //     # code...
-    //     $contestadas = intval($preguntasco['Preguntas_Contestadas']);
-    // }
     $contestadas = $valor_contestadas + 1;
     #Cambio valor de preguntas contestadas
     $actualizarPre = "UPDATE tbl_ms_usuarios SET preguntas_contestadas = '$contestadas' where id_usuario = '$id_Usuario'";
     mysqli_query($conexion, $actualizarPre);
 
 
-
-
     echo '<script>alert("Respuesta Guardada");</script>';
     include("../Login/preguntasPrimeraVez.php");
 } else {
-    #Trae preguntas contestadas tabla ms_usuarios
-    // $preguntascontestadas = "SELECT Preguntas_Contestadas FROM tbl_ms_usuarios where Usuario = '$nombre'";
-    // $resultado_pregu = mysqli_query($conexion, $preguntascontestadas);
 
-    // while ($preguntasco = mysqli_fetch_array($resultado_pregu)) {
-    //     # code...
-    //     $contestadas = intval($preguntasco['Preguntas_Contestadas']);
-    // }
-    // $contestadas++;
-    // #Cambio valor de preguntas contestadas
-    // $actualizarPre = "UPDATE tbl_ms_usuarios SET Preguntas_Contestadas = '$contestadas' WHERE Usuario = '$nombre'";
-    // mysqli_query($conexion, $actualizarPre);
-    ///////////////////////////////////////////////////////////////////////////////////////////////
     $contestadas = $valor_contestadas + 1;
     #Cambio valor de preguntas contestadas
     $actualizarPre = "UPDATE tbl_ms_usuarios SET preguntas_contestadas = '$contestadas' where id_usuario = '$id_Usuario'";
@@ -122,63 +102,12 @@ if ($valor_contestadas < $valor_p_p - 1) { ////////////////////////////////////C
 
     mysqli_close($conexion);
 
-    ///////////////////////////////////////////////////////////////////////////////////////////////
 ?>
     <script>
         alert("Preguntas Contestadas Correctamente");
-        location.href = "../../login";
+        location.href = "cambiar_contrasena_recu.php";
     </SCRipt><?php
             }
-            // } elseif ($estado = 'RESETEO' and $filas_ > 1) {
-            //             include('../Login/cambiar_contrasena.php');
-            //         }
 
-
-            /*
-
-    if($estado = 'NUEVO' and $filas_<=$valor_p_p_){
-        
-        #Trae preguntas contestadas tabla ms_usuarios
-        $preguntascontestadas="SELECT Preguntas_Contestadas FROM tbl_ms_usuarios where Usuario = '$nombre'";
-        $resultado_pregu=mysqli_query( $conexion , $preguntascontestadas );
-        
-        while ($preguntasco=mysqli_fetch_array( $resultado_pregu )) {
-            # code...
-            $contestadas=intval($preguntasco['Preguntas_Contestadas']);
-            
-        }
-        $contestadas++;
-        $actualizarPre = "UPDATE tbl_ms_usuarios SET Preguntas_Contestadas = '$contestadas' WHERE Usuario = '$nombre'";
-        mysqli_query( $conexion , $actualizarPre);
-
-        if($filas_ < $valor_p_p){
-            echo '<script>alert("Respuesta Guardada");</script>';
-            include ("../Login/preguntasPrimeraVez.php");
-        }elseif($estado = 'NUEVO' and $filas_ >=$valor_p_p){
-            $ALTER = "UPDATE tbl_ms_usuarios SET Estado_Usuario='ACTIVO'";  //obeservar
-            mysqli_query($conexion, $ALTER);
-            mysqli_close($conexion);?>
-            <script> 
-               alert("Pregunta Contestadas Correctamente");
-               location.href= "../Login/index.php";
-            </SCRipt>
-            <?php
-    }elseif($estado = 'RESETEO' and $filas_>1){
-        include('../Login/cambiar_contrasena.php'); 
-    }
-
-    }*/
-
-            /*    echo ($estado);    
-    if ($estado = 'RESETEO' and $filas_>1){
-        include('../Login/cambiar_contrasena.php');        
-    }elseif($estado = 'NUEVO'){
-        $ALTER = "UPDATE tbl_ms_usuarios SET Estado_Usuario='ACTIVO'";
-        mysqli_query($conexion, $ALTER);
-        mysqli_close($conexion);
-        include('../Login/index.php');
-    }else{
-        include ("../Login/preguntasPrimeraVez.php");
-    }*/
 
                 ?>

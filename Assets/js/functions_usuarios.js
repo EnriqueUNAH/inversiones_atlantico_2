@@ -455,6 +455,7 @@ function fntEditUsuario(element, id_usuario) {
         //entonces coloca el input de Usuario como solo lectura
         if (id_usuario) {
           document.querySelector("#txtusuario").setAttribute("readonly", true);
+          document.querySelector("#txtPassword").setAttribute("readonly", true);
         }
 
         document.querySelector("#txtnombre_usuario").value =
@@ -571,6 +572,9 @@ function fntDelUsuario(id_usuario) {
 function openModal() {
   rowTable = "";
   document.querySelector("#id_usuario").value = "";
+
+  document.querySelector("#txtPassword").removeAttribute("readonly"); //Para quitar el readonly en caso de que antes se haya editado
+
   document.querySelector("#txtusuario").removeAttribute("readonly"); //Para quitar el readonly en caso de que antes se haya editado
   //document.querySelector("#listStatus").setAttribute("readonly", true);
   // document.querySelector("#listStatus").setAttribute("disabled", true);
