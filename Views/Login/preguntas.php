@@ -108,10 +108,20 @@ if ($valor_contestadas < $valor_p_p - 1) { ////////////////////////////////////C
     $actualizarPre = "UPDATE tbl_ms_usuarios SET preguntas_contestadas = '$contestadas' where id_usuario = '$id_Usuario'";
     mysqli_query($conexion, $actualizarPre);
 
- 
+    ?>
+    <script>
+        Swal.fire({
+            title: "Respuesta Guardada",
+            icon: "success",
+            confirmButtonText: "OK",
+        }).then(() => {
+            location.href = "../Login/preguntasPrimeraVez.php";
+        });
+    </script>
+    <?php
 
-    echo '<script>alert("Respuesta Guardada");</script>';
-    include("../Login/preguntasPrimeraVez.php");
+    // echo '<script>alert("Respuesta Guardada");</script>';
+    // include("../Login/preguntasPrimeraVez.php");
 } else {
 
     $contestadas = $valor_contestadas + 1;
