@@ -1,3 +1,25 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js"></script>
+	
+    <!-- Para las alertas -->
+	    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.css">
+	    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js"></script>
+    <!-- Para las alertas -->
+    
+    <link rel="stylesheet" href="assets/css/styles.css">
+
+
+</head>
+
+<body></body>
+
+</html>
+
 <?php
 include('db.php');
 session_start();
@@ -38,12 +60,25 @@ if ($contrasena == $contrasena_) {
     //    $bitacora="INSERT INTO tbl_ms_bitacora(fecha,id_usuario,id_objeto,accion,descripcion) VALUES(now(),'$filas_id','2','CAMBIO DE CONTRASEÑA','CAMBIO DE CONTRAEÑA MEDIANTE PREGUNTAS') ";
     //    mysqli_query( $conexion , $bitacora );
 
-    echo '<script>alert("CONTRASEÑA CAMBIADA CON EXITO");</script>';
+    // echo '<script>alert("CONTRASEÑA CAMBIADA CON EXITO");</script>';
 
 ?>
-    <script>
+    <!-- <script>
         location.href = "../../login";
+    </SCRipt> -->
+
+<script>
+                    Swal.fire({
+              title: "Contraseña cambiada con éxito",
+              icon: "success",
+              confirmButtonText: "OK",
+            }).then(() => {
+                location.href = "../../login";
+            });
+        
     </SCRipt>
+
+
 <?php
 } else {
     # code...
