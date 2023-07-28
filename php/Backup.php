@@ -51,13 +51,14 @@ if ($result) {
                 while ($row = mysqli_fetch_row($result)) {
                     $sql .= 'INSERT INTO ' . $table . ' VALUES(';
                     for ($j = 0; $j < $numFields; $j++) {
-                        $row[$j] = addslashes($row[$j]);
-                        $row[$j] = str_replace("\n", "\\n", $row[$j]);
-                        if (isset($row[$j])) {
-                            $sql .= '"' . $row[$j] . '"';
+                        if (is_null($row[$j])) {
+                            $sql .= 'NULL';
                         } else {
-                            $sql .= '""';
+                            $row[$j] = addslashes($row[$j]);
+                            $row[$j] = str_replace("\n", "\\n", $row[$j]);
+                            $sql .= '"' . $row[$j] . '"';
                         }
+
                         if ($j < ($numFields - 1)) {
                             $sql .= ',';
                         }
@@ -70,6 +71,7 @@ if ($result) {
             $error = 1;
         }
     }
+
     if ($error == 1) {
         echo 'Ocurrio un error inesperado al crear la copia de seguridad';
     } else {

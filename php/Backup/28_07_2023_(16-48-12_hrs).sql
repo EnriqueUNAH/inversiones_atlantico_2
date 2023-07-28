@@ -36,8 +36,9 @@ CREATE TABLE `detalle_temp` (
   KEY `nofactura` (`token_user`),
   KEY `codproducto` (`cod_producto`),
   CONSTRAINT `detalle_temp_ibfk_2` FOREIGN KEY (`cod_producto`) REFERENCES `tbl_producto` (`cod_producto`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=934 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=933 DEFAULT CHARSET=latin1;
 
+INSERT INTO detalle_temp VALUES("929","c4ca4238a0b923820dcc509a6f75849b","18","29","100.00","","29");
 
 
 
@@ -97,73 +98,26 @@ CREATE TABLE `detalle_temp_promo` (
 
 
 
-DROP TABLE IF EXISTS produccion;
-
-CREATE TABLE `produccion` (
-  `cod_produccion` int NOT NULL,
-  `producto` varchar(45) DEFAULT NULL,
-  `cantidad` int DEFAULT NULL,
-  `fecha` varchar(45) DEFAULT NULL,
-  `usuario` varchar(45) DEFAULT NULL,
-  `estado` int DEFAULT NULL,
-  PRIMARY KEY (`cod_produccion`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
-INSERT INTO produccion VALUES("1","CAMISA ENFERMERA","20","2023-04-13 09:11:48","DORCA AGUILAR","1");
-INSERT INTO produccion VALUES("2","PANTALÒN ESCOLAR","10","2023-04-13 09:11:48","ENRIQUE NOLASCO","3");
-INSERT INTO produccion VALUES("3","BUSO ESCOLAR","14","2023-04-13 09:11:48","ERICKA AYALA","2");
-INSERT INTO produccion VALUES("4","CAMISA PERSONALIZADA","23","2023-04-13 09:11:48","DORCA AGUILAR","1");
-
-
-
-DROP TABLE IF EXISTS producto;
-
-CREATE TABLE `producto` (
-  `idproducto` bigint NOT NULL AUTO_INCREMENT,
-  `categoriaid` bigint NOT NULL,
-  `codigo` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
-  `nombre` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
-  `descripcion` text CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
-  `precio` decimal(11,2) NOT NULL,
-  `stock` int NOT NULL,
-  `imagen` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci DEFAULT NULL,
-  `datecreated` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `ruta` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
-  `estado` int NOT NULL DEFAULT '1',
-  PRIMARY KEY (`idproducto`),
-  KEY `categoriaid` (`categoriaid`),
-  CONSTRAINT `producto_ibfk_1` FOREIGN KEY (`categoriaid`) REFERENCES `categoria` (`idcategoria`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
-
-
-
-
 DROP TABLE IF EXISTS tbl_cliente;
 
 CREATE TABLE `tbl_cliente` (
   `cod_cliente` int NOT NULL AUTO_INCREMENT,
   `rtn` varchar(14) DEFAULT NULL,
   `nombres` varchar(100) NOT NULL,
-  `apellidos` varchar(100) DEFAULT NULL,
   `telefono` int DEFAULT NULL,
   `correo_electronico` varchar(30) DEFAULT NULL,
   `direccion` varchar(255) DEFAULT NULL,
-  `fecha_registro` datetime DEFAULT NULL,
-  `cod_genero` int DEFAULT NULL,
-  `id_usuario` int DEFAULT NULL,
   `estado` int NOT NULL DEFAULT '1',
   `creado_por` varchar(15) DEFAULT NULL,
   `fecha_creacion` datetime DEFAULT NULL,
   `modificado_por` varchar(15) DEFAULT NULL,
   `fecha_modificacion` datetime DEFAULT NULL,
-  PRIMARY KEY (`cod_cliente`),
-  KEY `tbl_Genero_Cod_Genero_idx` (`cod_genero`),
-  CONSTRAINT `Cliente_CodGenero` FOREIGN KEY (`cod_genero`) REFERENCES `tbl_genero` (`cod_genero`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  PRIMARY KEY (`cod_cliente`)
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-INSERT INTO tbl_cliente VALUES("5","","CONSUMIDOR FINAL","","","","","","3","1","1","","","ADMIN","2023-04-13 00:57:28");
-INSERT INTO tbl_cliente VALUES("6","801200002389","DORCA NINOSCA AGUILAR","A","97293000","dorca@hotmail.com","LOS PINOS","","3","","1","ADMIN","2023-04-11 21:21:35","ADMIN","2023-04-13 00:36:35");
-INSERT INTO tbl_cliente VALUES("11","0801000011112","ELIZABETH REYES","","98237281","","TELA","","","1","1","","","","");
+INSERT INTO tbl_cliente VALUES("5","","CONSUMIDOR FINAL","0","","","1","","2023-04-13 00:57:28","ADMIN","2023-04-13 00:57:28");
+INSERT INTO tbl_cliente VALUES("29","8012000837474","DORCA AGUILAR","98273849","dorca@hotmail.com","LOS PINOS","1","ADMIN","2023-07-28 16:47:36",NULL,NULL);
+INSERT INTO tbl_cliente VALUES("30","8012000374848","ENRIQUE NOLASCO","87353535","enrique@gmail.com","CA","1","ADMIN","2023-07-28 16:48:04",NULL,NULL);
 
 
 
@@ -180,43 +134,43 @@ CREATE TABLE `tbl_compra` (
   CONSTRAINT `Compra_idUsuario` FOREIGN KEY (`id_usuario`) REFERENCES `tbl_ms_usuarios` (`id_usuario`)
 ) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-INSERT INTO tbl_compra VALUES("4","","","1","");
-INSERT INTO tbl_compra VALUES("5","","","1","");
-INSERT INTO tbl_compra VALUES("6","30.00","","1","");
-INSERT INTO tbl_compra VALUES("7","30.00","","1","");
-INSERT INTO tbl_compra VALUES("8","30.00","","1","");
-INSERT INTO tbl_compra VALUES("9","30.00","","1","");
-INSERT INTO tbl_compra VALUES("10","30.00","","1","");
-INSERT INTO tbl_compra VALUES("11","20.00","","1","");
-INSERT INTO tbl_compra VALUES("12","40.00","","1","");
-INSERT INTO tbl_compra VALUES("13","210.00","","1","");
-INSERT INTO tbl_compra VALUES("14","30.00","","1","");
-INSERT INTO tbl_compra VALUES("15","50.00","","1","");
-INSERT INTO tbl_compra VALUES("16","50.00","","1","");
-INSERT INTO tbl_compra VALUES("17","50.00","","1","");
-INSERT INTO tbl_compra VALUES("18","50.00","","1","");
-INSERT INTO tbl_compra VALUES("19","50.00","","1","");
-INSERT INTO tbl_compra VALUES("20","50.00","","1","");
-INSERT INTO tbl_compra VALUES("21","80.00","","1","");
-INSERT INTO tbl_compra VALUES("22","50.00","","1","");
-INSERT INTO tbl_compra VALUES("23","50.00","","1","");
-INSERT INTO tbl_compra VALUES("24","50.00","","1","");
-INSERT INTO tbl_compra VALUES("25","100.00","","1","");
-INSERT INTO tbl_compra VALUES("26","50.00","","1","");
-INSERT INTO tbl_compra VALUES("27","50.00","","1","");
-INSERT INTO tbl_compra VALUES("28","50.00","","1","");
-INSERT INTO tbl_compra VALUES("29","50.00","","1","");
-INSERT INTO tbl_compra VALUES("30","50.00","","1","");
-INSERT INTO tbl_compra VALUES("31","30.00","","1","");
-INSERT INTO tbl_compra VALUES("32","30.00","","1","");
-INSERT INTO tbl_compra VALUES("33","50.00","","1","");
-INSERT INTO tbl_compra VALUES("34","30.00","","1","");
-INSERT INTO tbl_compra VALUES("35","30.00","","1","");
-INSERT INTO tbl_compra VALUES("36","70.00","","1","");
-INSERT INTO tbl_compra VALUES("37","80.00","","1","");
-INSERT INTO tbl_compra VALUES("38","50.00","","1","");
-INSERT INTO tbl_compra VALUES("39","20.00","","1","");
-INSERT INTO tbl_compra VALUES("40","20.00","","1","");
+INSERT INTO tbl_compra VALUES("4",NULL,NULL,"1",NULL);
+INSERT INTO tbl_compra VALUES("5",NULL,NULL,"1",NULL);
+INSERT INTO tbl_compra VALUES("6","30.00",NULL,"1",NULL);
+INSERT INTO tbl_compra VALUES("7","30.00",NULL,"1",NULL);
+INSERT INTO tbl_compra VALUES("8","30.00",NULL,"1",NULL);
+INSERT INTO tbl_compra VALUES("9","30.00",NULL,"1",NULL);
+INSERT INTO tbl_compra VALUES("10","30.00",NULL,"1",NULL);
+INSERT INTO tbl_compra VALUES("11","20.00",NULL,"1",NULL);
+INSERT INTO tbl_compra VALUES("12","40.00",NULL,"1",NULL);
+INSERT INTO tbl_compra VALUES("13","210.00",NULL,"1",NULL);
+INSERT INTO tbl_compra VALUES("14","30.00",NULL,"1",NULL);
+INSERT INTO tbl_compra VALUES("15","50.00",NULL,"1",NULL);
+INSERT INTO tbl_compra VALUES("16","50.00",NULL,"1",NULL);
+INSERT INTO tbl_compra VALUES("17","50.00",NULL,"1",NULL);
+INSERT INTO tbl_compra VALUES("18","50.00",NULL,"1",NULL);
+INSERT INTO tbl_compra VALUES("19","50.00",NULL,"1",NULL);
+INSERT INTO tbl_compra VALUES("20","50.00",NULL,"1",NULL);
+INSERT INTO tbl_compra VALUES("21","80.00",NULL,"1",NULL);
+INSERT INTO tbl_compra VALUES("22","50.00",NULL,"1",NULL);
+INSERT INTO tbl_compra VALUES("23","50.00",NULL,"1",NULL);
+INSERT INTO tbl_compra VALUES("24","50.00",NULL,"1",NULL);
+INSERT INTO tbl_compra VALUES("25","100.00",NULL,"1",NULL);
+INSERT INTO tbl_compra VALUES("26","50.00",NULL,"1",NULL);
+INSERT INTO tbl_compra VALUES("27","50.00",NULL,"1",NULL);
+INSERT INTO tbl_compra VALUES("28","50.00",NULL,"1",NULL);
+INSERT INTO tbl_compra VALUES("29","50.00",NULL,"1",NULL);
+INSERT INTO tbl_compra VALUES("30","50.00",NULL,"1",NULL);
+INSERT INTO tbl_compra VALUES("31","30.00",NULL,"1",NULL);
+INSERT INTO tbl_compra VALUES("32","30.00",NULL,"1",NULL);
+INSERT INTO tbl_compra VALUES("33","50.00",NULL,"1",NULL);
+INSERT INTO tbl_compra VALUES("34","30.00",NULL,"1",NULL);
+INSERT INTO tbl_compra VALUES("35","30.00",NULL,"1",NULL);
+INSERT INTO tbl_compra VALUES("36","70.00",NULL,"1",NULL);
+INSERT INTO tbl_compra VALUES("37","80.00",NULL,"1",NULL);
+INSERT INTO tbl_compra VALUES("38","50.00",NULL,"1",NULL);
+INSERT INTO tbl_compra VALUES("39","20.00",NULL,"1",NULL);
+INSERT INTO tbl_compra VALUES("40","20.00",NULL,"1",NULL);
 INSERT INTO tbl_compra VALUES("41","150.00","2023-04-13 11:37:55","1","2");
 INSERT INTO tbl_compra VALUES("42","120.00","2023-04-13 15:22:38","1","2");
 INSERT INTO tbl_compra VALUES("43","30.00","2023-04-13 22:03:18","1","2");
@@ -245,7 +199,7 @@ CREATE TABLE `tbl_configuracion_cai` (
   CONSTRAINT `CAI_IdUsuario` FOREIGN KEY (`id_usuario`) REFERENCES `tbl_ms_usuarios` (`id_usuario`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-INSERT INTO tbl_configuracion_cai VALUES("1","1","250","40","690CF2-53A933-A8439D-DF8027-51244A-0A","2023-04-07","1","1");
+INSERT INTO tbl_configuracion_cai VALUES("1","1","250","39","690CF2-53A933-A8439D-DF8027-51244A-0A","2023-04-07","1","1");
 
 
 
@@ -373,35 +327,34 @@ CREATE TABLE `tbl_detalle_factura` (
   KEY `DetalleFactura_NoFactura_idx` (`cod_factura`),
   CONSTRAINT `DetalleFactura_CodProducto` FOREIGN KEY (`cod_producto`) REFERENCES `tbl_producto` (`cod_producto`),
   CONSTRAINT `DetalleFactura_NoFactura` FOREIGN KEY (`cod_factura`) REFERENCES `tbl_factura` (`cod_factura`)
-) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-INSERT INTO tbl_detalle_factura VALUES("1","126","18","1","100.00","1","");
-INSERT INTO tbl_detalle_factura VALUES("2","126","19","14","220.00","14","");
-INSERT INTO tbl_detalle_factura VALUES("3","126","19","5","50.00","1","");
-INSERT INTO tbl_detalle_factura VALUES("4","126","12","5","","","");
-INSERT INTO tbl_detalle_factura VALUES("5","126","17","5","","","");
-INSERT INTO tbl_detalle_factura VALUES("8","127","19","4","220.00","4","");
-INSERT INTO tbl_detalle_factura VALUES("9","128","21","1","150.00","1","");
-INSERT INTO tbl_detalle_factura VALUES("10","128","18","1","500.00","1","");
-INSERT INTO tbl_detalle_factura VALUES("11","128","24","2","","","");
-INSERT INTO tbl_detalle_factura VALUES("12","128","25","2","","","");
-INSERT INTO tbl_detalle_factura VALUES("13","128","18","1","100.00","1","");
-INSERT INTO tbl_detalle_factura VALUES("14","129","15","1","65.20","1","");
+INSERT INTO tbl_detalle_factura VALUES("1","126","18","1","100.00","1",NULL);
+INSERT INTO tbl_detalle_factura VALUES("2","126","19","14","220.00","14",NULL);
+INSERT INTO tbl_detalle_factura VALUES("3","126","19","5","50.00","1",NULL);
+INSERT INTO tbl_detalle_factura VALUES("4","126","12","5",NULL,NULL,NULL);
+INSERT INTO tbl_detalle_factura VALUES("5","126","17","5",NULL,NULL,NULL);
+INSERT INTO tbl_detalle_factura VALUES("8","127","19","4","220.00","4",NULL);
+INSERT INTO tbl_detalle_factura VALUES("9","128","21","1","150.00","1",NULL);
+INSERT INTO tbl_detalle_factura VALUES("10","128","18","1","500.00","1",NULL);
+INSERT INTO tbl_detalle_factura VALUES("11","128","24","2",NULL,NULL,NULL);
+INSERT INTO tbl_detalle_factura VALUES("12","128","25","2",NULL,NULL,NULL);
+INSERT INTO tbl_detalle_factura VALUES("13","128","18","1","100.00","1",NULL);
+INSERT INTO tbl_detalle_factura VALUES("14","129","15","1","65.20","1",NULL);
 INSERT INTO tbl_detalle_factura VALUES("15","129","18","1","500.00","1","PROMO 1");
-INSERT INTO tbl_detalle_factura VALUES("16","129","24","2","","","PROMO 1");
-INSERT INTO tbl_detalle_factura VALUES("17","129","25","2","","","PROMO 1");
-INSERT INTO tbl_detalle_factura VALUES("21","130","19","1","220.00","1","");
+INSERT INTO tbl_detalle_factura VALUES("16","129","24","2",NULL,NULL,"PROMO 1");
+INSERT INTO tbl_detalle_factura VALUES("17","129","25","2",NULL,NULL,"PROMO 1");
+INSERT INTO tbl_detalle_factura VALUES("21","130","19","1","220.00","1",NULL);
 INSERT INTO tbl_detalle_factura VALUES("22","130","18","3","400.00","1","PROMO 2");
-INSERT INTO tbl_detalle_factura VALUES("23","130","19","2","","","PROMO 2");
-INSERT INTO tbl_detalle_factura VALUES("24","131","18","2","100.00","2","");
+INSERT INTO tbl_detalle_factura VALUES("23","130","19","2",NULL,NULL,"PROMO 2");
+INSERT INTO tbl_detalle_factura VALUES("24","131","18","2","100.00","2",NULL);
 INSERT INTO tbl_detalle_factura VALUES("25","131","18","1","500.00","1","PROMO 1");
-INSERT INTO tbl_detalle_factura VALUES("26","131","24","2","","","PROMO 1");
-INSERT INTO tbl_detalle_factura VALUES("27","131","25","2","","","PROMO 1");
-INSERT INTO tbl_detalle_factura VALUES("28","131","22","1","100.00","1","");
-INSERT INTO tbl_detalle_factura VALUES("31","132","18","1","100.00","1","");
+INSERT INTO tbl_detalle_factura VALUES("26","131","24","2",NULL,NULL,"PROMO 1");
+INSERT INTO tbl_detalle_factura VALUES("27","131","25","2",NULL,NULL,"PROMO 1");
+INSERT INTO tbl_detalle_factura VALUES("28","131","22","1","100.00","1",NULL);
+INSERT INTO tbl_detalle_factura VALUES("31","132","18","1","100.00","1",NULL);
 INSERT INTO tbl_detalle_factura VALUES("32","132","18","3","400.00","1","PROMO 2");
-INSERT INTO tbl_detalle_factura VALUES("33","132","19","2","","","PROMO 2");
-INSERT INTO tbl_detalle_factura VALUES("34","133","18","1","100.00","1","");
+INSERT INTO tbl_detalle_factura VALUES("33","132","19","2",NULL,NULL,"PROMO 2");
 
 
 
@@ -452,7 +405,7 @@ CREATE TABLE `tbl_factura` (
   PRIMARY KEY (`cod_factura`),
   KEY `TBL_CLIENTE_COD_CLIENTE_idx` (`cod_cliente`),
   CONSTRAINT `Venta_CodCliente` FOREIGN KEY (`cod_cliente`) REFERENCES `tbl_cliente` (`cod_cliente`)
-) ENGINE=InnoDB AUTO_INCREMENT=134 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=133 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 INSERT INTO tbl_factura VALUES("126","33","2023-04-24 11:13:45","1","5","3430.00","1","2982.61","447.39","15.00","0.00","690CF2-53A933-A8439D-DF8027-51244A-0A");
 INSERT INTO tbl_factura VALUES("127","34","2023-04-24 11:24:46","1","5","748.00","1","765.22","114.78","15.00","132.00","690CF2-53A933-A8439D-DF8027-51244A-0A");
@@ -460,72 +413,7 @@ INSERT INTO tbl_factura VALUES("128","35","2023-04-24 16:37:51","1","5","637.50"
 INSERT INTO tbl_factura VALUES("129","36","2023-04-28 10:27:29","1","5","565.20","2","491.48","73.72","15.00","0.00","690CF2-53A933-A8439D-DF8027-51244A-0A");
 INSERT INTO tbl_factura VALUES("130","37","2023-04-28 10:30:50","1","5","1420.00","1","1234.78","185.22","15.00","0.00","690CF2-53A933-A8439D-DF8027-51244A-0A");
 INSERT INTO tbl_factura VALUES("131","38","2023-04-28 20:24:31","1","5","800.00","1","695.65","104.35","15.00","0.00","690CF2-53A933-A8439D-DF8027-51244A-0A");
-INSERT INTO tbl_factura VALUES("132","39","2023-04-29 00:10:37","1","5","1300.00","2","1130.43","169.57","15.00","0.00","690CF2-53A933-A8439D-DF8027-51244A-0A");
-INSERT INTO tbl_factura VALUES("133","40","2023-07-24 00:11:36","1","5","85.00","1","86.96","13.04","15.00","15.00","690CF2-53A933-A8439D-DF8027-51244A-0A");
-
-
-
-DROP TABLE IF EXISTS tbl_factura_descuento;
-
-CREATE TABLE `tbl_factura_descuento` (
-  `cod_factura_descuento` int NOT NULL AUTO_INCREMENT,
-  `porcentaje_descontado` decimal(8,2) DEFAULT NULL,
-  `total_descontado` decimal(8,2) DEFAULT NULL,
-  `cod_factura` bigint DEFAULT NULL,
-  `cod_descuento` int DEFAULT NULL,
-  PRIMARY KEY (`cod_factura_descuento`),
-  KEY `FacturaDescuento_CodVenta_idx` (`cod_factura`),
-  KEY `FacturaDescuento_CodDescuento_idx` (`cod_descuento`),
-  CONSTRAINT `FacturaDescuento_CodDescuento` FOREIGN KEY (`cod_descuento`) REFERENCES `tbl_descuento` (`cod_descuento`),
-  CONSTRAINT `FacturaDescuento_CodVenta` FOREIGN KEY (`cod_factura`) REFERENCES `tbl_factura` (`cod_factura`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
-
-
-
-DROP TABLE IF EXISTS tbl_factura_promocion;
-
-CREATE TABLE `tbl_factura_promocion` (
-  `cod_factura_Promocion` int NOT NULL AUTO_INCREMENT,
-  `Cantidad` int DEFAULT NULL,
-  `precio_venta` decimal(8,2) DEFAULT NULL,
-  `cod_promocion` int DEFAULT NULL,
-  `cod_factura` bigint DEFAULT NULL,
-  PRIMARY KEY (`cod_factura_Promocion`),
-  KEY `FacturaPromocion_CodVenta_idx` (`cod_factura`),
-  KEY `FacturaPromocion_CodPromocion_idx` (`cod_promocion`),
-  CONSTRAINT `FacturaPromocion_CodPromocion` FOREIGN KEY (`cod_promocion`) REFERENCES `tbl_promocion` (`cod_promocion`),
-  CONSTRAINT `FacturaPromocion_CodVenta` FOREIGN KEY (`cod_factura`) REFERENCES `tbl_factura` (`cod_factura`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
-
-
-
-DROP TABLE IF EXISTS tbl_genero;
-
-CREATE TABLE `tbl_genero` (
-  `cod_genero` int NOT NULL AUTO_INCREMENT,
-  `nombre_genero` varchar(10) DEFAULT NULL,
-  PRIMARY KEY (`cod_genero`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
-INSERT INTO tbl_genero VALUES("3","FEMENINO");
-INSERT INTO tbl_genero VALUES("4","MASCULINO");
-
-
-
-DROP TABLE IF EXISTS tbl_inventario;
-
-CREATE TABLE `tbl_inventario` (
-  `cod_inventario` int NOT NULL AUTO_INCREMENT,
-  `fecha` datetime DEFAULT NULL,
-  `cantidad` int DEFAULT NULL,
-  `cod_producto` int DEFAULT NULL,
-  PRIMARY KEY (`cod_inventario`),
-  KEY `TBL_PRODUCTO_COD_PRODUCTO_idx` (`cod_producto`),
-  CONSTRAINT `InventarioCodProducto` FOREIGN KEY (`cod_producto`) REFERENCES `tbl_producto` (`cod_producto`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
+INSERT INTO tbl_factura VALUES("132","39","2023-04-29 00:10:37","1","5","1300.00","1","1130.43","169.57","15.00","0.00","690CF2-53A933-A8439D-DF8027-51244A-0A");
 
 
 
@@ -542,7 +430,7 @@ CREATE TABLE `tbl_kardex` (
   KEY `Kardex_idTipoMovimiento_idx` (`cod_tipo_movimiento`),
   CONSTRAINT `Kardex_CodProducto` FOREIGN KEY (`cod_producto`) REFERENCES `tbl_producto` (`cod_producto`),
   CONSTRAINT `Kardex_idTipoMovimiento` FOREIGN KEY (`cod_tipo_movimiento`) REFERENCES `tbl_tipo_movimiento` (`cod_tipo_movimiento`)
-) ENGINE=InnoDB AUTO_INCREMENT=144 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=143 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 INSERT INTO tbl_kardex VALUES("1","12","1","2023-03-17 00:00:00","20");
 INSERT INTO tbl_kardex VALUES("2","12","2","2023-03-17 00:00:00","10");
@@ -667,7 +555,6 @@ INSERT INTO tbl_kardex VALUES("138","13","1","2023-04-29 00:15:02","2");
 INSERT INTO tbl_kardex VALUES("139","12","2","2023-04-29 00:16:21","2");
 INSERT INTO tbl_kardex VALUES("140","17","2","2023-04-29 00:16:21","1");
 INSERT INTO tbl_kardex VALUES("142","19","1","2023-04-29 00:16:28","1");
-INSERT INTO tbl_kardex VALUES("143","18","2","2023-07-24 00:11:36","1");
 
 
 
@@ -685,7 +572,7 @@ CREATE TABLE `tbl_ms_bitacora` (
   KEY `bitacora_usuario_idx` (`id_usuario`),
   CONSTRAINT `bitacora_objeto` FOREIGN KEY (`id_objeto`) REFERENCES `tbl_ms_objetos` (`id_objeto`),
   CONSTRAINT `bitacora_usuario` FOREIGN KEY (`id_usuario`) REFERENCES `tbl_ms_usuarios` (`id_usuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=900 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=904 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 INSERT INTO tbl_ms_bitacora VALUES("1","2023-04-12 21:34:54","1","2","INGRESO","INGRESO AL MODULO DE ROLES");
 INSERT INTO tbl_ms_bitacora VALUES("2","2023-04-12 21:48:25","1","2","INGRESO","INGRESO AL MODULO DE ROLES");
@@ -1161,9 +1048,9 @@ INSERT INTO tbl_ms_bitacora VALUES("471","2023-04-19 02:57:54","1","2","INGRESO"
 INSERT INTO tbl_ms_bitacora VALUES("472","2023-04-19 08:36:28","1","2","INGRESO","INGRESO AL SISTEMA");
 INSERT INTO tbl_ms_bitacora VALUES("473","2023-04-19 08:36:40","1","2","INGRESO","INGRESO AL MODULO VENTAS");
 INSERT INTO tbl_ms_bitacora VALUES("474","2023-04-19 08:43:21","1","2","INGRESO","INGRESO AL MODULO VENTAS");
-INSERT INTO tbl_ms_bitacora VALUES("475","","","","","");
-INSERT INTO tbl_ms_bitacora VALUES("476","","","","","");
-INSERT INTO tbl_ms_bitacora VALUES("477","","","","","");
+INSERT INTO tbl_ms_bitacora VALUES("475",NULL,NULL,NULL,NULL,NULL);
+INSERT INTO tbl_ms_bitacora VALUES("476",NULL,NULL,NULL,NULL,NULL);
+INSERT INTO tbl_ms_bitacora VALUES("477",NULL,NULL,NULL,NULL,NULL);
 INSERT INTO tbl_ms_bitacora VALUES("478","2023-04-19 08:47:54","1","15","INGRESO","INGRESO AL MÓDULO DE KARDEX");
 INSERT INTO tbl_ms_bitacora VALUES("479","2023-04-19 09:09:01","1","2","INGRESO","INGRESO AL MODULO VENTAS");
 INSERT INTO tbl_ms_bitacora VALUES("480","2023-04-19 09:09:30","1","2","INGRESO","INGRESO AL MODULO VENTAS");
@@ -1579,13 +1466,17 @@ INSERT INTO tbl_ms_bitacora VALUES("889","2023-05-05 23:46:05","1","18","ELIMINA
 INSERT INTO tbl_ms_bitacora VALUES("890","2023-05-05 23:46:08","1","18","ELIMINAR","SE INTENTÓ ELIMINAR LA PREGUNTA: (CóMO SE LLAMA TU MASCOTA), NO SE ELIMINÓ POR INTEGRIDAD REFERENCIAL.");
 INSERT INTO tbl_ms_bitacora VALUES("891","2023-05-19 14:39:07","1","2","INGRESO","INGRESO AL SISTEMA");
 INSERT INTO tbl_ms_bitacora VALUES("892","2023-05-19 14:39:33","1","2","INGRESO","INGRESO AL MODULO VENTAS");
-INSERT INTO tbl_ms_bitacora VALUES("893","2023-07-24 00:11:17","1","2","INGRESO","INGRESO AL SISTEMA");
-INSERT INTO tbl_ms_bitacora VALUES("894","2023-07-24 00:11:19","1","24","INGRESO","INGRESO AL MÓDULO USUARIOS");
-INSERT INTO tbl_ms_bitacora VALUES("895","2023-07-24 00:11:24","1","11","INGRESO","INGRESO AL MÓDULO COMPRAS");
-INSERT INTO tbl_ms_bitacora VALUES("896","2023-07-24 00:11:27","1","2","INGRESO","INGRESO AL MODULO VENTAS");
-INSERT INTO tbl_ms_bitacora VALUES("897","2023-07-24 00:11:39","1","2","INGRESO","INGRESO AL MODULO VENTAS");
-INSERT INTO tbl_ms_bitacora VALUES("898","2023-07-24 00:19:22","1","2","CERRAR SESIÓN","USUARIO CERRÓ SESIÓN");
-INSERT INTO tbl_ms_bitacora VALUES("899","2023-07-28 12:13:53","1","2","INGRESO","INGRESO AL SISTEMA");
+INSERT INTO tbl_ms_bitacora VALUES("893","2023-07-28 16:04:41","1","10","INGRESO","INGRESO AL MÓDULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("894","2023-07-28 16:05:09","1","10","CREAR","CREACIÓN DE CLIENTE");
+INSERT INTO tbl_ms_bitacora VALUES("895","2023-07-28 16:19:20","1","10","INGRESO","INGRESO AL MÓDULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("896","2023-07-28 16:20:00","1","10","CREAR","CREACIÓN DE CLIENTE");
+INSERT INTO tbl_ms_bitacora VALUES("897","2023-07-28 16:20:05","1","10","INGRESO","INGRESO AL MÓDULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("898","2023-07-28 16:45:38","1","10","INGRESO","INGRESO AL MÓDULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("899","2023-07-28 16:46:03","1","10","CREAR","CREACIÓN DE CLIENTE");
+INSERT INTO tbl_ms_bitacora VALUES("900","2023-07-28 16:46:36","1","10","CREAR","CREACIÓN DE CLIENTE");
+INSERT INTO tbl_ms_bitacora VALUES("901","2023-07-28 16:47:05","1","10","INGRESO","INGRESO AL MÓDULO CLIENTES");
+INSERT INTO tbl_ms_bitacora VALUES("902","2023-07-28 16:47:36","1","10","CREAR","CREACIÓN DE CLIENTE");
+INSERT INTO tbl_ms_bitacora VALUES("903","2023-07-28 16:48:04","1","10","CREAR","CREACIÓN DE CLIENTE");
 
 
 
@@ -1622,17 +1513,17 @@ INSERT INTO tbl_ms_objetos VALUES("10","CLIENTES","","1");
 INSERT INTO tbl_ms_objetos VALUES("11","COMPRAS","","1");
 INSERT INTO tbl_ms_objetos VALUES("12","DESCUENTOS","","1");
 INSERT INTO tbl_ms_objetos VALUES("13","INICIO","","1");
-INSERT INTO tbl_ms_objetos VALUES("14","INVENTARIO","","1");
-INSERT INTO tbl_ms_objetos VALUES("15","KARDEX","","1");
-INSERT INTO tbl_ms_objetos VALUES("16","OBJETOS","","1");
-INSERT INTO tbl_ms_objetos VALUES("17","PARÁMETROS","","1");
-INSERT INTO tbl_ms_objetos VALUES("18","PREGUNTAS","","1");
-INSERT INTO tbl_ms_objetos VALUES("20","PRODUCCIÓN","","1");
-INSERT INTO tbl_ms_objetos VALUES("21","PRODUCTOS","","1");
-INSERT INTO tbl_ms_objetos VALUES("22","PROMOCIÓN","","1");
-INSERT INTO tbl_ms_objetos VALUES("23","ROLES","","1");
-INSERT INTO tbl_ms_objetos VALUES("24","USUARIOS","","1");
-INSERT INTO tbl_ms_objetos VALUES("25","VENTAS","","1");
+INSERT INTO tbl_ms_objetos VALUES("14","INVENTARIO",NULL,"1");
+INSERT INTO tbl_ms_objetos VALUES("15","KARDEX",NULL,"1");
+INSERT INTO tbl_ms_objetos VALUES("16","OBJETOS",NULL,"1");
+INSERT INTO tbl_ms_objetos VALUES("17","PARÁMETROS",NULL,"1");
+INSERT INTO tbl_ms_objetos VALUES("18","PREGUNTAS",NULL,"1");
+INSERT INTO tbl_ms_objetos VALUES("20","PRODUCCIÓN",NULL,"1");
+INSERT INTO tbl_ms_objetos VALUES("21","PRODUCTOS",NULL,"1");
+INSERT INTO tbl_ms_objetos VALUES("22","PROMOCIÓN",NULL,"1");
+INSERT INTO tbl_ms_objetos VALUES("23","ROLES",NULL,"1");
+INSERT INTO tbl_ms_objetos VALUES("24","USUARIOS",NULL,"1");
+INSERT INTO tbl_ms_objetos VALUES("25","VENTAS",NULL,"1");
 
 
 
@@ -1649,16 +1540,16 @@ CREATE TABLE `tbl_ms_parametros` (
   PRIMARY KEY (`id_parametro`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-INSERT INTO tbl_ms_parametros VALUES("1","ADMIN_INTENTOS","3","","","","");
-INSERT INTO tbl_ms_parametros VALUES("2","ADMIN_PREGUNTAS","2","","","","");
-INSERT INTO tbl_ms_parametros VALUES("3","ADMIN_CORREO","uniformesdelatlantico@hotmail.com","","","","");
-INSERT INTO tbl_ms_parametros VALUES("4","FECHA_VENCIMIENTO","30","","","","");
-INSERT INTO tbl_ms_parametros VALUES("5","IMPUESTO","15","","","ADMIN","2023-04-16 02:57:05");
-INSERT INTO tbl_ms_parametros VALUES("6","NOMBRE_EMPRESA","INVERSIONES UNIFORMES DEL ATLÁNTICO","","","ADMIN","2023-04-18 10:35:48");
-INSERT INTO tbl_ms_parametros VALUES("7","RAZON_SOCIAL","S. DE R. L. DE C. V.","","","","");
-INSERT INTO tbl_ms_parametros VALUES("8","TELEFONO_EMPRESA","9970-5887","","","","");
-INSERT INTO tbl_ms_parametros VALUES("9","DIRECCION","BO. EL CENTRO, DOMICILIO RENTADO, ATRÁS DE LA DESPENSA FAMILIAR, TELA. ATLÁNTIDA","","","","");
-INSERT INTO tbl_ms_parametros VALUES("10","RTN","01079021315692","","","","");
+INSERT INTO tbl_ms_parametros VALUES("1","ADMIN_INTENTOS","3",NULL,NULL,NULL,NULL);
+INSERT INTO tbl_ms_parametros VALUES("2","ADMIN_PREGUNTAS","2",NULL,NULL,NULL,NULL);
+INSERT INTO tbl_ms_parametros VALUES("3","ADMIN_CORREO","uniformesdelatlantico@hotmail.com",NULL,NULL,NULL,NULL);
+INSERT INTO tbl_ms_parametros VALUES("4","FECHA_VENCIMIENTO","30",NULL,NULL,NULL,NULL);
+INSERT INTO tbl_ms_parametros VALUES("5","IMPUESTO","15",NULL,NULL,"ADMIN","2023-04-16 02:57:05");
+INSERT INTO tbl_ms_parametros VALUES("6","NOMBRE_EMPRESA","INVERSIONES UNIFORMES DEL ATLÁNTICO",NULL,NULL,"ADMIN","2023-04-18 10:35:48");
+INSERT INTO tbl_ms_parametros VALUES("7","RAZON_SOCIAL","S. DE R. L. DE C. V.",NULL,NULL,NULL,NULL);
+INSERT INTO tbl_ms_parametros VALUES("8","TELEFONO_EMPRESA","9970-5887",NULL,NULL,NULL,NULL);
+INSERT INTO tbl_ms_parametros VALUES("9","DIRECCION","BO. EL CENTRO, DOMICILIO RENTADO, ATRÁS DE LA DESPENSA FAMILIAR, TELA. ATLÁNTIDA",NULL,NULL,NULL,NULL);
+INSERT INTO tbl_ms_parametros VALUES("10","RTN","01079021315692",NULL,NULL,NULL,NULL);
 
 
 
@@ -1818,13 +1709,13 @@ CREATE TABLE `tbl_ms_usuarios` (
   CONSTRAINT `tbl_ms_usuarios_ibfk_1` FOREIGN KEY (`id_rol`) REFERENCES `tbl_ms_roles` (`id_rol`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=193 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
 
-INSERT INTO tbl_ms_usuarios VALUES("1","ADMIN","ADMINISTRADOR","1","ca29863b8b4be2fd63b5bc73276c8e407cda29e03da5c4646b96612110aaf901","2023-07-28 12:13:53","0","","","admin@atlantico.com","733464113f1d79251461-4ff19d069fb2ec635522-a12faeec9a0c21dd0b33-435908728e5136f3ae80","","2021-08-20 01:34:15","ADMIN","2023-04-28 20:23:52","1");
-INSERT INTO tbl_ms_usuarios VALUES("19","ALEXANDER","ALEXANDER AGUILAR","2","3ea87a56da3844b420ec2925ae922bc731ec16a4fc44dcbeafdad49b0e61d39c","","0","","","alex@hotmail.com","","","2023-02-04 01:16:01","ADMIN","2023-03-22 10:36:01","4");
-INSERT INTO tbl_ms_usuarios VALUES("20","ERIKA","ERIKA AYALA","2","18ac3e7343f016890c510e93f935261169d9e3f565436429830faf0934f4f8e4","","0","","","erika3@gmail.com","","","2023-02-08 21:40:58","ADMIN","2023-03-22 10:35:34","2");
-INSERT INTO tbl_ms_usuarios VALUES("104","HECTOR","HECTOR BUSTILLOO","2","3ea87a56da3844b420ec2925ae922bc731ec16a4fc44dcbeafdad49b0e61d39c","","2","","","hector@hotmail.com","","ADMIN","2023-03-08 15:22:09","ADMIN","2023-03-22 21:14:43","1");
-INSERT INTO tbl_ms_usuarios VALUES("190","ANA","ANA","3","c7a1efa3453d748fe74f4ec5ea1decee819cdc2898c933d00348507ccf99dfcb","","0","","","ana@hotmail.com","","ADMIN","2023-05-04 21:05:39","","","1");
-INSERT INTO tbl_ms_usuarios VALUES("191","ANALIA","ANALIA","3","c7a1efa3453d748fe74f4ec5ea1decee819cdc2898c933d00348507ccf99dfcb","","0","","","analia@hotmail.com","","ADMIN","2023-05-04 21:06:03","","","1");
-INSERT INTO tbl_ms_usuarios VALUES("192","LOPEZ","LOPEZ","1","c7a1efa3453d748fe74f4ec5ea1decee819cdc2898c933d00348507ccf99dfcb","","2","","","lopez@hotmail.com","","ADMIN","2023-05-04 21:07:37","","","1");
+INSERT INTO tbl_ms_usuarios VALUES("1","ADMIN","ADMINISTRADOR","1","ca29863b8b4be2fd63b5bc73276c8e407cda29e03da5c4646b96612110aaf901","2023-05-19 14:39:07","0",NULL,NULL,"admin@atlantico.com","733464113f1d79251461-4ff19d069fb2ec635522-a12faeec9a0c21dd0b33-435908728e5136f3ae80",NULL,"2021-08-20 01:34:15","ADMIN","2023-04-28 20:23:52","1");
+INSERT INTO tbl_ms_usuarios VALUES("19","ALEXANDER","ALEXANDER AGUILAR","2","3ea87a56da3844b420ec2925ae922bc731ec16a4fc44dcbeafdad49b0e61d39c",NULL,"0",NULL,NULL,"alex@hotmail.com",NULL,NULL,"2023-02-04 01:16:01","ADMIN","2023-03-22 10:36:01","4");
+INSERT INTO tbl_ms_usuarios VALUES("20","ERIKA","ERIKA AYALA","2","18ac3e7343f016890c510e93f935261169d9e3f565436429830faf0934f4f8e4",NULL,"0",NULL,NULL,"erika3@gmail.com",NULL,NULL,"2023-02-08 21:40:58","ADMIN","2023-03-22 10:35:34","2");
+INSERT INTO tbl_ms_usuarios VALUES("104","HECTOR","HECTOR BUSTILLOO","2","3ea87a56da3844b420ec2925ae922bc731ec16a4fc44dcbeafdad49b0e61d39c",NULL,"2",NULL,NULL,"hector@hotmail.com",NULL,"ADMIN","2023-03-08 15:22:09","ADMIN","2023-03-22 21:14:43","1");
+INSERT INTO tbl_ms_usuarios VALUES("190","ANA","ANA","3","c7a1efa3453d748fe74f4ec5ea1decee819cdc2898c933d00348507ccf99dfcb",NULL,"0",NULL,NULL,"ana@hotmail.com",NULL,"ADMIN","2023-05-04 21:05:39",NULL,NULL,"1");
+INSERT INTO tbl_ms_usuarios VALUES("191","ANALIA","ANALIA","3","c7a1efa3453d748fe74f4ec5ea1decee819cdc2898c933d00348507ccf99dfcb",NULL,"0",NULL,NULL,"analia@hotmail.com",NULL,"ADMIN","2023-05-04 21:06:03",NULL,NULL,"1");
+INSERT INTO tbl_ms_usuarios VALUES("192","LOPEZ","LOPEZ","1","c7a1efa3453d748fe74f4ec5ea1decee819cdc2898c933d00348507ccf99dfcb",NULL,"2",NULL,NULL,"lopez@hotmail.com",NULL,"ADMIN","2023-05-04 21:07:37",NULL,NULL,"1");
 
 
 
@@ -1836,7 +1727,7 @@ CREATE TABLE `tbl_porcentaje_descuento` (
   PRIMARY KEY (`cod`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-INSERT INTO tbl_porcentaje_descuento VALUES("1","0.00");
+INSERT INTO tbl_porcentaje_descuento VALUES("1","15.00");
 
 
 
@@ -1886,19 +1777,19 @@ CREATE TABLE `tbl_producto` (
   CONSTRAINT `Producto_CodTipoProducto` FOREIGN KEY (`cod_tipo_producto`) REFERENCES `tbl_tipo_producto` (`cod_tipo_producto`)
 ) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-INSERT INTO tbl_producto VALUES("12","TELA","TELA BLANCA","200","30","3","30.00","1","","","","","87");
-INSERT INTO tbl_producto VALUES("13","PINTURA","ROJA","10","100","3","20.00","1","","","","","52");
+INSERT INTO tbl_producto VALUES("12","TELA","TELA BLANCA","200","30","3","30.00","1",NULL,NULL,NULL,NULL,"87");
+INSERT INTO tbl_producto VALUES("13","PINTURA","ROJA","10","100","3","20.00","1",NULL,NULL,NULL,NULL,"52");
 INSERT INTO tbl_producto VALUES("15","MONOGRAMA","MONOGRAMA ESCOLAR","3","4","4","65.20","1","ADMIN","2023-04-13 10:21:05","ADMIN","2023-04-13 10:30:07","23");
-INSERT INTO tbl_producto VALUES("16","PINTURA PARA SERIGRAFíA","PINTURA","12","23","3","100.00","1","ADMIN","2023-04-13 10:27:48","","","201");
-INSERT INTO tbl_producto VALUES("17","PAPEL VINIL","PAPEL","200","100","3","23.00","1","ADMIN","2023-04-13 10:29:04","","","122");
-INSERT INTO tbl_producto VALUES("18","BUSO ESCOLAR","BUSO","20","40","4","100.00","1","ADMIN","2023-04-13 10:30:40","ADMIN","2023-04-13 10:30:55","32");
-INSERT INTO tbl_producto VALUES("19","CAMISA BLANCA","CAMISA","5","100","4","220.00","1","ADMIN","2023-04-13 15:16:06","","","951");
-INSERT INTO tbl_producto VALUES("20","HILASA","HILASA","2","23","3","43.00","1","ADMIN","2023-04-17 01:33:35","","","124");
-INSERT INTO tbl_producto VALUES("21","BANDERA HONDURAS","BANDERA","12","22","4","150.00","1","ADMIN","2023-04-24 15:21:08","","","11");
+INSERT INTO tbl_producto VALUES("16","PINTURA PARA SERIGRAFíA","PINTURA","12","23","3","100.00","1","ADMIN","2023-04-13 10:27:48",NULL,NULL,"201");
+INSERT INTO tbl_producto VALUES("17","PAPEL VINIL","PAPEL","200","100","3","23.00","1","ADMIN","2023-04-13 10:29:04",NULL,NULL,"122");
+INSERT INTO tbl_producto VALUES("18","BUSO ESCOLAR","BUSO","20","40","4","100.00","1","ADMIN","2023-04-13 10:30:40","ADMIN","2023-04-13 10:30:55","29");
+INSERT INTO tbl_producto VALUES("19","CAMISA BLANCA","CAMISA","5","100","4","220.00","1","ADMIN","2023-04-13 15:16:06",NULL,NULL,"949");
+INSERT INTO tbl_producto VALUES("20","HILASA","HILASA","2","23","3","43.00","1","ADMIN","2023-04-17 01:33:35",NULL,NULL,"124");
+INSERT INTO tbl_producto VALUES("21","BANDERA HONDURAS","BANDERA","12","22","4","150.00","1","ADMIN","2023-04-24 15:21:08",NULL,NULL,"11");
 INSERT INTO tbl_producto VALUES("22","TERMO","TERMO","12","45","4","100.00","1","ADMIN","2023-04-24 15:21:30","ADMIN","2023-04-24 15:31:16","22");
-INSERT INTO tbl_producto VALUES("23","COJíN","COJíN","3","45","4","170.00","1","ADMIN","2023-04-24 15:22:09","","","100");
-INSERT INTO tbl_producto VALUES("24","PANTALóN ESCOLAR","PANTALóN","120","200","4","250.00","1","ADMIN","2023-04-24 15:22:42","","","8");
-INSERT INTO tbl_producto VALUES("25","CUBALLERA BLANCA","CUBALLERA","24","55","4","250.00","1","ADMIN","2023-04-24 15:23:06","","","30");
+INSERT INTO tbl_producto VALUES("23","COJíN","COJíN","3","45","4","170.00","1","ADMIN","2023-04-24 15:22:09",NULL,NULL,"100");
+INSERT INTO tbl_producto VALUES("24","PANTALóN ESCOLAR","PANTALóN","120","200","4","250.00","1","ADMIN","2023-04-24 15:22:42",NULL,NULL,"8");
+INSERT INTO tbl_producto VALUES("25","CUBALLERA BLANCA","CUBALLERA","24","55","4","250.00","1","ADMIN","2023-04-24 15:23:06",NULL,NULL,"30");
 
 
 
@@ -1957,17 +1848,6 @@ CREATE TABLE `tbl_resultado_produccion` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 INSERT INTO tbl_resultado_produccion VALUES("1","12","2","PRODUCCIÓN");
-
-
-
-DROP TABLE IF EXISTS tbl_tipo_inventario;
-
-CREATE TABLE `tbl_tipo_inventario` (
-  `cod_tipo_inventario` int NOT NULL AUTO_INCREMENT,
-  `nombre_tipo_inventario` char(15) DEFAULT NULL,
-  PRIMARY KEY (`cod_tipo_inventario`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
 
 
 
