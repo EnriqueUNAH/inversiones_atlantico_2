@@ -62,7 +62,7 @@ while ($otra_pre = mysqli_fetch_array($consultar_contestadas)) {
     $valor_contestadas = $otra_pre['preguntas_contestadas'];
 }
 $fechaC = date('Y-m-d');
-echo "   Ha contestado: " . $valor_contestadas; /////////////////////////////////////////////////////
+//echo "   Ha contestado: " . $valor_contestadas; /////////////////////////////////////////////////////
 
 $insertar_ = "INSERT INTO tbl_ms_preguntas_usuario VALUES('$id','$id_Usuario','$respuesta')";
 mysqli_query($conexion, $insertar_);
@@ -77,7 +77,7 @@ mysqli_query( $conexion , $bitacora );
 // $resultado_ = mysqli_query($conexion, $consultar_);
 // $filas_ = mysqli_num_rows($resultado_);
 // $valor_p_p_ = $valor_p_p - 1;
-echo "   El valor parametro es: " . $valor_p_p + 1; /////////////////////////////////////////////////////
+//echo "   El valor parametro es: " . $valor_p_p + 1; /////////////////////////////////////////////////////
 
 if ($valor_contestadas < $valor_p_p - 1) { ////////////////////////////////////CAMBIADO
     #Trae preguntas contestadas tabla ms_usuarios
