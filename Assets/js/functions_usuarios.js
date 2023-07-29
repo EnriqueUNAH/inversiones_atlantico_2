@@ -133,14 +133,11 @@ document.addEventListener(
         let strPassword = document.querySelector("#txtPassword").value;
         let intStatus = document.querySelector("#listStatus").value;
 
-        if (
-          strusuario == "ADMIN" &&
-          intStatus != 1 
-        ) {
+        if (strusuario == "ADMIN" && intStatus != 1) {
           swal("Atención", "El usuario admin no se puede inactivar.", "error");
           return false;
         }
-        
+
         if (
           strusuario == "" ||
           strnombre_usuario == "" ||
@@ -458,6 +455,7 @@ function fntEditUsuario(element, id_usuario) {
         //entonces coloca el input de Usuario como solo lectura
         if (id_usuario) {
           document.querySelector("#txtusuario").setAttribute("readonly", true);
+          document.querySelector("#txtPassword").setAttribute("readonly", true);
         }
 
         document.querySelector("#txtnombre_usuario").value =
@@ -483,6 +481,49 @@ function fntEditUsuario(element, id_usuario) {
   };
 }
 
+function fntReinicioUsuario(id_usuario) {
+  swal(
+    {
+      title: "Reiniciar Contraseña",
+      text: "¿Realmente quiere reiniciar la contraseña?",
+      type: "warning",
+      showCancelButton: true,
+      confirmButtonText: "REINICIAR",
+      cancelButtonText: "CANCELAR",
+      closeOnConfirm: false,
+      closeOnCancel: true,
+    },
+    function (isConfirm) {
+      if (isConfirm) {
+        let request = window.XMLHttpRequest
+          ? new XMLHttpRequest()
+          : new ActiveXObject("Microsoft.XMLHTTP");
+        let ajaxUrl = base_url + "/Usuarios/reiniciarContrasena";
+        let strData = "id_usuario=" + id_usuario;
+        request.open("POST", ajaxUrl, true);
+        request.setRequestHeader(
+          "Content-type",
+          "application/x-www-form-urlencoded"
+        );
+        request.send(strData);
+        request.onreadystatechange = function () {
+          if (request.readyState == 4 && request.status == 200) {
+            let objData = JSON.parse(request.responseText);
+            if (objData.status) {
+              swal("Reiniciar!", objData.msg, "success");
+              tableUsuarios.api().ajax.reload();
+            } else if (objData.statusReferencial) {
+              swal("Atención!", objData.msg, "error");
+              tableUsuarios.api().ajax.reload();
+            } else {
+              swal("Atención!", objData.msg, "error");
+            }
+          }
+        };
+      }
+    }
+  );
+}
 function fntDelUsuario(id_usuario) {
   swal(
     {
@@ -531,6 +572,9 @@ function fntDelUsuario(id_usuario) {
 function openModal() {
   rowTable = "";
   document.querySelector("#id_usuario").value = "";
+
+  document.querySelector("#txtPassword").removeAttribute("readonly"); //Para quitar el readonly en caso de que antes se haya editado
+
   document.querySelector("#txtusuario").removeAttribute("readonly"); //Para quitar el readonly en caso de que antes se haya editado
   //document.querySelector("#listStatus").setAttribute("readonly", true);
   // document.querySelector("#listStatus").setAttribute("disabled", true);

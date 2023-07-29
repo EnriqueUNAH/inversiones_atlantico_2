@@ -149,9 +149,9 @@ class UsuariosModel extends Mysql
 		if (empty($request)) {
 
 
-			if ($this->intStatus  != 1 AND $this->intIdUsuario == 1) {
+			if ($this->intStatus  != 1 and $this->intIdUsuario == 1) {
 				$request = "admin";
-			}else
+			} else
 
 			if ($this->strPassword  != "") {
 				$sql = "UPDATE tbl_ms_usuarios SET usuario=?, nombre_usuario=?, correo_electronico=?, contrasena=?, id_rol=?, modificado_por=?, fecha_modificacion=?, estado=? 
@@ -180,12 +180,6 @@ class UsuariosModel extends Mysql
 				);
 			}
 			$request = $this->update($sql, $arrData);
-
-		
-
-
-
-
 		} else {
 			$request = "exist";
 		}
@@ -228,6 +222,26 @@ class UsuariosModel extends Mysql
 	}
 
 
+
+	public function reinicioContrasena(int $idUsuario, string $contrasena)
+	{
+		$this->intid_Usuario = $idUsuario;
+		$this->password = $contrasena;
+
+		$sql = "SELECT * FROM tbl_ms_usuarios WHERE id_usuario = $this->intid_Usuario";
+		$request = $this->select_all($sql);
+
+		if ($request) {
+			$sql = "UPDATE tbl_ms_usuarios SET contrasena = ? WHERE id_usuario = $this->intid_Usuario and id_usuario != 1";
+			// $arrData = array(2);
+
+			$arrData = array(
+				$this->password
+			);
+			$request = $this->update($sql, $arrData);
+		}
+		return $request;
+	}
 
 
 

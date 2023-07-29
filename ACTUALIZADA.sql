@@ -556,13 +556,13 @@ DROP TABLE IF EXISTS `tbl_ms_permisos`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tbl_ms_permisos` (
-  `idpermiso` bigint NOT NULL AUTO_INCREMENT COMMENT 'cod del permiso.',
+  `cod_permiso` bigint NOT NULL AUTO_INCREMENT COMMENT 'cod del permiso.',
   `cod_rol` bigint NOT NULL COMMENT 'cod del rol del usuario.',
   `cod_objeto` bigint NOT NULL COMMENT 'cod del objeto, es decir, la pantalla.',
-  `r` int NOT NULL DEFAULT '0' COMMENT 'Permiso de consultar.',
-  `w` int NOT NULL DEFAULT '0' COMMENT 'Permiso de agregar.',
-  `u` int NOT NULL DEFAULT '0' COMMENT 'Permiso de actualizar.',
-  `d` int NOT NULL DEFAULT '0' COMMENT 'Permiso de eliminar.',
+  `leer` int NOT NULL DEFAULT '0' COMMENT 'Permiso de consultar.',
+  `escribir` int NOT NULL DEFAULT '0' COMMENT 'Permiso de agregar.',
+  `actualizar` int NOT NULL DEFAULT '0' COMMENT 'Permiso de actualizar.',
+  `eliminar` int NOT NULL DEFAULT '0' COMMENT 'Permiso de eliminar.',
   PRIMARY KEY (`idpermiso`),
   KEY `rolid` (`cod_rol`),
   KEY `moduloid` (`cod_objeto`),

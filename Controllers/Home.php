@@ -11,16 +11,15 @@
 
 		public function home()
 		{
-			$pageContent = getPageRout('inicio');
+			// $pageContent = getPageRout('inicio');
 			$data['page_tag'] = NOMBRE_EMPESA;
 			$data['page_title'] = NOMBRE_EMPESA;
 			$data['page_name'] = "Inversiones_Atlántico";
-			$data['page'] = $pageContent;
+			// $data['page'] = $pageContent;
 			//$data['slider'] = $this->getCategoriasT(CAT_SLIDER);
 			//$data['banner'] = $this->getCategoriasT(CAT_BANNER);
-			$data['productos'] = $this->getProductosT();
+			// $data['productos'] = $this->getProductosT();
 			$this->views->getView($this,"home",$data); 
 		}
 
 	}
- ?>
