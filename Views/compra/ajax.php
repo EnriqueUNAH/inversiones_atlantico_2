@@ -322,6 +322,10 @@ if (!empty($_POST)) {
 			$query_procesar = mysqli_query($conection, "CALL procesar_compra($usuario,'$token')");
 			$result_detalle = mysqli_num_rows($query_procesar);
 
+			$bitacora="INSERT INTO tbl_ms_bitacora(fecha,id_usuario,id_objeto,accion,descripcion) VALUES(now(),'$usuario','9','SE HIZO UNA COMPRA','SE REALIZO UNA COMPRA EN EL MODULO DE COMPRAS') ";
+			mysqli_query( $conection , $bitacora );
+			  
+
 			if ($result_detalle > 0) {
 				$data	= mysqli_fetch_assoc($query_procesar);
 				echo json_encode($data, JSON_UNESCAPED_UNICODE);
