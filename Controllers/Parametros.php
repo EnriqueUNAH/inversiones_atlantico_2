@@ -86,8 +86,8 @@ class Parametros extends Controllers
 				} else {
 					$option = 2; //SI OPTION ES 2, ENTONCES ESTARÁ ACTUALIZANDO
 
-					$requestParametroAnterior = $this->model->selectParametro($id_parametro);
-					$valorParametroAnterior = $requestParametroAnterior['valor'];
+					$arrParametroAnterior = $this->model->selectParametro($id_parametro); //Arreglo que obtiene los datos.
+					$valorParametroAnterior = $arrParametroAnterior['valor']; //Se obtiene el dato del campo: valor.
 
 					if ($_SESSION['permisosMod']['u']) {
 
