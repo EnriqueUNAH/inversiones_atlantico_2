@@ -63,23 +63,23 @@
       </div>
     </div>
 
-    
-<script>
-  var baseUrl = "http://localhost/inversiones_atlantico_2"; // Cambia esto por la URL base de tu aplicación
-</script>
+
+    <script>
+      var baseUrl = "http://localhost/inversiones_atlantico_2"; // Cambia esto por la URL base de tu aplicación
+    </script>
 
 
     <script>
-      var inactivityTimeout = 1 * 60 * 1000; // 5 minutos en milisegundos
+      var inactivityTimeout = 15 * 60 * 1000; // 5 minutos en milisegundos
       var logoutTimer;
       var modalTimeout = 30 * 1000; // 30 segundos en milisegundos (tiempo para mostrar el modal)
 
-      
+
       function logout() {
         // Aquí puedes realizar las acciones necesarias para cerrar la sesión, como redireccionar a la página de inicio de sesión o limpiar los datos de sesión
-     //window.location.href = "http://localhost/inversiones_atlantico_2/logout";
-     window.location.href = baseUrl + "/logout";
-    }
+        //window.location.href = "http://localhost/inversiones_atlantico_2/logout";
+        window.location.href = baseUrl + "/logout";
+      }
 
       function resetLogoutTimer() {
         clearTimeout(logoutTimer);

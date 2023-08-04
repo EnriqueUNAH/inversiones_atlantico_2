@@ -26,7 +26,7 @@ document.addEventListener(
         {
           extend: "pdfHtml5",
           download: "open",
-          title:"INVERSIONES DEL ATLÁNTICO",
+          title: "INVERSIONES DEL ATLÁNTICO",
           text: "<i class='fas fa-file-pdf'></i> PDF",
           titleAttr: "Exportar a PDF",
           className: "btn btn-danger",
@@ -62,19 +62,18 @@ document.addEventListener(
               .join("*")
               .split("");
 
-              doc.content.splice(1,0, {
-                columns: [
-                  {
+            doc.content.splice(1, 0, {
+              columns: [
+                {
                   text: "REPORTE DE OBJETOS",
                   fontsize: 20,
                   bold: true,
                   alignment: "center",
-                  margin: [0,0,0,15],
-                  width: "*"
-                  }
-                ]
-              })
-
+                  margin: [0, 0, 0, 15],
+                  width: "*",
+                },
+              ],
+            });
 
             // Agregar pie de página con la fecha
             var now = new Date();
@@ -108,6 +107,15 @@ document.addEventListener(
             // });
           },
         },
+        {
+          extend: "excelHtml5",
+          text: "<i class='fas fa-file-excel'></i> Excel",
+          titleAttr: "Exportar a Excel",
+          className: "btn btn-success",
+          exportOptions: {
+            columns: [0, 1],
+          },
+        },
       ],
       resonsieve: "true",
       bDestroy: true,
@@ -121,7 +129,9 @@ document.addEventListener(
         e.preventDefault();
 
         let strobjeto = document.querySelector("#txtobjeto").value;
-        let strdescripcion = document.querySelector("#txtdescripcion").value.toUpperCase();
+        let strdescripcion = document
+          .querySelector("#txtdescripcion")
+          .value.toUpperCase();
 
         if (strobjeto == "" || strdescripcion == "") {
           swal("Atención", "Todos los campos son obligatorios.", "error");

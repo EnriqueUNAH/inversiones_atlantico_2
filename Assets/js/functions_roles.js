@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", function () {
       {
         extend: "pdfHtml5",
         download: "open",
-        title:"INVERSIONES DEL ATLÁNTICO",
+        title: "INVERSIONES DEL ATLÁNTICO",
         text: "<i class='fas fa-file-pdf'></i> PDF",
         titleAttr: "Exportar a PDF",
         className: "btn btn-danger",
@@ -59,19 +59,18 @@ document.addEventListener("DOMContentLoaded", function () {
             .join("*")
             .split("");
 
-
-            doc.content.splice(1,0, {
-              columns: [
-                {
+          doc.content.splice(1, 0, {
+            columns: [
+              {
                 text: "REPORTE DE ROLES",
                 fontsize: 20,
                 bold: true,
                 alignment: "center",
-                margin: [0,0,0,15],
-                width: "*"
-                }
-              ]
-            })
+                margin: [0, 0, 0, 15],
+                width: "*",
+              },
+            ],
+          });
 
           // Agregar pie de página con la fecha
           var now = new Date();
@@ -105,6 +104,15 @@ document.addEventListener("DOMContentLoaded", function () {
           // });
         },
       },
+      {
+        extend: "excelHtml5",
+        text: "<i class='fas fa-file-excel'></i> Excel",
+        titleAttr: "Exportar a Excel",
+        className: "btn btn-success",
+        exportOptions: {
+          columns: [0, 1, 2],
+        },
+      },
     ],
 
     resonsieve: "true",
@@ -120,7 +128,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     var intid_rol = document.querySelector("#id_rol").value;
     var strNombre = document.querySelector("#txtNombre").value.toUpperCase();
-    var strDescripcion = document.querySelector("#txtDescripcion").value.toUpperCase();
+    var strDescripcion = document
+      .querySelector("#txtDescripcion")
+      .value.toUpperCase();
     var intestado = document.querySelector("#listStatus").value;
     if (strNombre == "" || strDescripcion == "" || intestado == "") {
       swal("Atención", "Todos los campos son obligatorios.", "error");

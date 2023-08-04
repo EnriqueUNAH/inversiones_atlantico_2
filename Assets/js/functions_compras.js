@@ -16,7 +16,8 @@ document.addEventListener(
       },
       columns: [
         { data: "cod_compra" },
-        { data: "total_pagado",
+        {
+          data: "total_pagado",
           render: function (data, type, row) {
             return "L. " + data;
           },
@@ -25,14 +26,14 @@ document.addEventListener(
         { data: "fecha" },
         { data: "usuario" },
         { data: "estado" },
-        { data: "options" }
+        { data: "options" },
       ],
       dom: "lBfrtip",
       buttons: [
         {
           extend: "pdfHtml5",
           download: "open",
-          title:"INVERSIONES DEL ATLÁNTICO",
+          title: "INVERSIONES DEL ATLÁNTICO",
           text: "<i class='fas fa-file-pdf'></i> PDF",
           titleAttr: "Exportar a PDF",
           className: "btn btn-danger",
@@ -68,19 +69,18 @@ document.addEventListener(
               .join("*")
               .split("");
 
-              doc.content.splice(1,0, {
-                columns: [
-                  {
+            doc.content.splice(1, 0, {
+              columns: [
+                {
                   text: "REPORTE DE COMPRAS",
                   fontsize: 20,
                   bold: true,
                   alignment: "center",
-                  margin: [0,0,0,15],
-                  width: "*"
-                  }
-                ]
-              })
-
+                  margin: [0, 0, 0, 15],
+                  width: "*",
+                },
+              ],
+            });
 
             // Agregar pie de página con la fecha
             var now = new Date();
@@ -106,7 +106,15 @@ document.addEventListener(
             };
             // Crear el PDF con pdfMake
             var pdfDoc = pdfMake.createPdf(doc);
-
+          },
+        },
+        {
+          extend: "excelHtml5",
+          text: "<i class='fas fa-file-excel'></i> Excel",
+          titleAttr: "Exportar a Excel",
+          className: "btn btn-success",
+          exportOptions: {
+            columns: [0, 1, 2, 3, 4],
           },
         },
       ],
@@ -115,13 +123,9 @@ document.addEventListener(
       iDisplayLength: 10,
       order: [[0, "desc"]],
     });
-
   },
   false
 );
-
-
-
 
 function fntDelCompra(cod_compra) {
   swal(
@@ -181,8 +185,12 @@ function openModal() {
   //   document.querySelector("#listStatus").value = "3";
   //   document.querySelector("#listStatus").setAttribute("disabled", true);
   // }
-  document.querySelector(".modal-header").classList.replace("headerUpdate", "headerRegister");
-  document.querySelector("#btnActionForm").classList.replace("btn-info", "btn-primary");
+  document
+    .querySelector(".modal-header")
+    .classList.replace("headerUpdate", "headerRegister");
+  document
+    .querySelector("#btnActionForm")
+    .classList.replace("btn-info", "btn-primary");
   document.querySelector("#btnText").innerHTML = "Guardar";
   document.querySelector("#titleModal").innerHTML = "Nueva compra";
   document.querySelector("#formCompra").reset();
@@ -208,8 +216,7 @@ function generarPDF(compra) {
   var x = parseInt(window.screen.width / 2 - ancho / 2);
   var y = parseInt(window.screen.height / 2 - alto / 2);
 
-  $url =
-    "Views/compra/factura/generaFactura.php?f=" +compra;
+  $url = "Views/compra/factura/generaFactura.php?f=" + compra;
   window.open(
     $url,
     "Compra",
