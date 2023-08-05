@@ -5,9 +5,7 @@ include "conexion.php";
 
 <?php include "includes/scripts.php"; ?>
 
-
-
-
+<?php include "../../Views/Template/header_admin2.php"; ?>
 
 
 <?php
@@ -41,18 +39,6 @@ $result->free();
 ?>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 <head>
 	<meta charset="UTF-8">
 
@@ -79,11 +65,11 @@ $result->free();
 
 	<section id="container">
 
-		<div class="title_page">
+		<!--<div class="title_page">
 			<a href="../../compras" class="btn_atras ">
 				<h2><i class="fas fa-arrow-left"></i>
 					ATRÁS</h2>
-			</a>
+			</a> -->
 
 		</div>
 		<div class="title_page">
@@ -127,8 +113,55 @@ $result->free();
 					<label>Comprador</label>
 					<!--En la siguiente linea debo colocar la variable de sesion de quien ingreso-->
 					<p><?php echo ($_SESSION['userData']['nombre_usuario']); ?></p>
+				</div>
+				<!-- fecha -->
+				<div class="50">
+					<label>Fecha</label>
+					<input type="text" id="fecha" readonly disabled required>
+				</div>
+
+				<?php
+					// Obtener la fecha actual en formato Y-m-d
+					date_default_timezone_set('America/Guatemala'); // Establece la zona horaria
+					$fecha_actual = date('Y-m-d');
+				?>
+
+				<script>
+					// Rellenar el input con la fecha actual obtenida en PHP
+					document.getElementById('fecha').value = '<?php echo $fecha_actual; ?>';
+				</script>
+
+
+				<!-- hora -->
+				<div class="wd50">
+					<label>Hora</label>
+					<input type="text" id="hora" readonly disabled required>
 
 				</div>
+
+				<?php
+					// Obtener la hora actual en formato HH:mm:ss
+					date_default_timezone_set('America/Guatemala'); // Establece la zona horaria, cámbiala según tu ubicación
+					$hora_actual = date('H:i:s');
+				?>
+				<script>
+					// Rellenar el input con la hora actual obtenida en PHP
+					document.getElementById('hora').value = '<?php echo $hora_actual; ?>';
+
+					// Actualizar la hora cada segundo (opcional)
+					function actualizarHora() {
+						var inputHora = document.getElementById('hora');
+						var now = new Date();
+						var hora = ("0" + now.getHours()).slice(-2);
+						var minutos = ("0" + now.getMinutes()).slice(-2);
+						var segundos = ("0" + now.getSeconds()).slice(-2);
+						var horaCompleta = hora + ":" + minutos + ":" + segundos;
+						inputHora.value = horaCompleta;
+					}
+
+					setInterval(actualizarHora, 1000); // Actualizar cada segundo
+				</script>
+
 				<div class="wd50">
 					<label>Acciones</label>
 					<div id="acciones_venta">
@@ -173,6 +206,8 @@ $result->free();
 						<th class="textright"></th>
 					</tr>
 
+				
+
 
 					<tr>
 						<td hidden><input type="text" name="txt_cod_producto" id="txt_cod_producto"></td>
@@ -183,9 +218,33 @@ $result->free();
 
 						<td><input type="text" name="txt_precio" id="txt_precio" value="0" min="1" disabled onkeypress='return validaNumericos(event)'></td>
 
-						<td id="txt_precio_total" class="textright">0.00</td>
+						<!--<td id="txt_precio_total" class="textright"></td> -->
+						<td><input type="textright" id="txt_precio_total" placeholder="" readonly></td>
 						<td> <a href="#"><i></i> </a></td>
 					</tr>
+
+					<script>
+						// Función que realiza la multiplicación y muestra el resultado en tiempo real
+						function calcularPrecioTotal() {
+							var cantidad = parseFloat(document.getElementById('txt_cant_producto').value);
+							var precioUnitario = parseFloat(document.getElementById('txt_precio').value);
+
+							// Verificar que ambos campos de entrada contengan números válidos
+							if (!isNaN(cantidad) && !isNaN(precioUnitario)) {
+								var precioTotal = cantidad * precioUnitario;
+								document.getElementById('txt_precio_total').value = precioTotal.toFixed(2); // Mostrar solo 2 decimales
+							} else {
+								document.getElementById('txt_precio_total').value = "Ingrese Precio y cantidad";
+							}
+						}
+
+						// Agregar listeners a los campos de entrada para llamar a la función calcularPrecioTotal en cada cambio
+						document.getElementById('txt_cant_producto').addEventListener('input', calcularPrecioTotal);
+						document.getElementById('txt_precio').addEventListener('input', calcularPrecioTotal);
+					</script>
+
+
+
 					<tr>
 						<th>Código</th>
 						<th colspan="2">Descripción</th>
@@ -208,7 +267,6 @@ $result->free();
 
 		</div>
 	</section>
-
 
 	<!-- Sirve para buscar el nombre del producto dentro del select -->
 	<script>
@@ -235,5 +293,6 @@ $result->free();
 	</script>
 
 </body>
+<?php include "../../Views/Template/footer_admin2.php"; ?>
 
 </html>

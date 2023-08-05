@@ -70,7 +70,7 @@
 
 
     <script>
-      var inactivityTimeout = 1 * 60 * 1000; // 5 minutos en milisegundos
+      var inactivityTimeout = 15 * 60 * 1000; // 5 minutos en milisegundos
       var logoutTimer;
       var modalTimeout = 30 * 1000; // 30 segundos en milisegundos (tiempo para mostrar el modal)
 

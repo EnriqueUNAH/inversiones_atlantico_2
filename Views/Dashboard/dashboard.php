@@ -1,3 +1,73 @@
+<style>
+    /* Definición de la animación */
+    @keyframes borderAnimation {
+      0% {
+        box-shadow: 0 0 0 0 rgba(153, 51 , 255, 0.7); /* Morado */
+      }
+      25% {
+        box-shadow: 0 0 0 10px rgba(153, 51 , 255, 0.7); /* Morado */
+      }
+      50% {
+        box-shadow: 0 0 0 0 rgba(0, 255, 255, 0.7); /* Azul celeste */
+      }
+      75% {
+        box-shadow: 0 0 0 10px rgba(0, 255, 255, 0.7); /* Azul celeste */
+      }
+      100% {
+        box-shadow: 0 0 0 0 rgba(153, 51 , 255, 0.7); /*Morado */
+      }
+        }
+
+        /* Estilos para el contenedor de la tarjeta */
+        .tarjeta-container {
+            position: relative; /* Importante para posicionar el pseudo-elemento */
+        }
+
+        /* Estilos para el pseudo-elemento que crea el borde animado */
+        .tarjeta-container::before {
+            content: '';
+            position: absolute;
+            top: -5px; /* Ajustar según el grosor deseado del borde animado */
+            left: -5px; /* Ajustar según el grosor deseado del borde animado */
+            right: -5px; /* Ajustar según el grosor deseado del borde animado */
+            bottom: -5px; /* Ajustar según el grosor deseado del borde animado */
+            border-radius: 5px; /* Ajustar según el radio de las esquinas de la tarjeta */
+            animation: borderAnimation 10s infinite;
+        }
+
+        /* Estilos para el contenido de la tarjeta */
+        .tarjeta-content {
+            /* Asegúrate de que el contenido esté por encima del pseudo-elemento para que no lo cubra */
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Otras estilizaciones para la tarjeta */
+        .tarjeta-animated {
+            /* Estilos de tu tarjeta */
+            text-decoration: none; /* Quitamos subrayado del enlace */
+            color: #333; /* Color del texto */
+        }
+
+        /* Estilos para el ícono */
+        .tarjeta-animated .icon {
+            margin: 10px; /* Espaciado del ícono */
+        }
+
+        /* Estilos para el título */
+        .tarjeta-animated h4 {
+            margin: 0;
+            font-size: 18px;
+        }
+
+        /* Estilos para el párrafo */
+        .tarjeta-animated p {
+            margin: 0;
+            font-size: 14px;
+        }
+    </style>
+
+
 <?php headerAdmin($data); ?>
     <main class="app-content">
       <div class="app-title">
@@ -10,53 +80,83 @@
         </ul>
       </div>
       <div class="row">
+    <!-- /////////////////////////////////////////////////////////////////////////////////-->
+  
+    <?php if (!empty($_SESSION['permisos'][2]['r'])) { ?>
+        <div class="col-md-6 col-lg-3">
+            <div class="tarjeta-animated">
+                <div class="tarjeta-container">
+                    <!-- Contenido de la tarjeta -->
+                    <a href="<?= base_url() ?>/usuarios" class="linkw">
+                        <div class="widget-small primary coloured-icon">
+                            <i class="icon fa fa-users fa-3x"></i>
+                            <div class="info tarjeta-content">
+                                <h4>Usuarios</h4>
+                                <p><b><?= $data['usuarios'] ?></b></p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    <?php } ?>
+    <!-- /////////////////////////////////////////////////////////////////////////////////-->
         <?php if(!empty($_SESSION['permisos'][2]['r'])){ ?>
-        <div class="col-md-6 col-lg-3">
-          <a href="<?= base_url() ?>/usuarios" class="linkw">
-            <div class="widget-small primary coloured-icon"><i class="icon fa fa-users fa-3x"></i>
-              <div class="info">
-                <h4>Usuarios</h4>
-                <p><b><?= $data['usuarios'] ?></b></p>
-              </div>
+          <div class="col-md-6 col-lg-3">
+            <div class="tarjeta-animated">
+                <div class="tarjeta-container">
+                    <!-- Contenido de la tarjeta -->
+                    <a href="<?= base_url() ?>/clientes" class="linkw">
+                        <div class="widget-small info coloured-icon">
+                            <i class="icon fa fa-user fa-3x"></i>
+                            <div class="info tarjeta-content">
+                                <h4>Clientes</h4>
+                                <p><b><?= $data['clientes'] ?></b></p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
             </div>
-          </a>
         </div>
+    <!-- /////////////////////////////////////////////////////////////////////////////////-->
+
         <?php } ?>
-        <?php if(!empty($_SESSION['permisos'][2]['r'])){ ?>
+        <!-- Contenedor de la tarjeta con borde animado -->
+    <?php if (!empty($_SESSION['permisos'][4]['r'])) { ?>
         <div class="col-md-6 col-lg-3">
-          <a href="<?= base_url() ?>/clientes" class="linkw">
-            <div class="widget-small info coloured-icon"><i class="icon fa fa-user fa-3x"></i>
-              <div class="info">
-                <h4>Clientes</h4>
-                <p><b><?= $data['clientes'] ?></b></p>
-              </div>
+            <div class="tarjeta-container">
+                <!-- Contenido de la tarjeta -->
+                <a href="<?= base_url() ?>/productos" class="linkw tarjeta-animated">
+                    <div class="widget-small warning coloured-icon">
+                        <i class="icon fa fa fa-archive fa-3x"></i>
+                        <div class="info tarjeta-content">
+                            <h4>Productos</h4>
+                            <p><b><?= $data['productos'] ?></b></p>
+                        </div>
+                    </div>
+                </a>
             </div>
-          </a>
         </div>
-        <?php } ?>
-        <?php if(!empty($_SESSION['permisos'][4]['r']) ){ ?>
+    <!-- /////////////////////////////////////////////////////////////////////////////////-->
+
+    <?php if (!empty($_SESSION['permisos'][4]['r'])) { ?>
         <div class="col-md-6 col-lg-3">
-          <a href="<?= base_url() ?>/productos" class="linkw">
-            <div class="widget-small warning coloured-icon"><i class="icon fa fa fa-archive fa-3x"></i>
-              <div class="info">
-                <h4>Productos</h4>
-                <p><b><?= $data['productos'] ?></b></p>
-              </div>
+            <div class="tarjeta-animated">
+                <div class="tarjeta-container">
+                    <!-- Contenido de la tarjeta -->
+                    <a href="<?= base_url() ?>/compras" class="linkw">
+                        <div class="widget-small danger coloured-icon">
+                            <i class="icon fa fa fa-shopping-cart fa-3x"></i>
+                            <div class="info tarjeta-content">
+                                <h4>Compras</h4>
+                                <p><b><?= $data['compras'] ?></b></p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
             </div>
-          </a>
         </div>
-        <?php } ?>
-        <?php if(!empty($_SESSION['permisos'][4]['r']) ){ ?>
-        <div class="col-md-6 col-lg-3">
-          <a href="<?= base_url() ?>/compras" class="linkw">
-            <div class="widget-small danger coloured-icon"><i class="icon fa fa fa-shopping-cart fa-3x"></i>
-              <div class="info">
-                <h4>Compras</h4>
-                <p><b><?= $data['compras'] ?></b></p>
-              </div>
-            </div>
-          </a>
-        </div>
+    <?php } ?>
 
 
 
@@ -70,7 +170,7 @@
    
       <div class="row">
 
-        <div class="col-md-8">
+        <div class="col-md-6">
           <div class="tile">
             <div class="container-title">
               <h3 class="tile-title">VISIÓN</h3>
@@ -92,7 +192,7 @@
           </div>
         </div>
 
-        <div class="col-md-8">
+        <div class="col-md-6">
           <div class="tile">
             <div class="container-title">
               <h3 class="tile-title">MISIÓN</h3>
