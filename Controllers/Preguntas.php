@@ -148,7 +148,7 @@ class Preguntas extends Controllers
 				if ($_SESSION['permisosMod']['d']) {
 					$btnDelete = '<button class="btn btn-danger btn-sm btnDelPreguntas" onClick="fntDelPreguntas(' . $arrData[$i]['id_pregunta'] . ')" title="Eliminar pregunta"><i class="far fa-trash-alt"></i></button>';
 				}
-				$arrData[$i]['options'] = '<div class="text-center">' . $btnEdit . ' ' . $btnDelete . '</div>';
+				$arrData[$i]['options'] = '<div class="text-center"> ' . $btnDelete . '</div>';
 			}
 			echo json_encode($arrData, JSON_UNESCAPED_UNICODE);
 		}

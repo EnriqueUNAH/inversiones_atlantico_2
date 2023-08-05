@@ -35,10 +35,10 @@ document.addEventListener(
         {
           extend: "pdfHtml5",
           download: "open",
-          title:"INVERSIONES DEL ATLÁNTICO",
+          title: "INVERSIONES DEL ATLÁNTICO",
           text: "<i class='fas fa-file-pdf'></i> PDF",
           titleAttr: "Exportar a PDF",
-          
+
           className: "btn btn-danger",
           exportOptions: {
             columns: [0, 1, 2, 3, 4, 5],
@@ -60,11 +60,6 @@ document.addEventListener(
               vLineColor: function (i, node) {
                 return "#aaa";
               },
-
-
-
-
-
             };
 
             doc.styles.tableHeader.color = "#ffffff";
@@ -76,19 +71,18 @@ document.addEventListener(
             )
               .join("*")
               .split("");
-              doc.content.splice(1,0, {
-                columns: [
-                  {
+            doc.content.splice(1, 0, {
+              columns: [
+                {
                   text: "REPORTE DE PRODUCTO",
                   fontsize: 20,
                   bold: true,
                   alignment: "center",
-                  margin: [0,0,0,15],
-                  width: "*"
-                  }
-                ]
-              })
-             
+                  margin: [0, 0, 0, 15],
+                  width: "*",
+                },
+              ],
+            });
 
             // Agregar pie de página con la fecha
             var now = new Date();
@@ -120,6 +114,15 @@ document.addEventListener(
             //   var objectUrl = URL.createObjectURL(blob);
             //   window.open(objectUrl);
             // });
+          },
+        },
+        {
+          extend: "excelHtml5",
+          text: "<i class='fas fa-file-excel'></i> Excel",
+          titleAttr: "Exportar a Excel",
+          className: "btn btn-success",
+          exportOptions: {
+            columns: [0, 1, 2, 3, 4, 5],
           },
         },
       ],

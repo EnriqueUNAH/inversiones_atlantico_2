@@ -106,6 +106,15 @@ document.addEventListener(
             // });
           },
         },
+        {
+          extend: "excelHtml5",
+          text: "<i class='fas fa-file-excel'></i> Excel",
+          titleAttr: "Exportar a Excel",
+          className: "btn btn-success",
+          exportOptions: {
+            columns: [0, 1, 2],
+          },
+        },
       ],
       resonsieve: "true",
       bDestroy: true,

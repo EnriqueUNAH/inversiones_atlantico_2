@@ -72,7 +72,7 @@ class Parametros extends Controllers
 
 						//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora 	en caso de que se esté insertando
 						$strAccion = "CREAR";
-						$strDescripcion = "CREACIÓN DE PARÁMETRO";
+						$strDescripcion = "CREACIÓN DE PARÁMETRO: $strparametro";
 
 						//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
 						$request_bitacora = $this->model->insertParametroBitacora(
@@ -86,7 +86,11 @@ class Parametros extends Controllers
 				} else {
 					$option = 2; //SI OPTION ES 2, ENTONCES ESTARÁ ACTUALIZANDO
 
+					$arrParametroAnterior = $this->model->selectParametro($id_parametro); //Arreglo que obtiene los datos.
+					$valorParametroAnterior = $arrParametroAnterior['valor']; //Se obtiene el dato del campo: valor.
+
 					if ($_SESSION['permisosMod']['u']) {
+
 						$request_user = $this->model->updateParametro(
 							$id_parametro,
 							$strparametro,
@@ -96,7 +100,7 @@ class Parametros extends Controllers
 
 					//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora 	en caso de que se esté ACTUALIZANDO
 					$strAccion = "ACTUALIZAR";
-					$strDescripcion = "ACTUALIZACIÓN DE PARÁMETRO";
+					$strDescripcion = "ACTUALIZACIÓN DEL VALOR DEL PARÁMETRO: ($strparametro) VALOR ANTERIOR:($valorParametroAnterior) VALOR NUEVO: ($strvalor)";
 
 					//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
 					$request_bitacora = $this->model->insertParametroBitacora(

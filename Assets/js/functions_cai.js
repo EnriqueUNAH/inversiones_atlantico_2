@@ -111,6 +111,15 @@ document.addEventListener(
             // });
           },
         },
+        {
+          extend: "excelHtml5",
+          text: "<i class='fas fa-file-excel'></i> Excel",
+          titleAttr: "Exportar a Excel",
+          className: "btn btn-success",
+          exportOptions: {
+            columns: [0, 1, 2, 3, 4, 5],
+          },
+        },
       ],
       resonsieve: "true",
       bDestroy: true,
@@ -138,16 +147,21 @@ document.addEventListener(
         ) {
           swal("Atención", "Todos los campos son obligatorios.", "error");
           return false;
-        }
-        else if(intRangoA  < intRangoI){
-          swal("Atención", "Rango actual tiene que estar entre el rango inicial y final", "error");
+        } else if (intRangoA < intRangoI) {
+          swal(
+            "Atención",
+            "Rango actual tiene que estar entre el rango inicial y final",
+            "error"
+          );
+          return false;
+        } else if (intRangoA > intRangoF) {
+          swal(
+            "Atención",
+            "Rango actual tiene que estar entre el rango inicial y final",
+            "error"
+          );
           return false;
         }
-        else if(intRangoA  > intRangoF){
-          swal("Atención", "Rango actual tiene que estar entre el rango inicial y final", "error");
-          return false;
-        }
-        
 
         let elementsValid = document.getElementsByClassName("valid");
         for (let i = 0; i < elementsValid.length; i++) {
