@@ -44,7 +44,20 @@ $result->free();
 
 ###############################################################################
 // Consulta para obtener las promociones
-$sql_p = "SELECT cod_promocion, nombre_promocion FROM tbl_promocion where estado = 1";
+$sql_p = "SELECT cod_promocion, nombre_promocion
+FROM tbl_promocion
+WHERE estado = 1 AND cod_promocion NOT IN (
+  SELECT pp.cod_promocion
+  FROM tbl_promocion_producto pp
+  JOIN tbl_producto p ON pp.cod_producto = p.cod_producto
+  LEFT JOIN (
+    SELECT cod_producto, SUM(cantidad) AS cantidad_temp
+    FROM detalle_temp
+    GROUP BY cod_producto
+  ) dt ON pp.cod_producto = dt.cod_producto
+  WHERE p.existencia - pp.cantidad - cantidad_temp < 0
+)
+";
 $result_p = $conection->query($sql_p);
 
 // Crea un arreglo con los datos obtenidos de la tabla promocion
@@ -62,7 +75,7 @@ $result_p->free();
 
 
 ###############################################################################
-// Consulta para obtener las promociones
+// Consulta para obtener los descuentos
 $sql_d = "SELECT cod_descuento, nombre_descuento, porcentaje_descuento FROM tbl_descuento";
 $result_d = $conection->query($sql_d);
 
