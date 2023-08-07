@@ -92,7 +92,7 @@ const MPROMOCION = 22;
 const MROL = 23;
 const MUSUARIO = 24;
 const MVENTA = 25;
-
+const MPROVEEDOR = 26;
 
 
 

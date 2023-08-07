@@ -29,10 +29,13 @@ if (empty($_REQUEST['f'])) {
 
 
 	$query = mysqli_query($conection, "SELECT f.cod_compra, DATE_FORMAT(f.fecha, '%d/%m/%Y') as fecha, DATE_FORMAT(f.fecha,'%H:%i:%s') as  hora, f.estado,
-												 v.nombre_usuario as vendedor
+												 v.nombre_usuario as vendedor,
+												 cl.rtn, cl.nombres, cl.telefono,cl.direccion
 											FROM tbl_compra f
 											INNER JOIN tbl_ms_usuarios v
-											ON f.id_usuario = v.id_usuario										
+											ON f.id_usuario = v.id_usuario	
+											INNER JOIN tbl_proveedor cl
+											ON f.cod_proveedor = cl.cod_proveedor									
 											WHERE f.cod_compra = $cod_compra ");
 
 	$result = mysqli_num_rows($query);

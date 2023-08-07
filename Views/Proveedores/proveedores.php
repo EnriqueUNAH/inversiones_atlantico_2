@@ -1,19 +1,19 @@
 <?php
 headerAdmin($data);
-getModal('modalCompras', $data);
+getModal('modalProveedores', $data);
 ?>
 <main class="app-content">
   <div class="app-title">
     <div>
       <h1><i class="fas fa-user-tag"></i> <?= $data['page_title'] ?>
         <?php if ($_SESSION['permisosMod']['w']) { ?>
-          <button class="btn btn-primary" type="button" onclick="window.location.href = 'Views/compra/nueva_compra.php';"><i class="fas fa-plus-circle"></i> Nueva Compra</button>
+          <button class="btn btn-primary" type="button" onclick="openModal();"><i class="fas fa-plus-circle"></i> Nuevo</button>
         <?php } ?>
       </h1>
     </div>
     <ul class="app-breadcrumb breadcrumb">
       <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
-      <li class="breadcrumb-item"><a href="<?= base_url(); ?>/compras"><?= $data['page_title'] ?></a></li>
+      <li class="breadcrumb-item"><a href="<?= base_url(); ?>/proveedores"><?= $data['page_title'] ?></a></li>
     </ul>
   </div>
   <div class="row">
@@ -21,15 +21,14 @@ getModal('modalCompras', $data);
       <div class="tile">
         <div class="tile-body">
           <div class="table-responsive">
-            <table class="table table-hover table-bordered" id="tableCompras">
+            <table class="table table-hover table-bordered" id="tableProveedores">
               <thead>
                 <tr>
-                  <th>Codigo</th>
-                  <th>Total</th>
-                  <th>fecha</th>
-                  <th>Usuario</th>
-                  <th>Proveedor</th>
-                  <th>Estado</th>
+                  <th>RTN</th>
+                  <th>Nombre </th>
+                  <th>Telefono</th>
+                  <th>Correo</th>
+                  <th>Dirección</th>
                   <th>Acciones</th>
                 </tr>
               </thead>

@@ -298,7 +298,7 @@ $(document).ready(function () {
     $("#txt_precio_total").html(precio_total);
 
     //Oculta el boton agregar si la cantidad es menor que 1
-    if(  ($(this).val() < 1 || isNaN($(this).val())) || ( precio_ < 1)  ){
+    if ($(this).val() < 1 || isNaN($(this).val()) || precio_ < 1) {
       $("#add_product_venta").slideUp();
     } else {
       $("#add_product_venta").slideDown();
@@ -345,7 +345,7 @@ $(document).ready(function () {
 
             //Ocultar boton agregar
             $("#add_product_venta").slideUp();
-           // window.location.reload(true);
+            // window.location.reload(true);
           } else {
             console.log("no data");
           }
@@ -387,13 +387,21 @@ $(document).ready(function () {
     var rows = $("#detalle_venta tr").length;
     if (rows > 0) {
       var action = "procesarVenta";
-      var cod_cliente = $("#cod_cliente").val();
+      var cod_proveedor = $("#select_proveedor").val();
 
+      if (cod_proveedor == "") {
+        // Agregar alerta de SweetAlert
+        Swal.fire({
+          icon: "info",
+          title: "Debe seleccionar un proveedor",
+          confirmButtonText: "OK",
+        });
+      }
       $.ajax({
         url: "ajax.php",
         type: "POST",
         async: true,
-        data: { action: action },
+        data: { action: action, cod_proveedor: cod_proveedor },
 
         success: function (response) {
           if (response != "error") {
@@ -412,7 +420,7 @@ $(document).ready(function () {
                 cancelButtonText: "Cancelar",
               }).then((result) => {
                 if (result.isConfirmed) {
-                  generarPDF(info.cod_compra);
+                  generarPDF(info.cod_proveedor, info.cod_compra);
                   location.reload();
                   window.location.href = "../../Compras";
                 } else if (result.dismiss === Swal.DismissReason.cancel) {
@@ -484,7 +492,7 @@ $(document).ready(function () {
     e.preventDefault();
     var cod_cliente = $(this).attr("cl");
     var cod_factura = $(this).attr("f");
-    generarPDF2(cod_factura);
+    generarPDF2(cod_proveedor, cod_factura);
   });
 
   //Cambiar password
@@ -654,14 +662,14 @@ function anularFactura() {
   });
 }
 
-function generarPDF(factura) {
+function generarPDF(proveedor, factura) {
   var ancho = 1000;
   var alto = 800;
   //Calcular posicion x,y para centrar la ventana
   var x = parseInt(window.screen.width / 2 - ancho / 2);
   var y = parseInt(window.screen.height / 2 - alto / 2);
 
-  $url = "factura/generaFactura.php?f=" + factura;
+  $url = "factura/generaFactura.php?cl=" + proveedor + "&f=" + factura;
   window.open(
     $url,
     "Factura",

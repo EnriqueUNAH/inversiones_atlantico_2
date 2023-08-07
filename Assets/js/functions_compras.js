@@ -25,6 +25,7 @@ document.addEventListener(
 
         { data: "fecha" },
         { data: "usuario" },
+        { data: "nombres" },
         { data: "estado" },
         { data: "options" },
       ],

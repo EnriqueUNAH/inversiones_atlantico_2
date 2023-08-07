@@ -10,7 +10,7 @@ class ComprasModel extends Mysql
 	private $intPrecio_compra;
 	private $intCantidad;
 	private $cod_producto;
-	
+
 	public function __construct()
 	{
 		parent::__construct();
@@ -43,22 +43,26 @@ class ComprasModel extends Mysql
 		return $return;
 	}
 
-	
+
 	public function selectCompras()
 	{
 		// $whereAdmin = "";
 		// if ($_SESSION['idUser'] != 1) {
 		// 	$whereAdmin = " and p.cod_compra != 1 ";
 		// }
-		$sql = "SELECT p.cod_compra,p.total_pagado,p.fecha,p.id_usuario,r.usuario,p.estado
-					FROM tbl_compra p 
+		$sql = "SELECT p.cod_compra,p.total_pagado,p.fecha,p.id_usuario,r.usuario,p.estado,pro.nombres
+					FROM tbl_proveedor pro
+
+					INNER JOIN tbl_compra p 
+					ON p.cod_proveedor = pro.cod_proveedor
+
 					INNER JOIN tbl_ms_usuarios r
 					ON p.id_usuario = r.id_usuario
 					WHERE p.estado != 0 ";
 		$request = $this->select_all($sql);
 		return $request;
 	}
-	
+
 	//Muestra los datos en el botón ver más
 	public function selectCompra(int $cod_compra)
 	{
@@ -82,6 +86,4 @@ class ComprasModel extends Mysql
 		$request = $this->select_all($sql);
 		return $request;
 	}
-	
-	
 }

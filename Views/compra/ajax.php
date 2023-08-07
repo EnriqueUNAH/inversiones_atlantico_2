@@ -304,11 +304,9 @@ if (!empty($_POST)) {
 	// Procesar Venta
 	if ($_POST['action'] == 'procesarVenta') {
 
-		if (empty($_POST['cod_cliente'])) {
-			$cod_cliente = 5;
-		} else {
-			$cod_cliente = $_POST['cod_cliente'];
-		}
+
+		$cod_proveedor = $_POST['cod_proveedor'];
+
 		##############################################################################
 		$token 		= md5($_SESSION['idUser']);
 		$usuario 	= $_SESSION['idUser'];
@@ -319,12 +317,13 @@ if (!empty($_POST)) {
 		$result = mysqli_num_rows($query);
 
 		if ($result > 0) {
-			$query_procesar = mysqli_query($conection, "CALL procesar_compra($usuario,'$token')");
+			$query_procesar = mysqli_query($conection, "CALL procesar_compra($usuario,$cod_proveedor,'$token')");
+
 			$result_detalle = mysqli_num_rows($query_procesar);
 
-			$bitacora="INSERT INTO tbl_ms_bitacora(fecha,id_usuario,id_objeto,accion,descripcion) VALUES(now(),'$usuario','9','SE HIZO UNA COMPRA','SE REALIZO UNA COMPRA EN EL MODULO DE COMPRAS') ";
-			mysqli_query( $conection , $bitacora );
-			  
+			// $bitacora = "INSERT INTO tbl_ms_bitacora(fecha,id_usuario,id_objeto,accion,descripcion) VALUES(now(),'$usuario','9','SE HIZO UNA COMPRA','SE REALIZO UNA COMPRA EN EL MODULO DE COMPRAS') ";
+			// mysqli_query($conection, $bitacora);
+
 
 			if ($result_detalle > 0) {
 				$data	= mysqli_fetch_assoc($query_procesar);

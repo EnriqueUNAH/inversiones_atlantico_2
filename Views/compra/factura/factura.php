@@ -157,9 +157,6 @@ $total 		= 0;
 			top: 50%;
 			transform: translateX(-50%) translateY(-50%);
 		}
-
-
-
 	</style>
 </head>
 
@@ -221,23 +218,56 @@ $total 		= 0;
 					if ($result_config > 0) {
 						$isv = $re_isv['valor'];
 					?>
-					<span class="h2"><?php echo ($r_Nombre); ?></span>
-							
+						<span class="h2"><?php echo ($r_Nombre); ?></span>
+
 					<?php
 					}
 					?>
 				</td>
-				
+
 			</tr>
 		</table>
 
-
 		<table id="factura_cliente">
 			<tr>
-			<td class="info_factura">
+				<td class="info_cliente">
+					<div class="round">
+						<span class="h3">Proveedor</span>
+						<table class="datos_cliente">
+							<tr>
+								<td><label>RTN:</label>
+									<p><?php echo $factura['rtn']; ?></p>
+								</td>
+								<td><label>Teléfono:</label>
+									<p><?php
+										if ($factura['telefono'] == 0) {
+											echo "";
+										} else {
+											echo $factura['telefono'];
+										}
+
+										?></p>
+								</td>
+							</tr>
+							<tr>
+								<td><label>Nombre:</label>
+									<p><?php echo $factura['nombres']; ?></p>
+								</td>
+								<td><label>Dirección:</label>
+									<p><?php echo $factura['direccion']; ?></p>
+								</td>
+							</tr>
+						</table>
+					</div>
+				</td>
+			</tr>
+		</table>
+		<table id="factura_cliente">
+			<tr>
+				<td class="info_factura">
 					<div class="round">
 						<span class="h3">Compra</span>
-						<p>Vendedor: <?php echo $factura['vendedor']; ?></p>
+						<p>Comprador: <?php echo $factura['vendedor']; ?></p>
 						<p>Fecha: <?php echo $factura['fecha']; ?></p>
 						<p>Hora: <?php echo $factura['hora']; ?></p>
 					</div>
@@ -281,7 +311,7 @@ $total 		= 0;
 				?>
 			</tbody>
 			<tfoot id="detalle_totales">
-				
+
 				<tr>
 					<td colspan="3" class="textright"><span>TOTAL L.</span></td>
 					<td class="textright"><span><?php echo $total; ?></span></td>
@@ -289,7 +319,7 @@ $total 		= 0;
 			</tfoot>
 		</table>
 		<div>
-			
+
 		</div>
 	</div>
 </body>

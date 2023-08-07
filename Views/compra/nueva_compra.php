@@ -36,6 +36,26 @@ while ($row = $result->fetch_assoc()) {
 $result->free();
 ###############################################################################
 
+
+
+###############################################################################
+// Consulta para obtener los proveedores
+$sql = "SELECT cod_proveedor, nombres 
+FROM tbl_proveedor ";
+$result = $conection->query($sql);
+
+// Crea un arreglo con los datos obtenidos de la tabla proveedores
+$proveedores = array();
+while ($row = $result->fetch_assoc()) {
+	$proveedores[] = array(
+		'cod_proveedor' => $row['cod_proveedor'],
+		'nombres' => $row['nombres']
+	);
+}
+
+// Libera el resultado de la consulta
+$result->free();
+###############################################################################
 ?>
 
 
@@ -121,9 +141,9 @@ $result->free();
 				</div>
 
 				<?php
-					// Obtener la fecha actual en formato Y-m-d
-					date_default_timezone_set('America/Guatemala'); // Establece la zona horaria
-					$fecha_actual = date('Y-m-d');
+				// Obtener la fecha actual en formato Y-m-d
+				date_default_timezone_set('America/Guatemala'); // Establece la zona horaria
+				$fecha_actual = date('Y-m-d');
 				?>
 
 				<script>
@@ -140,9 +160,9 @@ $result->free();
 				</div>
 
 				<?php
-					// Obtener la hora actual en formato HH:mm:ss
-					date_default_timezone_set('America/Guatemala'); // Establece la zona horaria, cámbiala según tu ubicación
-					$hora_actual = date('H:i:s');
+				// Obtener la hora actual en formato HH:mm:ss
+				date_default_timezone_set('America/Guatemala'); // Establece la zona horaria, cámbiala según tu ubicación
+				$hora_actual = date('H:i:s');
 				?>
 				<script>
 					// Rellenar el input con la hora actual obtenida en PHP
@@ -206,7 +226,7 @@ $result->free();
 						<th class="textright"></th>
 					</tr>
 
-				
+
 
 
 					<tr>
@@ -266,7 +286,34 @@ $result->free();
 			</table>
 
 		</div>
+
 	</section>
+
+	<section id="containerTable">
+		<table class="tbl_venta">
+			<thead>
+				<tr>
+					<!-- <td> <a href="#" id="add_product_ventaa" class="link_add"><i class="fas fa-plus"></i> Agregar Producto</a></td> -->
+					<th>
+						<h4>Seleccione el Proveedor</h4><BR>
+						<!---->
+						<select name="select_proveedor" id="select_proveedor" class="select-proveedor" style="width: 200px;">
+							<option value="">Proveedor</option>
+							<?php foreach ($proveedores as $proveedor) : ?>
+								<option value="<?php echo $proveedor['cod_proveedor']; ?>"><?php echo $proveedor['nombres']; ?></option>
+							<?php endforeach; ?>
+						</select>
+						<!---->
+					</th>
+					<!-- <th>
+						<h4>Cantidad</h4><BR>
+						<input type="num" name="cantidad_producto" id="cantidad_producto" value="1" min="1">
+					</th> -->
+				</tr>
+			</thead>
+		</table>
+	</section>
+
 
 	<!-- Sirve para buscar el nombre del producto dentro del select -->
 	<script>

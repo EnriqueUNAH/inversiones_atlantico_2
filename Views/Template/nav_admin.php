@@ -75,6 +75,11 @@
               <li><a class="treeview-item" href="<?= base_url(); ?>/compras"><i class="icon fa fa-circle-o"></i>Compras</a></li>
             <?php } ?>
 
+
+            <?php if (!empty($_SESSION['permisos'][MPROVEEDOR]['r'])) { ?>
+              <li><a class="treeview-item" href="<?= base_url(); ?>/proveedores"><i class="icon fa fa-circle-o"></i> Proveedores</a></li>
+            <?php } ?>
+
           </ul>
         </li>
 
