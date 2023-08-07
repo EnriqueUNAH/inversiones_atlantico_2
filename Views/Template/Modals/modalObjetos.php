@@ -17,14 +17,14 @@
           <div class="form-row">
             <div class="form-group col-md-6">
               <label for="txtobjeto">Objetos</label>
-              <input type="text" pattern="[a-zA-Z ]+" class="form-control valid validText" id="txtobjeto" name="txtobjeto" style="text-transform:uppercase" required="" title="Ingrese solo letras sin números">
+              <input type="text" pattern="[a-zA-Z ]+" class="form-control valid validText" id="txtobjeto" name="txtobjeto" style="text-transform:uppercase" required="" title="Ingrese solo letras sin números" maxlength="20" onkeypress="if(this.value.length == 20) return false; ">
             </div>
           </div>
           <div class="form-row">
 
             <div class="form-group col-md-6">
               <label for="txtdescripcion">Descripcion</label>
-              <input type="text" pattern="[a-zA-Z ]+" class="form-control valid validText" id="txtdescripcion" name="txtdescripcion" style="text-transform:uppercase" required="" title="Ingrese solo letras sin números ">
+              <input type="text" pattern="[a-zA-Z ]+" class="form-control valid validText" id="txtdescripcion" name="txtdescripcion" style="text-transform:uppercase" required="" title="Ingrese solo letras sin números " maxlength="30" onkeypress="if(this.value.length == 30) return false; ">
             </div>
 
           </div>

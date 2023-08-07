@@ -17,7 +17,7 @@
           <div class="form-row">
             <div class="form-group col-md-7">
               <label for="txtpregunta">Pregunta</label>
-              <input type="text" pattern="[a-zA-Zá-úÁ-Ú ?]+" class="form-control valid validText" id="txtpregunta" name="txtpregunta" style="text-transform:uppercase" required="" title="Ingrese solo letras">
+              <input type="text" pattern="[a-zA-Zá-úÁ-Ú ?]+" class="form-control valid validText" id="txtpregunta" name="txtpregunta" style="text-transform:uppercase" required="" title="Ingrese solo letras" maxlength="50" onkeypress="if(this.value.length == 50) return false; ">
             </div>
           </div>
 
