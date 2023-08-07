@@ -17,7 +17,7 @@
           <div class="form-row">
             <div class="form-group col-md-6">
               <label for="txtRangoI">Rango Inicial </label>
-              <input type="number" class="form-control" id="txtRangoI" name="txtRangoI" required=""  maxlength="15" onkeypress="if(this.value.length == 19) return false; ">
+              <input type="number" class="form-control" id="txtRangoI" name="txtRangoI" required=""  maxlength="19" onkeypress="if(this.value.length == 19) return false; ">
             </div>
 
 

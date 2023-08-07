@@ -24,7 +24,7 @@
 
             <div class="form-group col-md-6">
               <label for="txtdescripcion">Descripcion</label>
-              <input type="text" pattern="[a-zA-Z ]+" class="form-control valid validText" id="txtdescripcion" name="txtdescripcion" style="text-transform:uppercase" required="" title="Ingrese solo letras sin números " maxlength="30" onkeypress="if(this.value.length == 30) return false; ">
+              <input type="text" pattern="[a-zA-Z ]+" class="form-control valid validText" id="txtdescripcion" name="txtdescripcion" style="text-transform:uppercase" required="" title="Ingrese solo letras sin números " maxlength="40" onkeypress="if(this.value.length == 40) return false; ">
             </div>
 
           </div>
