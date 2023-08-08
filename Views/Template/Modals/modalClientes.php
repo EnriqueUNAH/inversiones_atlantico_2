@@ -22,10 +22,11 @@
           <input type="hidden" id="cod_cliente" name="cod_cliente" value="">
           <p class="text-primary">Los campos con asterisco (<span class="required">*</span>) son obligatorios.</p>
           <div class="form-row">
-            <div class="form-group col-md-6">
+          <div class="form-group col-md-6">
               <label for="txtRtn">RTN</label>
-              <input type="number" class="form-control" id="txtRtn" name="txtRtn"  maxlength="14" onkeypress="if(this.value.length == 14) return false; " >
-            </div>
+              <input type="tel" class="form-control" id="txtRtn" name="txtRtn" maxlength="14"
+              oninput="this.value = this.value.replace(/[^0-9]/g, '').substring(0, 14);">
+          </div>
 
            <div class="form-group col-md-6">
               <label for="txtNombres">Nombre Completo <span class="required">*</span></label>
@@ -38,9 +39,10 @@
           <div class="form-row">
 
           <div class="form-group col-md-6">
-              <label for="txtTelefono">Teléfono</label>
-              <input type="number" class="form-control" id="txtTelefono" name="txtTelefono"  maxlength="8" onkeypress="if(this.value.length == 8) return false;" >
-            </div>
+            <label for="txtTelefono">Teléfono</label>
+            <input type="tel" class="form-control" id="txtTelefono" name="txtTelefono" maxlength="8" 
+            oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/^0+/, '').substring(0, 8);">
+          </div>
 
             <div class="form-group col-md-6">
               <label for="txtEmail">Correo Electrónico</label>
