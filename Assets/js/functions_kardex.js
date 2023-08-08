@@ -30,7 +30,7 @@ document.addEventListener(
           titleAttr: "Exportar a PDF",
           className: "btn btn-danger",
           exportOptions: {
-            columns: [0, 1, 2],
+            columns: [0, 1, 2, 3],
           },
           customize: function (doc) {
             doc.styles.tableHeader.alignment = "left"; //Alineación de los nombres de columnas.
@@ -112,7 +112,7 @@ document.addEventListener(
           titleAttr: "Exportar a Excel",
           className: "btn btn-success",
           exportOptions: {
-            columns: [0, 1, 2],
+            columns: [0, 1, 2, 3],
           },
         },
       ],

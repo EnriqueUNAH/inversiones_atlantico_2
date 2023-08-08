@@ -309,10 +309,19 @@ $(document).ready(function () {
   $("#add_product_venta").click(function (e) {
     e.preventDefault();
 
+    var precio_venta = $("#txt_precio").val();
+    if (precio_venta < 1) {
+      Swal.fire({
+        icon: "error",
+        title: "El precio debe ser mayor que cero",
+        confirmButtonText: "OK",
+      });
+    }
+
     if ($("#txt_cant_producto").val() > 0) {
       var cod_producto = $("#txt_cod_producto").val();
       var cantidad = $("#txt_cant_producto").val();
-      var precio_venta = $("#txt_precio").val();
+
       var action = "addProductoDetalle";
 
       $.ajax({
