@@ -295,26 +295,26 @@ $(document).ready(function () {
     $("#txt_precio_total").html(precio_total);
 
     //Oculta el boton agregar si la cantidad es menor que 1
-    if (
-      $(this).val() < 1 ||
-      isNaN($(this).val()) ||
-      $(this).val() > existencia
-    ) {
-      $("#add_product_venta").slideUp();
-    } else {
-      $("#add_product_venta").slideDown();
-    }
+    // if (
+    //   $(this).val() < 1 ||
+    //   isNaN($(this).val()) ||
+    //   $(this).val() > existencia
+    // ) {
+    //   $("#add_product_venta").slideUp();
+    // } else {
+    //   $("#add_product_venta").slideDown();
+    // }
   });
 
   //Agregar producto al detalle
   $("#add_product_venta").click(function (e) {
     e.preventDefault();
 
-    if ($("#txt_cant_producto").val() > 0) {
-      var cod_producto = $("#txt_cod_producto").val();
-      var cantidad = $("#txt_cant_producto").val();
-      var action = "addProductoDetalle";
+    var cod_producto = $("#txt_cod_producto").val();
+    var cantidad = $("#txt_cant_producto").val();
+    var action = "verificarCantidad";
 
+    if (cantidad > 0) {
       $.ajax({
         url: "ajax.php",
         type: "POST",
@@ -322,36 +322,58 @@ $(document).ready(function () {
         data: { action: action, producto: cod_producto, cantidad: cantidad },
 
         success: function (response) {
-          if (response != "error") {
-            var info = JSON.parse(response);
-            $("#detalle_venta").html(info.detalle);
-            $("#detalle_totales").html(info.totales);
+          if (response === "valid") {
+            var addDetalleAction = "addProductoDetalle";
 
-            $("#txt_cod_producto").val("");
-            $("#txt_nombre_producto").html("-");
-            $("#txt_existencia").html("-");
-            $("#txt_cant_producto").val("0");
-            $("#txt_precio").html("0.00");
-            $("#txt_precio_total").html("0.00");
+            $.ajax({
+              url: "ajax.php",
+              type: "POST",
+              async: true,
+              data: {
+                action: addDetalleAction,
+                producto: cod_producto,
+                cantidad: cantidad,
+              },
 
-            //Bloquear Cantidad
-            $("#txt_cant_producto").attr("disabled", "disabled");
+              success: function (addResponse) {
+                if (addResponse !== "error") {
+                  var info = JSON.parse(addResponse);
+                  $("#detalle_venta").html(info.detalle);
+                  $("#detalle_totales").html(info.totales);
 
-            //Ocultar boton agregar
-            $("#add_product_venta").slideUp();
+                  // Restablecer los campos y bloquear cantidad
+                  $("#txt_cod_producto").val("");
+                  $("#txt_nombre_producto").html("-");
+                  $("#txt_existencia").html("-");
+                  $("#txt_cant_producto").val("0");
+                  $("#txt_precio").html("0.00");
+                  $("#txt_precio_total").html("0.00");
+                  $("#txt_cant_producto").attr("disabled", "disabled");
+                  $("#add_product_venta").slideUp();
 
-            /* Lo coloqué para que me recargara la página 
-               y así un producto solo lo pueda elegir una vez
-              Así ya queda validado para que no se pase de la exitencia
-              cuando elige mas de una vez el producto.
-            */
+                  viewProcesar();
+                }
+              },
+            });
             window.location.reload(true);
           } else {
-            console.log("no data");
+            Swal.fire({
+              icon: "error",
+              title:
+                "La cantidad ingresada es mayor que la cantidad disponible",
+              confirmButtonText: "OK",
+            });
           }
-          viewProcesar();
         },
-        error: function (error) {},
+        error: function (error) {
+          console.log("Error al verificar cantidad:", error);
+        },
+      });
+    } else {
+      Swal.fire({
+        icon: "error",
+        title: "La cantidad debe ser mayor que cero",
+        confirmButtonText: "OK",
       });
     }
   });
@@ -431,6 +453,13 @@ $(document).ready(function () {
         Swal.fire({
           icon: "info",
           title: "Por favor seleccione un producto",
+          confirmButtonText: "OK",
+        });
+      } else if (cantidad_producto < 1) {
+        // Agregar alerta de SweetAlert
+        Swal.fire({
+          icon: "info",
+          title: "La cantidad a producir debe ser mayor que cero",
           confirmButtonText: "OK",
         });
       } else {

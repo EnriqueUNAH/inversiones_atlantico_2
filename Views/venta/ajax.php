@@ -248,6 +248,28 @@ if (!empty($_POST)) {
 		exit;
 	}
 
+	if ($_POST['action'] == 'verificarCantidad') {
+		$cod_producto = $_POST['producto'];
+		$cantidad = $_POST['cantidad'];
+
+		$query_existencia = mysqli_query($conection, "SELECT (p.existencia - COALESCE(tablaTemporal.total_cantidad, 0)) AS existencia
+		FROM tbl_producto p
+		LEFT JOIN (
+			SELECT cod_producto, SUM(cantidad) AS total_cantidad
+			FROM detalle_temp
+			GROUP BY cod_producto
+		) tablaTemporal ON p.cod_producto = tablaTemporal.cod_producto
+		WHERE p.cod_producto = '$cod_producto'");
+		$result_existencia = mysqli_fetch_assoc($query_existencia);
+		$existencia = $result_existencia['existencia'];
+
+		if ($cantidad <= $existencia) {
+			echo "valid";
+		} else {
+			echo "invalid";
+		}
+		exit;
+	}
 
 	if ($_POST['action'] == 'addPromocionDetalle') {
 		if (empty($_POST['promocion'])) {
