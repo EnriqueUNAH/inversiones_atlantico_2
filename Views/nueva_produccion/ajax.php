@@ -99,6 +99,21 @@ if (!empty($_POST)) {
 		exit;
 	}
 
+	if ($_POST['action'] == 'verificarCantidad') {
+		$cod_producto = $_POST['producto'];
+		$cantidad = $_POST['cantidad'];
+
+		$query_existencia = mysqli_query($conection, "SELECT existencia FROM tbl_producto WHERE cod_producto = '$cod_producto'");
+		$result_existencia = mysqli_fetch_assoc($query_existencia);
+		$existencia = $result_existencia['existencia'];
+
+		if ($cantidad <= $existencia) {
+			echo "valid";
+		} else {
+			echo "invalid";
+		}
+		exit;
+	}
 
 
 	//Agregar producto al detalle temporal
