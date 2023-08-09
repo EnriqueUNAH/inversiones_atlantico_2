@@ -100,7 +100,7 @@ class Productos extends Controllers
 						//
 						//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora 	en caso de que se esté insertando
 						$strAccion = "CREAR";
-						$strDescripcion = "CREACION DE PRODUCTO";
+						$strDescripcion = "CREACIÓN DE PRODUCTO : $strNombreProducto ";
 
 						//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
 						$request_bitacora = $this->model->insertProductoBitacora(
@@ -245,7 +245,10 @@ class Productos extends Controllers
 		if ($_POST) {
 			if ($_SESSION['permisosMod']['d']) {
 				$cod_producto = intval($_POST['cod_producto']);
+				$requestNombreProd = $this->model->selectProducto($cod_producto);
 				$requestDelete = $this->model->deleteProductos($cod_producto);
+				$nombreProd = $requestNombreProd['nombre_producto'];
+
 
 				//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora
 				//SE PUEDEN USAR PARA INSERTAR O ACTUALIZAR PORQUE SERÍAN LOS MISMOS DATOS
@@ -258,7 +261,7 @@ class Productos extends Controllers
 					$arrResponse = array('status' => true, 'msg' => 'Se ha eliminado el producto');
 
 					$strAccion = "ELIMINAR";
-					$strDescripcion = "ELIMINACIÓN DE PRODUCTO";
+					$strDescripcion = "ELIMINACIÓN DE PRODUCTO : $nombreProd ";
 
 					//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
 					$request_bitacora = $this->model->insertProductoBitacora(

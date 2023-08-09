@@ -126,18 +126,63 @@ class Roles extends Controllers
 		$strDescipcion = strtoupper(strClean($_POST['txtDescripcion']));
 		$intStatus = intval($_POST['listStatus']);
 		$request_rol = "";
+
+	      //Estas variables almacenan los valores que se van a ingresar a la tabla bitátora
+		  //SE PUEDEN USAR PARA INSERTAR O ACTUALIZAR PORQUE SERÍAN LOS MISMOS DATOS
+			$dateFecha = date('Y-m-d H:i:s');
+			$intIdUsuario = $_SESSION['idUser'];
+			$intIdObjeto = (MROL); //ESTE VALOR VA A CAMBIAR MAS A DELANTE
+			$request_bitacora = "";
+
+
+
 		if ($intid_rol == 0) {
 			//Crear
 			if ($_SESSION['permisosMod']['w']) {
-				$request_rol = $this->model->insertRol($strRol, $strDescipcion, $intStatus);
+				$request_rol = $this->model->insertRol(
+					$strRol,
+				    $strDescipcion, 
+					$intStatus);
 				$option = 1;
+
+            //Estas variables almacenan los valores que se van a ingresar a la tabla bitátora 	en caso de que se esté insertando
+						$strAccion = "CREAR";
+						$strDescripcion = "CREACIÓN DE ROL : $strRol ";
+
+						//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
+						$request_bitacora = $this->model->insertRolBitacora(
+							$dateFecha,
+							$intIdUsuario,
+							$intIdObjeto,
+							$strAccion,
+							$strDescripcion
+						);
+				
 			}
 		} else {
 			//Actualizar
 			if ($_SESSION['permisosMod']['u']) {
 				$request_rol = $this->model->updateRol($intid_rol, $strRol, $strDescipcion, $intStatus);
 				$option = 2;
+                // $arrParametroAnterior = $this->model->InsertRol($); //Arreglo que obtiene los datos.
+				// $valorParametroAnterior = $arrParametroAnterior['id_rol'];
+
+
 			}
+
+            //Estas variables almacenan los valores que se van a ingresar a la tabla bitátora 	en caso de que se esté ACTUALIZANDO
+					$strAccion = "ACTUALIZAR";
+					$strDescripcion = "ACTUALIZACIÓN DE ROL : $strRol    VALOR NUEVO : ($strRol)";
+
+					//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
+					$request_bitacora = $this->model->insertRolBitacora(
+						$dateFecha,
+						$intIdUsuario,
+						$intIdObjeto,
+						$strAccion,
+						$strDescripcion
+					);
+
 		}
 
 		if ($request_rol === 'exist') {
@@ -160,9 +205,37 @@ class Roles extends Controllers
 		if ($_POST) {
 			if ($_SESSION['permisosMod']['d']) {
 				$intid_rol = intval($_POST['id_rol']);
+				$requestNombreRol = $this->model->selectRol($intid_rol);
 				$requestDelete = $this->model->deleteRol($intid_rol);
+				$nombreRol = $requestNombreRol['nombrerol'];
+
+               //Estas variables almacenan los valores que se van a ingresar a la tabla bitátora
+		    //SE PUEDEN USAR PARA INSERTAR O ACTUALIZAR PORQUE SERÍAN LOS MISMOS DATOS
+			$dateFecha = date('Y-m-d H:i:s');
+			$intIdUsuario = $_SESSION['idUser'];
+			$intIdObjeto = (MROL); //ESTE VALOR VA A CAMBIAR MAS A DELANTE
+			
+
+
 				if ($requestDelete == 'ok') {
 					$arrResponse = array('status' => true, 'msg' => 'Se ha eliminado el Rol');
+
+                 //Estas variables almacenan los valores que se van a ingresar a la tabla bitátora 	en caso de que se esté ACTUALIZANDO
+					$strAccion = "ELIMINAR";
+					$strDescripcion = "ELIMINACIÓN DE ROL : $nombreRol  ";
+
+					//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
+				$this->model->insertRolBitacora(
+						$dateFecha,
+						$intIdUsuario,
+						$intIdObjeto,
+						$strAccion,
+						$strDescripcion
+					);
+
+
+
+
 				} else if ($requestDelete == 'exist') {
 					$arrResponse = array('status' => false, 'msg' => 'No es posible eliminar un Rol asociado a usuarios.');
 				} else {

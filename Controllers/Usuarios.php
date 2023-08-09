@@ -131,7 +131,7 @@ class Usuarios extends Controllers
 						//
 						//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora 	en caso de que se esté insertando
 						$strAccion = "CREAR";
-						$strDescripcion = "CREACION DE USUARIO";
+						$strDescripcion = "CREACIÓN DE USUARIO: $strusuario ";
 
 						//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
 						$request_bitacora = $this->model->insertUsuarioBitacora(
@@ -302,7 +302,9 @@ class Usuarios extends Controllers
 		if ($_POST) {
 			if ($_SESSION['permisosMod']['d']) {
 				$intid_usuario = intval($_POST['id_usuario']);
+				$requestNombreUsuario = $this->model->selectUsuario($intid_usuario);
 				$requestDelete = $this->model->deleteUsuario($intid_usuario);
+				$nombreUsuario = $requestNombreUsuario['usuario'];
 
 				//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora
 				//SE PUEDEN USAR PARA INSERTAR O ACTUALIZAR PORQUE SERÍAN LOS MISMOS DATOS
@@ -315,7 +317,7 @@ class Usuarios extends Controllers
 					$arrResponse = array('status' => true, 'msg' => 'Se ha eliminado el usuario');
 
 					$strAccion = "ELIMINAR";
-					$strDescripcion = "ELIMINACIÓN DE USUARIO";
+					$strDescripcion = "ELIMINACIÓN DE USUARIO : $nombreUsuario ";
 
 					//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
 					$request_bitacora = $this->model->insertUsuarioBitacora(

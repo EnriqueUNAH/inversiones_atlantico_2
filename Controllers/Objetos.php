@@ -76,7 +76,7 @@ class Objetos extends Controllers
 
 						//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora 	en caso de que se esté insertando
 						$strAccion = "CREAR";
-						$strDescripcion = "CREACIÓN DE OBJETO";
+						$strDescripcion = "CREACIÓN DE OBJETO : $strobjeto ";
 
 						//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
 						$request_bitacora = $this->model->insertObjetosBitacora(
@@ -89,7 +89,9 @@ class Objetos extends Controllers
 					} //FIN DEL IF DE INSERTAR
 				} else {
 					$option = 2; //SI OPTION ES 2, ENTONCES ESTARÁ ACTUALIZANDO
-					//$strPassword =  empty($_POST['txtPassword']) ? "" : hash("SHA256", $_POST['txtPassword']);
+					$arrObjetoAnterior = $this->model->selectObjeto($id_objeto); //Arreglo que obtiene los datos.
+					$valorObjetoAnterior = $arrObjetoAnterior['objeto'];
+				   //$strPassword =  empty($_POST['txtPassword']) ? "" : hash("SHA256", $_POST['txtPassword']);
 					if ($_SESSION['permisosMod']['u']) {
 						$request_user = $this->model->updateObjetos(
 							$id_objeto,
@@ -101,7 +103,7 @@ class Objetos extends Controllers
 
 					//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora 	en caso de que se esté ACTUALIZANDO
 					$strAccion = "ACTUALIZAR";
-					$strDescripcion = "ACTUALIZACIÓN DE OBJETO";
+					$strDescripcion = "ACTUALIZACIÓN DE OBJETO : ($strobjeto) VALOR ANTERIOR : ($valorObjetoAnterior) VALOR NUEVO : ($strdescripcion)  ";
 
 					//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
 					$request_bitacora = $this->model->insertObjetosBitacora(
@@ -180,7 +182,9 @@ class Objetos extends Controllers
 		if ($_POST) {
 			if ($_SESSION['permisosMod']['d']) {
 				$id_objeto = intval($_POST['id_objeto']);
+				$requestNombreObj = $this->model->selectObjeto($id_objeto);
 				$requestDelete = $this->model->deleteObjetos($id_objeto);
+				$nombreObj = $requestNombreObj['objeto'];
 
 				//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora
 				//SE PUEDEN USAR PARA INSERTAR O ACTUALIZAR PORQUE SERÍAN LOS MISMOS DATOS
@@ -193,7 +197,7 @@ class Objetos extends Controllers
 					$arrResponse = array('status' => true, 'msg' => 'Se ha eliminado el Objeto');
 
 					$strAccion = "ELIMINAR";
-					$strDescripcion = "ELIMINACIÓN DE OBJETO";
+					$strDescripcion = "ELIMINACIÓN DE OBJETO : $nombreObj ";
 
 					//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
 					$request_bitacora = $this->model->insertObjetosBitacora(
