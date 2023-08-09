@@ -24,13 +24,13 @@
           <div class="form-row">
           <div class="form-group col-md-6">
               <label for="txtRtn">RTN</label>
-              <input type="tel" class="form-control" id="txtRtn" name="txtRtn" maxlength="14"
+              <input type="tel" class="form-control" autocomplete="off" id="txtRtn" name="txtRtn" maxlength="14"
               oninput="this.value = this.value.replace(/[^0-9]/g, '').substring(0, 14);">
           </div>
 
            <div class="form-group col-md-6">
               <label for="txtNombres">Nombre Completo <span class="required">*</span></label>
-              <input type="text" pattern="[a-zA-Z ]+" class="form-control valid validText" id="txtNombres" name="txtNombres" style="text-transform:uppercase" required="" title="No se puede ingresar números">
+              <input type="text" pattern="[a-zA-Z ]+" class="form-control valid validText" id="txtNombres" name="txtNombres" style="text-transform:uppercase" required="" title="No se puede ingresar números" autocomplete="off">
             </div>
 
           </div>
@@ -40,13 +40,13 @@
 
           <div class="form-group col-md-6">
             <label for="txtTelefono">Teléfono</label>
-            <input type="tel" class="form-control" id="txtTelefono" name="txtTelefono" maxlength="8" 
+            <input type="tel" class="form-control" autocomplete="off" id="txtTelefono" name="txtTelefono" maxlength="8" 
             oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/^0+/, '').substring(0, 8);">
           </div>
 
             <div class="form-group col-md-6">
               <label for="txtEmail">Correo Electrónico</label>
-              <input type="email" class="form-control valid validEmail" id="txtEmail" name="txtEmail" >
+              <input type="email" autocomplete="off" class="form-control valid validEmail" id="txtEmail" name="txtEmail" >
             </div>
 
           </div>
@@ -55,7 +55,7 @@
 
             <div class="form-group col-md-6">
               <label for="txtDireccion">Dirección</label>
-              <input type="text" class="form-control" id="txtDireccion" name="txtDireccion" style="text-transform:uppercase" >
+              <input type="text" autocomplete="off" class="form-control" id="txtDireccion" name="txtDireccion" style="text-transform:uppercase" >
              </div>
 
 
