@@ -11,7 +11,7 @@ $total 		= 0;
 
 <head>
 	<meta charset="UTF-8">
-	<title>Factura</title>
+	<title>Factura de compra</title>
 	<style>
 		* {
 			margin: 0;
@@ -148,7 +148,7 @@ $total 		= 0;
 			font-weight: bold;
 			font-style: italic;
 			text-align: center;
-			margin-top: 20px;
+			margin-top: 20px;logo
 		}
 
 		.anulada {

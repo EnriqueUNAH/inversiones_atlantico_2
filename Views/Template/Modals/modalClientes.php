@@ -9,7 +9,12 @@
         </button>
       </div>
       <div class="modal-body">
-
+        
+      <script>
+       function validarEspacios(input) {
+        input.value = input.value.replace(/^\s+|\s{2,}/g, ' ');
+      }
+      </script>
 
         <style>
           .btn-outline-secondary {
@@ -30,7 +35,7 @@
 
            <div class="form-group col-md-6">
               <label for="txtNombres">Nombre Completo <span class="required">*</span></label>
-              <input type="text" pattern="[a-zA-Z ]+" class="form-control valid validText" id="txtNombres" name="txtNombres" style="text-transform:uppercase" required="" title="No se puede ingresar números" autocomplete="off">
+              <input type="text" pattern="[a-zA-Z ]+" class="form-control valid validText" id="txtNombres" name="txtNombres" style="text-transform:uppercase" required="" title="No se puede ingresar números" autocomplete="off" oninput =validarEspacios(this); >
             </div>
 
           </div>

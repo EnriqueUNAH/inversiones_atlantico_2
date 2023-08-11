@@ -82,6 +82,13 @@ $result->free();
 			return false;
 		}
 	</script>
+	 <script>
+    //Para que no pueda copiar ni pegar
+    function borrarPegado(event) {
+      event.preventDefault();
+      document.execCommand("insertText", false, "");
+    }
+  </script>
 
 	<section id="container">
 
@@ -234,9 +241,9 @@ $result->free();
 						<td id="txt_nombre_producto">-</td>
 						<td></td>
 
-						<td><input type="text" name="txt_cant_producto" id="txt_cant_producto" value="0" min="1" disabled onkeypress='return validaNumericos(event)'></td>
+						<td><input type="text" name="txt_cant_producto" id="txt_cant_producto" value="0" min="1" disabled onkeypress='return validaNumericos(event)' onpaste="return borrarPegado(event)"></td>
 
-						<td><input type="text" name="txt_precio" id="txt_precio" value="0" min="1" disabled onkeypress='return validaNumericos(event)'></td>
+						<td><input type="text" name="txt_precio" id="txt_precio" value="0" min="1" disabled onkeypress='return validaNumericos(event)' onpaste="return borrarPegado(event)"></td>
 
 						<!--<td id="txt_precio_total" class="textright"></td> -->
 						<td><input type="textright" id="txt_precio_total" placeholder="" readonly></td>
