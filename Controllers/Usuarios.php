@@ -131,7 +131,7 @@ class Usuarios extends Controllers
 						//
 						//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora 	en caso de que se esté insertando
 						$strAccion = "CREAR";
-						$strDescripcion = "CREACION DE USUARIO";
+						$strDescripcion = "CREACIÓN DE USUARIO: $strusuario ";
 
 						//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
 						$request_bitacora = $this->model->insertUsuarioBitacora(
@@ -149,6 +149,15 @@ class Usuarios extends Controllers
 					###############################################################################################
 				} else {
 					$option = 2; //SI OPTION ES 2, ENTONCES ESTARÁ ACTUALIZANDO
+
+
+					$arrDatosUsuario = $this->model->selectUsuario($id_usuario); //Arreglo que obtiene los datos.
+					$nombreAnterior = $arrDatosUsuario['nombre_usuario']; //Se obtiene el dato del campo.
+					$emailAnterior = $arrDatosUsuario['correo_electronico']; //Se obtiene el dato del campo.
+
+
+
+
 					$strPassword =  empty($_POST['txtPassword']) ? "" : hash("SHA256", $_POST['txtPassword']);
 					if ($_SESSION['permisosMod']['u']) {
 						$request_user = $this->model->updateUsuario(
@@ -162,18 +171,41 @@ class Usuarios extends Controllers
 						);
 					}
 
-					//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora 	en caso de que se esté ACTUALIZANDO
-					$strAccion = "ACTUALIZAR";
-					$strDescripcion = "ACTUALIZACIÓN DE USUARIO";
 
-					//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
-					$request_bitacora = $this->model->insertUsuarioBitacora(
-						$dateFecha,
-						$intIdUsuario,
-						$intIdObjeto,
-						$strAccion,
-						$strDescripcion
-					);
+					
+if($strnombre_usuario != $nombreAnterior){
+				//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora 	en caso de que se esté ACTUALIZANDO
+				$strAccion = "ACTUALIZAR";
+				$strDescripcion = "ACTUALIZACIÓN DE USUARIO:  ($strusuario) NOMBRE DE USUARIO ANTERIOR:($nombreAnterior) VALOR NUEVO: ($strnombre_usuario) ";
+
+				//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
+				$request_bitacora = $this->model->insertUsuarioBitacora(
+					$dateFecha,
+					$intIdUsuario,
+					$intIdObjeto,
+					$strAccion,
+					$strDescripcion
+				);
+}
+	
+if($strEmail != $emailAnterior){
+				//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora 	en caso de que se esté ACTUALIZANDO
+				$strAccion = "ACTUALIZAR";
+				$strDescripcion = "ACTUALIZACIÓN DE USUARIO:  ($strusuario) CORREO ANTERIOR:($emailAnterior) VALOR NUEVO: ($strEmail) ";
+
+				//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
+				$request_bitacora = $this->model->insertUsuarioBitacora(
+					$dateFecha,
+					$intIdUsuario,
+					$intIdObjeto,
+					$strAccion,
+					$strDescripcion
+				);
+}
+
+
+
+
 				} //FIN DEL ELSE PARA ACTUALIZAR
 				if ($request_user === 'exist') {
 					$arrResponse = array('status' => false, 'msg' => '¡Atención! el email o la identificación ya existe, ingrese otro.');
@@ -302,7 +334,9 @@ class Usuarios extends Controllers
 		if ($_POST) {
 			if ($_SESSION['permisosMod']['d']) {
 				$intid_usuario = intval($_POST['id_usuario']);
+				$requestNombreUsuario = $this->model->selectUsuario($intid_usuario);
 				$requestDelete = $this->model->deleteUsuario($intid_usuario);
+				$nombreUsuario = $requestNombreUsuario['usuario'];
 
 				//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora
 				//SE PUEDEN USAR PARA INSERTAR O ACTUALIZAR PORQUE SERÍAN LOS MISMOS DATOS
@@ -315,7 +349,7 @@ class Usuarios extends Controllers
 					$arrResponse = array('status' => true, 'msg' => 'Se ha eliminado el usuario');
 
 					$strAccion = "ELIMINAR";
-					$strDescripcion = "ELIMINACIÓN DE USUARIO";
+					$strDescripcion = "ELIMINACIÓN DE USUARIO : $nombreUsuario ";
 
 					//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
 					$request_bitacora = $this->model->insertUsuarioBitacora(

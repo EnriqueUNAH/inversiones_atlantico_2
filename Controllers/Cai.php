@@ -90,7 +90,7 @@ class Cai extends Controllers
 
 							//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora 	en caso de que se esté insertando
 							$strAccion = "CREAR";
-							$strDescripcion = "CREACIÓN DE CAI";
+							$strDescripcion = "CREACIÓN DE CAI DEl RANGO $intRangoI al $intRangoF";
 
 							//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
 							$request_bitacora = $this->model->insertCaiBitacora(
@@ -212,7 +212,10 @@ class Cai extends Controllers
 		if ($_POST) {
 			if ($_SESSION['permisosMod']['d']) {
 				$cod_talonario = intval($_POST['cod_talonario']);
+				$requestCai = $this->model->selectCai($cod_talonario);
 				$requestDelete = $this->model->deleteCai($cod_talonario);
+				$nombreCAI1 = $requestCai['rango_inicial'];
+				$nombreCAI2 = $requestCai['rango_final'];
 
 				//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora
 				//SE PUEDEN USAR PARA INSERTAR O ACTUALIZAR PORQUE SERÍAN LOS MISMOS DATOS
@@ -225,7 +228,7 @@ class Cai extends Controllers
 					$arrResponse = array('status' => true, 'msg' => 'Se ha eliminado el CAI');
 
 					$strAccion = "ELIMINAR";
-					$strDescripcion = "ELIMINACIÓN DE CAI";
+					$strDescripcion = "ELIMINACIÓN DE CAI DEL RANGO $nombreCAI1 al $nombreCAI2 ";
 
 					//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
 					$request_bitacora = $this->model->insertCaiBitacora(
