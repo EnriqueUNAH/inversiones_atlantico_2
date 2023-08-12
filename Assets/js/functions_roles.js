@@ -21,16 +21,34 @@ document.addEventListener("DOMContentLoaded", function () {
     dom: "lBfrtip",
     buttons: [
       {
-        extend: "pdfHtml5",
+        extend: 'pdfHtml5',
         download: "open",
-        title: "INVERSIONES DEL ATLÁNTICO",
+        title: " ",
         text: "<i class='fas fa-file-pdf'></i> PDF",
         titleAttr: "Exportar a PDF",
+        pageSize:'LETTER',
         className: "btn btn-danger",
         exportOptions: {
           columns: [0, 1, 2],
         },
         customize: function (doc) {
+          doc.styles.title = {
+            color: 'black',
+            fontSize: '22',
+            bold: true,
+            //background: 'navy',
+            alignment: 'center'
+          }
+          var now = new Date();
+          var jsDate = now.getDate() + '-' + (now.getMonth() + 1) + '-' + now.getFullYear();
+          var jsDatetime = now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds();
+          doc.content[1].table.widths = Array(doc.content[1].table.body[0].length + 1).join('*').split('');
+          doc.defaultStyle.alignment = 'center';
+          doc.styles.tableHeader.alignment = 'center';
+          doc.styles.tableHeader.color = "#ffffff";
+          doc.styles.tableHeader.fillColor = "#007bff";
+          doc.styles.tableBodyEven.fillColor = "#f2f2f2";
+          doc.styles.tableBodyOdd.fillColor = "#ffffff";
           doc.styles.tableHeader.alignment = "left"; //Alineación de los nombres de columnas.
           doc.defaultStyle.alignment = "left"; //Alineación de los datos de la tabla.
           //Para separar las columnas.
@@ -48,61 +66,98 @@ document.addEventListener("DOMContentLoaded", function () {
               return "#aaa";
             },
           };
-
-          doc.styles.tableHeader.color = "#ffffff";
-          doc.styles.tableHeader.fillColor = "#007bff";
-          doc.styles.tableBodyEven.fillColor = "#f2f2f2";
-          doc.styles.tableBodyOdd.fillColor = "#ffffff";
-          doc.content[1].table.widths = Array(
-            doc.content[1].table.body[0].length + 1
-          )
-            .join("*")
-            .split("");
-
           doc.content.splice(1, 0, {
             columns: [
               {
-                text: "REPORTE DE ROLES",
-                fontsize: 20,
-                bold: true,
-                alignment: "center",
+
+                image: 'data:image/jpeg;base64, ',
+                alignment: 'rigth',
                 margin: [0, 0, 0, 15],
-                width: "*",
+                width: 110,
+                height: 100
               },
+              [
+                {
+                  text: 'INVERSIONES UNIFORMES DEL ATLÁNTICO ',
+                  fontSize: 20,
+                  bold: true,
+                  alignment: 'right',
+                  margin: [0, 0, 0, 15],
+                  width: '*'
+                },
+                {
+                  text: 'REPORTE DE ROLES',
+                  fontSize: 15,
+                  bold: true,
+                  alignment: 'right',
+                  margin: [0, 0, 0, 15],
+                  width: '*'
+                },
+                {
+                  stack: [
+                    {
+                      columns: [{
+                        text: 'Fecha de creación:',
+                        fontSize: 12,
+                        alignment: 'right',
+                        width: '*'
+                      },
+                      {
+                        text: [{ text: jsDate.toString() }],
+                        fontSize: 12,
+                        alignment: 'right',
+                        width: 100
+                      }
+                      ]
+                    },
+
+                    {
+                      columns: [{
+                        text: 'Hora:',
+                        fontSize: 12,
+                        alignment: 'right',
+                        width: '*'
+                      },
+                      {
+                        text: [{ text: jsDatetime.toString() }],
+                        fontSize: 12,
+                        alignment: 'right',
+                        width: 100
+                      }
+                      ]
+                    },
+                  ]
+                }
+              ],
             ],
+          },
+            // Billing Headers
+            
+
+            // Line breaks
+            '\n\n',
+          );
+
+
+          doc['footer'] = (function (page, pages) {
+            return {
+              columns: [
+
+                {
+                  alignment: 'left',
+                  text: ['Fecha de Creación: ', { text: jsDate.toString() }]
+                },
+                {
+                  alignment: 'right',
+                  text: ['Página ', { text: page.toString() }, ' de ', { text: pages.toString() }]
+                }
+              ],
+              margin: 20
+            }
           });
 
-          // Agregar pie de página con la fecha
-          var now = new Date();
-          var date = now.toLocaleDateString();
-          var time = now.toLocaleTimeString();
-          var dateTime = date + " " + time;
-          var pageCount = 0;
-          if (doc && doc.internal) {
-            pageCount = doc.internal.getNumberOfPages();
-          }
-          doc.pageCount = pageCount;
-          doc.footer = function (currentPage, pageCount) {
-            return {
-              text:
-                "Fecha: " +
-                dateTime +
-                " - Página " +
-                currentPage +
-                " de " +
-                pageCount,
-              alignment: "center",
-            };
-          };
-          // Crear el PDF con pdfMake
-          var pdfDoc = pdfMake.createPdf(doc);
-
-          // Mostrar el PDF en una nueva pestaña del navegador
-          // pdfDoc.getBlob(function (blob) {
-          //   var objectUrl = URL.createObjectURL(blob);
-          //   window.open(objectUrl);
-          // });
         },
+
       },
       {
         extend: "excelHtml5",
@@ -112,7 +167,7 @@ document.addEventListener("DOMContentLoaded", function () {
         exportOptions: {
           columns: [0, 1, 2],
         },
-      },
+      }
     ],
 
     resonsieve: "true",
