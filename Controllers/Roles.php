@@ -161,19 +161,28 @@ class Roles extends Controllers
 			}
 		} else {
 			//Actualizar
+             $option = 2;
+
+			 $arrDatosRol = $this->model->selectRol($intid_rol); //Arreglo que obtiene los datos.
+			 $nombreAnterior = $arrDatosRol['nombrerol']; //Se obtiene el dato del campo.
+             $descripcionAnterior = $arrDatosRol['descripcion']; //Se obtiene el dato del campo.
+			 $estadoAnterior = $arrDatosRol['estado']; //Se obtiene el dato del campo.
+
+			 
 			if ($_SESSION['permisosMod']['u']) {
-				$request_rol = $this->model->updateRol($intid_rol, $strRol, $strDescipcion, $intStatus);
-				$option = 2;
-                // $arrParametroAnterior = $this->model->InsertRol($); //Arreglo que obtiene los datos.
-				// $valorParametroAnterior = $arrParametroAnterior['id_rol'];
-
-
+				$request_rol = $this->model->updateRol(
+				$intid_rol, 
+				$strRol, 
+				$strDescipcion,
+				$intStatus
+			   );
+				
 			}
 
-            //Estas variables almacenan los valores que se van a ingresar a la tabla bitátora 	en caso de que se esté ACTUALIZANDO
+			if($strRol != $nombreAnterior){
+                 //Estas variables almacenan los valores que se van a ingresar a la tabla bitátora 	en caso de que se esté ACTUALIZANDO
 					$strAccion = "ACTUALIZAR";
-					$strDescripcion = "ACTUALIZACIÓN DE ROL : $strRol    VALOR NUEVO : ($strRol)";
-
+					$strDescripcion = "ACTUALIZACIÓN DE ROL:  ($strRol) ROL ANTERIOR:($nombreAnterior) VALOR NUEVO: ($strRol) ";
 					//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
 					$request_bitacora = $this->model->insertRolBitacora(
 						$dateFecha,
@@ -182,8 +191,39 @@ class Roles extends Controllers
 						$strAccion,
 						$strDescripcion
 					);
+            }
+
+
+			if($strDescipcion != $descripcionAnterior){
+				//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora 	en caso de que se esté ACTUALIZANDO
+				   $strAccion = "ACTUALIZAR";
+				   $strDescripcion = "ACTUALIZACIÓN DE ROL:  ($strRol) DESCRIPCIÓN ANTERIOR:($descripcionAnterior) VALOR NUEVO: ($strDescipcion) ";
+				   //Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
+				   $request_bitacora = $this->model->insertRolBitacora(
+					   $dateFecha,
+					   $intIdUsuario,
+					   $intIdObjeto,
+					   $strAccion,
+					   $strDescripcion
+				   );
+		   }
+
+           if($intStatus  !=  $estadoAnterior){
+			//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora 	en caso de que se esté ACTUALIZANDO
+			   $strAccion = "ACTUALIZAR";
+			   $strDescripcion = "ACTUALIZACIÓN DE ROL:  ($strRol) ESTADO ANTERIOR:( $estadoAnterior) VALOR NUEVO: ($intStatus) ";
+			   //Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
+			   $request_bitacora = $this->model->insertRolBitacora(
+				   $dateFecha,
+				   $intIdUsuario,
+				   $intIdObjeto,
+				   $strAccion,
+				   $strDescripcion
+			   );
+	   }
 
 		}
+
 
 		if ($request_rol === 'exist') {
 			$arrResponse = array('status' => false, 'msg' => '¡Atención! el rol ya existe, ingrese otro.');

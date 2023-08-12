@@ -154,7 +154,8 @@ class Usuarios extends Controllers
 					$arrDatosUsuario = $this->model->selectUsuario($id_usuario); //Arreglo que obtiene los datos.
 					$nombreAnterior = $arrDatosUsuario['nombre_usuario']; //Se obtiene el dato del campo.
 					$emailAnterior = $arrDatosUsuario['correo_electronico']; //Se obtiene el dato del campo.
-
+					$rolAnterior = $arrDatosUsuario['nombrerol']; //Se obtiene el dato del campo.
+					$estadoAnterior = $arrDatosUsuario['estado']; //Se obtiene el dato del campo.
 
 
 
@@ -203,8 +204,35 @@ if($strEmail != $emailAnterior){
 				);
 }
 
+if($intTipoId != $rolAnterior){
+				//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora 	en caso de que se esté ACTUALIZANDO
+				$strAccion = "ACTUALIZAR";
+				$strDescripcion = "ACTUALIZACIÓN DE USUARIO:  ($strusuario) ROL ANTERIOR:($rolAnterior) VALOR NUEVO: ($intTipoId) ";
 
+				//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
+				$request_bitacora = $this->model->insertUsuarioBitacora(
+					$dateFecha,
+					$intIdUsuario,
+					$intIdObjeto,
+					$strAccion,
+					$strDescripcion
+				);
+}
 
+if($intestado != $estadoAnterior){
+	//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora 	en caso de que se esté ACTUALIZANDO
+	$strAccion = "ACTUALIZAR";
+	$strDescripcion = "ACTUALIZACIÓN DE USUARIO:  ($strusuario) ESTADO ANTERIOR:($estadoAnterior) VALOR NUEVO: ($intestado) ";
+
+	//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
+	$request_bitacora = $this->model->insertUsuarioBitacora(
+		$dateFecha,
+		$intIdUsuario,
+		$intIdObjeto,
+		$strAccion,
+		$strDescripcion
+	);
+}
 
 				} //FIN DEL ELSE PARA ACTUALIZAR
 				if ($request_user === 'exist') {

@@ -104,6 +104,14 @@ class Cai extends Controllers
 					} else {
 						$option = 2; //SI OPTION ES 2, ENTONCES ESTARÁ ACTUALIZANDO
 
+						$arrDatosCAI = $this->model->selectCai($cod_talonario); //Arreglo que obtiene los datos.
+						$RangoInAnterior = $arrDatosCAI['rango_inicial']; //Se obtiene el dato del campo.
+						$RangoFinAnterior = $arrDatosCAI['rango_final']; //Se obtiene el dato del campo.
+						$RangoActAnterior = $arrDatosCAI['rango_actual']; //Se obtiene el dato del campo.
+						$NumCaiAnterior = $arrDatosCAI['numero_CAI']; //Se obtiene el dato del campo.
+						$FechaAnterior = $arrDatosCAI['fecha_vencimiento']; //Se obtiene el dato del campo.
+
+
 						if ($_SESSION['permisosMod']['u']) {
 							$request_user = $this->model->updateCai(
 								$cod_talonario,
@@ -115,18 +123,86 @@ class Cai extends Controllers
 							);
 						}
 
-						//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora 	en caso de que se esté ACTUALIZANDO
-						$strAccion = "ACTUALIZAR";
-						$strDescripcion = "ACTUALIZACIÓN DE CAI";
+						if($intRangoI != $RangoInAnterior ){
+						  //Estas variables almacenan los valores que se van a ingresar a la tabla bitátora 	en caso de que se esté ACTUALIZANDO
+						  $strAccion = "ACTUALIZAR";
+						  $strDescripcion = "ACTUALIZACIÓN DE CAI:  ($intRangoI) RANGO INICIAL ANTERIOR:($RangoInAnterior ) VALOR NUEVO: ($intRangoI) ";
 
-						//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
-						$request_bitacora = $this->model->insertCaiBitacora(
+						  //Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
+						   $request_bitacora = $this->model->insertCaiBitacora(
 							$dateFecha,
 							$intIdUsuario,
 							$intIdObjeto,
 							$strAccion,
 							$strDescripcion
-						);
+						   );
+					    }
+
+
+						if($intRangoF != $RangoFinAnterior ){
+							//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora 	en caso de que se esté ACTUALIZANDO
+							$strAccion = "ACTUALIZAR";
+							$strDescripcion = "ACTUALIZACIÓN DE CAI:  ($intRangoI) RANGO FINAL ANTERIOR:($RangoFinAnterior ) VALOR NUEVO: ($intRangoF) ";
+  
+							//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
+							 $request_bitacora = $this->model->insertCaiBitacora(
+							  $dateFecha,
+							  $intIdUsuario,
+							  $intIdObjeto,
+							  $strAccion,
+							  $strDescripcion
+							 );
+  						}
+
+						if($intRangoA != $RangoActAnterior){
+							//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora 	en caso de que se esté ACTUALIZANDO
+							$strAccion = "ACTUALIZAR";
+							$strDescripcion = "ACTUALIZACIÓN DE CAI:  ($intRangoI) RANGO ACTUAL ANTERIOR:($RangoActAnterior ) VALOR NUEVO: ($intRangoA) ";
+  
+							//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
+							 $request_bitacora = $this->model->insertCaiBitacora(
+							  $dateFecha,
+							  $intIdUsuario,
+							  $intIdObjeto,
+							  $strAccion,
+							  $strDescripcion
+							 );
+  						}
+  
+
+						if($intNum != $NumCaiAnterior){
+							//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora 	en caso de que se esté ACTUALIZANDO
+							$strAccion = "ACTUALIZAR";
+							$strDescripcion = "ACTUALIZACIÓN DE CAI:  ($intRangoI) NÚMERO CAI ANTERIOR:($NumCaiAnterior ) VALOR NUEVO: ($intNum) ";
+  
+							//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
+							 $request_bitacora = $this->model->insertCaiBitacora(
+							  $dateFecha,
+							  $intIdUsuario,
+							  $intIdObjeto,
+							  $strAccion,
+							  $strDescripcion
+							 );
+  						}
+
+						
+						if($dateFechaVenc != $FechaAnterior ){
+							//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora 	en caso de que se esté ACTUALIZANDO
+							$strAccion = "ACTUALIZAR";
+							$strDescripcion = "ACTUALIZACIÓN DE CAI:  ($intRangoI) FECHA DE VENCIMIENTO ANTERIOR:($FechaAnterior) VALOR NUEVO: ($dateFechaVenc) ";
+  
+							//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
+							 $request_bitacora = $this->model->insertCaiBitacora(
+							  $dateFecha,
+							  $intIdUsuario,
+							  $intIdObjeto,
+							  $strAccion,
+							  $strDescripcion
+							 );
+  						}
+
+
+
 					} //FIN DEL ELSE PARA ACTUALIZAR
 
 					if ($request_user > 0) {
