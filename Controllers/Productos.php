@@ -115,6 +115,17 @@ class Productos extends Controllers
 
 				} else {
 					$option = 2; //SI OPTION ES 2, ENTONCES ESTARÁ ACTUALIZANDO
+     
+					$arrDatosProducto = $this->model->selectProducto($cod_producto); //Arreglo que obtiene los datos.
+					$nombreAnterior = $arrDatosProducto['nombre_producto']; //Se obtiene el dato del campo.
+					$descripcionAnterior = $arrDatosProducto['descripcion']; //Se obtiene el dato del campo.
+					$cantidadMinAnterior = $arrDatosProducto['cantidad_minima']; //Se obtiene el dato del campo.
+					$cantidadMaxAnterior = $arrDatosProducto['cantidad_maxima']; //Se obtiene el dato del campo.
+					$tipoProdAnterior = $arrDatosProducto['nombre_tipo_producto']; //Se obtiene el dato del campo.
+					$precioAnterior = $arrDatosProducto['precio_venta']; //Se obtiene el dato del campo.
+					$estadoAnterior = $arrDatosProducto['estado']; //Se obtiene el dato del campo.
+					
+
 					if ($_SESSION['permisosMod']['u']) {
 						$request_user = $this->model->updateProducto(
 							$cod_producto,
@@ -128,18 +139,124 @@ class Productos extends Controllers
 						);
 					}
 
-					//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora 	en caso de que se esté ACTUALIZANDO
-					$strAccion = "ACTUALIZAR";
-					$strDescripcion = "ACTUALIZACIÓN DE PRODUCTO";
 
-					//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
-					$request_bitacora = $this->model->insertProductoBitacora(
+
+				// NOMBRE PRODUCTO
+					if($strNombreProducto != $nombreAnterior){
+					  //Estas variables almacenan los valores que se van a ingresar a la tabla bitátora 	en caso de que se esté ACTUALIZANDO
+					  $strAccion = "ACTUALIZAR";
+					  $strDescripcion = "ACTUALIZACIÓN DE PRODUCTOS:  ($strNombreProducto) NOMBRE DE PRODUCTO ANTERIOR:($nombreAnterior) VALOR NUEVO: ($strNombreProducto) ";
+
+					  //Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
+					 $request_bitacora = $this->model->insertProductoBitacora(
 						$dateFecha,
 						$intIdUsuario,
 						$intIdObjeto,
 						$strAccion,
 						$strDescripcion
-					);
+				    	);
+				    }
+
+
+			  // DESCRIPCIÓN
+					if($strDescripcion != $descripcionAnterior){
+						//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora 	en caso de que se esté ACTUALIZANDO
+						$strAccion = "ACTUALIZAR";
+						$strDescripcion = "ACTUALIZACIÓN DE PRODUCTOS:  ($strNombreProducto) DESCRIPCIÓN ANTERIOR:($descripcionAnterior) VALOR NUEVO: ($strDescripcion) ";
+  
+						//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
+					   $request_bitacora = $this->model->insertProductoBitacora(
+						  $dateFecha,
+						  $intIdUsuario,
+						  $intIdObjeto,
+						  $strAccion,
+						  $strDescripcion
+						  );
+				    }
+
+
+			  // CANTIDAD MINIMA
+					if($intCantidadMinima != $cantidadMinAnterior){
+						//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora 	en caso de que se esté ACTUALIZANDO
+						$strAccion = "ACTUALIZAR";
+						$strDescripcion = "ACTUALIZACIÓN DE PRODUCTOS:  ($strNombreProducto) CANTIDAD MINIMA ANTERIOR:($cantidadMinAnterior) VALOR NUEVO: ($intCantidadMinima) ";
+  
+						//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
+					   $request_bitacora = $this->model->insertProductoBitacora(
+						  $dateFecha,
+						  $intIdUsuario,
+						  $intIdObjeto,
+						  $strAccion,
+						  $strDescripcion
+						  );
+				    }
+
+                // CANTIDAD MAXIMA
+					if($intCantidadMaxima != $cantidadMaxAnterior){
+						//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora 	en caso de que se esté ACTUALIZANDO
+						$strAccion = "ACTUALIZAR";
+						$strDescripcion = "ACTUALIZACIÓN DE PRODUCTOS:  ($strNombreProducto) CANTIDAD MAXIMA ANTERIOR:($cantidadMaxAnterior) VALOR NUEVO: ($intCantidadMaxima) ";
+  
+						//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
+					   $request_bitacora = $this->model->insertProductoBitacora(
+						  $dateFecha,
+						  $intIdUsuario,
+						  $intIdObjeto,
+						  $strAccion,
+						  $strDescripcion
+						  );
+				    }
+
+
+                // TIPO PRODUCTO
+					if($intCodTipoProducto != $tipoProdAnterior){
+						//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora 	en caso de que se esté ACTUALIZANDO
+						$strAccion = "ACTUALIZAR";
+						$strDescripcion = "ACTUALIZACIÓN DE PRODUCTOS:  ($strNombreProducto) TIPO PRODUCTO ANTERIOR:($tipoProdAnterior) VALOR NUEVO: ($intCodTipoProducto) ";
+  
+						//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
+					   $request_bitacora = $this->model->insertProductoBitacora(
+						  $dateFecha,
+						  $intIdUsuario,
+						  $intIdObjeto,
+						  $strAccion,
+						  $strDescripcion
+						  );
+				    }
+
+                 // PRECIO
+					if($decPrecioVenta != $precioAnterior){
+						//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora 	en caso de que se esté ACTUALIZANDO
+						$strAccion = "ACTUALIZAR";
+						$strDescripcion = "ACTUALIZACIÓN DE PRODUCTOS:  ($strNombreProducto) PRECIO ANTERIOR:($precioAnterior) VALOR NUEVO: ($decPrecioVenta) ";
+  
+						//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
+					   $request_bitacora = $this->model->insertProductoBitacora(
+						  $dateFecha,
+						  $intIdUsuario,
+						  $intIdObjeto,
+						  $strAccion,
+						  $strDescripcion
+						  );
+				    }
+
+                // ESTADO
+					if($intStatus != $estadoAnterior){
+						//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora 	en caso de que se esté ACTUALIZANDO
+						$strAccion = "ACTUALIZAR";
+						$strDescripcion = "ACTUALIZACIÓN DE PRODUCTOS:  ($strNombreProducto) ESTADO ANTERIOR:($estadoAnterior) VALOR NUEVO: ($intStatus) ";
+  
+						//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
+					   $request_bitacora = $this->model->insertProductoBitacora(
+						  $dateFecha,
+						  $intIdUsuario,
+						  $intIdObjeto,
+						  $strAccion,
+						  $strDescripcion
+						  );
+				    }
+
+
 				} //FIN DEL ELSE PARA ACTUALIZAR
 
 				if ($request_user === 'exist') {
