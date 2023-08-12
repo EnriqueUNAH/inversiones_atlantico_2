@@ -52,6 +52,27 @@ document.addEventListener(
             doc.content[1].table.widths = Array(doc.content[1].table.body[0].length + 1).join('*').split('');
             doc.defaultStyle.alignment = 'center';
             doc.styles.tableHeader.alignment = 'center';
+            doc.styles.tableHeader.color = "#ffffff";
+            doc.styles.tableHeader.fillColor = "#007bff";
+            doc.styles.tableBodyEven.fillColor = "#f2f2f2";
+            doc.styles.tableBodyOdd.fillColor = "#ffffff";
+            doc.styles.tableHeader.alignment = "left"; //Alineación de los nombres de columnas.
+            doc.defaultStyle.alignment = "left"; //Alineación de los datos de la tabla.
+            //Para separar las columnas.
+            doc.content[1].layout = {
+              hLineWidth: function (i, node) {
+                return 1; // ancho de la línea en píxeles
+              },
+              vLineWidth: function (i, node) {
+                return 1;
+              },
+              hLineColor: function (i, node) {
+                return "#aaa"; // color de la línea
+              },
+              vLineColor: function (i, node) {
+                return "#aaa";
+              },
+            };
             doc.content.splice(1, 0, {
               columns: [
                 {
@@ -118,25 +139,7 @@ document.addEventListener(
               ],
             },
               // Billing Headers
-              {
-                columns: [
-                  {
-                    text: 'Información:',
-                    fontSize: 14,
-                    bold: true,
-                    alignment: 'left',
-                    margin: [0, 5, 0, 5],
-                  },
-
-                ]
-              },
-              // Billing Details
-              {
-                columns: [{
-                  text: 'BO. EL CENTRO, DOMICILIO RENTADO,\n ATRÁS DE LA DESPENSA FAMILIAR, TELA. ATLÁNTIDA \n Télefono: 9770-5889 \n unifomrmesdelatlantico@hotmail.com   ',
-                  alignment: 'left'
-                }]
-              },
+              
 
               // Line breaks
               '\n\n',
