@@ -31,7 +31,7 @@ class Ventas extends Controllers
 		//SE PUEDEN USAR PARA INSERTAR O ACTUALIZAR PORQUE SERÍAN LOS MISMOS DATOS
 		$dateFecha = date('Y-m-d H:i:s');
 		$intIdVenta = $_SESSION['idUser'];
-		$intIdObjeto = 2;
+		$intIdObjeto = MVENTA;
 		$request_bitacora = "";
 
 		$strAccion = "INGRESO";

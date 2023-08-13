@@ -289,16 +289,19 @@ $result_d->free();
 						</div>
 
 
-						<div class="wd30">
+						<div class="wd60">
 							<label>Nombre</label>
 							<input type="text" name="nom_cliente" id="nom_cliente" oninput="this.value = this.value.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑ ]/g, '').toUpperCase()" disabled required>
 						</div>
 
 						<div class="wd30">
 							<label>Teléfono</label>
-							<input type="text" name="tel_cliente" id="tel_cliente" pattern="[1-9]{1}[0-9]{7}" title="Debes ingresar 8 dígitos que no sean todos ceros" required maxlength="8">
+							<input type="text" name="tel_cliente" id="tel_cliente" pattern="[1-9]{1}[0-9]{7}" title="Debes ingresar 8 dígitos que no sean todos ceros" required maxlength="8" disabled required>
 						</div>
-
+						<div class="wd60">
+							<label>Correo Electrónico</label>
+							<input type="email" name="email_cliente" id="email_cliente" required maxlength="30" disabled required>
+						</div>
 						<div class="wd100">
 							<label>Dirección</label>
 							<input type="text" name="dir_cliente" id="dir_cliente" oninput="this.value = this.value.toUpperCase()" disabled required>

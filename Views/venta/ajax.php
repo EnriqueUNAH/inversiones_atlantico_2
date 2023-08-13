@@ -141,31 +141,6 @@ if (!empty($_POST)) {
 	}
 
 
-
-	//Registra Cliente - Ventas
-	if ($_POST['action'] == 'addCliente') {
-		$rtn       = $_POST['rtn_cliente'];
-		$nombre    = $_POST['nom_cliente'];
-		$telefono  = $_POST['tel_cliente'];
-		$direccion = $_POST['dir_cliente'];
-		$usuario_id = $_SESSION['idUser'];
-
-		$query_insert = mysqli_query($conection, "INSERT INTO tbl_cliente(
-														rtn,nombres,telefono,direccion,id_usuario)
-													VALUES('$rtn','$nombre','$telefono','$direccion','$usuario_id')");
-		if ($query_insert) {
-			$codCliente = mysqli_insert_id($conection);
-			$msg = $codCliente;
-		} else {
-			$msg = 'error';
-		}
-		mysqli_close($conection);
-		echo $msg;
-		exit;
-	}
-
-
-
 	//Agregar producto al detalle temporal
 	if ($_POST['action'] == 'addProductoDetalle') {
 		if (empty($_POST['producto']) || empty($_POST['cantidad'])) {
@@ -738,6 +713,31 @@ if (!empty($_POST)) {
 		if (mysqli_error($conection)) {
 			echo mysqli_error($conection);
 		}
+	}
+	if ($_POST['action'] == 'addCliente') {
+		$rtn       = $_POST['rtn_cliente'];
+		$nombre    = $_POST['nom_cliente'];
+		$telefono  = $_POST['tel_cliente'];
+		$email  = $_POST['email_cliente'];
+		$direccion = $_POST['dir_cliente'];
+		$usuario_id = $_SESSION['idUser'];
+
+		$query_usuario = mysqli_query($conection, "SELECT usuario FROM tbl_ms_usuarios WHERE id_usuario = '$usuario_id'");
+		$result_usuario = mysqli_fetch_assoc($query_usuario);
+		$creadoPor = $result_usuario['usuario'];
+
+		$query_insert = mysqli_query($conection, "INSERT INTO tbl_cliente(
+			rtn, nombres, telefono, correo_electronico, direccion, creado_por, fecha_creacion)
+		VALUES ('$rtn', '$nombre', '$telefono', '$email', '$direccion', '$creadoPor', NOW())");
+
+		if ($query_insert) {
+			$codCliente = mysqli_insert_id($conection);
+			echo $codCliente; // Envía el ID del cliente recién insertado
+		} else {
+			echo 'error';
+		}
+		mysqli_close($conection);
+		exit;
 	}
 }
 

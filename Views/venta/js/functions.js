@@ -160,6 +160,7 @@ $(document).ready(function () {
     e.preventDefault();
     $("#nom_cliente").removeAttr("disabled");
     $("#tel_cliente").removeAttr("disabled");
+    $("#email_cliente").removeAttr("disabled");
     $("#dir_cliente").removeAttr("disabled");
 
     $("#div_registro_cliente").slideDown();
@@ -183,6 +184,7 @@ $(document).ready(function () {
           $("#cod_cliente").val("");
           $("#nom_cliente").val("");
           $("#tel_cliente").val("");
+          $("#email_cliente").val("");
           $("#dir_cliente").val("");
           //Mostrar boton agregar
           $(".btn_new_cliente").slideDown();
@@ -191,6 +193,7 @@ $(document).ready(function () {
           $("#cod_cliente").val(data.cod_cliente);
           $("#nom_cliente").val(data.nombres);
           $("#tel_cliente").val(data.telefono);
+          $("#email_cliente").val(data.correo_electronico);
           $("#dir_cliente").val(data.direccion);
           //Ocultar boton agregar
           $(".btn_new_cliente").slideUp();
@@ -198,6 +201,7 @@ $(document).ready(function () {
           //Bloque campos
           $("#nom_cliente").attr("disabled", "disabled");
           $("#tel_cliente").attr("disabled", "disabled");
+          $("#email_cliente").attr("disabled", "disabled");
           $("#dir_cliente").attr("disabled", "disabled");
 
           //Oculta boton guardar
@@ -212,79 +216,44 @@ $(document).ready(function () {
   $("#form_new_cliente_venta").submit(function (e) {
     e.preventDefault();
 
-    var nombreCliente = $("#nom_cliente").val();
+    var nombreCliente = $("#nom_cliente").val().trim();
+    var rtn_cliente = $("#rtn_cliente").val().trim();
+    var tel_cliente = $("#tel_cliente").val().trim();
+    var email_cliente = $("#email_cliente").val().trim();
+    var dir_cliente = $("#dir_cliente").val().trim();
 
     // Verificar si el campo del nombre del cliente está vacío
-    if (nombreCliente.trim() == "") {
-      Swal.fire({
-        title: "Por favor ingrese un nombre",
-        icon: "error",
-        confirmButtonText: "Aceptar",
-      });
+    if (nombreCliente === "") {
+      mostrarMensajeError("Por favor ingrese un nombre");
       return false;
     }
-    var rtn_cliente = $("#rtn_cliente").val().trim();
 
     //Validar que el valor de rtn_cliente no sean 14 dígitos "0"
     if (rtn_cliente === "00000000000000") {
-      Swal.fire({
-        title: "Error",
-        text: "El RTN ingresado no es válido.",
-        icon: "error",
-        confirmButtonText: "Cerrar",
-      });
-
-      return false; //Detener el envío del formulario
+      mostrarMensajeError("El RTN ingresado no es válido.");
+      return false; // Detener el envío del formulario
     }
-
-    var tel_cliente = $("#tel_cliente").val().trim();
 
     // Validar que el valor de tel_cliente no sea "00000000"
     if (tel_cliente === "00000000") {
-      Swal.fire({
-        title: "Error",
-        text: "El número de teléfono ingresado no es válido.",
-        icon: "error",
-        confirmButtonText: "Cerrar",
-      });
-
+      mostrarMensajeError("El número de teléfono ingresado no es válido.");
       return false;
     }
+
     // Validar que se hayan ingresado exactamente 8 caracteres
     if (tel_cliente.length !== 8) {
-      Swal.fire({
-        title: "Error",
-        text: "Debes ingresar 8 dígitos para el número de teléfono.",
-        icon: "error",
-        confirmButtonText: "Cerrar",
-      });
-
+      mostrarMensajeError(
+        "Debes ingresar 8 dígitos para el número de teléfono."
+      );
       return false;
     }
+
     // Validar que se hayan ingresado exactamente 14 caracteres
     if (rtn_cliente.length !== 14) {
-      Swal.fire({
-        title: "Error",
-        text: "Debes ingresar 14 dígitos para el número de rtn.",
-        icon: "error",
-        confirmButtonText: "Cerrar",
-      });
-
+      mostrarMensajeError("Debes ingresar 14 dígitos para el número de RTN.");
       return false;
     }
-    // Validar que el valor de rtn_cliente solo contenga números
-    // var regex = /^[0-9]+$/;
 
-    // if (!regex.test(rtn_cliente)) {
-    //   Swal.fire({
-    //     title: "Error",
-    //     text: "El valor de RTN solo debe contener números.",
-    //     icon: "error",
-    //     confirmButtonText: "Cerrar",
-    //   });
-
-    //   return false;
-    // }
     // Verificar si el nombre del cliente ya existe en la base de datos
     $.ajax({
       url: "ajax.php",
@@ -294,25 +263,58 @@ $(document).ready(function () {
         action: "validate_nombre_cliente",
         nom_cliente: nombreCliente,
       },
-
       success: function (response) {
-        if (response == "error") {
-          Swal.fire({
-            title: "El nombre del cliente ya existe",
-            icon: "error",
-            confirmButtonText: "Aceptar",
-          });
+        if (response === "error") {
+          mostrarMensajeError(
+            "El nombre del cliente ya existe en la base de datos."
+          );
         } else {
-          //Agregar id a input hiden
-          $("#cod_cliente").val(response);
-          //Bloque campos
+          agregarCliente(
+            rtn_cliente,
+            nombreCliente,
+            tel_cliente,
+            email_cliente,
+            dir_cliente
+          );
+        }
+      },
+      error: function (error) {
+        console.log("Error en la verificación del nombre del cliente:", error);
+      },
+    });
+  });
+
+  function mostrarMensajeError(mensaje) {
+    Swal.fire({
+      title: "Error",
+      text: mensaje,
+      icon: "error",
+      confirmButtonText: "Cerrar",
+    });
+  }
+
+  function agregarCliente(rtn, nombre, telefono, email, direccion) {
+    $.ajax({
+      url: "ajax.php",
+      type: "POST",
+      async: true,
+      data: {
+        action: "addCliente",
+        rtn_cliente: rtn,
+        nom_cliente: nombre,
+        tel_cliente: telefono,
+        email_cliente: email,
+        dir_cliente: direccion,
+      },
+      success: function (insertResponse) {
+        if (insertResponse !== "error") {
+          // Inserción exitosa, mostrar mensaje y otras acciones
+          $("#cod_cliente").val(insertResponse);
           $("#nom_cliente").attr("disabled", "disabled");
           $("#tel_cliente").attr("disabled", "disabled");
+          $("#email_cliente").attr("disabled", "disabled");
           $("#dir_cliente").attr("disabled", "disabled");
-
-          //Oculta boton agregar
           $(".btn_new_cliente").slideUp();
-          //Oculta boton guardar
           $("#div_registro_cliente").slideUp();
 
           Swal.fire({
@@ -320,14 +322,15 @@ $(document).ready(function () {
             icon: "success",
             confirmButtonText: "Aceptar",
           });
+        } else {
+          mostrarMensajeError("Hubo un problema al insertar el cliente.");
         }
       },
-
-      error: function (error) {
-        console.log(error);
+      error: function (insertError) {
+        console.log("Error en la inserción:", insertError);
       },
     });
-  });
+  }
 
   //PARA BUSCAR EL PRODUCTO CUANDO SE HACE EL SELECT
   $("#select_producto").change(function (e) {
