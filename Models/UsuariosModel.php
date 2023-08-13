@@ -124,7 +124,14 @@ class UsuariosModel extends Mysql
 		$request = $this->select($sql);
 		return $request;
 	}
-
+	public function selectRol(int $id_rol)
+	{
+		//BUSCAR ROLE
+		$this->intid_rol = $id_rol;
+		$sql = "SELECT * FROM tbl_ms_roles WHERE id_rol = $this->intid_rol";
+		$request = $this->select($sql);
+		return $request;
+	}
 
 
 
