@@ -212,6 +212,12 @@ class Productos extends Controllers
 					if($intCodTipoProducto != $tipoProdAnterior){
 						//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora 	en caso de que se esté ACTUALIZANDO
 						$strAccion = "ACTUALIZAR";
+
+						if($intCodTipoProducto==3){
+							$intCodTipoProducto = "INSUMO"; 
+						  } else if ($intCodTipoProducto==4) {
+							$intCodTipoProducto = "PRODUCTO TERMINADO";}
+
 						$strDescripcion = "ACTUALIZACIÓN DE PRODUCTOS:  ($strNombreProducto) TIPO PRODUCTO ANTERIOR:($tipoProdAnterior) VALOR NUEVO: ($intCodTipoProducto) ";
   
 						//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
@@ -244,6 +250,17 @@ class Productos extends Controllers
 					if($intStatus != $estadoAnterior){
 						//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora 	en caso de que se esté ACTUALIZANDO
 						$strAccion = "ACTUALIZAR";
+
+						if($intStatus==1){
+							$intStatus = "ACTIVO"; 
+						  } else if ($intStatus==2) {
+							$intStatus = "INACTIVO";}
+			
+							if( $estadoAnterior==1){
+								$estadoAnterior = "ACTIVO"; 
+							  } else if ( $estadoAnterior==2) {
+								$estadoAnterior = "INACTIVO";}
+
 						$strDescripcion = "ACTUALIZACIÓN DE PRODUCTOS:  ($strNombreProducto) ESTADO ANTERIOR:($estadoAnterior) VALOR NUEVO: ($intStatus) ";
   
 						//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
