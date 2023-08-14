@@ -208,17 +208,19 @@ class Productos extends Controllers
 				    }
 
 
+					$arrRol = $this->model->selectProducto($cod_producto);
+					$getTipoProducto = $arrRol['nombre_tipo_producto'];
                 // TIPO PRODUCTO
-					if($intCodTipoProducto != $tipoProdAnterior){
+					if($getTipoProducto != $tipoProdAnterior){
 						//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora 	en caso de que se esté ACTUALIZANDO
 						$strAccion = "ACTUALIZAR";
 
-						if($intCodTipoProducto==3){
-							$intCodTipoProducto = "INSUMO"; 
-						  } else if ($intCodTipoProducto==4) {
-							$intCodTipoProducto = "PRODUCTO TERMINADO";}
+						// if($intCodTipoProducto==3){
+						// 	$intCodTipoProducto = "INSUMO"; 
+						//   } else if ($intCodTipoProducto==4) {
+						// 	$intCodTipoProducto = "PRODUCTO TERMINADO";}
 
-						$strDescripcion = "ACTUALIZACIÓN DE PRODUCTOS:  ($strNombreProducto) TIPO PRODUCTO ANTERIOR:($tipoProdAnterior) VALOR NUEVO: ($intCodTipoProducto) ";
+						$strDescripcion = "ACTUALIZACIÓN DE PRODUCTOS:  ($strNombreProducto) TIPO PRODUCTO ANTERIOR:($tipoProdAnterior) VALOR NUEVO: ($getTipoProducto) ";
   
 						//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
 					   $request_bitacora = $this->model->insertProductoBitacora(
