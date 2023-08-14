@@ -37,6 +37,7 @@ headerAdmin($data);
             <table class="table table-hover table-bordered" id="tableProduccion">
               <thead>
                 <tr>
+                <th>Código</th>
                   <th>Producto a Producir</th>
                   <th>Cantidad</th>
                   <th>Fecha</th>

@@ -4,7 +4,31 @@ let divLoading = document.querySelector("#divLoading");
 document.addEventListener(
   "DOMContentLoaded",
   function () {
+
     tableProduccion = $("#tableProduccion").dataTable({
+          //BUSCADOR EXACTO
+    initComplete: function () {
+      this.api()
+        .columns()
+        .every(function () {
+          var column = this;
+
+          if (column.index() === 0) {
+            // Índice de la columna "Cliente"
+            var input = $('<input type="text" placeholder="Buscar..."/>')
+              .appendTo($(column.header()))
+              .on("keyup", function () {
+                var val = $.fn.dataTable.util.escapeRegex($(this).val());
+
+                if (val === "") {
+                  column.search("").draw();
+                } else {
+                  column.search("^" + val + "$", true, false).draw();
+                }
+              });
+          }
+        });
+    },
       aProcessing: true,
       aServerSide: true,
       language: {
@@ -15,6 +39,7 @@ document.addEventListener(
         dataSrc: "",
       },
       columns: [
+        { data: "cod_produccion" },
         { data: "nombre_producto" },
         { data: "cantidad" },
         { data: "fecha" },
@@ -33,7 +58,7 @@ document.addEventListener(
           pageSize: 'LETTER',
           className: "btn btn-danger",
           exportOptions: {
-            columns: [0, 1, 2, 3, 4],
+            columns: [0, 1, 2, 3, 4, 5],
           },
           customize: function (doc) {
             doc.styles.title = {
@@ -169,8 +194,8 @@ document.addEventListener(
           titleAttr: "Exportar a Excel",
           className: "btn btn-success",
           exportOptions: {
-            columns: [0, 1, 2],
-          },
+            columns: [0, 1, 2, 3, 4, 5],
+          }, 
         }
       ],
       resonsieve: "true",
@@ -185,8 +210,8 @@ document.addEventListener(
 function fntDelProduccion(cod_produccion) {
   swal(
     {
-      title: "Anular Produccion",
-      text: "¿Realmente quiere anular la produccion?",
+      title: "Anular Producción",
+      text: "¿Realmente quiere anular la producción?",
       type: "warning",
       showCancelButton: true,
       confirmButtonText: "ANULAR",
@@ -228,7 +253,7 @@ function fntDelProduccion(cod_produccion) {
 function fntDelProduccionP(cod_produccion) {
   swal(
     {
-      title: "Anular Produccion",
+      title: "Anular Producción",
       text: "¿Realmente quiere anular la producción con pérdida?",
       type: "warning",
       showCancelButton: true,
@@ -271,7 +296,7 @@ function fntDelProduccionP(cod_produccion) {
 function fntFinProduccion(cod_produccion, cantidad, cod_producto) {
   swal(
     {
-      title: "Finalizar Produccion",
+      title: "Finalizar Producción",
       text: "¿Realmente quiere finalizar la producción?",
       type: "warning",
       showCancelButton: true,

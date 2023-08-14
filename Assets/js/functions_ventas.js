@@ -5,6 +5,32 @@ document.addEventListener(
   "DOMContentLoaded",
   function () {
     tableVentas = $("#tableVentas").dataTable({
+
+//BUSCADOR EXACTO
+initComplete: function () {
+  this.api()
+    .columns()
+    .every(function () {
+      var column = this;
+
+      if (column.index() === 0) {
+        // Índice de la columna "Cliente"
+        var input = $('<input type="text" placeholder="Buscar..."/>')
+          .appendTo($(column.header()))
+          .on("keyup", function () {
+            var val = $.fn.dataTable.util.escapeRegex($(this).val());
+
+            if (val === "") {
+              column.search("").draw();
+            } else {
+              column.search("^" + val + "$", true, false).draw();
+            }
+          });
+      }
+    });
+},
+
+
       aProcessing: true,
       aServerSide: true,
       language: {
