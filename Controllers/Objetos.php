@@ -103,7 +103,7 @@ class Objetos extends Controllers
 
 					//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora 	en caso de que se esté ACTUALIZANDO
 					$strAccion = "ACTUALIZAR";
-					$strDescripcion = "ACTUALIZACIÓN DE OBJETO : ($strobjeto) VALOR ANTERIOR : ($valorObjetoAnterior) VALOR NUEVO : ($strdescripcion)  ";
+					$strDescripcion = "ACTUALIZACIÓN DE OBJETO : ($strobjeto) DESCRIPCIÓN ANTERIOR : ($valorObjetoAnterior) VALOR NUEVO : ($strdescripcion)  ";
 
 					//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
 					$request_bitacora = $this->model->insertObjetosBitacora(

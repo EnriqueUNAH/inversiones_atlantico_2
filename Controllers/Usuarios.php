@@ -205,7 +205,7 @@ class Usuarios extends Controllers
 					}
 
 
-					$arrRol = $this->model->selectRol($intTipoId);
+					$arrRol = $this->model->selectUsuario($id_usuario);
 					$getNombreRol = $arrRol['nombrerol'];
 
 					if ($getNombreRol != $rolAnterior) {
