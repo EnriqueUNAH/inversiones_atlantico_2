@@ -22,7 +22,14 @@
 
 
 <?php
+session_start();
+
 include '../php/Connet.php';
+include "../php/funcion_bitacora.php";
+
+$id_objeto = 1;
+bitacora::evento_bitacora($id_objeto, $_SESSION['idUser'],'INSERTO' , ' REALIZO UN BACKUP');
+
 //Lineas de msj al cargar pagina de acuerdo a actualizar o eliminar datos
 $day = date("d");
 $mont = date("m");
