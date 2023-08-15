@@ -25,7 +25,7 @@ getModal('modalUsuarios', $data);
             <table class="table table-hover table-bordered" id="tableVentas">
               <thead>
                 <tr>
-                  <th>Numero Factura</th>
+                  <th>Número Factura</th>
                   <th>Fecha</th>
                   <th>Vendedor</th>
                   <th>Cliente</th>
