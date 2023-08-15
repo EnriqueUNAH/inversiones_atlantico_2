@@ -133,15 +133,7 @@ document.addEventListener(
                   }
                 ],
               ],
-            },
-              // Billing Headers
-
-
-              // Line breaks
-              '\n\n',
-            );
-
-
+            });
             doc['footer'] = (function (page, pages) {
               return {
                 columns: [
@@ -158,6 +150,31 @@ document.addEventListener(
                 margin: 20
               }
             });
+            
+            // Agregar pie de página con la fecha
+            var now = new Date();
+            var date = now.toLocaleDateString();
+            var time = now.toLocaleTimeString();
+            var dateTime = date + " " + time;
+            var pageCount = 0;
+            if (doc && doc.internal) {
+              pageCount = doc.internal.getNumberOfPages();
+            }
+            doc.pageCount = pageCount;
+            doc.footer = function (currentPage, pageCount) {
+              return {
+                text:
+                  "Fecha: " +
+                  dateTime +
+                  " - Página " +
+                  currentPage +
+                  " de " +
+                  pageCount,
+                alignment: "center",
+              };
+            };
+            // Crear el PDF con pdfMake
+            var pdfDoc = pdfMake.createPdf(doc); 
 
           },
 
