@@ -42,7 +42,7 @@ headerAdmin($data);
                 <tr>
                   <th>Fecha</th>
                   <th>Usuario</th>
-                  <th>Objeto</th>
+                  <th>Pantalla</th>
                   <th>Acción</th>
                   <th>Descripción</th>
 

@@ -120,25 +120,25 @@ class Ventas extends Controllers
 
 				//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora
 				//SE PUEDEN USAR PARA INSERTAR O ACTUALIZAR PORQUE SERÍAN LOS MISMOS DATOS
-				// $dateFecha = date('Y-m-d H:i:s');
-				// $intIdUsuario = $_SESSION['idUser'];
-				// $intIdObjeto = 2;
-				// $request_bitacora = "";
+				$dateFecha = date('Y-m-d H:i:s');
+				$intIdUsuario = $_SESSION['idUser'];
+				$intIdObjeto = MVENTA;
+				$request_bitacora = "";
 
 				if ($requestDelete) {
 					$arrResponse = array('status' => true, 'msg' => 'Se ha anulado la factura');
 
-					// $strAccion = "ELIMINAR";
-					// $strDescripcion = "ELIMINACION DE USUARIO";
+					$strAccion = "ANULAR";
+					$strDescripcion = "SE ANULÓ LA FACTURA CON EL CÓDIGO: $intid_venta";
 
-					// //Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
-					// $request_bitacora = $this->model->insertParametroBitacora(
-					// 	$dateFecha,
-					// 	$intIdUsuario,
-					// 	$intIdObjeto,
-					// 	$strAccion,
-					// 	$strDescripcion
-					// );
+					//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
+					$request_bitacora = $this->model->insertVentaBitacora(
+						$dateFecha,
+						$intIdUsuario,
+						$intIdObjeto,
+						$strAccion,
+						$strDescripcion
+					);
 				} else {
 					$arrResponse = array('status' => false, 'msg' => 'Error al anular la factura.');
 				}

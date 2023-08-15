@@ -35,6 +35,7 @@ document.addEventListener(
           titleAttr: "Exportar a PDF",
           pageSize:'LETTER',
           className: "btn btn-danger",
+          filename:  'REPORTE PRUEBA',
           exportOptions: {
             columns: [0, 1, 2, 3, 4],
           },
