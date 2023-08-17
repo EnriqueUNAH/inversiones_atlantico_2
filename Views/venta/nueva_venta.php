@@ -237,7 +237,7 @@ $result_d->free();
 								<td></td>
 								<td></td>
 								<td id="txt_existencia">-</td>
-								<td><input type="text" name="txt_cant_producto" id="txt_cant_producto" value="0" min="1" disabled></td>
+								<td><input type="number" name="txt_cant_producto" id="txt_cant_producto" value="0" min="1" disabled></td>
 								<td id="txt_precio" class="textright">0.00</td>
 								<td id="txt_precio_total" class="textright">0.00</td>
 								<td> <a href="#"><i></i> </a></td>
@@ -285,26 +285,26 @@ $result_d->free();
 						<input type="hidden" id="cod_cliente" name="cod_cliente" value="" required>
 						<div class="wd30">
 							<label>RTN</label>
-							<input type="text" name="rtn_cliente" id="rtn_cliente" required maxlength="14" oninput="validarNumeros(this)">
+							<input type="number" name="rtn_cliente" id="rtn_cliente" required maxlength="14" oninput="validarNumeros(this);lengthRtn(this);">
 						</div>
 
 
 						<div class="wd60">
 							<label>Nombre</label>
-							<input type="text" name="nom_cliente" id="nom_cliente" oninput="this.value = this.value.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑ ]/g, '').toUpperCase()" disabled required>
+							<input type="text" name="nom_cliente" id="nom_cliente" maxlength="70" oninput="this.value = this.value.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑ ]/g, '').toUpperCase(); validarEspacios(this);" disabled required>
 						</div>
 
 						<div class="wd30">
 							<label>Teléfono</label>
-							<input type="text" name="tel_cliente" id="tel_cliente" pattern="[1-9]{1}[0-9]{7}" title="Debes ingresar 8 dígitos que no sean todos ceros" required maxlength="8" disabled required>
+							<input type="number" name="tel_cliente" id="tel_cliente" pattern="[1-9]{1}[0-9]{7}" title="Debes ingresar 8 dígitos que no sean todos ceros" required oninput="lengthTelefono(this);" disabled required>
 						</div>
 						<div class="wd60">
 							<label>Correo Electrónico</label>
-							<input type="email" name="email_cliente" id="email_cliente" required maxlength="30" disabled required>
+							<input type="email" name="email_cliente" id="email_cliente" required maxlength="30" oninput="validarEspacios(this);" disabled required>
 						</div>
 						<div class="wd100">
 							<label>Dirección</label>
-							<input type="text" name="dir_cliente" id="dir_cliente" oninput="this.value = this.value.toUpperCase()" disabled required>
+							<input type="text" name="dir_cliente" id="dir_cliente" required maxlength="100" oninput="this.value = this.value.toUpperCase(); validarEspacios(this);" disabled required>
 						</div>
 
 						<div id="div_registro_cliente" class="wd100">
@@ -388,6 +388,28 @@ $result_d->free();
 				input.setCustomValidity("Solo se permiten números.");
 			} else {
 				input.setCustomValidity("");
+			}
+		}
+	</script>
+	<script>
+		function validarEspacios(input) {
+			input.value = input.value.replace(/^\s+|\s{2,}/g, ' ');
+		}
+	</script>
+
+	<script>
+		function lengthRtn(input) {
+
+			if (input.value.length > 14) {
+				input.value = input.value.slice(0, 14);
+			}
+		}
+	</script>
+	<script>
+		function lengthTelefono(input) {
+
+			if (input.value.length > 8) {
+				input.value = input.value.slice(0, 8);
 			}
 		}
 	</script>

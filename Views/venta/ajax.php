@@ -699,13 +699,27 @@ if (!empty($_POST)) {
 	}
 	if ($_POST["action"] == "validate_nombre_cliente") {
 		$nom_cliente = $_POST["nom_cliente"];
+		$telefono  = $_POST['telefono'];
+		$email  = $_POST['email'];
 
 		//Realiza una consulta a la base de datos para verificar si el nombre del cliente ya existe
 		$sql = "SELECT * FROM tbl_cliente WHERE nombres = '$nom_cliente'";
 		$resultado = mysqli_query($conection, $sql);
 
+		//Realiza una consulta a la base de datos para verificar si el número del cliente ya existe
+		$sql2 = "SELECT * FROM tbl_cliente WHERE telefono = '$telefono'";
+		$resultado2 = mysqli_query($conection, $sql2);
+
+		//Realiza una consulta a la base de datos para verificar si el correo del cliente ya existe
+		$sql3 = "SELECT * FROM tbl_cliente WHERE correo_electronico = '$email'";
+		$resultado3 = mysqli_query($conection, $sql3);
+
 		if (mysqli_num_rows($resultado) > 0) {
-			echo "error";
+			echo "errorNombre";
+		} else if (mysqli_num_rows($resultado2) > 0) {
+			echo "errorTelefono";
+		} else if (mysqli_num_rows($resultado3) > 0) {
+			echo "errorEmail";
 		} else {
 			echo "success";
 		}
