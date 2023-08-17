@@ -4,8 +4,12 @@
 <?php
 session_start();
 
+include "../Views/Template/header_admin2.php"; 
+include "../php/funcion_bitacora.php";
+
+$id_objeto = 1;
+bitacora::evento_bitacora($id_objeto, $_SESSION['idUser'],'INGRESO' , 'INGRESO AL MODULO DE BACKUPS');
 ?>
-<?php include "../Views/Template/header_admin2.php"; ?>
 
 <!DOCTYPE html>
 <html>

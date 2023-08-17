@@ -5,6 +5,7 @@ session_start();
 ?>
 
 <?php include "includes/scripts.php"; ?>
+<?php include "../../Views/Template/header_admin2.php"; ?>
 
 
 <!DOCTYPE html>
@@ -111,13 +112,13 @@ $result_p->free();
 
 
 	<div class="containerTable">
-		<div class="title_page">
+		<!-- <div class="title_page">
 			<a href="../../produccion" class="btn_atras ">
 				<h2><i class="fas fa-arrow-left"></i>
 					ATRÁS</h2>
 			</a>
 
-		</div>
+		</div> -->
 		<div class="title_page">
 
 			<h1><i class=""></i> Nueva Producción</h1>
@@ -142,7 +143,7 @@ $result_p->free();
 			</div>
 		</div>
 
-	
+
 	</div>
 
 
@@ -278,5 +279,6 @@ $result_p->free();
 
 
 </body>
+<?php include "../../Views/Template/footer_admin2.php"; ?>
 
 </html>
