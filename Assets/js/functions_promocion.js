@@ -135,12 +135,14 @@ document.addEventListener(
         let datefecha_inicio = document.querySelector("#txtfecha_inicio").value;
         let datefecha_final = document.querySelector("#txtfecha_final").value;
         let intprecio_venta = document.querySelector("#txtprecio_venta").value;
+        let intStatus = document.querySelector("#listStatus").value;
 
         if (
           strnombre_promocion == "" ||
           datefecha_inicio == "" ||
           datefecha_final == "" ||
-          intprecio_venta == ""
+          intprecio_venta == "" ||
+          intStatus== "" 
         ) {
           swal("Atención", "Todos los campos son obligatorios.", "error");
           return false;
@@ -172,11 +174,22 @@ document.addEventListener(
               if (rowTable == "") {
                 tablePromocion.api().ajax.reload();
               } else {
+
+                 htmlStatus =
+                 intStatus == 1
+                 ? '<span class="badge badge-success">ACTIVO</span>'
+                  : intStatus == 3
+                  ? '<span class="badge badge-info">NUEVO</span>'
+                  : intStatus == 4
+                  ? '<span class="badge badge-danger">BLOQUEADO</span>'
+                  : '<span class="badge badge-danger">INACTIVO</span>';
+
+
                 rowTable.cells[0].textContent = strnombre_promocion;
                 rowTable.cells[1].textContent = datefecha_inicio;
                 rowTable.cells[2].textContent = datefecha_final;
                 rowTable.cells[3].textContent = intprecio_venta;
-
+                rowTable.cells[4].innerHTML = htmlStatus;
                 rowTable = "";
               }
 
@@ -231,6 +244,16 @@ function fntEditPromocion(element, cod_promocion) {
           objData.data.fecha_final;
         document.querySelector("#txtprecio_venta").value =
           objData.data.precio_venta;
+
+          if (objData.data.estado == 1) {
+            document.querySelector("#listStatus").value = 1;
+          } else {
+            document.querySelector("#listStatus").value = 2;
+          }
+  
+          $("#listStatus").selectpicker("render");
+
+
       }
     }
 

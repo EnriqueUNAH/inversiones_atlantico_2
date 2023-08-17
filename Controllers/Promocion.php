@@ -57,12 +57,13 @@ class Promocion extends Controllers
 				$datefecha_inicio = strClean($_POST['txtfecha_inicio']);
 				$datefecha_final = strClean($_POST['txtfecha_final']);
 				$intprecio_venta = intval(strClean($_POST['txtprecio_venta']));
+				$intStatus = (strClean($_POST['listStatus']));
+				$dateFecha = date('Y-m-d H:i:s');
 				$request_user = "";
 
 				if ($datefecha_final < $datefecha_inicio) {
 					$arrResponse = array("status" => false, "msg" => 'La fecha final tiene que ser mayor a la de inicio.');
 				} else {
-
 
 					//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora
 					//SE PUEDEN USAR PARA INSERTAR O ACTUALIZAR PORQUE SERÍAN LOS MISMOS DATOS
@@ -79,7 +80,8 @@ class Promocion extends Controllers
 								$strnombre_promocion,
 								$datefecha_inicio,
 								$datefecha_final,
-								$intprecio_venta
+								$intprecio_venta,
+								$intStatus
 
 							);
 
@@ -105,7 +107,8 @@ class Promocion extends Controllers
 								$strnombre_promocion,
 								$datefecha_inicio,
 								$datefecha_final,
-								$intprecio_venta
+								$intprecio_venta,
+								$intStatus
 							);
 						}
 
@@ -135,6 +138,8 @@ class Promocion extends Controllers
 						$arrResponse = array("status" => false, "msg" => 'No es posible almacenar los datos.');
 					}
 				}
+
+			
 			}
 			echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
 		}
@@ -162,9 +167,9 @@ class Promocion extends Controllers
 					$btnDelete = '<button class="btn btn-secondary btn-sm" disabled ><i class="fas fa-ban"></i></button>';
 				}
 				if ($arrData[$i]['estado'] == 1) {
-					$arrData[$i]['estado'] = '<span class="badge badge-success">ACTIVA</span>';   //Aqui le asigna Activo si es 1
+					$arrData[$i]['estado'] = '<span class="badge badge-success">ACTIVO</span>';   //Aqui le asigna Activo si es 1
 				} else if ($arrData[$i]['estado'] == 2) {
-					$arrData[$i]['estado'] = '<span class="badge badge-danger">INACTIVA</span>';
+					$arrData[$i]['estado'] = '<span class="badge badge-danger">INACTIVO</span>';
 					$btnDelete = '<button class="btn btn-secondary btn-sm" disabled ><i class="fas fa-ban"></i></button>';
 				}
 

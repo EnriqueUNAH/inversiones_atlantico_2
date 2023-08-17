@@ -16,12 +16,13 @@ class PromocionModel extends Mysql
 		parent::__construct();
 	}
 
-	public function insertPromocion(string $nombre_promocion, string $fecha_inicio, string $fecha_final, int $precio_venta)
+	public function insertPromocion(string $nombre_promocion, string $fecha_inicio, string $fecha_final, int $precio_venta, int $estado)
 	{
 		$this->strnombre_promocion = $nombre_promocion;
 		$this->datefecha_inicio = $fecha_inicio;
 		$this->datefecha_final = $fecha_final;
 		$this->intprecio_venta = $precio_venta;
+		$this->intStatus = $estado;
 		$return = 0;
 
 		$sql = "SELECT * FROM tbl_promocion WHERE nombre_promocion = '{$this->strnombre_promocion}'";
@@ -34,7 +35,8 @@ class PromocionModel extends Mysql
 				$this->strnombre_promocion,
 				$this->datefecha_inicio,
 				$this->datefecha_final,
-				$this->intprecio_venta
+				$this->intprecio_venta,
+				$this->intStatus
 
 			);
 			$request_insert = $this->insert($query_insert, $arrData);
@@ -91,7 +93,7 @@ class PromocionModel extends Mysql
 	public function selectPromocion1(int $cod_promocion)
 	{
 		$this->cod_promocion = $cod_promocion;
-		$sql = "SELECT cod_promocion,nombre_promocion,fecha_inicio,fecha_final,precio_venta
+		$sql = "SELECT cod_promocion,nombre_promocion,fecha_inicio,fecha_final,precio_venta,estado
 	 				FROM tbl_promocion
 	 					WHERE cod_promocion = $this->cod_promocion";
 		$request = $this->select($sql);
@@ -101,7 +103,7 @@ class PromocionModel extends Mysql
 
 
 
-	public function updatePromocion(int $cod_promocion, string $nombre_promocion, string $fecha_inicio, string $fecha_final, int $precio_venta)
+	public function updatePromocion(int $cod_promocion, string $nombre_promocion, string $fecha_inicio, string $fecha_final, int $precio_venta, int $estado)
 	{
 
 		$this->cod_promocion = $cod_promocion;
@@ -109,20 +111,21 @@ class PromocionModel extends Mysql
 		$this->datefecha_inicio = $fecha_inicio;
 		$this->datefecha_final = $fecha_final;
 		$this->intprecio_venta = $precio_venta;
-
+		$this->intStatus = $estado;
 
 		$sql = "SELECT * FROM tbl_promocion WHERE nombre_promocion = '{$this->strnombre_promocion}' AND cod_promocion != $this->cod_promocion";
 		$request = $this->select_all($sql);
 
 		if (empty($request)) {
 
-			$sql = "UPDATE tbl_promocion SET nombre_promocion=?, fecha_inicio=? , fecha_final=?, precio_venta=?
+			$sql = "UPDATE tbl_promocion SET nombre_promocion=?, fecha_inicio=? , fecha_final=?, precio_venta=?, estado=?
 							WHERE cod_promocion = $this->cod_promocion ";
 			$arrData = array(
 				$this->strnombre_promocion,
 				$this->datefecha_inicio,
 				$this->datefecha_final,
-				$this->intprecio_venta
+				$this->intprecio_venta,
+				$this->intStatus
 			);
 
 			$request = $this->update($sql, $arrData);

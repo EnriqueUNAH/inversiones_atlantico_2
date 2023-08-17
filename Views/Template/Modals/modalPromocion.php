@@ -39,6 +39,16 @@
               <input type="number" class="form-control" id="txtprecio_venta" name="txtprecio_venta" required="">
             </div>
 
+            <div class="form-group col-md-6">
+              <label for="listStatus">Estado</label>
+              <select class="form-control selectpicker" id="listStatus" name="listStatus" required>
+                <option value="1">ACTIVO</option>
+                <option value="2">INACTIVO</option>
+
+              </select>
+            </div>
+
+
           </div>
           <div class="form-row">
 
