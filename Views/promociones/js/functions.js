@@ -429,7 +429,7 @@ $(document).ready(function () {
     var fecha_i = $("#txtfecha_inicio").val();
     var fecha_f = $("#txtfecha_final").val();
     var precio = $("#txtprecio_venta").val();
-
+    var dateFecha = new date ();
 
     if (nombre_promo == "" || fecha_i == "" || fecha_f == "" || precio == "") {
       // Agregar alerta de SweetAlert
@@ -438,6 +438,21 @@ $(document).ready(function () {
         title: "Por favor complete todos los espacios",
         confirmButtonText: "OK",
       });
+
+     } else if ( fecha_i < dateFecha){
+        Swal.fire({
+          icon: "info",
+          title: "La fecha inicial tiene que ser mayor a la actual",
+          confirmButtonText: "OK",
+        });
+
+      } else if ( fecha_f < fecha_i){
+        Swal.fire({
+          icon: "info",
+          title: "La fecha final tiene que ser mayor a la inicial",
+          confirmButtonText: "OK",
+        });
+       
     } else {
       $.ajax({
         url: "ajax.php",
