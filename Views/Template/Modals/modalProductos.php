@@ -10,6 +10,12 @@
       </div>
       <div class="modal-body">
 
+        <script>
+        function validarEspacios(input) {
+        input.value = input.value.replace(/^\s+|\s{2,}/g, ' ');
+        }
+        </script>
+
 
         <style>
           .btn-outline-secondary {
@@ -24,12 +30,12 @@
           <div class="form-row">
             <div class="form-group col-md-6">
               <label for="txtnombre">Nombre Producto</label>
-              <input type="text" class="form-control" id="txtnombre" name="txtnombre" style="text-transform:uppercase" required="">
+              <input type="text" class="form-control" id="txtnombre" name="txtnombre" style="text-transform:uppercase" required="" autocomplete="off" oninput =validarEspacios(this);  maxlength="30" onkeypress="if(this.value.length == 30) return false; ">
             </div>
 
             <div class="form-group col-md-6">
               <label for="txtdescripcion">Descripción</label>
-              <input type="text" class="form-control valid validText" id="txtdescripcion" name="txtdescripcion" style="text-transform:uppercase">
+              <input type="text" class="form-control valid validText" id="txtdescripcion" name="txtdescripcion" style="text-transform:uppercase" autocomplete="off" oninput =validarEspacios(this);  maxlength="35" onkeypress="if(this.value.length == 35) return false; ">
             </div>
 
           </div>
@@ -38,11 +44,11 @@
           <div class="form-row">
             <div class="form-group col-md-6">
               <label for="intCantidadMin">Cantidad Mínima</label>
-              <input type="number" class="form-control" id="intCantidadMin" name="intCantidadMin" min="1" required="">
+              <input type="number" class="form-control" id="intCantidadMin" name="intCantidadMin" min="1" required=""  maxlength="10" onkeypress="if(this.value.length == 10) return false; ">
             </div>
             <div class="form-group col-md-6">
               <label for="intCantidadMax">Cantidad Máxima</label>
-              <input type="number" class="form-control" id="intCantidadMax" name="intCantidadMax" min="1" required="">
+              <input type="number" class="form-control" id="intCantidadMax" name="intCantidadMax" min="1" required=""  maxlength="10" onkeypress="if(this.value.length == 10) return false; ">
             </div>
 
 
@@ -59,7 +65,7 @@
 
             <div class="form-group col-md-6">
               <label for="intprecio">Precio</label>
-              <input type="number" class="form-control" id="intprecio" name="intprecio" required="">
+              <input type="number" class="form-control" id="intprecio" name="intprecio" required=""  maxlength="10" onkeypress="if(this.value.length == 10) return false; ">
             </div>
           </div>
 
