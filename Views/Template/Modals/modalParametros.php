@@ -10,6 +10,12 @@
       </div>
       <div class="modal-body">
 
+      <script>
+        function validarEspacios(input) {
+        input.value = input.value.replace(/^\s+|\s{2,}/g, ' ');
+        }
+        </script>
+
 
         <form id="formParametros" name="formParametros" class="form-horizontal">
           <input type="hidden" id="id_parametro" name="id_parametro" value="">
@@ -17,14 +23,14 @@
           <div class="form-row">
             <div class="form-group col-md-7">
               <label for="txtparametro">Parámetro</label>
-              <input type="text"  class="form-control" id="txtparametro" name="txtparametro" style="text-transform:uppercase" required="" >
+              <input type="text"  class="form-control" id="txtparametro" name="txtparametro" style="text-transform:uppercase" required="" autocomplete="off" oninput =validarEspacios(this);  maxlength="30" onkeypress="if(this.value.length == 30) return false; ">
             </div>
           </div>
           <div class="form-row">
 
             <div class="form-group col-md-7">
               <label for="txtparametro">Valor</label>
-              <input type="text"  class="form-control " id="txtvalor" name="txtvalor"  required="" >
+              <input type="text"  class="form-control " id="txtvalor" name="txtvalor"  required="" autocomplete="off" oninput =validarEspacios(this); maxlength="30" onkeypress="if(this.value.length == 30) return false; " >
             </div>
 
           </div>

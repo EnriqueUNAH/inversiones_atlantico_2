@@ -9,17 +9,24 @@
         </button>
       </div>
       <div class="modal-body">
+      
+       <script>
+        function validarEspacios(input) {
+        input.value = input.value.replace(/^\s+|\s{2,}/g, ' ');
+        }
+        </script>
+
         <div class="tile">
           <div class="tile-body">
             <form id="formRol" name="formRol">
               <input type="hidden" id="id_rol" name="id_rol" value="">
               <div class="form-group">
                 <label class="control-label">Nombre</label>
-                <input class="form-control" id="txtNombre" name="txtNombre" type="text" placeholder="Nombre del rol" style="text-transform:uppercase" required="">
+                <input class="form-control" id="txtNombre" name="txtNombre" type="text" placeholder="Nombre del rol" style="text-transform:uppercase" required="" autocomplete="off" oninput =validarEspacios(this); maxlength="20" onkeypress="if(this.value.length == 20) return false; ">
               </div>
               <div class="form-group">
                 <label class="control-label">Descripción</label>
-                <textarea class="form-control" id="txtDescripcion" name="txtDescripcion" rows="2" placeholder="Descripción del rol" style="text-transform:uppercase" required=""></textarea>
+                <textarea class="form-control" id="txtDescripcion" name="txtDescripcion" rows="2" placeholder="Descripción del rol" style="text-transform:uppercase" required="" autocomplete="off" oninput =validarEspacios(this); maxlength="30" onkeypress="if(this.value.length == 30) return false; "></textarea>
               </div>
               <div class="form-group">
                 <label for="exampleSelect1">Estado</label>

@@ -10,6 +10,12 @@
       </div>
       <div class="modal-body">
 
+       <script>
+        function validarEspacios(input) {
+        input.value = input.value.replace(/^\s+|\s{2,}/g, ' ');
+        }
+        </script>
+
 
         <style>
           .btn-outline-secondary {
@@ -24,13 +30,13 @@
           <div class="form-row">
             <div class="form-group col-md-6">
               <label for="txtusuario">Usuario</label>
-              <input type="text" pattern="[a-zA-Z]+" class="form-control" id="txtusuario" name="txtusuario" style="text-transform:uppercase" required="" title="Ingrese solo letras sin espacios">
+              <input type="text" pattern="[a-zA-Z]+" class="form-control" id="txtusuario" name="txtusuario" style="text-transform:uppercase" required="" title="Ingrese solo letras sin espacios" autocomplete="off" oninput =validarEspacios(this); maxlength="20" onkeypress="if(this.value.length == 20) return false; ">
             </div>
           </div>
           <div class="form-row">
             <div class="form-group col-md-6">
               <label for="txtnombre_usuario">Nombre</label>
-              <input type="text" pattern="[a-zA-Z ]+" class="form-control valid validText" id="txtnombre_usuario" name="txtnombre_usuario" style="text-transform:uppercase" required="" title="No se puede ingresar números">
+              <input type="text" pattern="[a-zA-Z ]+" class="form-control valid validText" id="txtnombre_usuario" name="txtnombre_usuario" style="text-transform:uppercase" required="" title="No se puede ingresar números" autocomplete="off" oninput =validarEspacios(this); maxlength="50" onkeypress="if(this.value.length == 50) return false; ">
             </div>
             <div class="form-group col-md-6">
               <label for="listid_rol">Rol</label>
@@ -42,7 +48,7 @@
           <div class="form-row">
             <div class="form-group col-md-6">
               <label for="txtEmail">Correo Electrónico</label>
-              <input type="email" class="form-control valid validEmail" id="txtEmail" name="txtEmail" required="">
+              <input type="email" class="form-control valid validEmail" id="txtEmail" name="txtEmail" required="" autocomplete="off" maxlength="50" onkeypress="if(this.value.length == 50) return false; ">
             </div>
             <div class="form-group col-md-6">
               <label for="listStatus">Estado</label>
@@ -61,7 +67,7 @@
             <div class="form-group col-md-6 d-flex align-items-center">
 
 
-              <input type="password" class="form-control" id="txtPassword" name="txtPassword">
+              <input type="password" class="form-control" id="txtPassword" name="txtPassword" maxlength="30" onkeypress="if(this.value.length == 30) return false; ">
 
               <button type="button" class="btn btn-outline-secondary" id="btnTogglePassword">
                 <i class="fa fa-eye-slash" id="iconTogglePassword"></i>
