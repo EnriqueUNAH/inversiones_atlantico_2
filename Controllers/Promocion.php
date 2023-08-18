@@ -101,6 +101,15 @@ class Promocion extends Controllers
 					} else {
 						$option = 2; //SI OPTION ES 2, ENTONCES ESTARÁ ACTUALIZANDO
 
+
+						$arrDatosPromo = $this->model->selectPromocion1($cod_promocion); //Arreglo que obtiene los datos.
+						$nombreAnterior = $arrDatosPromo['nombre_promocion']; //Se obtiene el dato del campo.
+						$fechaInicioAnterior = $arrDatosPromo['fecha_inicio']; //Se obtiene el dato del campo.
+						$fechaFinalAnterior = $arrDatosPromo['fecha_final']; //Se obtiene el dato del campo.
+						$precioAnterior = $arrDatosPromo['precio_venta']; //Se obtiene el dato del campo.
+						$estadoAnterior = $arrDatosPromo['estado']; //Se obtiene el dato del campo.
+
+
 						if ($_SESSION['permisosMod']['u']) {
 							$request_user = $this->model->updatePromocion(
 								$cod_promocion,
@@ -112,18 +121,91 @@ class Promocion extends Controllers
 							);
 						}
 
-						//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora 	en caso de que se esté ACTUALIZANDO
-						$strAccion = "ACTUALIZAR";
-						$strDescripcion = "ACTUALIZACIÓN DE PROMOCIÓN";
+						if ($strnombre_promocion != $nombreAnterior) {
+							//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora 	en caso de que se esté ACTUALIZANDO
+							$strAccion = "ACTUALIZAR";
+							$strDescripcion = "ACTUALIZACIÓN DE PROMOCIÓN: NOMBRE DE PROMOCIÓN ANTERIOR:($nombreAnterior) NOMBRE NUEVO: ($strnombre_promocion) ";
 
-						//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
-						$request_bitacora = $this->model->insertPromocionBitacora(
-							$dateFecha,
-							$intIdUsuario,
-							$intIdObjeto,
-							$strAccion,
-							$strDescripcion
-						);
+							//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
+							$this->model->insertPromocionBitacora(
+								$dateFecha,
+								$intIdUsuario,
+								$intIdObjeto,
+								$strAccion,
+								$strDescripcion
+							);
+						}
+						$datefecha_inicio2 = date('Y-m-d H:i:s', strtotime($datefecha_inicio));
+						if ($datefecha_inicio2 != $fechaInicioAnterior) {
+							//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora 	en caso de que se esté ACTUALIZANDO
+							$strAccion = "ACTUALIZAR";
+							$strDescripcion = "ACTUALIZACIÓN DE PROMOCIÓN:  ($strnombre_promocion) FECHA INICIO ANTERIOR:($fechaInicioAnterior) FECHA NUEVA: ($datefecha_inicio2)  ";
+
+							//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
+							$this->model->insertPromocionBitacora(
+								$dateFecha,
+								$intIdUsuario,
+								$intIdObjeto,
+								$strAccion,
+								$strDescripcion
+							);
+						}
+						$datefecha_final2 = date('Y-m-d H:i:s', strtotime($datefecha_final));
+						if ($datefecha_final2 != $fechaFinalAnterior) {
+							//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora 	en caso de que se esté ACTUALIZANDO
+							$strAccion = "ACTUALIZAR";
+							$strDescripcion = "ACTUALIZACIÓN DE PROMOCIÓN:  ($strnombre_promocion) FECHA FINAL ANTERIOR:($fechaFinalAnterior) FECHA NUEVA: ($datefecha_final2)  ";
+
+							//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
+							$this->model->insertPromocionBitacora(
+								$dateFecha,
+								$intIdUsuario,
+								$intIdObjeto,
+								$strAccion,
+								$strDescripcion
+							);
+						}
+						if ($intprecio_venta != $precioAnterior) {
+							//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora 	en caso de que se esté ACTUALIZANDO
+							$strAccion = "ACTUALIZAR";
+							$strDescripcion = "ACTUALIZACIÓN DE PROMOCIÓN:  ($strnombre_promocion) PRECIO DE VENTA ANTERIOR:($precioAnterior) PRECIO NUEVO: ($intprecio_venta)  ";
+
+							//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
+							$this->model->insertPromocionBitacora(
+								$dateFecha,
+								$intIdUsuario,
+								$intIdObjeto,
+								$strAccion,
+								$strDescripcion
+							);
+						}
+						if ($intStatus != $estadoAnterior) {
+							//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora 	en caso de que se esté ACTUALIZANDO
+							$strAccion = "ACTUALIZAR";
+
+							if ($intStatus == 1) {
+								$intStatus = "ACTIVO";
+							} else if ($intStatus == 2) {
+								$intestado = "INACTIVO";
+							}
+
+							if ($estadoAnterior == 1) {
+								$estadoAnterior = "ACTIVO";
+							} else if ($estadoAnterior == 2) {
+								$estadoAnterior = "INACTIVO";
+							}
+
+							$strDescripcion = "ACTUALIZACIÓN DE PROMOCIÓN:  ($strnombre_promocion) ESTADO ANTERIOR:($estadoAnterior) ESTADO NUEVO: ($intestado) ";
+
+							//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
+							$request_bitacora = $this->model->insertPromocionBitacora(
+								$dateFecha,
+								$intIdUsuario,
+								$intIdObjeto,
+								$strAccion,
+								$strDescripcion
+							);
+						}
 					} //FIN DEL ELSE PARA ACTUALIZAR
 
 					if ($request_user === 'exist') {
