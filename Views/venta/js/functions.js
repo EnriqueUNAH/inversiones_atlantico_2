@@ -262,11 +262,21 @@ $(document).ready(function () {
       data: {
         action: "validate_nombre_cliente",
         nom_cliente: nombreCliente,
+        telefono: tel_cliente,
+        email: email_cliente,
       },
       success: function (response) {
-        if (response === "error") {
+        if (response === "errorNombre") {
           mostrarMensajeError(
             "El nombre del cliente ya existe en la base de datos."
+          );
+        } else if (response === "errorTelefono") {
+          mostrarMensajeError(
+            "El número de teléfono ya existe en la base de datos."
+          );
+        } else if (response === "errorEmail") {
+          mostrarMensajeError(
+            "El correo electrónico ya existe en la base de datos."
           );
         } else {
           agregarCliente(
