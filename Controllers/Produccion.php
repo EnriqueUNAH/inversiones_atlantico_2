@@ -23,6 +23,25 @@ class Produccion extends Controllers
 		$data['page_name'] = "Produccion";
 		$data['page_functions_js'] = "function_Produccion.js";
 		$this->views->getView($this, "Produccion", $data);
+
+		//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora
+		//SE PUEDEN USAR PARA INSERTAR O ACTUALIZAR PORQUE SERÍAN LOS MISMOS DATOS
+		$dateFecha = date('Y-m-d H:i:s');
+		$intIdUsuario = $_SESSION['idUser'];
+		$intIdObjeto = (MPRODUCCION);
+
+
+		$strAccion = "INGRESO";
+		$strDescripcion = "INGRESO AL MÓDULO PRODUCCIÓN";
+
+		//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
+		$this->model->insertProduccionBitacora(
+			$dateFecha,
+			$intIdUsuario,
+			$intIdObjeto,
+			$strAccion,
+			$strDescripcion
+		);
 	}
 
 
@@ -98,25 +117,25 @@ class Produccion extends Controllers
 
 				//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora
 				//SE PUEDEN USAR PARA INSERTAR O ACTUALIZAR PORQUE SERÍAN LOS MISMOS DATOS
-				// $dateFecha = date('Y-m-d H:i:s');
-				// $intIdUsuario = $_SESSION['idUser'];
-				// $intIdObjeto = 2;
-				// $request_bitacora = "";
+				$dateFecha = date('Y-m-d H:i:s');
+				$intIdUsuario = $_SESSION['idUser'];
+				$intIdObjeto = MPRODUCCION;
+
 
 				if ($requestDelete) {
 					$arrResponse = array('status' => true, 'msg' => 'Se ha anulado la producción');
 
-					// $strAccion = "ELIMINAR";
-					// $strDescripcion = "ELIMINACION DE USUARIO";
+					$strAccion = "ANULAR";
+					$strDescripcion = "SE ANULÓ LA PRODUCCIÓN CON EL CÓDIGO: $intid_produccion";
 
-					// //Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
-					// $request_bitacora = $this->model->insertParametroBitacora(
-					// 	$dateFecha,
-					// 	$intIdUsuario,
-					// 	$intIdObjeto,
-					// 	$strAccion,
-					// 	$strDescripcion
-					// );
+					//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
+					$this->model->insertProduccionBitacora(
+						$dateFecha,
+						$intIdUsuario,
+						$intIdObjeto,
+						$strAccion,
+						$strDescripcion
+					);
 				} else {
 					$arrResponse = array('status' => false, 'msg' => 'Error al anular la producción.');
 				}
@@ -137,25 +156,25 @@ class Produccion extends Controllers
 
 				//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora
 				//SE PUEDEN USAR PARA INSERTAR O ACTUALIZAR PORQUE SERÍAN LOS MISMOS DATOS
-				// $dateFecha = date('Y-m-d H:i:s');
-				// $intIdUsuario = $_SESSION['idUser'];
-				// $intIdObjeto = 2;
-				// $request_bitacora = "";
+				$dateFecha = date('Y-m-d H:i:s');
+				$intIdUsuario = $_SESSION['idUser'];
+				$intIdObjeto = MPRODUCCION;
+
 
 				if ($requestDelete) {
 					$arrResponse = array('status' => true, 'msg' => 'Se ha anulado la producción');
 
-					// $strAccion = "ELIMINAR";
-					// $strDescripcion = "ELIMINACION DE USUARIO";
+					$strAccion = "ANULAR";
+					$strDescripcion = "SE ANULÓ LA PRODUCCIÓN (CON PÉRDIDA) CON EL CÓDIGO: $intid_produccion";
 
-					// //Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
-					// $request_bitacora = $this->model->insertParametroBitacora(
-					// 	$dateFecha,
-					// 	$intIdUsuario,
-					// 	$intIdObjeto,
-					// 	$strAccion,
-					// 	$strDescripcion
-					// );
+					//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
+					$this->model->insertProduccionBitacora(
+						$dateFecha,
+						$intIdUsuario,
+						$intIdObjeto,
+						$strAccion,
+						$strDescripcion
+					);
 				} else {
 					$arrResponse = array('status' => false, 'msg' => 'Error al anular la producción.');
 				}
@@ -179,25 +198,25 @@ class Produccion extends Controllers
 
 				//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora
 				//SE PUEDEN USAR PARA INSERTAR O ACTUALIZAR PORQUE SERÍAN LOS MISMOS DATOS
-				// $dateFecha = date('Y-m-d H:i:s');
-				// $intIdUsuario = $_SESSION['idUser'];
-				// $intIdObjeto = 2;
-				// $request_bitacora = "";
+				$dateFecha = date('Y-m-d H:i:s');
+				$intIdUsuario = $_SESSION['idUser'];
+				$intIdObjeto = MPRODUCCION;
+
 
 				if ($requestFin == 1) {
 					$arrResponse = array('status' => true, 'msg' => 'Se ha finalizado la producción');
 
-					// $strAccion = "ELIMINAR";
-					// $strDescripcion = "ELIMINACION DE USUARIO";
+					$strAccion = "FINALIZAR PRODUCCIÓN";
+					$strDescripcion = "SE FINALIZÓ LA PRODUCCIÓN CON EL CÓDIGO: $intid_produccion";
 
-					// //Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
-					// $request_bitacora = $this->model->insertParametroBitacora(
-					// 	$dateFecha,
-					// 	$intIdUsuario,
-					// 	$intIdObjeto,
-					// 	$strAccion,
-					// 	$strDescripcion
-					// );
+					//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
+					$this->model->insertProduccionBitacora(
+						$dateFecha,
+						$intIdUsuario,
+						$intIdObjeto,
+						$strAccion,
+						$strDescripcion
+					);
 				} else {
 					$arrResponse = array('status' => false, 'msg' => 'Error al finalizar la producción.');
 				}
