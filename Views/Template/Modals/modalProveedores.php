@@ -24,13 +24,14 @@
           <div class="form-row">
             <div class="form-group col-md-6">
               <label for="txtRtn">RTN</label>
-              <input type="number" class="form-control" id="txtRtn" name="txtRtn" maxlength="14" onkeypress="if(this.value.length == 14) return false; ">
-            </div>
+              <input type="number" class="form-control" id="txtRtn" name="txtRtn" maxlength="14" oninput="this.value = this.value.replace(/[^0-9]/g, '').substring(0, 14);">            </div>
 
             <div class="form-group col-md-6">
-              <label for="txtNombres">Nombre Completo <span class="required">*</span></label>
-              <input type="text" pattern="[a-zA-Z ]+" class="form-control valid validText" id="txtNombres" name="txtNombres" style="text-transform:uppercase" required="" title="No se puede ingresar números">
-            </div>
+              <label for="txtNombres">Nombre Completo <span class="required">*</span></label>              
+<input type="text" pattern="[a-zA-Z ]+" class="form-control valid validText" id="txtNombres" name="txtNombres"
+              style="text-transform:uppercase" required="" title="No se puede ingresar números" maxlength="30" autocomplete="off" oninput =validarEspacios(this); onkeypress="return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode<=32))">
+
+                       </div>
 
           </div>
 
@@ -39,13 +40,15 @@
 
             <div class="form-group col-md-6">
               <label for="txtTelefono">Teléfono</label>
-              <input type="number" class="form-control" id="txtTelefono" name="txtTelefono" maxlength="8" onkeypress="if(this.value.length == 8) return false;">
-            </div>
+              <input type="number" class="form-control" id="txtTelefono" name="txtTelefono" maxlength="8" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/^0+/, '').substring(0, 8);">
+
+</div>
 
             <div class="form-group col-md-6">
               <label for="txtEmail">Correo Electrónico</label>
-              <input type="email" class="form-control valid validEmail" id="txtEmail" name="txtEmail">
-            </div>
+              <input type="email" autocomplete="off" class="form-control valid validEmail" id="txtEmail" name="txtEmail" maxlength="50" onkeypress="return event.charCode!=32">
+
+</div>
 
           </div>
 
@@ -53,8 +56,10 @@
 
             <div class="form-group col-md-6">
               <label for="txtDireccion">Dirección</label>
-              <input type="text" class="form-control" id="txtDireccion" name="txtDireccion" style="text-transform:uppercase">
-            </div>
+              
+<input type="text" autocomplete="off" class="form-control" id="txtDireccion" name="txtDireccion" style="text-transform:uppercase"
+
+              maxlength="50" oninput =validarEspacios(this);>            </div>
 
 
             <!-- <div class="form-group col-md-6">
