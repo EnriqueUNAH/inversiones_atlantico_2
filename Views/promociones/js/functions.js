@@ -430,6 +430,7 @@ $(document).ready(function () {
     var fecha_f = $("#txtfecha_final").val();
     var precio = $("#txtprecio_venta").val();
     var dateFecha = new date ();
+    var dateFecha2 = dateFecha.toISOString().slice(0, 19).replace("T", " ");
 
     if (nombre_promo == "" || fecha_i == "" || fecha_f == "" || precio == "") {
       // Agregar alerta de SweetAlert
@@ -439,7 +440,7 @@ $(document).ready(function () {
         confirmButtonText: "OK",
       });
 
-     } else if ( fecha_i < dateFecha){
+     } else if ( fecha_i < dateFecha2){
         Swal.fire({
           icon: "info",
           title: "La fecha inicial tiene que ser mayor a la actual",
