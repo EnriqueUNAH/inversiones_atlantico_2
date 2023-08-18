@@ -47,6 +47,37 @@ class DescuentosModel extends Mysql
 		return $return;
 	}
 
+    //Función para que inserte en bitácora cada vez que se agrega un nuevo usuario
+    public function insertDescuentoBitacora(string $fecha, int $idUsuario, int $idObjeto, string $accion, string $descripcion)
+   {
+
+	  $this->dateFecha = $fecha;
+	  $this->intIdUsuario = $idUsuario;
+	  $this->intIdObjeto = $idObjeto;
+	  $this->strAccion = $accion;
+	  $this->strDescripcion = $descripcion;
+	  $return = 0;
+
+	  $query_insert  = "INSERT INTO tbl_ms_bitacora(fecha,id_usuario,id_objeto,accion,descripcion) 
+							  VALUES(?,?,?,?,?)";
+	  $arrData = array(
+		$this->dateFecha,
+		$this->intIdUsuario,
+		$this->intIdObjeto,
+		$this->strAccion,
+		$this->strDescripcion,
+	  );
+	  $request_insert = $this->insert($query_insert, $arrData);
+	   $return = $request_insert;
+
+	  return $return;
+  }
+
+
+
+
+
+
 	public function selectDescuentos()
 	{
 		$sql = "SELECT cod_descuento,nombre_descuento,porcentaje_descuento  
@@ -64,9 +95,9 @@ class DescuentosModel extends Mysql
 		return $request;
 	}
 
-	public function updateDescuento(int $cod, string $nombre, float $Porcentaje)
+	public function updateDescuento(int $cod_descuento, string $nombre, float $Porcentaje)
 	{
-		$this->cod_descuento = $cod;
+		$this->cod_descuento = $cod_descuento;
 		$this->strNombre = $nombre;
 		$this->intPorcentaje = $Porcentaje;
 
