@@ -345,7 +345,7 @@ $(document).ready(function () {
               Así ya queda validado para que no se pase de la exitencia
               cuando elige mas de una vez el producto.
             */
-          //  window.location.reload(true);
+            //  window.location.reload(true);
           } else {
             console.log("no data");
           }
@@ -416,80 +416,80 @@ $(document).ready(function () {
     }
   });
 
+  //Facturar Venta
+  $("#btn_facturar_venta").click(function (e) {
+    e.preventDefault();
 
- //Facturar Venta
- $("#btn_facturar_venta").click(function (e) {
-  e.preventDefault();
+    var rows = $("#detalle_venta ").length;
+    if (rows > 0) {
+      var action = "procesarVenta";
 
-  var rows = $("#detalle_venta ").length;
-  if (rows > 0) {
-    var action = "procesarVenta";
+      var nombre_promo = $("#txtnombre_promocion").val();
+      var fecha_i = $("#txtfecha_inicio").val();
+      var fecha_f = $("#txtfecha_final").val();
+      var precio = $("#txtprecio_venta").val();
+      var dateFecha = new Date();
+      var dateFecha2 = dateFecha.toISOString().slice(0, 19).replace("T", " ");
 
-    var nombre_promo = $("#txtnombre_promocion").val();
-    var fecha_i = $("#txtfecha_inicio").val();
-    var fecha_f = $("#txtfecha_final").val();
-    var precio = $("#txtprecio_venta").val();
-    var dateFecha = new date ();
-    var dateFecha2 = dateFecha.toISOString().slice(0, 19).replace("T", " ");
-
-    if (nombre_promo == "" || fecha_i == "" || fecha_f == "" || precio == "") {
-      // Agregar alerta de SweetAlert
-      Swal.fire({
-        icon: "info",
-        title: "Por favor complete todos los espacios",
-        confirmButtonText: "OK",
-      });
-
-     } else if ( fecha_i < dateFecha2){
+      if (
+        nombre_promo == "" ||
+        fecha_i == "" ||
+        fecha_f == "" ||
+        precio == ""
+      ) {
+        // Agregar alerta de SweetAlert
+        Swal.fire({
+          icon: "info",
+          title: "Por favor complete todos los espacios",
+          confirmButtonText: "OK",
+        });
+      } else if (fecha_i < dateFecha2) {
         Swal.fire({
           icon: "info",
           title: "La fecha inicial tiene que ser mayor a la actual",
           confirmButtonText: "OK",
         });
-
-      } else if ( fecha_f < fecha_i){
+      } else if (fecha_f < fecha_i) {
         Swal.fire({
           icon: "info",
           title: "La fecha final tiene que ser mayor a la inicial",
           confirmButtonText: "OK",
         });
-       
-    } else {
-      $.ajax({
-        url: "ajax.php",
-        type: "POST",
-        async: true,
-        data: {
-          action: action,
+      } else {
+        $.ajax({
+          url: "ajax.php",
+          type: "POST",
+          async: true,
+          data: {
+            action: action,
 
-          nombre_promo: nombre_promo,
-          fecha_i: fecha_i,
-          fecha_f: fecha_f,
-          precio: precio,
-        },
+            nombre_promo: nombre_promo,
+            fecha_i: fecha_i,
+            fecha_f: fecha_f,
+            precio: precio,
+          },
 
-        success: function (response) {
-          console.log(response);
-          if (response != "error") {
-            var info = JSON.parse(response);
-            console.log(info);
-            Swal.fire({
-              title: "Promociónn agregada con éxito",
-              icon: "success",
-              confirmButtonText: "OK",
-            }).then(() => {
-              window.location.href = "../../promocion";
-            });
-          } else {
-            console.log("no data");
-          }
-        },
-        error: function (error) {},
-      });
+          success: function (response) {
+            console.log(response);
+            if (response != "error") {
+              var info = JSON.parse(response);
+              console.log(info);
+              Swal.fire({
+                title: "Promociónn agregada con éxito",
+                icon: "success",
+                confirmButtonText: "OK",
+              }).then(() => {
+                window.location.href = "../../promocion";
+              });
+            } else {
+              console.log("no data");
+            }
+          },
+          error: function (error) {},
+        });
+      }
     }
-  }
-});
-
+  });
 
   // Modal Form Anular Factura
   $(".anular_factura").click(function (e) {
