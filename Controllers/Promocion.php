@@ -206,29 +206,36 @@ class Promocion extends Controllers
 		if ($_POST) {
 			if ($_SESSION['permisosMod']['d']) {
 				$cod_promocion = intval($_POST['cod_promocion']);
+				$arrDatosPromocion = $this->model->selectPromocion1($cod_promocion);
 				$requestDelete = $this->model->deletePromocion($cod_promocion);
+			    $nombrePromocion= $arrDatosPromocion['nombre_promocion'];
+
 
 					//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora
 				//SE PUEDEN USAR PARA INSERTAR O ACTUALIZAR PORQUE SERÍAN LOS MISMOS DATOS
-				// $dateFecha = date('Y-m-d H:i:s');
-				// $intIdUsuario = $_SESSION['idUser'];
-				// $intIdObjeto = 2;
-				// $request_bitacora = "";
+				 $dateFecha = date('Y-m-d H:i:s');
+				 $intIdUsuario = $_SESSION['idUser'];
+				 $intIdObjeto = 2;
+				 $request_bitacora = "";
+               
+
 
 				if ($requestDelete) {
+               
+				
 					$arrResponse = array('status' => true, 'msg' => 'Se ha anulado la promocion');
 
-					// $strAccion = "ELIMINAR";
-					// $strDescripcion = "ELIMINACION DE USUARIO";
+					$strAccion = "ANULAR";
+					$strDescripcion = "SE ANULÓ LA PROMOCIÓN: $nombrePromocion";
 
 					// //Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
-					// $request_bitacora = $this->model->insertParametroBitacora(
-					// 	$dateFecha,
-					// 	$intIdUsuario,
-					// 	$intIdObjeto,
-					// 	$strAccion,
-					// 	$strDescripcion
-					// );
+					 $request_bitacora = $this->model->insertPromocionBitacora(
+					 $dateFecha,
+				     $intIdUsuario,
+					 $intIdObjeto,
+					 $strAccion,
+					 $strDescripcion
+					 );
 				} else {
 					$arrResponse = array('status' => false, 'msg' => 'Error al anular la promocion.');
 				}
