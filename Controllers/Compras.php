@@ -107,25 +107,25 @@ class Compras extends Controllers
 
 				//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora
 				//SE PUEDEN USAR PARA INSERTAR O ACTUALIZAR PORQUE SERÍAN LOS MISMOS DATOS
-				// $dateFecha = date('Y-m-d H:i:s');
-				// $intIdUsuario = $_SESSION['idUser'];
-				// $intIdObjeto = 2;
-				// $request_bitacora = "";
+				 $dateFecha = date('Y-m-d H:i:s');
+				 $intIdUsuario = $_SESSION['idUser'];
+				 $intIdObjeto = 2;
+				 $request_bitacora = "";
 
 				if ($requestDelete) {
 					$arrResponse = array('status' => true, 'msg' => 'Se ha anulado la compra');
 
-					// $strAccion = "ELIMINAR";
-					// $strDescripcion = "ELIMINACION DE USUARIO";
+					$strAccion = "ANULAR";
+					$strDescripcion = "SE ANULÓ LA COMPRA CON EL CÓDIGO: $cod_compra";
 
-					// //Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
-					// $request_bitacora = $this->model->insertParametroBitacora(
-					// 	$dateFecha,
-					// 	$intIdUsuario,
-					// 	$intIdObjeto,
-					// 	$strAccion,
-					// 	$strDescripcion
-					// );
+					 //Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
+					 $request_bitacora = $this->model->insertCompraBitacora(
+					 	$dateFecha,
+					 	$intIdUsuario,
+					 	$intIdObjeto,
+					 	$strAccion,
+					 	$strDescripcion
+					 );
 				} else {
 					$arrResponse = array('status' => false, 'msg' => 'Error al anular la compra.');
 				}
