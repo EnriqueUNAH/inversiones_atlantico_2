@@ -35,7 +35,8 @@
 
            <div class="form-group col-md-6">
               <label for="txtNombres">Nombre Completo <span class="required">*</span></label>
-              <input type="text" pattern="[a-zA-Z ]+" class="form-control valid validText" id="txtNombres" name="txtNombres" style="text-transform:uppercase" required="" title="No se puede ingresar números" autocomplete="off" oninput =validarEspacios(this); >
+              <input type="text" pattern="[a-zA-Z ]+" class="form-control valid validText" id="txtNombres" name="txtNombres" 
+              style="text-transform:uppercase" required="" title="No se puede ingresar números" maxlength="50" autocomplete="off" oninput =validarEspacios(this); onkeypress="return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode<=32))">
             </div>
 
           </div>
@@ -51,7 +52,7 @@
 
             <div class="form-group col-md-6">
               <label for="txtEmail">Correo Electrónico</label>
-              <input type="email" autocomplete="off" class="form-control valid validEmail" id="txtEmail" name="txtEmail" >
+              <input type="email" autocomplete="off" class="form-control valid validEmail" id="txtEmail" name="txtEmail" maxlength="50" onkeypress="return event.charCode!=32">
             </div>
 
           </div>
@@ -60,7 +61,8 @@
 
             <div class="form-group col-md-6">
               <label for="txtDireccion">Dirección</label>
-              <input type="text" autocomplete="off" class="form-control" id="txtDireccion" name="txtDireccion" style="text-transform:uppercase" >
+              <input type="text" autocomplete="off" class="form-control" id="txtDireccion" name="txtDireccion" style="text-transform:uppercase" 
+              maxlength="50" oninput =validarEspacios(this);>
              </div>
 
 
