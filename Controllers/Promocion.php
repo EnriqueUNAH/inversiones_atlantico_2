@@ -138,8 +138,6 @@ class Promocion extends Controllers
 						$arrResponse = array("status" => false, "msg" => 'No es posible almacenar los datos.');
 					}
 				}
-
-			
 			}
 			echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
 		}
@@ -160,13 +158,15 @@ class Promocion extends Controllers
 				if ($_SESSION['permisosMod']['u']) {
 					$btnEdit = '<button class="btn btn-primary  btn-sm btnEditPromocion" onClick="fntEditPromocion(this,' . $arrData[$i]['cod_promocion'] . ')" title="Editar promocion"><i class="fas fa-pencil-alt"></i></button>';
 				}
-				
+
 				if ($_SESSION['permisosMod']['d']) {
 					$btnDelete = '<button class="btn btn-danger btn-sm btnDelPromocion" onClick=" fntDelPromocion(' . $arrData[$i]['cod_promocion'] . ')" title="Anular promocion"><i class="fas fa-ban"></i></button>';
 				} else {
 					$btnDelete = '<button class="btn btn-secondary btn-sm" disabled ><i class="fas fa-ban"></i></button>';
 				}
 				if ($arrData[$i]['estado'] == 1) {
+					$btnDelete = '<button class="btn btn-danger btn-sm btnDelPromocion" onClick=" fntDelPromocion(' . $arrData[$i]['cod_promocion'] . ')" title="Anular promocion"><i class="fas fa-ban"></i></button>';
+
 					$arrData[$i]['estado'] = '<span class="badge badge-success">ACTIVO</span>';   //Aqui le asigna Activo si es 1
 				} else if ($arrData[$i]['estado'] == 2) {
 					$arrData[$i]['estado'] = '<span class="badge badge-danger">INACTIVO</span>';
@@ -208,40 +208,39 @@ class Promocion extends Controllers
 				$cod_promocion = intval($_POST['cod_promocion']);
 				$arrDatosPromocion = $this->model->selectPromocion1($cod_promocion);
 				$requestDelete = $this->model->deletePromocion($cod_promocion);
-			    $nombrePromocion= $arrDatosPromocion['nombre_promocion'];
+				$nombrePromocion = $arrDatosPromocion['nombre_promocion'];
 
 
-					//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora
+				//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora
 				//SE PUEDEN USAR PARA INSERTAR O ACTUALIZAR PORQUE SERÍAN LOS MISMOS DATOS
-				 $dateFecha = date('Y-m-d H:i:s');
-				 $intIdUsuario = $_SESSION['idUser'];
-				 $intIdObjeto = 2;
-				 $request_bitacora = "";
-               
+				$dateFecha = date('Y-m-d H:i:s');
+				$intIdUsuario = $_SESSION['idUser'];
+				$intIdObjeto = 2;
+				$request_bitacora = "";
+
 
 
 				if ($requestDelete) {
-               
-				
+
+
 					$arrResponse = array('status' => true, 'msg' => 'Se ha anulado la promocion');
 
 					$strAccion = "ANULAR";
 					$strDescripcion = "SE ANULÓ LA PROMOCIÓN: $nombrePromocion";
 
 					// //Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
-					 $request_bitacora = $this->model->insertPromocionBitacora(
-					 $dateFecha,
-				     $intIdUsuario,
-					 $intIdObjeto,
-					 $strAccion,
-					 $strDescripcion
-					 );
+					$request_bitacora = $this->model->insertPromocionBitacora(
+						$dateFecha,
+						$intIdUsuario,
+						$intIdObjeto,
+						$strAccion,
+						$strDescripcion
+					);
 				} else {
 					$arrResponse = array('status' => false, 'msg' => 'Error al anular la promocion.');
 				}
 
 				echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
-
 			}
 		}
 
