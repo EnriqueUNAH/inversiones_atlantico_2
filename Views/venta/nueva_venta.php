@@ -285,26 +285,26 @@ $result_d->free();
 						<input type="hidden" id="cod_cliente" name="cod_cliente" value="" required>
 						<div class="wd30">
 							<label>RTN</label>
-							<input type="number" name="rtn_cliente" id="rtn_cliente" required maxlength="14" oninput="validarNumeros(this);lengthRtn(this);">
+							<input type="number" name="rtn_cliente" id="rtn_cliente" required maxlength="14" autocomplete="off" oninput="validarNumeros(this);lengthRtn(this);">
 						</div>
 
 
 						<div class="wd60">
 							<label>Nombre</label>
-							<input type="text" name="nom_cliente" id="nom_cliente" maxlength="70" oninput="this.value = this.value.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑ ]/g, '').toUpperCase(); validarEspacios(this);" disabled required>
+							<input type="text" name="nom_cliente" id="nom_cliente" maxlength="70" autocomplete="off" oninput="this.value = this.value.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑ ]/g, '').toUpperCase(); validarEspacios(this);" disabled required>
 						</div>
 
 						<div class="wd30">
 							<label>Teléfono</label>
-							<input type="number" name="tel_cliente" id="tel_cliente" pattern="[1-9]{1}[0-9]{7}" title="Debes ingresar 8 dígitos que no sean todos ceros" required oninput="lengthTelefono(this);" disabled required>
+							<input type="number" name="tel_cliente" id="tel_cliente" autocomplete="off" pattern="[1-9]{1}[0-9]{7}" title="Debes ingresar 8 dígitos que no sean todos ceros" required oninput="lengthTelefono(this);" disabled required>
 						</div>
 						<div class="wd60">
 							<label>Correo Electrónico</label>
-							<input type="email" name="email_cliente" id="email_cliente" required maxlength="30" oninput="validarEspacios(this);" disabled required>
+							<input type="email" name="email_cliente" id="email_cliente" autocomplete="off" required maxlength="30" oninput="validarEspacios(this);" disabled required>
 						</div>
 						<div class="wd100">
 							<label>Dirección</label>
-							<input type="text" name="dir_cliente" id="dir_cliente" required maxlength="100" oninput="this.value = this.value.toUpperCase(); validarEspacios(this);" disabled required>
+							<input type="text" name="dir_cliente" id="dir_cliente" autocomplete="off" required maxlength="100" oninput="this.value = this.value.toUpperCase(); validarEspacios(this);" disabled required>
 						</div>
 
 						<div id="div_registro_cliente" class="wd100">
