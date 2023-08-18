@@ -94,7 +94,7 @@ class Clientes extends Controllers
 						//
 						//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora 	en caso de que se esté insertando
 						$strAccion = "CREAR";
-						$strDescripcion = "CREACIÓN DE CLIENTE";
+						$strDescripcion = "CREACIÓN DE CLIENTE: $strNombres";
 
 						//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
 						$request_bitacora = $this->model->insertClientesBitacora(
@@ -109,6 +109,15 @@ class Clientes extends Controllers
 
 				} else {
 					$option = 2; //SI OPTION ES 2, ENTONCES ESTARÁ ACTUALIZANDO
+
+					$requestCliente = $this->model->selectCliente($cod_cliente);
+				    $nombreCliente = $requestCliente['nombres'];
+					$rtnAnterior = $requestCliente['rtn'];
+					$telefonoAnterior = $requestCliente['telefono'];
+					$emailAnterior = $requestCliente['correo_electronico'];
+					$direccionAnterior = $requestCliente['direccion'];
+
+
 					if ($_SESSION['permisosMod']['u']) {
 						$request_user = $this->model->updateCliente(
 							$cod_cliente,
@@ -121,18 +130,88 @@ class Clientes extends Controllers
 						);
 					}
 
-					//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora 	en caso de que se esté ACTUALIZANDO
-					$strAccion = "ACTUALIZAR";
-					$strDescripcion = "ACTUALIZACIÓN DE CLIENTE";
+		
 
-					//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
-					$request_bitacora = $this->model->insertClientesBitacora(
-						$dateFecha,
-						$intIdUsuario,
-						$intIdObjeto,
-						$strAccion,
-						$strDescripcion
-					);
+					if($strNombres != $nombreCliente){
+						//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora 	en caso de que se esté ACTUALIZANDO
+						$strAccion = "ACTUALIZAR";
+						$strDescripcion = "ACTUALIZACIÓN DE CLIENTE:  ($nombreCliente) VALOR NUEVO:($strNombres) ";
+  
+						//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
+					   $request_bitacora = $this->model->insertClientesBitacora(
+						  $dateFecha,
+						  $intIdUsuario,
+						  $intIdObjeto,
+						  $strAccion,
+						  $strDescripcion
+						  );
+				    }
+
+					if($strRtn != $rtnAnterior){
+						//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora 	en caso de que se esté ACTUALIZANDO
+						$strAccion = "ACTUALIZAR";
+						$strDescripcion = "ACTUALIZACIÓN DE CLIENTE: ($strNombres) RTN ANTERIOR:($rtnAnterior) VALOR NUEVO: ($strRtn) ";
+  
+						//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
+					   $request_bitacora = $this->model->insertClientesBitacora(
+						  $dateFecha,
+						  $intIdUsuario,
+						  $intIdObjeto,
+						  $strAccion,
+						  $strDescripcion
+						  );
+				    }
+
+					if($intTelefono != $telefonoAnterior){
+						//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora 	en caso de que se esté ACTUALIZANDO
+						$strAccion = "ACTUALIZAR";
+						$strDescripcion = "ACTUALIZACIÓN DE CLIENTE: ($strNombres) TELÉFONO ANTERIOR:($telefonoAnterior) VALOR NUEVO: ($intTelefono) ";
+  
+						//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
+					   $request_bitacora = $this->model->insertClientesBitacora(
+						  $dateFecha,
+						  $intIdUsuario,
+						  $intIdObjeto,
+						  $strAccion,
+						  $strDescripcion
+						  );
+				    }
+
+
+
+					if($strEmail != $emailAnterior){
+						//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora 	en caso de que se esté ACTUALIZANDO
+						$strAccion = "ACTUALIZAR";
+						$strDescripcion = "ACTUALIZACIÓN DE CLIENTE: ($strNombres) CORREO ANTERIOR:($emailAnterior) VALOR NUEVO: ($strEmail) ";
+  
+						//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
+					   $request_bitacora = $this->model->insertClientesBitacora(
+						  $dateFecha,
+						  $intIdUsuario,
+						  $intIdObjeto,
+						  $strAccion,
+						  $strDescripcion
+						  );
+				    }
+
+
+					if($strDireccion != $direccionAnterior){
+						//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora 	en caso de que se esté ACTUALIZANDO
+						$strAccion = "ACTUALIZAR";
+						$strDescripcion = "ACTUALIZACIÓN DE CLIENTE: ($strNombres) DIRECCIÓN ANTERIOR:($direccionAnterior) VALOR NUEVO: ($strDireccion) ";
+  
+						//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
+					   $request_bitacora = $this->model->insertClientesBitacora(
+						  $dateFecha,
+						  $intIdUsuario,
+						  $intIdObjeto,
+						  $strAccion,
+						  $strDescripcion
+						  );
+				    }
+
+
+
 				} //FIN DEL ELSE PARA ACTUALIZAR
 
 				if ($request_user === 'exist') {
@@ -230,7 +309,9 @@ class Clientes extends Controllers
 		if ($_POST) {
 			if ($_SESSION['permisosMod']['d']) {
 				$cod_cliente = intval($_POST['cod_cliente']);
+				$requestCliente = $this->model->selectCliente($cod_cliente);
 				$requestDelete = $this->model->deleteCliente($cod_cliente);
+				$nombreCliente = $requestCliente['nombres'];
 
 				//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora
 				//SE PUEDEN USAR PARA INSERTAR O ACTUALIZAR PORQUE SERÍAN LOS MISMOS DATOS
@@ -243,7 +324,7 @@ class Clientes extends Controllers
 					$arrResponse = array('status' => true, 'msg' => 'Se ha eliminado el cliente');
 
 					$strAccion = "ELIMINAR";
-					$strDescripcion = "ELIMINACIÓN DE CLIENTE";
+					$strDescripcion = "ELIMINACIÓN DE CLIENTE: $nombreCliente";
 
 					//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
 					$request_bitacora = $this->model->insertClientesBitacora(
