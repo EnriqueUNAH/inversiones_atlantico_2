@@ -24,7 +24,7 @@ getModal('modalCompras', $data);
             <table class="table table-hover table-bordered" id="tableCompras">
               <thead>
                 <tr>
-                  <th>Codigo</th>
+                  <th>Código</th>
                   <th>Total</th>
                   <th>fecha</th>
                   <th>Usuario</th>
