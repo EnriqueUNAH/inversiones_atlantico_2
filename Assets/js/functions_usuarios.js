@@ -34,6 +34,7 @@ document.addEventListener(
           text: "<i class='fas fa-file-pdf'></i> PDF",
           titleAttr: "Exportar a PDF",
           pageSize: "LETTER",
+          orientation: "landscape",
           className: "btn btn-danger",
           filename: "REPORTE PRUEBA",
           exportOptions: {

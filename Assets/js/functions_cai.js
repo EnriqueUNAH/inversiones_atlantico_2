@@ -33,6 +33,7 @@ document.addEventListener(
           text: "<i class='fas fa-file-pdf'></i> PDF",
           titleAttr: "Exportar a PDF",
           geSize: "LETTER",
+          orientation: "landscape",
           className: "btn btn-danger",
           exportOptions: {
             columns: [0, 1, 2, 3, 4, 5, 6, 7],
