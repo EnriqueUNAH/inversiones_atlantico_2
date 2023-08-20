@@ -16,7 +16,7 @@ class ProveedoresModel extends Mysql
 		parent::__construct();
 	}
 
-	public function insertProveedor(int $rtn, string $nombres, int $telefono, string $correo_electronico, string $direccion)
+	public function insertProveedor(string $rtn, string $nombres, int $telefono, string $correo_electronico, string $direccion)
 	{
 		$this->strRtn = $rtn;
 		$this->strNombres = $nombres;

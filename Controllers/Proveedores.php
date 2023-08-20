@@ -58,7 +58,7 @@ class Proveedores extends Controllers
 
 
 				$cod_proveedor = intval($_POST['cod_proveedor']);
-				$strRtn = intval(strClean($_POST['txtRtn']));
+				$strRtn = $_POST['txtRtn'];
 				$strNombres = strtoupper(strClean($_POST['txtNombres']));
 				$intTelefono = intval(strClean($_POST['txtTelefono']));
 				$strEmail = strtolower(strClean($_POST['txtEmail']));
@@ -111,11 +111,11 @@ class Proveedores extends Controllers
 					$option = 2; //SI OPTION ES 2, ENTONCES ESTARÁ ACTUALIZANDO
 
 					$requestProveedor = $this->model->selectProveedor($cod_proveedor);
-				    $nombreProveedor = $requestProveedor['nombres'];
-					$rtnAnterior =$requestProveedor['rtn'];
-					$telefonoAnterior =$requestProveedor['telefono'];
-					$emailAnterior =$requestProveedor['correo_electronico'];
-					$direccionAnterior =$requestProveedor['direccion'];
+					$nombreProveedor = $requestProveedor['nombres'];
+					$rtnAnterior = $requestProveedor['rtn'];
+					$telefonoAnterior = $requestProveedor['telefono'];
+					$emailAnterior = $requestProveedor['correo_electronico'];
+					$direccionAnterior = $requestProveedor['direccion'];
 
 
 
@@ -132,94 +132,88 @@ class Proveedores extends Controllers
 						);
 					}
 
-					
 
 
 
 
-					if($strNombres != $nombreProveedor){
+
+					if ($strNombres != $nombreProveedor) {
 						//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora 	en caso de que se esté ACTUALIZANDO
 						$strAccion = "ACTUALIZAR";
 						$strDescripcion = "ACTUALIZACIÓN DE PROVEEDOR:  ($nombreProveedor) VALOR NUEVO:($strNombres) ";
-  
-						//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
-					   $request_bitacora = $this->model->insertProveedoresBitacora(
-						  $dateFecha,
-						  $intIdUsuario,
-						  $intIdObjeto,
-						  $strAccion,
-						  $strDescripcion
-						  );
-				    }
 
-					if($strRtn != $rtnAnterior){
+						//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
+						$request_bitacora = $this->model->insertProveedoresBitacora(
+							$dateFecha,
+							$intIdUsuario,
+							$intIdObjeto,
+							$strAccion,
+							$strDescripcion
+						);
+					}
+
+					if ($strRtn != $rtnAnterior) {
 						//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora 	en caso de que se esté ACTUALIZANDO
 						$strAccion = "ACTUALIZAR";
 						$strDescripcion = "ACTUALIZACIÓN DE PROVEEDOR: ($strNombres) RTN ANTERIOR:($rtnAnterior) VALOR NUEVO: ($strRtn) ";
-  
-						//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
-					   $request_bitacora = $this->model->insertProveedoresBitacora(
-						  $dateFecha,
-						  $intIdUsuario,
-						  $intIdObjeto,
-						  $strAccion,
-						  $strDescripcion
-						  );
-				    }
 
-					if($intTelefono != $telefonoAnterior){
+						//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
+						$request_bitacora = $this->model->insertProveedoresBitacora(
+							$dateFecha,
+							$intIdUsuario,
+							$intIdObjeto,
+							$strAccion,
+							$strDescripcion
+						);
+					}
+
+					if ($intTelefono != $telefonoAnterior) {
 						//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora 	en caso de que se esté ACTUALIZANDO
 						$strAccion = "ACTUALIZAR";
 						$strDescripcion = "ACTUALIZACIÓN DE PROVEEDOR: ($strNombres) TELÉFONO ANTERIOR:($telefonoAnterior) VALOR NUEVO: ($intTelefono) ";
-  
+
 						//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
-					   $request_bitacora = $this->model->insertProveedoresBitacora(
-						  $dateFecha,
-						  $intIdUsuario,
-						  $intIdObjeto,
-						  $strAccion,
-						  $strDescripcion
-						  );
-				    }
+						$request_bitacora = $this->model->insertProveedoresBitacora(
+							$dateFecha,
+							$intIdUsuario,
+							$intIdObjeto,
+							$strAccion,
+							$strDescripcion
+						);
+					}
 
 
 
-					if($strEmail != $emailAnterior){
+					if ($strEmail != $emailAnterior) {
 						//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora 	en caso de que se esté ACTUALIZANDO
 						$strAccion = "ACTUALIZAR";
 						$strDescripcion = "ACTUALIZACIÓN DE PROVEEDOR: ($strNombres) CORREO ANTERIOR:($emailAnterior) VALOR NUEVO: ($strEmail) ";
-  
+
 						//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
-					   $request_bitacora = $this->model->insertProveedoresBitacora(
-						  $dateFecha,
-						  $intIdUsuario,
-						  $intIdObjeto,
-						  $strAccion,
-						  $strDescripcion
-						  );
-				    }
+						$request_bitacora = $this->model->insertProveedoresBitacora(
+							$dateFecha,
+							$intIdUsuario,
+							$intIdObjeto,
+							$strAccion,
+							$strDescripcion
+						);
+					}
 
 
-					if($strDireccion != $direccionAnterior){
+					if ($strDireccion != $direccionAnterior) {
 						//Estas variables almacenan los valores que se van a ingresar a la tabla bitátora 	en caso de que se esté ACTUALIZANDO
 						$strAccion = "ACTUALIZAR";
 						$strDescripcion = "ACTUALIZACIÓN DE PROVEEDOR: ($strNombres) DIRECCIÓN ANTERIOR:($direccionAnterior) VALOR NUEVO: ($strDireccion) ";
-  
+
 						//Manda al modelo los parámetros para que se encargue de insertar en la tabla Bitácora
-					   $request_bitacora = $this->model->insertProveedoresBitacora(
-						  $dateFecha,
-						  $intIdUsuario,
-						  $intIdObjeto,
-						  $strAccion,
-						  $strDescripcion
-						  );
-				    }
-
-
-
-
-
-
+						$request_bitacora = $this->model->insertProveedoresBitacora(
+							$dateFecha,
+							$intIdUsuario,
+							$intIdObjeto,
+							$strAccion,
+							$strDescripcion
+						);
+					}
 				} //FIN DEL ELSE PARA ACTUALIZAR
 
 				if ($request_user === 'exist') {
