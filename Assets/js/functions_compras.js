@@ -64,7 +64,7 @@ document.addEventListener(
           pageSize: "LETTER",
           className: "btn btn-danger",
           exportOptions: {
-            columns: [0, 1, 2, 3, 4],
+            columns: [0, 1, 2, 3, 4, 5],
           },
           customize: function (doc) {
             doc.styles.title = {
@@ -215,7 +215,7 @@ document.addEventListener(
           titleAttr: "Exportar a Excel",
           className: "btn btn-success",
           exportOptions: {
-            columns: [0, 1, 2, 3, 4],
+            columns: [0, 1, 2, 3, 4, 5],
           },
         },
       ],
